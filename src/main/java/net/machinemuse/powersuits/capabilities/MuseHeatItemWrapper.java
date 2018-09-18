@@ -62,7 +62,7 @@ public class MuseHeatItemWrapper extends HeatStorage implements INBTSerializable
         NBTTagCompound itemNBT = MuseNBTUtils.getMuseItemTag(container);
         NBTTagCompound outNBT = new NBTTagCompound();
         capacity = maxExtract = maxReceive = moduleManager.getOrSetModularPropertyDouble(container, NuminaNBTConstants.MAXIMUM_HEAT) + baseMaxHeat;
-        heat = Math.min(capacity, Math.round(MuseItemUtils.getDoubleOrZero(itemNBT, NuminaNBTConstants.CURRENT_HEAT)));
+        heat = Math.round(MuseItemUtils.getDoubleOrZero(itemNBT, NuminaNBTConstants.CURRENT_HEAT));
 
         outNBT.setDouble(NuminaNBTConstants.MAXIMUM_HEAT, capacity);
         if (heat > 0)

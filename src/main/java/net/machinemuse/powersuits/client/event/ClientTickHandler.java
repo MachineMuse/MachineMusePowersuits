@@ -224,10 +224,16 @@ public class ClientTickHandler {
         String maxHeatStr = MuseStringUtils.formatNumberShort(maxHeat);
 
         // water
-        double maxWater = FluidUtils.getMaxWater(player);
-        double currWater = FluidUtils.getPlayerWater(player);
+        FluidUtils waterUtils = new FluidUtils(player, player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), MPSModuleConstants.BASIC_COOLING_SYSTEM__DATANAME);
+
+        double maxWater = waterUtils.getMaxFluidLevel();
+        double currWater = waterUtils.getFluidLevel();
         String currWaterStr = MuseStringUtils.formatNumberShort(currWater);
         String maxWaterStr = MuseStringUtils.formatNumberShort(maxWater);
+
+
+
+
 
         // plasma
         double maxPlasma = PlasmaCannonHelper.getMaxPlasma(player);

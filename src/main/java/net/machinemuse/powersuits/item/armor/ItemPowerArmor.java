@@ -69,9 +69,11 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
      */
     @Override
     public boolean handleUnblockableDamage(EntityLivingBase entity, @Nonnull ItemStack armor, DamageSource source, double damage, int slot) {
+        if (source == null || source == MuseHeatUtils.overheatDamage)
+            return false;
 
         if (source.damageType.equals("electricity") || source.damageType.equals("radiation") || source.damageType.equals("sulphuric_acid"))
-               return  ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.MODULE_HAZMAT__DATANAME);
+            return  ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.MODULE_HAZMAT__DATANAME);
 
         // Galacticraft
         if (slot == 3 && source.getDamageType().equals("oxygen_suffocation"))
@@ -99,6 +101,8 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 //            }
         }
 
+        if (source.getDamageType().equals("cryotheum"))
+            return  MuseHeatUtils.getPlayerHeat((EntityPlayer) entity) > 0;
 
 
         // TODO: Galacticraft "thermal", "sulphuric_acid", "pressure"
@@ -115,59 +119,78 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
      */
     @Override
     public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
-        DamageSource overheatDamage = MuseHeatUtils.overheatDamage;
-
-        if (source == null ||
-                source.equals(overheatDamage)) { // fixme: overheat should not make it here without being passed through unblockable damage
-            return;
-        }
-
-        // isFireDamage includes heat related damage sources such as lava
-        if (source.isFireDamage()) {
+        if (entity instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) entity;
-            if (!source.equals(DamageSource.ON_FIRE) ||
-                    MuseHeatUtils.getPlayerHeat(player) < MuseHeatUtils.getPlayerMaxHeat(player)) // fixme: should keep applying heat anyway? heat above max is now applied to damage
-                MuseHeatUtils.heatPlayer(player, damage);
-        } else {
-            double enerConsum = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_ENERGY_CONSUMPTION);
-            double drain = enerConsum * damage;
-            if (entity instanceof EntityPlayer)
+            DamageSource overheatDamage = MuseHeatUtils.overheatDamage;
+
+            if (source == null || source.equals(overheatDamage)) {
+                if (source != null)
+                    System.out.println("overheat damage: " + damage);
+
+
+                return;
+            }
+
+            // cool the player instead of applying damage. Only fires if player has heat
+            if (source.getDamageType().equals("cryotheum"))
+                MuseHeatUtils.coolPlayer(player, damage * 10);
+
+
+            // FIXME: heat needs to either be applied here or in the player uodate handler through environment
+            // isFireDamage includes heat related damage sources such as lava
+            if (source.isFireDamage()) {
+
+                System.out.println("heat damage: " + damage);
+
+//                if (!source.equals(DamageSource.ON_FIRE) ||
+//                        MuseHeatUtils.getPlayerHeat(player) < MuseHeatUtils.getPlayerMaxHeat(player))
+//                MuseHeatUtils.heatPlayer(player, damage);
+
+                MuseHeatUtils.heatPlayer(player, damage * 5); // FIXME: this value needs tweaking. 10 too high, 1 too low
+            } else {
+                double enerConsum = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_ENERGY_CONSUMPTION);
+                double drain = enerConsum * damage;
                 ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entity, (int) drain);
-            else {
-                final IEnergyStorage energyStorage = stack.getCapability(CapabilityEnergy.ENERGY, null);
-                if (energyStorage != null) {
-                    energyStorage.extractEnergy((int) drain, false);
-                }
             }
         }
     }
 
     @Override
     public ISpecialArmor.ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
+        double absorbRatio = 0.25; // 25% for each armor piece;
+        int absorbMax = (int) (25 * damage);
         int priority = 0;
+
         // Fire damage is just heat based damage like fire or lava
-        if (source.isFireDamage() && !(source.equals(MuseHeatUtils.overheatDamage))) {
-            return new ISpecialArmor.ArmorProperties(priority, 0.25, (int) (25 * damage));
+        if (source.isFireDamage() && !(source.equals(MuseHeatUtils.overheatDamage))) { //  heat damage is only 1 point ?
+            System.out.println("heat damage: " + damage);
+
+            return new ISpecialArmor.ArmorProperties(priority, absorbRatio, absorbMax);
         }
+
+        // hazmat handled hazards
         if (ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.MODULE_HAZMAT__DATANAME) &&
                 (source.damageType.equals("electricity") ||
                         source.damageType.equals("radiation") ||
                         source.damageType.equals("sulphuric_acid"))) {
-            return new ISpecialArmor.ArmorProperties(priority, 0.25, (int) (25 * damage));
+            return new ISpecialArmor.ArmorProperties(priority, absorbRatio, absorbMax);
         }
-        double armorDouble2;
+
+        double armorDouble;
         if (player instanceof EntityPlayer) {
-            armorDouble2 = this.getArmorDouble((EntityPlayer) player, armor);
+            armorDouble = this.getArmorDouble((EntityPlayer) player, armor);
         } else {
-            armorDouble2 = 2.0;
+            armorDouble = 2.0;
         }
-        double armorDouble = armorDouble2;
-        double absorbRatio = 0.04 * armorDouble;
-        int absorbMax = (int) armorDouble * 75;
+
+        absorbMax = (int) armorDouble * 75;
         if (source.isUnblockable()) {
             absorbMax = 0;
             absorbRatio = 0.0;
+        } else {
+            absorbRatio = 0.04 * armorDouble;
         }
+
         return new ISpecialArmor.ArmorProperties(priority, absorbRatio, absorbMax);
     }
 

@@ -3,7 +3,6 @@ package net.machinemuse.powersuits.capabilities;
 import net.machinemuse.numina.capabilities.heat.CapabilityHeat;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.machinemuse.powersuits.fluid.MPSChestPlateFluidHandler;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.item.ItemStack;
@@ -105,12 +104,12 @@ public final class MPSCapProvider implements ICapabilityProvider {
             }
         }
 
-        if (capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
-            return (T)chestPlateFluidHandler;
-
-
-
-
+        if (capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY) {
+            if (chestPlateFluidHandler != null) {
+                chestPlateFluidHandler.updateFromNBT();
+                return (T) chestPlateFluidHandler;
+            }
+        }
         return null;
     }
 }

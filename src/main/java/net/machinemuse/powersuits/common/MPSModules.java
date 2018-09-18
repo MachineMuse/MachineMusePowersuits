@@ -94,7 +94,7 @@ public class MPSModules {
         addModule(new MagnetModule(TORSOONLY));
         addModule(new ThermalGeneratorModule(TORSOONLY));
         addModule(new MobRepulsorModule(TORSOONLY));
-        addModule(new WaterTankModule(TORSOONLY));
+//        addModule(new WaterTankModule(TORSOONLY));
         addModule(new AdvancedCoolingSystem(TORSOONLY));
 //        addModule(new MechanicalAssistance(TORSOONLY)); // TODO replace with slot expansion module
         //addModule(new CoalGenerator(TORSOONLY)); //doesn't seem to be working

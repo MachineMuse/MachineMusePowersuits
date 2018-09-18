@@ -90,17 +90,18 @@ public class PlayerUpdateHandler {
 
                 //FIXME: tweak heat system to allow for overheat and damage
                 // Heat update
-                MuseHeatUtils.coolPlayer(player, MusePlayerUtils.getPlayerCoolingBasedOnMaterial(player));
+                double coolPlayerAmount =  MusePlayerUtils.getPlayerCoolingBasedOnMaterial(player);
+                if (coolPlayerAmount > 0 )
+                    MuseHeatUtils.coolPlayer(player, coolPlayerAmount);
 
-
-//                double maxHeat = MuseHeatUtils.getPlayerMaxHeat(player);
-//                double currHeat = MuseHeatUtils.getPlayerHeat(player);
-//                if (currHeat > maxHeat) {
-//                    player.attackEntityFrom(MuseHeatUtils.overheatDamage, (float) (Math.sqrt(currHeat - maxHeat)/* was (int) */ / 4));
-//                    player.setFire(1);
-//                } else {
-//                    player.extinguish();
-//                }
+                double maxHeat = MuseHeatUtils.getPlayerMaxHeat(player);
+                double currHeat = MuseHeatUtils.getPlayerHeat(player);
+                if (currHeat > maxHeat) {
+                    player.attackEntityFrom(MuseHeatUtils.overheatDamage, (float) (Math.sqrt(currHeat - maxHeat)/* was (int) */ / 4));
+                    player.setFire(1);
+                } else {
+                    player.extinguish();
+                }
 
                 // Sound update
                 double velsq2 = MuseMathUtils.sumsq(player.motionX, player.motionY, player.motionZ) - 0.5;

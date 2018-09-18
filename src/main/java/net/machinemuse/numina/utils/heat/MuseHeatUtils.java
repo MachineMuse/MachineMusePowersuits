@@ -14,15 +14,12 @@ import java.util.List;
 public class MuseHeatUtils {
     public static double getPlayerHeat(EntityPlayer player) {
         double heat = 0;
-
         for (ItemStack stack : MuseItemUtils.getModularItemsEquipped(player)) {
             heat += getItemHeat(stack);
-
-
-
         }
         return heat;
     }
+
 
     public static double getPlayerMaxHeat(EntityPlayer player) {
         double maxHeat = 0;
@@ -33,18 +30,29 @@ public class MuseHeatUtils {
     }
 
     public static double coolPlayer(EntityPlayer player, double coolJoules) {
-        List<ItemStack> items = MuseItemUtils.getModularItemsEquipped(player);
+        System.out.println("cooling player " + coolJoules);
+
+        coolJoules = coolJoules * 0.25;
+        List<ItemStack> items = MuseItemUtils.getModularItemsInInventory(player);
         if (player.isHandActive()) {
             items.remove(player.inventory.getCurrentItem());
         }
-        double heatLeft = coolJoules;
 
+        double coolingLeft = coolJoules;
         for (ItemStack stack : items) {
-            if (heatLeft > 0)
-                heatLeft -= coolItem(stack, heatLeft);
+            double currHeat = getItemHeat(stack);
+            if (coolingLeft > 0) {
+                if (currHeat > coolingLeft) {
+                    coolingLeft -= coolItem(stack, coolingLeft);
+                    return coolJoules - coolingLeft;
+                } else {
+                    coolingLeft -= coolItem(stack, coolingLeft);
+                }
+            } else {
+                break;
+            }
         }
-        player.extinguish();
-        return coolJoules - heatLeft;
+        return coolJoules - coolingLeft;
     }
 
     public static double heatPlayer(EntityPlayer player, double heatJoules) {
@@ -54,23 +62,27 @@ public class MuseHeatUtils {
         if (player.isHandActive()) {
             items.remove(player.inventory.getCurrentItem());
         }
-        double heatLeft = heatJoules;
 
+        double heatLeftToGive = heatJoules;
+
+        // heat player equipped items up to max heat
         for (ItemStack stack : items) {
-            if (heatLeft > 0)
-                heatLeft -= heatItem(stack, heatLeft);
+            double currHeat = getItemHeat(stack);
+            double maxHeat = getItemMaxHeat(stack);
+            if (currHeat + heatLeftToGive < maxHeat) {
+                heatItem(stack, heatLeftToGive);
+                return heatJoules;
+            } else {
+                heatLeftToGive = heatLeftToGive - heatItem(stack, maxHeat - currHeat);
+            }
         }
-        if (heatLeft > 0) {
-            System.out.println("applying overheat damage: " + (float) (Math.sqrt(heatLeft)/ 4));
 
-            player.attackEntityFrom(MuseHeatUtils.overheatDamage, (float) (Math.sqrt(heatLeft)/ 4));
-            player.setFire(1);
-        } else
-            player.extinguish();
-
-        System.out.println("actual heat applied " + (heatJoules - heatLeft));
-
-        return heatJoules - heatLeft;
+        // apply remaining heat evenly accross the items
+        double heatPerStack = heatLeftToGive / items.size();
+        for (ItemStack stack : items) {
+            heatLeftToGive -= heatItem(stack, heatPerStack);
+        }
+        return heatJoules - heatLeftToGive;
     }
 
     public static double getItemMaxHeat(@Nonnull ItemStack stack) {

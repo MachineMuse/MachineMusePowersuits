@@ -2,9 +2,12 @@ package net.machinemuse.numina.capabilities.heat;
 
 import net.machinemuse.numina.api.heat.IHeatStorage;
 
+/**
+ * Based on Forge Energy and CoHF RF, but using doubles and max heat value is only a safety threashold, not a cap
+ */
 public class HeatStorage implements IHeatStorage {
     protected double heat;
-    protected double capacity;
+    protected double capacity; // this is just a safety boundary, not an absolute cap
     protected double maxReceive;
     protected double maxExtract;
 
@@ -24,7 +27,7 @@ public class HeatStorage implements IHeatStorage {
         this.capacity = capacity;
         this.maxReceive = maxReceive;
         this.maxExtract = maxExtract;
-        this.heat = Math.max(0, Math.min(capacity, heat));
+        this.heat = heat;
     }
 
     @Override
@@ -32,7 +35,7 @@ public class HeatStorage implements IHeatStorage {
         if (!canReceive())
             return 0;
 
-        double heatReceived = Math.min(capacity - heat, Math.min(this.maxReceive, maxReceive));
+        double heatReceived = maxReceive;
         if (!simulate)
             heat += heatReceived;
         return heatReceived;
@@ -43,7 +46,7 @@ public class HeatStorage implements IHeatStorage {
         if (!canExtract())
             return 0;
 
-        double heatExtracted = Math.min(heat, Math.min(this.maxExtract, maxExtract));
+        double heatExtracted = Math.min(heat, maxExtract);
         if (!simulate)
             heat -= heatExtracted;
         return heatExtracted;
@@ -61,11 +64,11 @@ public class HeatStorage implements IHeatStorage {
 
     @Override
     public boolean canExtract() {
-        return this.maxExtract > 0;
+        return this.heat > 0;
     }
 
     @Override
     public boolean canReceive() {
-        return this.maxReceive > 0;
+        return true;
     }
 }

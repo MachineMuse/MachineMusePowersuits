@@ -5,9 +5,11 @@ import net.machinemuse.numina.api.item.IModeChangingItem;
 import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.electricity.adapter.ElectricAdapter;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -15,6 +17,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -45,6 +49,63 @@ public abstract class MuseCommonStrings {
                 currentTipList.add(I18n.format("tooltip.mode") + " " + MuseStringUtils.wrapFormatTags(mode, MuseStringUtils.FormatCodes.Red));
             else
                 currentTipList.add(I18n.format("tooltip.changeModes"));
+        }
+
+        // this is just some random info on the fluids installed
+        if (stack.getItem() instanceof ItemPowerArmorChestplate) {
+            String fluidInfo;
+
+            NBTTagCompound itemNBT = MuseNBTUtils.getMuseItemTag(stack);
+            if (itemNBT.hasKey(MPSModuleConstants.BASIC_COOLING_SYSTEM__DATANAME, Constants.NBT.TAG_COMPOUND)) {
+                NBTTagCompound moduleTag = itemNBT.getCompoundTag(MPSModuleConstants.BASIC_COOLING_SYSTEM__DATANAME);
+                if (moduleTag != null) {
+                    NBTTagCompound fluidTag = moduleTag.getCompoundTag(NuminaNBTConstants.FLUID_NBT_KEY);
+                    FluidStack fluidStack = FluidStack.loadFluidStackFromNBT(fluidTag);
+                    if (fluidStack != null) {
+                        int waterLevel = fluidStack != null ? fluidStack.amount : 0;
+                        int fluidTemp = fluidStack != null ? fluidStack.getFluid().getTemperature() : 0;
+
+                        if (waterLevel > 0) {
+                            fluidInfo = I18n.format(fluidStack.getLocalizedName()) + " " + MuseStringUtils.formatNumberShort(waterLevel) + '/'
+                                    + MuseStringUtils.formatNumberShort(100000);
+                            currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(fluidInfo, MuseStringUtils.FormatCodes.Italic.character,
+                                    MuseStringUtils.FormatCodes.Indigo));
+
+                            fluidInfo = I18n.format(fluidStack.getLocalizedName()) + " " + MuseStringUtils.formatNumberFromUnits(fluidTemp, "°");
+
+
+                            currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(fluidInfo, MuseStringUtils.FormatCodes.Italic.character,
+                                    MuseStringUtils.FormatCodes.Indigo));
+                        }
+                    }
+                }
+            }
+
+            if (itemNBT.hasKey(MPSModuleConstants.ADVANCED_COOLING_SYSTEM__DATANAME, Constants.NBT.TAG_COMPOUND)) {
+                NBTTagCompound moduleTag = itemNBT.getCompoundTag(MPSModuleConstants.ADVANCED_COOLING_SYSTEM__DATANAME);
+                if (moduleTag != null) {
+                    NBTTagCompound fluidTag = moduleTag.getCompoundTag(NuminaNBTConstants.FLUID_NBT_KEY);
+                    FluidStack fluidStack = FluidStack.loadFluidStackFromNBT(fluidTag);
+                    if (fluidStack != null) {
+                        int fluidLevel = fluidStack != null ? fluidStack.amount : 0;
+
+                        if (fluidLevel > 0) {
+                            int fluidTemp = fluidStack != null ? fluidStack.getFluid().getTemperature() : 0;
+                            String fluidName = fluidStack != null ? fluidStack.getLocalizedName() : null;
+
+                            fluidInfo = I18n.format(fluidName) + " " + MuseStringUtils.formatNumberShort(fluidLevel) + '/'
+                                    + MuseStringUtils.formatNumberShort(100000);
+                            currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(fluidInfo, MuseStringUtils.FormatCodes.Italic.character,
+                                    MuseStringUtils.FormatCodes.Indigo));
+
+                            fluidInfo = I18n.format(fluidStack.getLocalizedName()) + " " + MuseStringUtils.formatNumberFromUnits(fluidTemp, "°");
+
+                            currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(fluidInfo, MuseStringUtils.FormatCodes.Italic.character,
+                                    MuseStringUtils.FormatCodes.Indigo));
+                        }
+                    }
+                }
+            }
         }
 
         ElectricAdapter adapter = ElectricAdapter.wrap(stack);

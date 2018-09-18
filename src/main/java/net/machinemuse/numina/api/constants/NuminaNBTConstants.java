@@ -12,7 +12,7 @@ public class NuminaNBTConstants {
     public static final String TAG_MODEL = "model";
     public static final String TAG_PART = "part";
     public static final String TAG_VALUES = "commonValues"; // commonly used values that would normally be recalculated several times a minute.
-
+    public static final String FLUID_NBT_KEY = "Fluid";
 
 
 

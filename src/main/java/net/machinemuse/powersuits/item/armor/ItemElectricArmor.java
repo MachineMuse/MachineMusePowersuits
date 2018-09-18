@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -28,18 +29,18 @@ public abstract class ItemElectricArmor extends ItemArmor implements IModularIte
     }
 
     @Override
-    public boolean hasColor(ItemStack stack) {
+    public boolean hasColor(@NotNull ItemStack stack) {
         return true ;
     }
 
     @Override
-    public int getColor(ItemStack stack) {
+    public int getColor(@NotNull ItemStack stack) {
         Colour c = this.getColorFromItemStack(stack);
         return c.getInt();
     }
 
     @Override
-    public boolean hasOverlay(ItemStack stack) {
+    public boolean hasOverlay(@NotNull ItemStack stack) {
         return true;
     }
 
