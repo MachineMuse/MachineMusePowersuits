@@ -108,7 +108,7 @@ public interface IModuleManager {
     }
 
     default boolean tagHasModule(NBTTagCompound tag, String moduleName) {
-        return tag.hasKey(moduleName);
+        return tag != null ? tag.hasKey(moduleName) : false;
     }
 
     default void tagAddModule(NBTTagCompound tag, IPowerModule module) {

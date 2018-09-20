@@ -19,6 +19,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
@@ -60,6 +61,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         super(ItemArmor.ArmorMaterial.IRON, renderIndex, entityEquipmentSlot);
         this.setMaxStackSize(1);
         this.setCreativeTab(MPSConfig.INSTANCE.mpsCreativeTab);
+        this.setMaxDamage(0);
     }
 
     /**
@@ -132,7 +134,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
             }
 
             // cool the player instead of applying damage. Only fires if player has heat
-            if (source.getDamageType().equals("cryotheum"))
+            if (source.getDamageType().equals("cryotheum") && entity.world.isRemote)
                 MuseHeatUtils.coolPlayer(player, damage * 10);
 
 
@@ -298,23 +300,20 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
     @SideOnly(Side.CLIENT)
     @Override
     public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack armor, EntityEquipmentSlot armorSlot, ModelBiped _default) {
-        if (!armor.isEmpty()) {
-            // check if using 2d armor
-            if (!MPSNBTUtils.hasHighPolyModel(armor, armorSlot)) {
-                return _default;
-            }
+        // check if using 2d armor
+        if (!MPSNBTUtils.hasHighPolyModel(armor, armorSlot))
+            return _default;
 
-            ModelBiped model = ArmorModelInstance.getInstance();
-            ((IArmorModel) model).setVisibleSection(armorSlot);
+        ModelBiped model = ArmorModelInstance.getInstance();
+        ((IArmorModel) model).setVisibleSection(armorSlot);
 
-            if (ModuleManager.INSTANCE.itemHasActiveModule(armor, MPSModuleConstants.MODULE_TRANSPARENT_ARMOR__DATANAME) ||
-                    (armorSlot == EntityEquipmentSlot.CHEST && ModuleManager.INSTANCE.itemHasActiveModule(armor, MPSModuleConstants.MODULE_ACTIVE_CAMOUFLAGE__DATANAME))) {
-                ((IArmorModel) model).setVisibleSection(null);
-            }
+        ItemStack chestPlate = armorSlot == EntityEquipmentSlot.CHEST ? armor : entityLiving.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+        if (chestPlate.getItem() instanceof ItemPowerArmorChestplate && ModuleManager.INSTANCE.itemHasActiveModule(chestPlate, MPSModuleConstants.MODULE_TRANSPARENT_ARMOR__DATANAME) ||
+                (armorSlot == EntityEquipmentSlot.CHEST && ModuleManager.INSTANCE.itemHasActiveModule(chestPlate, MPSModuleConstants.MODULE_ACTIVE_CAMOUFLAGE__DATANAME))) {
+            ((IArmorModel) model).setVisibleSection(null);
 
+        } else
             ((IArmorModel) model).setRenderSpec(MPSNBTUtils.getMuseRenderTag(armor, armorSlot));
-            return model;
-        }
-        return _default;
+        return model;
     }
 }

@@ -29,7 +29,7 @@ public class MuseHeatItemWrapper extends HeatStorage implements INBTSerializable
         if (!canReceive())
             return 0;
         double heatReceived = super.receiveHeat(heatProvided, simulate);
-        if (!simulate && heatReceived != 0) {
+        if (!simulate && heatReceived > 0) {
             NBTTagCompound nbt = serializeNBT();
             if (nbt.hasKey(NuminaNBTConstants.CURRENT_HEAT, Constants.NBT.TAG_DOUBLE))
                 heat = nbt.getDouble(NuminaNBTConstants.CURRENT_HEAT);

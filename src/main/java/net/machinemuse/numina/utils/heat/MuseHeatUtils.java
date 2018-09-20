@@ -7,6 +7,8 @@ import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -20,7 +22,9 @@ public class MuseHeatUtils {
         return heat;
     }
 
-
+    /**
+     * Should only be called server side
+     */
     public static double getPlayerMaxHeat(EntityPlayer player) {
         double maxHeat = 0;
         for (ItemStack stack : MuseItemUtils.getModularItemsEquipped(player)) {
@@ -30,9 +34,6 @@ public class MuseHeatUtils {
     }
 
     public static double coolPlayer(EntityPlayer player, double coolJoules) {
-        System.out.println("cooling player " + coolJoules);
-
-        coolJoules = coolJoules * 0.25;
         List<ItemStack> items = MuseItemUtils.getModularItemsInInventory(player);
         if (player.isHandActive()) {
             items.remove(player.inventory.getCurrentItem());
@@ -55,9 +56,10 @@ public class MuseHeatUtils {
         return coolJoules - coolingLeft;
     }
 
+    /**
+     * Should only be called server side
+     */
     public static double heatPlayer(EntityPlayer player, double heatJoules) {
-        System.out.println("heating player " + heatJoules);
-
         List<ItemStack> items = MuseItemUtils.getModularItemsEquipped(player);
         if (player.isHandActive()) {
             items.remove(player.inventory.getCurrentItem());

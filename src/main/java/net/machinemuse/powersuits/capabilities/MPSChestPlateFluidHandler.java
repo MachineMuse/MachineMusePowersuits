@@ -24,8 +24,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class MPSChestPlateFluidHandler implements IFluidHandler, IFluidHandlerItem, INBTSerializable<NBTTagCompound> {
-
-    ItemStack container = ItemStack.EMPTY;
+    ItemStack container;
     List<ArmorTank> subHandlers;
     List<ArmorTank> allHandlers;
 
@@ -89,6 +88,14 @@ public class MPSChestPlateFluidHandler implements IFluidHandler, IFluidHandlerIt
             if (resource.amount <= 0)
                 break;
         }
+
+        NBTTagCompound nbt = serializeNBT();
+        for (ArmorTank armorTank : allHandlers) {
+            if (nbt.hasKey(armorTank.moduleDataName, Constants.NBT.TAG_COMPOUND)) {
+                armorTank = (ArmorTank) armorTank.readFromModuleTag(nbt.getCompoundTag(armorTank.moduleDataName));
+                addHandler(armorTank);
+            }
+        }
         return totalFillAmount;
     }
 
@@ -111,6 +118,14 @@ public class MPSChestPlateFluidHandler implements IFluidHandler, IFluidHandlerIt
                 resource.amount -= drain.amount;
                 if (resource.amount <= 0)
                     break;
+            }
+        }
+
+        NBTTagCompound nbt = serializeNBT();
+        for (ArmorTank armorTank : allHandlers) {
+            if (nbt.hasKey(armorTank.moduleDataName, Constants.NBT.TAG_COMPOUND)) {
+                armorTank = (ArmorTank) armorTank.readFromModuleTag(nbt.getCompoundTag(armorTank.moduleDataName));
+                addHandler(armorTank);
             }
         }
         return totalDrained;
@@ -164,12 +179,6 @@ public class MPSChestPlateFluidHandler implements IFluidHandler, IFluidHandlerIt
     interface IArmorTank {
         @Nullable
         NBTTagCompound getModuleTag();
-
-        NBTTagCompound writeToItemTag(NBTTagCompound nbt);
-        FluidTank readFromItemTag(NBTTagCompound nbt);
-
-        NBTTagCompound writeToModuleTag(NBTTagCompound nbt);
-        FluidTank readFromModuleTag(NBTTagCompound nbt);
     }
 
     public class ArmorTank extends FluidTank implements IArmorTank {
@@ -207,24 +216,22 @@ public class MPSChestPlateFluidHandler implements IFluidHandler, IFluidHandlerIt
             return (NBTTagCompound) nbt.getTag(moduleDataName);
         }
 
-        @Override
-        public NBTTagCompound writeToItemTag(NBTTagCompound nbt) {
-            NBTTagCompound nbtModuleTag = nbt.getCompoundTag(this.moduleDataName);
-            if (nbtModuleTag != null) {
-                nbtModuleTag = writeToModuleTag(nbtModuleTag);
-                nbt.setTag(this.moduleDataName, nbtModuleTag);
-            }
-            return nbt;
-        }
+//        @Override
+//        public NBTTagCompound writeToItemTag(NBTTagCompound nbt) {
+//            NBTTagCompound nbtModuleTag = nbt.getCompoundTag(this.moduleDataName);
+//            if (nbtModuleTag != null) {
+//                nbtModuleTag = writeToModuleTag(nbtModuleTag);
+//                nbt.setTag(this.moduleDataName, nbtModuleTag);
+//            }
+//            return nbt;
+//        }
 
-        @Override
         public NBTTagCompound writeToModuleTag(NBTTagCompound nbt) {
             NBTTagCompound fluidTag = this.writeToNBT(new NBTTagCompound());
             nbt.setTag(NuminaNBTConstants.FLUID_NBT_KEY, fluidTag);
             return nbt;
         }
 
-        @Override
         public FluidTank readFromItemTag(NBTTagCompound nbt) {
             NBTTagCompound nbtModuleTag = nbt.getCompoundTag(this.moduleDataName);
             if (nbtModuleTag != null) {
@@ -233,7 +240,6 @@ public class MPSChestPlateFluidHandler implements IFluidHandler, IFluidHandlerIt
             return this;
         }
 
-        @Override
         public FluidTank readFromModuleTag(NBTTagCompound nbt) {
             NBTTagCompound fluidTag = nbt.getCompoundTag(NuminaNBTConstants.FLUID_NBT_KEY);
             if (fluidTag != null)
@@ -282,11 +288,10 @@ public class MPSChestPlateFluidHandler implements IFluidHandler, IFluidHandlerIt
     }
 
     /**
-     * This is setup to only send the module tags that hold the tanks
+     * This is set up to only send the module tags that hold the tanks and try to minimize the amount of data sent
      */
     @Override
     public NBTTagCompound serializeNBT() {
-//        NBTTagCompound nbt = MuseNBTUtils.getMuseItemTag(container);
         NBTTagCompound nbtOut = new NBTTagCompound();
 
         for (IFluidHandler handler : subHandlers) {

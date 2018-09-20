@@ -8,9 +8,12 @@ import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nonnull;
@@ -22,9 +25,6 @@ public final class MPSCapProvider implements ICapabilityProvider {
     ForgeEnergyItemWrapper energyContainerWrapper;
     ItemHandlerPowerFist powerFistItemHandler;
     MPSChestPlateFluidHandler chestPlateFluidHandler;
-
-
-
 
     public MPSCapProvider(@Nonnull final ItemStack containerIn) {
         this.container = containerIn;
@@ -63,14 +63,14 @@ public final class MPSCapProvider implements ICapabilityProvider {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
             if (powerFistItemHandler != null)
                 return true;
-            // TODO: others
+        // TODO: others
 
         if (capability == CapabilityHeat.HEAT)
-           if (heatWrapper != null)
-               return true;
+            if (heatWrapper != null)
+                return true;
 
-           if (capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
-               return chestPlateFluidHandler != null;
+        if (capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+            return chestPlateFluidHandler != null;
 
 
 

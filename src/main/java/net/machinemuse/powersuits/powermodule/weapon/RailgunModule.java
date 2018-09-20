@@ -75,14 +75,14 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
 
     @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        if (hand == EnumHand.MAIN_HAND) {
+        if ( hand == EnumHand.MAIN_HAND ) {
             double range = 64;
             double timer = MuseItemUtils.getDoubleOrZero(itemStackIn, MPSModuleConstants.TIMER);
             double energyConsumption = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.RAILGUN_ENERGY_COST);
             if (ElectricItemUtils.getPlayerEnergy(playerIn) > energyConsumption && timer == 0) {
                 ElectricItemUtils.drainPlayerEnergy(playerIn, (int) energyConsumption);
                 MuseItemUtils.setDoubleOrRemove(itemStackIn, MPSModuleConstants.TIMER, 10);
-                MuseHeatUtils.heatPlayer(playerIn, ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.RAILGUN_HEAT_EMISSION ));
+                MuseHeatUtils.heatPlayer(playerIn, ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.RAILGUN_HEAT_EMISSION));
                 RayTraceResult hitMOP = MusePlayerUtils.doCustomRayTrace(playerIn.world, playerIn, true, range);
                 // TODO: actual railgun sound
                 worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
@@ -109,8 +109,6 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
 //                    worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
                     // FIxme: testing different sound
                     worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
-
-
                 }
                 playerIn.setActiveHand(hand);
                 return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);

@@ -1,10 +1,14 @@
 package net.machinemuse.powersuits.utils.modulehelpers;
 
+import cofh.cofhworld.util.LinkedHashList;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.capabilities.MPSChestPlateFluidHandler;
+import net.machinemuse.powersuits.common.gui.hud.FluidMeter;
+import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
@@ -15,8 +19,11 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-@Deprecated // TODO: switch to fluid capabilities
+import java.util.List;
+
 public class FluidUtils {
     ItemStack itemStack;
     EntityPlayer player;
@@ -32,6 +39,27 @@ public class FluidUtils {
         this.fluidTank = fluidHandler instanceof MPSChestPlateFluidHandler ?
                 ((MPSChestPlateFluidHandler) fluidHandler).getFluidTank(dataName) : null;
     }
+
+    public List<String> getFluidDisplayString() {
+        List<String> currentTipList = new LinkedHashList<>();
+        int fluidLevel = getFluidLevel();
+        int maxFluidLevel = getMaxFluidLevel();
+
+        if (fluidTank != null && maxFluidLevel > 0 && fluidLevel > 0) {
+            String fluidInfo = I18n.format(fluidTank.getFluid().getLocalizedName()) + " " + MuseStringUtils.formatNumberShort(fluidLevel) + '/'
+                    + MuseStringUtils.formatNumberShort(maxFluidLevel);
+
+            currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(fluidInfo, MuseStringUtils.FormatCodes.Italic.character,
+                    MuseStringUtils.FormatCodes.Indigo));
+
+            fluidInfo = MuseStringUtils.formatNumberFromUnits(fluidTank.getFluid().getFluid().getTemperature() - 273.15D, "°C");
+
+            currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(fluidInfo, MuseStringUtils.FormatCodes.Italic.character,
+                    MuseStringUtils.FormatCodes.Indigo));
+        }
+        return currentTipList;
+    }
+
 
     public int getFluidLevel() {
         return fluidTank != null ? fluidTank.getFluidAmount() : 0;
@@ -55,6 +83,15 @@ public class FluidUtils {
         return 0;
     }
 
+    @SideOnly(Side.CLIENT)
+    public FluidMeter getFluidMeter() {
+        if (fluidTank.getFluid() != null) {
+            return new FluidMeter(fluidTank.getFluid().getFluid());
+        }
+        return null;
+    }
+
+
     public double getCoolingEfficiency() {
         FluidStack fluid = fluidTank != null ? fluidTank.getFluid() : null;
         if (fluid != null) {
@@ -68,7 +105,6 @@ public class FluidUtils {
 
 
             // TODO: viscosity bonus
-
             // so far water efficiency = cooling efficiency: 73.0
 
             return temperatureEfficiency * volumeEfficiency;
@@ -77,6 +113,8 @@ public class FluidUtils {
 
 
         /**
+
+         ( Some notes on how this evolved )
 
          Bonuses
          ------------------------------------
@@ -119,7 +157,7 @@ public class FluidUtils {
 
          the emptier the tank, the lowere the efficiency
          the hotter the fluid, the lower the efficiency
-         the
+         the ...
 
          */
 
@@ -182,7 +220,7 @@ public class FluidUtils {
         }
     }
 
-
+// I think this was for the power fist and the personal shrinking device...
 //    public static void setLiquid(@Nonnull ItemStack stack, String name) {
 //        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
 //            NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);

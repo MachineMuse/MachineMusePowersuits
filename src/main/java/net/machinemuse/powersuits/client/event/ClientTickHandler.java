@@ -9,10 +9,7 @@ import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.machinemuse.powersuits.common.gui.hud.EnergyMeter;
-import net.machinemuse.powersuits.common.gui.hud.HeatMeter;
-import net.machinemuse.powersuits.common.gui.hud.PlasmaChargeMeter;
-import net.machinemuse.powersuits.common.gui.hud.WaterMeter;
+import net.machinemuse.powersuits.common.gui.hud.*;
 import net.machinemuse.powersuits.common.gui.tinker.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.control.PlayerInputMap;
@@ -53,8 +50,8 @@ public class ClientTickHandler {
      */
 
     public ArrayList<String> modules;
-    private boolean drawWaterMeter = false;
-//    private boolean drawPlasmaMeter = false;
+    private FluidUtils waterUtils;
+    private FluidUtils fluidUtils;
 
     @SubscribeEvent
     public void onPreClientTick(TickEvent.ClientTickEvent event) {
@@ -99,8 +96,14 @@ public class ClientTickHandler {
 
             ItemStack chest = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
             if (!chest.isEmpty() && chest.getItem() instanceof ItemPowerArmorChestplate) {
-                if (ModuleManager.INSTANCE.itemHasActiveModule(chest, MPSModuleConstants.MODULE_WATER_TANK__DATANAME)) {
-                    modules.add(MPSModuleConstants.MODULE_WATER_TANK__DATANAME);
+
+                // FIXME: do these really need to be here?
+                if (ModuleManager.INSTANCE.itemHasActiveModule(chest, MPSModuleConstants.BASIC_COOLING_SYSTEM__DATANAME)) {
+                    modules.add(MPSModuleConstants.BASIC_COOLING_SYSTEM__DATANAME);
+                }
+
+                if (ModuleManager.INSTANCE.itemHasActiveModule(chest, MPSModuleConstants.ADVANCED_COOLING_SYSTEM__DATANAME)) {
+                    modules.add(MPSModuleConstants.ADVANCED_COOLING_SYSTEM__DATANAME);
                 }
             }
 
@@ -192,8 +195,10 @@ public class ClientTickHandler {
                         } else {
                             MuseRenderer.drawItemAt(-1.0, yBaseIcon + (yOffsetIcon * i), compass);
                         }
-                    } else if (Objects.equals(modules.get(i), MPSModuleConstants.MODULE_WATER_TANK__DATANAME)) {
-                        drawWaterMeter = true;
+                    } else if (Objects.equals(modules.get(i), MPSModuleConstants.BASIC_COOLING_SYSTEM__DATANAME)) {
+                        waterUtils = new FluidUtils(player, player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), MPSModuleConstants.BASIC_COOLING_SYSTEM__DATANAME);
+                    } else if (Objects.equals(modules.get(i), MPSModuleConstants.ADVANCED_COOLING_SYSTEM__DATANAME)){
+                        fluidUtils = new FluidUtils(player, player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), MPSModuleConstants.ADVANCED_COOLING_SYSTEM__DATANAME);
                     }
                 }
                 drawMeters(player, screen);
@@ -204,12 +209,15 @@ public class ClientTickHandler {
     protected HeatMeter heat = null;
     protected HeatMeter energy = null;
     protected WaterMeter water = null;
+    protected FluidMeter fluidMeter = null;
+
+
     protected PlasmaChargeMeter plasma = null;
 
     private void drawMeters(EntityPlayer player, ScaledResolution screen) {
         double top = (double)screen.getScaledHeight() / 2.0 - (double)16;
 //    	double left = screen.getScaledWidth() - 2;
-    	double left = screen.getScaledWidth() - 34;
+        double left = screen.getScaledWidth() - 34;
 
         // energy
         double maxEnergy = ElectricItemUtils.getMaxPlayerEnergy(player);
@@ -223,17 +231,43 @@ public class ClientTickHandler {
         String currHeatStr = MuseStringUtils.formatNumberShort(currHeat);
         String maxHeatStr = MuseStringUtils.formatNumberShort(maxHeat);
 
-        // water
-        FluidUtils waterUtils = new FluidUtils(player, player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), MPSModuleConstants.BASIC_COOLING_SYSTEM__DATANAME);
+        // Water
+        double maxWater = 0;
+        double currWater = 0;
+        String currWaterStr = "";
+        String maxWaterStr = "";
 
-        double maxWater = waterUtils.getMaxFluidLevel();
-        double currWater = waterUtils.getFluidLevel();
-        String currWaterStr = MuseStringUtils.formatNumberShort(currWater);
-        String maxWaterStr = MuseStringUtils.formatNumberShort(maxWater);
+        if (waterUtils != null) {
+            maxWater = waterUtils.getMaxFluidLevel();
+            currWater = waterUtils.getFluidLevel();
+            currWaterStr = MuseStringUtils.formatNumberShort(currWater);
+            maxWaterStr = MuseStringUtils.formatNumberShort(maxWater);
 
 
+            System.out.println("water level: " + currWater);
+            System.out.println("max water: " + maxWater);
 
 
+        }
+
+        // Fluid
+        double maxFluid = 0;
+        double currFluid = 0;
+        String currFluidStr = "";
+        String maxFluidStr = "";
+
+        if (ModuleManager.INSTANCE.itemHasModule(player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), MPSModuleConstants.ADVANCED_COOLING_SYSTEM__DATANAME)) {
+            fluidUtils = new FluidUtils(player, player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), MPSModuleConstants.ADVANCED_COOLING_SYSTEM__DATANAME);
+            maxFluid = fluidUtils.getMaxFluidLevel();
+            currFluid = fluidUtils.getFluidLevel();
+            currFluidStr = MuseStringUtils.formatNumberShort(currWater);
+            maxFluidStr = MuseStringUtils.formatNumberShort(maxWater);
+
+
+            System.out.println("fluid level: " + currFluid);
+            System.out.println("fluid water: " + maxFluid);
+
+        }
 
         // plasma
         double maxPlasma = PlasmaCannonHelper.getMaxPlasma(player);
@@ -257,12 +291,19 @@ public class ClientTickHandler {
                     heat = new HeatMeter();
             } else heat = null;
 
-            if (maxWater > 0 && drawWaterMeter ) {
+            if ( maxWater > 0 ) {
                 numMeters ++;
                 if (water == null) {
                     water = new WaterMeter();
                 }
             } else water = null;
+
+            if (maxFluid > 0) {
+                numMeters ++;
+                if (fluidMeter == null) {
+                    fluidMeter = fluidUtils.getFluidMeter();
+                }
+            }
 
             if (maxPlasma > 0 /* && drawPlasmaMeter */){
                 numMeters ++;
@@ -292,6 +333,12 @@ public class ClientTickHandler {
                 numMeters --;
             }
 
+            if (fluidMeter != null) {
+                fluidMeter.draw(left, top + (totalMeters-numMeters) * 8, currFluid / maxFluid);
+                MuseRenderer.drawRightAlignedString(currFluidStr, stringX, top + (totalMeters-numMeters) * 8);
+                numMeters --;
+            }
+
             if (plasma != null) {
                 plasma.draw(left, top + (totalMeters-numMeters) * 8, currPlasma / maxPlasma);
                 MuseRenderer.drawRightAlignedString(currPlasmaStr, stringX, top + (totalMeters-numMeters) * 8);
@@ -307,8 +354,13 @@ public class ClientTickHandler {
             MuseRenderer.drawString(currHeatStr + '/' + maxHeatStr + " C", 2, 2 + (numReadouts * 9));
             numReadouts += 1;
 
-            if (maxWater > 0 && drawWaterMeter ) {
+            if (maxWater > 0) {
                 MuseRenderer.drawString(currWaterStr + '/' + maxWaterStr + " buckets", 2, 2 + (numReadouts * 9));
+                numReadouts += 1;
+            }
+
+            if (maxFluid > 0) {
+                MuseRenderer.drawString(currFluidStr + '/' + maxFluidStr + " buckets", 2, 2 + (numReadouts * 9));
                 numReadouts += 1;
             }
 

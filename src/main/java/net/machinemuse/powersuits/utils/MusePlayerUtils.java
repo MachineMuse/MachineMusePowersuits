@@ -288,11 +288,11 @@ public class MusePlayerUtils {
     }
 
     public static double getPlayerCoolingBasedOnMaterial(EntityPlayer player) {
-        // Fixme: heat player if in lava
         if (player.isInLava())
             return 0;
 
         double cool = ((2.0 - getBiome(player).getTemperature(new BlockPos((int)player.posX, (int)player.posY, (int)player.posZ))/2)); // Algorithm that returns a getValue from 0.0 -> 1.0. Biome temperature is from 0.0 -> 2.0
+
         if (player.isInWater())
             cool += 0.5;
 
@@ -300,13 +300,21 @@ public class MusePlayerUtils {
         if ((int)player.posY > 128)
             cool += 0.5;
 
-        if (!player.world.isDaytime() && getBiome(player) instanceof BiomeDesert) { // If nighttime and in the desert, increase cooling
+        // If nighttime and in the desert, increase cooling
+        if (!player.world.isDaytime() && getBiome(player) instanceof BiomeDesert) {
             cool += 0.8;
         }
 
-        if (player.world.isRaining()) {
+        // check for rain and if player is in the rain
+        // check if rain can happen in the biome the player is in
+        if (player.world.getBiome(player.getPosition()).canRain()
+                // check if raining in the world
+                && player.world.isRaining()
+                // check if the player can see the sky
+                && player.world.canBlockSeeSky(player.getPosition().add(0,1,0))) {
             cool += 0.2;
         }
+
         return cool;
     }
 

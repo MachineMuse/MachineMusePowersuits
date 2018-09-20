@@ -83,24 +83,28 @@ public class PlayerUpdateHandler {
                 }
             }
 
-
             boolean foundItem = modularItemsEquipped.size() > 0;
             if (foundItem) {
                 player.fallDistance = (float) MovementManager.computeFallHeightFromVelocity(MuseMathUtils.clampDouble(player.motionY, -1000.0, 0.0));
 
-                //FIXME: tweak heat system to allow for overheat and damage
                 // Heat update
-                double coolPlayerAmount =  MusePlayerUtils.getPlayerCoolingBasedOnMaterial(player);
-                if (coolPlayerAmount > 0 )
-                    MuseHeatUtils.coolPlayer(player, coolPlayerAmount);
-
-                double maxHeat = MuseHeatUtils.getPlayerMaxHeat(player);
                 double currHeat = MuseHeatUtils.getPlayerHeat(player);
-                if (currHeat > maxHeat) {
-                    player.attackEntityFrom(MuseHeatUtils.overheatDamage, (float) (Math.sqrt(currHeat - maxHeat)/* was (int) */ / 4));
-                    player.setFire(1);
-                } else {
-                    player.extinguish();
+                if (currHeat >=0 && !player.world.isRemote) { // only apply serverside so change is not applied twice
+                    double coolPlayerAmount =  MusePlayerUtils.getPlayerCoolingBasedOnMaterial(player) * 0.55;  // cooling value adjustment. Too much or too little cooling makes the heat system useless.
+
+                    // cooling value adjustment. Too much or too little cooling makes the heat system useless.
+
+                    if (coolPlayerAmount > 0 )
+                        MuseHeatUtils.coolPlayer(player, coolPlayerAmount);
+
+                    double maxHeat = MuseHeatUtils.getPlayerMaxHeat(player);
+
+                    if (currHeat > maxHeat) {
+                        player.attackEntityFrom(MuseHeatUtils.overheatDamage, (float) (Math.sqrt(currHeat - maxHeat)/* was (int) */ / 4));
+                        player.setFire(1);
+                    } else {
+                        player.extinguish();
+                    }
                 }
 
                 // Sound update

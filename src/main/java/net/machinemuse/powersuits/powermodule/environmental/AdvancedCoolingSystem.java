@@ -19,10 +19,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.UniversalBucket;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by Eximius88 on 1/17/14.
  */
-public class AdvancedCoolingSystem extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
+public class AdvancedCoolingSystem extends CoolingSystemBase {
     public AdvancedCoolingSystem(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(
@@ -34,25 +36,23 @@ public class AdvancedCoolingSystem extends PowerModuleBase implements IPlayerTic
         addTradeoffPropertyDouble("Advanced Cooling Power", MPSModuleConstants.COOLING_BONUS, 7, "%");
         addTradeoffPropertyDouble("Advanced Cooling Power", MPSModuleConstants.ADVANCED_COOLING_SYSTEM_ENERGY_CONSUMPTION, 160, "RF/t");
 
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1, "pts");
-        addIntTradeoffProperty("Advanced Cooling Power", MPSModuleConstants.SLOT_POINTS, 4, "m", 1, 0);
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5, "pts");
+        addIntTradeoffProperty("Advanced Cooling Power", MPSModuleConstants.SLOT_POINTS, 15, "m", 1, 0);
     }
 
     @Override
-    public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        double heatBefore = MuseHeatUtils.getPlayerHeat(player);
-        MuseHeatUtils.coolPlayer(player, 0.210 * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.COOLING_BONUS));
-        double cooling = heatBefore - MuseHeatUtils.getPlayerHeat(player);
-        ElectricItemUtils.drainPlayerEnergy(player, (int) (cooling * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.ADVANCED_COOLING_SYSTEM_ENERGY_CONSUMPTION)));
+    public double getCoolingFactor() {
+        return 2.1;
     }
 
     @Override
-    public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+    public double getCoolingBonus(@Nonnull ItemStack itemStack) {
+        return ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.COOLING_BONUS);
     }
 
     @Override
-    public EnumModuleCategory getCategory() {
-        return EnumModuleCategory.CATEGORY_ENVIRONMENTAL;
+    public double getEnergyConsumption(@Nonnull ItemStack itemStack) {
+        return ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.ADVANCED_COOLING_SYSTEM_ENERGY_CONSUMPTION);
     }
 
     @Override
