@@ -54,7 +54,7 @@ public class Musique {
     public static void playerSound(EntityPlayer player, ResourceLocation location, SoundCategory categoryIn, float volume, Float pitch, Boolean continuous) {
         SoundEvent soundEvent = SoundEvent.REGISTRY.getObject(location);
         if (soundEvent != null) {
-            System.out.println(soundEvent.getSoundName().toString());
+//            System.out.println(soundEvent.getSoundName().toString());
             playerSound(player, soundEvent, categoryIn, volume, pitch, continuous);
         } else {
             soundEvent = new SoundEvent(location);

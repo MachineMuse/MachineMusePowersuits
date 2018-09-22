@@ -242,12 +242,6 @@ public class ClientTickHandler {
             currWater = waterUtils.getFluidLevel();
             currWaterStr = MuseStringUtils.formatNumberShort(currWater);
             maxWaterStr = MuseStringUtils.formatNumberShort(maxWater);
-
-
-            System.out.println("water level: " + currWater);
-            System.out.println("max water: " + maxWater);
-
-
         }
 
         // Fluid
@@ -262,11 +256,6 @@ public class ClientTickHandler {
             currFluid = fluidUtils.getFluidLevel();
             currFluidStr = MuseStringUtils.formatNumberShort(currWater);
             maxFluidStr = MuseStringUtils.formatNumberShort(maxWater);
-
-
-            System.out.println("fluid level: " + currFluid);
-            System.out.println("fluid water: " + maxFluid);
-
         }
 
         // plasma

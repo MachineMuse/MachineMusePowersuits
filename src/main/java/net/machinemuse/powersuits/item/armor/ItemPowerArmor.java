@@ -125,13 +125,13 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
             EntityPlayer player = (EntityPlayer) entity;
             DamageSource overheatDamage = MuseHeatUtils.overheatDamage;
 
-            if (source == null || source.equals(overheatDamage)) {
-                if (source != null)
-                    System.out.println("overheat damage: " + damage);
-
-
-                return;
-            }
+//            if (source == null || source.equals(overheatDamage)) {
+//                if (source != null)
+//                    System.out.println("overheat damage: " + damage);
+//
+//
+//                return;
+//            }
 
             // cool the player instead of applying damage. Only fires if player has heat
             if (source.getDamageType().equals("cryotheum") && entity.world.isRemote)
@@ -142,7 +142,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
             // isFireDamage includes heat related damage sources such as lava
             if (source.isFireDamage()) {
 
-                System.out.println("heat damage: " + damage);
+//                System.out.println("heat damage: " + damage);
 
 //                if (!source.equals(DamageSource.ON_FIRE) ||
 //                        MuseHeatUtils.getPlayerHeat(player) < MuseHeatUtils.getPlayerMaxHeat(player))
@@ -165,7 +165,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
         // Fire damage is just heat based damage like fire or lava
         if (source.isFireDamage() && !(source.equals(MuseHeatUtils.overheatDamage))) { //  heat damage is only 1 point ?
-            System.out.println("heat damage: " + damage);
+//            System.out.println("heat damage: " + damage);
 
             return new ISpecialArmor.ArmorProperties(priority, absorbRatio, absorbMax);
         }

@@ -35,11 +35,11 @@ public abstract class CoolingSystemBase extends PowerModuleBase implements IPlay
             // if not overheating
             if (currentHeat < maxHeat) {
                 double coolJoules = (fluidEfficiencyBoost + getCoolingBonus(itemStack)) * getCoolingFactor();
-                System.out.println("cool joules: " + coolJoules);
+//                System.out.println("cool joules: " + coolJoules);
 
                 if (ElectricItemUtils.getPlayerEnergy(player) > coolJoules) {
 
-                    System.out.println("cooling normally");
+//                    System.out.println("cooling normally");
 
                     coolJoules = MuseHeatUtils.coolPlayer(player, coolJoules);
 

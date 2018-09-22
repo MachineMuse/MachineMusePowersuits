@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.capabilities;
 
-import cofh.cofhworld.util.LinkedHashList;
 import com.google.common.collect.Lists;
 import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.module.IModuleManager;
@@ -20,6 +19,7 @@ import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,14 +32,13 @@ public class MPSChestPlateFluidHandler implements IFluidHandler, IFluidHandlerIt
     public BasicCoolingTank basicCoolingTank;
     public AdvancedCoolingTank advancedCoolingTank;
 
-
     public MPSChestPlateFluidHandler(@Nonnull ItemStack container, IModuleManager moduleManager) {
         this.container = container;
         this.moduleManager = moduleManager;
         basicCoolingTank = new BasicCoolingTank();
         advancedCoolingTank = new AdvancedCoolingTank();
-        this.subHandlers = new LinkedHashList<>();
-        this.allHandlers = new LinkedHashList<ArmorTank>() {{
+        this.subHandlers = new LinkedList<>();
+        this.allHandlers = new LinkedList<ArmorTank>() {{
             add(basicCoolingTank);
             add(advancedCoolingTank);
         }};
