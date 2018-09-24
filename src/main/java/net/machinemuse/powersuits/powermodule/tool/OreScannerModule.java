@@ -49,11 +49,8 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
     public OreScannerModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         scanner = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("scannable", "scanner")));
-        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.computerChip, 1));
-        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 2));
-        ModuleManager.INSTANCE.addInstallCost(getDataName(),
-                new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("scannable", "scanner")), 1));
-
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), scanner);
         addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
