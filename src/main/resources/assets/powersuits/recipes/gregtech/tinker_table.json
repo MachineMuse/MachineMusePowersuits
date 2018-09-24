@@ -1,0 +1,35 @@
+{
+  "conditions": [
+    {
+      "type": "gregtech_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    " E ",
+    "ICI",
+    " R "
+  ],
+  "key": {
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore" : "circuitBasic"
+    },
+    "E": {
+      "type": "forge:ore_dict",
+      "ore": "gemEmerald"
+    },
+    "R": {
+      "item" : "ic2:resource",
+      "meta" : 12
+    }
+  },
+  "result": {
+    "item": "powersuits:tile.tinkertable"
+  }
+}
