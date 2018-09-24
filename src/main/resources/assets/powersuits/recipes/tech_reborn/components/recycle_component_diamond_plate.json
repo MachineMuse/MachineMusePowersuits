@@ -1,0 +1,23 @@
+{
+  "conditions": [
+    {
+      "type": "tech_reborn_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "P"
+  ],
+  "key": {
+    "P": {
+      "type": "forge:ore_dict",
+      "ore": "componentPlatingDiamond"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "plateIridium",
+    "count": 5
+  }
+}

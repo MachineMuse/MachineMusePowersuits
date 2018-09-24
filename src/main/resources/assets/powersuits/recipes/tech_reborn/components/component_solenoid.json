@@ -1,0 +1,32 @@
+{
+  "conditions": [
+    {
+      "type": "tech_reborn_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "WSW",
+    "WTW",
+    "WSW"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "T": {
+      "type": "forge:ore_dict",
+      "ore" : "ingotTungsten"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore" : "ingotSteel"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentSolenoid"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "tech_reborn_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "S S",
+    "CSC",
+    "SSS"
+  ],
+  "key": {
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "ingotSilver"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "circuitBasic"
+    }
+  },
+  "result": {
+    "item": "powersuits:powerarmor_torso"
+  }
+}

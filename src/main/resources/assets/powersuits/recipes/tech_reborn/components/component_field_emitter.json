@@ -1,0 +1,36 @@
+{
+  "conditions": [
+    {
+      "type": "tech_reborn_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "PSP",
+    "CEC",
+    "PSP"
+  ],
+  "key": {
+    "P": {
+      "type": "forge:ore_dict",
+      "ore" : "plateIridium"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "componentSolenoid"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore" : "craftingSuperconductor"
+    },
+    "E": {
+      "type": "forge:ore_dict",
+      "ore" : "circuitElite"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentFieldEmitter"
+  }
+}

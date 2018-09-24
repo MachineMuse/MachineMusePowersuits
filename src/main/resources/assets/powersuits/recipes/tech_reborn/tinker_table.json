@@ -1,0 +1,36 @@
+{
+  "conditions": [
+    {
+      "type": "tech_reborn_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    " E ",
+    "SBS",
+    " C "
+  ],
+  "key": {
+    "E": {
+      "type": "forge:ore_dict",
+      "ore": "gemEmerald"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "ingotSteel"
+    },
+
+    "B": {
+      "type": "forge:ore_dict",
+      "ore": "machineBlockAdvanced"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "circuitAdvanced"
+    }
+  },
+  "result": {
+    "item": "powersuits:tile.tinkertable"
+  }
+}

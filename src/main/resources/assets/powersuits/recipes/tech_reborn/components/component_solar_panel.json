@@ -1,0 +1,31 @@
+{
+  "conditions": [
+    {
+      "type": "tech_reborn_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "RRR",
+    "PEP"
+  ],
+  "key": {
+    "R": {
+      "type": "forge:ore_dict",
+      "ore" : "glassReinforced"
+    },
+    "P": {
+      "type": "forge:ore_dict",
+      "ore" : "plateIridium"
+    },
+    "E": {
+      "type": "forge:ore_dict",
+      "ore" : "circuitElite"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentSolarPanel"
+  }
+}

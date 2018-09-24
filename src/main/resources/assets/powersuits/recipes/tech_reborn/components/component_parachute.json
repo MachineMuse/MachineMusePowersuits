@@ -1,0 +1,32 @@
+{
+  "conditions": [
+    {
+      "type": "tech_reborn_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "WWW",
+    "S S",
+    "C C"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "blockWool"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "string"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "plateCarbon"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore": "componentParachute"
+  }
+}

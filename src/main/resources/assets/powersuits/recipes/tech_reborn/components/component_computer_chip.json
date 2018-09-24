@@ -1,0 +1,36 @@
+{
+  "conditions": [
+    {
+      "type": "tech_reborn_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "SFS",
+    "ECE",
+    "SFS"
+  ],
+  "key": {
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "craftingSuperconductor"
+    },
+    "F": {
+      "type": "forge:ore_dict",
+      "ore": "componentFieldEmitter"
+    },
+    "E": {
+      "type": "forge:ore_dict",
+      "ore": "circuitElite"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "componentControlCircuit"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentComputerChip"
+  }
+}

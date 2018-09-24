@@ -1,0 +1,32 @@
+{
+  "conditions": [
+    {
+      "type": "tech_reborn_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "AGA",
+    "GAG",
+    "PGP"
+  ],
+  "key": {
+    "A": {
+      "type": "forge:ore_dict",
+      "ore" : "circuitAdvanced"
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore" : "glassReinforced"
+    },
+    "P": {
+      "type": "forge:ore_dict",
+      "ore" : "plateCarbon"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentLaserEmitter"
+  }
+}

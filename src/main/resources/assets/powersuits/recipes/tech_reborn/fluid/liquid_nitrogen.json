@@ -1,0 +1,33 @@
+{
+  "conditions": [
+    {
+      "type": "tech_reborn_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "DDD",
+    "CCC",
+    " B "
+  ],
+  "key": {
+    "D": {
+      "type": "forge:ore_dict",
+      "ore": "dustLazurite"
+    },
+    "C": {
+      "item": "techreborn:dynamicCell"
+    },
+    "B": {
+      "item": "minecraft:bucket"
+    }
+  },
+  "result": {
+    "item": "forge:bucketfilled",
+    "nbt": {
+      "FluidName": "liquid_nitrogen",
+      "Amount": 1000
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "conditions": [
+    {
+      "type": "tech_reborn_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "CRC",
+    "CGC",
+    "CGC"
+  ],
+  "key": {
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "componentCarbonMyofiber"
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "componentMyofiberGel"
+    },
+    "R": {
+      "type": "forge:ore_dict",
+      "ore": "itemRubber"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentArtificialMuscle"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "conditions": [
+    {
+      "type": "tech_reborn_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "II",
+    "WI",
+    "II"
+  ],
+  "key": {
+    "A": {
+      "type": "forge:ore_dict",
+      "ore": "circuitAdvanced"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore" : "plateIridium"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentPlatingDiamond"
+  }
+}

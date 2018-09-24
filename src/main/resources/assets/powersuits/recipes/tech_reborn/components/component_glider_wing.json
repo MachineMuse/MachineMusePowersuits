@@ -1,0 +1,32 @@
+{
+  "conditions": [
+    {
+      "type": "tech_reborn_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    " PP",
+    "PPS",
+    "P I  "
+  ],
+  "key": {
+    "P": {
+      "type": "forge:ore_dict",
+      "ore" : "plateCarbon"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore" : "ingotSteel"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore" : "componentSolenoid"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentGliderWing"
+  }
+}

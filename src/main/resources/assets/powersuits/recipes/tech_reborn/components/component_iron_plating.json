@@ -1,0 +1,28 @@
+{
+  "conditions": [
+    {
+      "type": "tech_reborn_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "SS",
+    "BS",
+    "SS"
+  ],
+  "key": {
+    "S": {
+      "type": "forge:ore_dict",
+      "ore" : "ingotSteel"
+    },
+    "B": {
+      "type": "forge:ore_dict",
+      "ore" : "circuitBasic"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentPlatingIron"
+  }
+}
