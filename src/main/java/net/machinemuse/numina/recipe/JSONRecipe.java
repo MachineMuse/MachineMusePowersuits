@@ -5,7 +5,7 @@
 //import net.minecraft.item.Item;
 //import net.minecraft.item.ItemStack;
 //import net.minecraft.item.crafting.IRecipe;
-//import net.minecraft.nbt.JsonToNBT;
+//import net.minecraft.nbt.JsonToNBTFixed;
 //import net.minecraft.nbt.NBTException;
 //import net.minecraft.util.ResourceLocation;
 //import net.minecraft.world.World;
@@ -260,7 +260,7 @@
 //            for (ItemStack stack : result) {
 //                ItemStack stack2 = stack.copy();
 //                try {
-//                    stack2.setTagCompound(JsonToNBT.getTagFromJson(cell.nbtString));
+//                    stack2.setTagCompound(JsonToNBTFixed.getTagFromJson(cell.nbtString));
 //                } catch (NBTException e) {
 //                    e.printStackTrace();
 //                }

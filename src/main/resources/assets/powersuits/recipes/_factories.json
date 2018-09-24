@@ -1,4 +1,7 @@
 {
+  "recipes": {
+    "mps_shaped": "net.machinemuse.powersuits.recipe.MPSRecipeFactory"
+  },
   "conditions": {
     "enderio_recipes_enabled": "net.machinemuse.powersuits.recipe.MPSRecipeConditionFactory",
     "gregtech_recipes_enabled": "net.machinemuse.powersuits.recipe.MPSRecipeConditionFactory",

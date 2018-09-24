@@ -11,7 +11,7 @@
 //import net.minecraft.item.ItemStack;
 //import net.minecraft.item.crafting.CraftingManager;
 //import net.minecraft.item.crafting.IRecipe;
-//import net.minecraft.nbt.JsonToNBT;
+//import net.minecraft.nbt.JsonToNBTFixed;
 //import net.minecraft.nbt.NBTException;
 //import net.minecraft.nbt.NBTTagCompound;
 //
@@ -189,7 +189,7 @@
 //            for (ItemStack stack : result) {
 //                ItemStack stack2 = stack.copy();
 //                try {
-//                    stack2.setTagCompound((NBTTagCompound) JsonToNBT.func_150315_a(cell.nbtString));
+//                    stack2.setTagCompound((NBTTagCompound) JsonToNBTFixed.func_150315_a(cell.nbtString));
 //                } catch (NBTException e) {
 //                    e.printStackTrace();
 //                }

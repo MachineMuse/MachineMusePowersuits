@@ -5,7 +5,7 @@
       "value": true
     }
   ],
-  "type": "minecraft:crafting_shaped",
+  "type": "powersuits:mps_shaped",
   "pattern": [
     "CRC"
   ],
@@ -15,8 +15,8 @@
       "item": "ic2:cable",
       "data": 0,
       "nbt": {
-        "type": 0,
-        "insulation": 0
+        "type": "0b",
+        "insulation": "0b"
       }
     },
     "R": {
@@ -25,8 +25,8 @@
     }
   },
   "result": {
-    "item": "powersuits:powerarmorcomponent",
-    "data": 0,
+    "type" : "forge:ore_dict",
+    "ore" : "componentWiring",
     "count": 8
   }
 }

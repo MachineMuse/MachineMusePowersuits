@@ -5,7 +5,7 @@
       "value": true
     }
   ],
-  "type": "minecraft:crafting_shaped",
+  "type": "powersuits:mps_shaped",
   "pattern": [
     "CSC",
     "A!A",
@@ -17,8 +17,8 @@
       "item": "ic2:cable",
       "data": 0,
       "nbt": {
-        "type": 0,
-        "insulation": 0
+        "type": "0b",
+        "insulation": "0b"
       }
     },
     "S": {

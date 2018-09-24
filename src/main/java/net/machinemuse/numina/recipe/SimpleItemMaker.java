@@ -4,7 +4,7 @@
 //import net.minecraft.inventory.InventoryCrafting;
 //import net.minecraft.item.Item;
 //import net.minecraft.item.ItemStack;
-//import net.minecraft.nbt.JsonToNBT;
+//import net.minecraft.nbt.JsonToNBTFixed;
 //import net.minecraft.nbt.NBTTagCompound;
 //import net.minecraft.util.ResourceLocation;
 //import net.minecraftforge.oredict.OreDictionary;
@@ -41,7 +41,7 @@
 //
 //        if(nbtString != null) {
 //            try {
-//                nbt = JsonToNBT.getTagFromJson(nbtString);
+//                nbt = JsonToNBTFixed.getTagFromJson(nbtString);
 //            } catch (Exception e) {
 //                MuseLogger.logException("Bad NBT string in item! Attempting to create generic item instead.", e);
 //            }

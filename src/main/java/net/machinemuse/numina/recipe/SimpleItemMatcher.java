@@ -3,7 +3,7 @@
 //import net.machinemuse.numina.utils.MuseLogger;
 //import net.minecraft.item.Item;
 //import net.minecraft.item.ItemStack;
-//import net.minecraft.nbt.JsonToNBT;
+//import net.minecraft.nbt.JsonToNBTFixed;
 //import net.minecraft.nbt.NBTTagCompound;
 //import net.minecraft.util.ResourceLocation;
 //import net.minecraftforge.oredict.OreDictionary;
@@ -65,7 +65,7 @@
 //        }
 //        if (nbtString != null) {
 //            try {
-//                NBTTagCompound nbt = (NBTTagCompound) JsonToNBT.getTagFromJson(nbtString);
+//                NBTTagCompound nbt = (NBTTagCompound) JsonToNBTFixed.getTagFromJson(nbtString);
 //                if (!nbt.equals(stack.getTagCompound())) {
 //                    return false;
 //                }
