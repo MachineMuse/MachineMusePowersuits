@@ -1,8 +1,7 @@
 {
   "conditions": [
     {
-      "type": "powersuits:vanilla_recipes_enabled",
-      "value": true
+      "type": "powersuits:vanilla_recipes_enabled"
     }
   ],
   "type": "powersuits:mps_shaped",

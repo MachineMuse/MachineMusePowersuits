@@ -1,8 +1,7 @@
 {
   "conditions": [
     {
-      "type": "powersuits:enderio_recipes_enabled",
-      "value": true
+      "type": "powersuits:enderio_recipes_enabled"
     }
   ],
   "type": "powersuits:mps_shaped",

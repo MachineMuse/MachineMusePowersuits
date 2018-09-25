@@ -1,8 +1,7 @@
 {
   "conditions": [
     {
-      "type": "tech_reborn_recipes_enabled",
-      "value": true
+      "type": "tech_reborn_recipes_enabled"
     }
   ],
   "type": "powersuits:mps_shaped",

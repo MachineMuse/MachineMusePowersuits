@@ -1,8 +1,7 @@
 {
   "conditions": [
     {
-      "type": "powersuits:gregtech_recipes_enabled",
-      "value": true
+      "type": "powersuits:gregtech_recipes_enabled"
     }
   ],
   "type": "powersuits:mps_shaped",
@@ -26,7 +25,7 @@
     }
   },
   "result": {
-    "ore" : "componentMVCapacitor",
-    "ore": "dyeBlue"
+    "type": "forge:ore_dict",
+    "ore" : "componentMVCapacitor"
   }
 }
