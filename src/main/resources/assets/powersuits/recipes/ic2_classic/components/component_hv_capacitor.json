@@ -1,7 +1,7 @@
 {
   "conditions": [
     {
-      "type": "powersuits:ic2_recipes_enabled",
+      "type": "powersuits:ic2_classic_recipes_enabled",
       "value": true
     }
   ],
@@ -12,8 +12,7 @@
   ],
   "key": {
     "C": {
-      "item": "ic2:energy_crystal",
-      "data": 26
+      "item" : "ic2:itemBatLamaCrystal"
     },
     "W": {
       "type": "forge:ore_dict",
@@ -22,6 +21,6 @@
   },
   "result": {
     "type": "forge:ore_dict",
-    "ore" : "componentMVCapacitor"
+    "ore" : "componentHVCapacitor"
   }
 }

@@ -35,7 +35,7 @@
     }
   },
   "result": {
-    "item": "powersuits:powerarmorcomponent",
-    "data": 20
+    "type": "forge:ore_dict",
+    "ore" : "componentComputerChip"
   }
 }

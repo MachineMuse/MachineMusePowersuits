@@ -1,28 +1,20 @@
 {
   "conditions": [
     {
-      "type": "powersuits:ic2_recipes_enabled",
+      "type": "powersuits:ic2_classic_recipes_enabled",
       "value": true
     }
   ],
   "type": "powersuits:mps_shaped",
   "pattern": [
-    "#B!",
-    "BWB",
-    "@B&"
+    "W!W",
+    "R@!",
+    "GRW"
   ],
   "key": {
-    "B": {
-      "type": "forge:ore_dict",
-      "ore": "blockGlass"
-    },
     "W": {
       "type": "forge:ore_dict",
-      "ore": "circuitBasic"
-    },
-    "#": {
-      "type": "forge:ore_dict",
-      "ore": "dustGlowstone"
+      "ore": "componentWiring"
     },
     "!": {
       "type": "forge:ore_dict",
@@ -30,15 +22,19 @@
     },
     "@": {
       "type": "forge:ore_dict",
-      "ore": "dyeBlue"
+      "ore": "circuitBasic"
     },
-    "&": {
+    "R": {
       "type": "forge:ore_dict",
-      "ore": "dyeRed"
+      "ore": "dustRedstone"
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "ingotGold"
     }
   },
   "result": {
     "type": "forge:ore_dict",
-    "ore" : "componentLaserEmitter"
+    "ore" : "componentControlCircuit"
   }
 }

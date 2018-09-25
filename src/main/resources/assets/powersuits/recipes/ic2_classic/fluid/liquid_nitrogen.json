@@ -1,0 +1,34 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:ic2_classic_recipes_enabled",
+      "value": true
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "LLL",
+    "CCC",
+    " B "
+  ],
+  "key": {
+    "L": {
+      "type": "forge:ore_dict",
+      "ore" : "gemLapis"
+    },
+    "C": {
+      "item" : "ic2:itemCellEmpty",
+      "data" : 1
+    },
+    "B": {
+      "item": "minecraft:bucket"
+    }
+  },
+  "result": {
+    "item": "forge:bucketfilled",
+    "nbt": {
+      "FluidName": "liquid_nitrogen",
+      "Amount": 1000
+    }
+  }
+}

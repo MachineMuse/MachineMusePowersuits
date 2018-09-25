@@ -1,32 +1,35 @@
 {
   "conditions": [
     {
-      "type": "powersuits:ic2_recipes_enabled",
+      "type": "powersuits:ic2_classic_recipes_enabled",
       "value": true
     }
   ],
   "type": "powersuits:mps_shaped",
   "pattern": [
-    "WIW",
-    "WCW",
-    "WIW"
+    " E ",
+    "IBI",
+    " M "
   ],
   "key": {
-    "W": {
+    "E": {
       "type": "forge:ore_dict",
-      "ore": "componentWiring"
+      "ore": "gemEmerald"
     },
     "I": {
       "type": "forge:ore_dict",
       "ore": "plateIron"
     },
-    "C": {
+    "B": {
       "type": "forge:ore_dict",
       "ore": "circuitBasic"
+    },
+    "M": {
+      "item": "ic2:resource",
+      "data": 12
     }
   },
   "result": {
-    "type": "forge:ore_dict",
-    "ore" : "componentSolenoid"
+    "item": "powersuits:tile.tinkertable"
   }
 }
