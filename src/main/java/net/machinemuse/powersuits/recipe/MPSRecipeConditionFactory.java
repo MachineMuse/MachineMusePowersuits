@@ -12,47 +12,44 @@ import java.util.function.BooleanSupplier;
 public class MPSRecipeConditionFactory implements IConditionFactory {
     @Override
     public BooleanSupplier parse(JsonContext context, JsonObject json) {
-        boolean value = JsonUtils.getBoolean(json , "getValue", true);
-
         if(JsonUtils.hasField(json, "type")) {
             String key = JsonUtils.getString(json, "type");
 
-            // Thermal Expansion
-            if (key.equals("powersuits:thermal_expansion_recipes_enabled"))
-                return () -> ModCompatibility.isThermalExpansionLoaded() == value;
+            switch (key) {
+                // Thermal Expansion
+                case "powersuits:thermal_expansion_recipes_enabled":
+                    return () -> ModCompatibility.isThermalExpansionLoaded();
 
-            // EnderIO
-            if (key.equals("powersuits:enderio_recipes_enabled"))
-                return () -> ModCompatibility.isEnderIOLoaded() == value;
+                // EnderIO
+                case "powersuits:enderio_recipes_enabled":
+                    return () -> ModCompatibility.isEnderIOLoaded();
 
-            // Original recipe loading code set priority for TechReborn recipes instead of Gregtech or Industrialcraft
-            // Tech Reborn
-            if (key.equals("powersuits:tech_reborn_recipes_enabled"))
-                return () -> ModCompatibility.isTechRebornLoaded() == value;
+                // Original recipe loading code set priority for TechReborn recipes instead of Gregtech or Industrialcraft
+                // Tech Reborn
+                case "powersuits:tech_reborn_recipes_enabled":
+                    return () -> ModCompatibility.isTechRebornLoaded();
 
-            // GregTech
-            if (key.equals("powersuits:gregtech_recipes_enabled"))
-                return () -> (ModCompatibility.isGregTechLoaded() && !ModCompatibility.isTechRebornLoaded()) == value;
+                // GregTech
+                case "powersuits:gregtech_recipes_enabled":
+                    return () -> (ModCompatibility.isGregTechLoaded() && !ModCompatibility.isTechRebornLoaded());
 
-            // IC2
-            if (key.equals("powersuits:ic2_recipes_enabled"))
-                return () -> (ModCompatibility.isIndustrialCraftExpLoaded() &&
-                        (!ModCompatibility.isGregTechLoaded() && !ModCompatibility.isTechRebornLoaded())) == value;
+                // IC2
+                case "powersuits:ic2_recipes_enabled":
+                    return () -> (ModCompatibility.isIndustrialCraftExpLoaded() &&
+                            (!ModCompatibility.isGregTechLoaded() && !ModCompatibility.isTechRebornLoaded()));
+                // IC2 Classic
+                case "powersuits:ic2_classic_recipes_enabled":
+                    return () -> (ModCompatibility.isIndustrialCraftClassicLoaded() &&
+                            (!ModCompatibility.isGregTechLoaded() && !ModCompatibility.isTechRebornLoaded()));
 
-            // IC2 Classic
-            if (key.equals("powersuits:ic2_classic_recipes_enabled"))
-                return () -> (ModCompatibility.isIndustrialCraftClassicLoaded() &&
-                        (!ModCompatibility.isGregTechLoaded() && !ModCompatibility.isTechRebornLoaded())) == value;
+                // Vanilla reciples only as fallback
+                case "powersuits:vanilla_recipes_enabled":
+                    return () -> (ModCompatibility.isEnderIOLoaded() ||
+                            ModCompatibility.isGregTechLoaded() ||
+                            ModCompatibility.isIndustrialCraftLoaded() ||
+                            ModCompatibility.isTechRebornLoaded() ||
+                            ModCompatibility.isThermalExpansionLoaded());
 
-
-            // Vanilla reciples only as fallback
-            if (key.equals("powersuits:vanilla_recipes_enabled")) {
-                return () -> (ModCompatibility.isEnderIOLoaded() ||
-                        ModCompatibility.isGregTechLoaded() ||
-                        ModCompatibility.isIndustrialCraftLoaded() ||
-                        ModCompatibility.isTechRebornLoaded() ||
-                        ModCompatibility.isThermalExpansionLoaded()
-                ) != value;
             }
         }
         return () -> false;
