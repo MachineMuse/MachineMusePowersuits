@@ -21,9 +21,8 @@
       "ore": "gemDiamond"
     }
   },
-},
-"result": {
-"type": "forge:ore_dict",
-"ore" : "componentPlatingDiamond"
-}
+  "result": {
+    "type": "forge:ore_dict",
+    "ore": "componentPlatingDiamond"
+  }
 }
