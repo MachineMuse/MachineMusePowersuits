@@ -111,7 +111,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         // TODO: Advanced Rocketry: CapabilitySpaceArmor.PROTECTIVEARMOR;
 
 
-        System.out.println("damage source: " + source.getDamageType() + " not protected. Damage ammount:" + damage );
+//        System.out.println("damage source: " + source.getDamageType() + " not protected. Damage ammount:" + damage );
         return false;
     }
 

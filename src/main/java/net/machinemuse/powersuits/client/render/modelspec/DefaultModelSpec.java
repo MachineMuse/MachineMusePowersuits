@@ -89,11 +89,6 @@ public class DefaultModelSpec {
                     else if (spec.getSpecType().equals(EnumSpecType.ARMOR_MODEL) && MPSConfig.INSTANCE.allowHighPollyArmorModels() ) {
 
                         for (PartSpecBase partSpec : spec.getPartSpecs()) {
-
-                            if (partSpec.partName == "visor")
-                                System.out.println("helm original index");
-
-
                             if (partSpec.binding.getSlot() == slot) {
 
                                 // jet pack model not displayed by default

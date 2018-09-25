@@ -101,16 +101,4 @@ public enum MPSItems {
         FluidRegistry.addBucketForFluid(liquidNitrogen);
 
     }
-
-    @SubscribeEvent
-    public static void recipeCheck(RegistryEvent.Register<IRecipe> event) {
-
-
-
-//        if (event.getName().getResourceDomain().equals(MODID))
-        System.out.println(event.getName().toString());
-
-
-
-    }
  }

@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.utils.modulehelpers;
 
-import cofh.cofhworld.util.LinkedHashList;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.capabilities.MPSChestPlateFluidHandler;
 import net.machinemuse.powersuits.common.gui.hud.FluidMeter;
@@ -22,6 +21,7 @@ import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class FluidUtils {
@@ -41,7 +41,7 @@ public class FluidUtils {
     }
 
     public List<String> getFluidDisplayString() {
-        List<String> currentTipList = new LinkedHashList<>();
+        List<String> currentTipList = new LinkedList<>();
         int fluidLevel = getFluidLevel();
         int maxFluidLevel = getMaxFluidLevel();
 
