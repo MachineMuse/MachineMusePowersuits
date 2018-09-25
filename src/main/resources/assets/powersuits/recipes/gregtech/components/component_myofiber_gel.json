@@ -7,23 +7,25 @@
   ],
   "type": "powersuits:mps_shaped",
   "pattern": [
-    "CCC",
-    "SSS",
-    "CCC"
+    " M ",
+    "PIP",
+    "PMP"
   ],
   "key": {
-    "C": {
-      "type": "forge:ore_dict",
-      "ore" : "wireCopper"
+    "M": {
+      "item": "minecraft:magma_cream"
     },
-    "S": {
+    "P": {
       "type": "forge:ore_dict",
-      "ore" : "ingotSilver"
+      "ore" : "plateAlloyCarbon"
+    },
+    "I": {
+      "item" : "ic2:resource",
+      "data" : 4
     }
   },
   "result": {
     "type": "forge:ore_dict",
-    "ore" : "componentWiring",
-    "count" : 8
+    "ore" : "componentMyofiberGel"
   }
 }

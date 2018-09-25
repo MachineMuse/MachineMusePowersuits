@@ -7,29 +7,30 @@
   ],
   "type": "powersuits:mps_shaped",
   "pattern": [
-    " E ",
-    "ICI",
-    " R "
+    "ISI",
+    "WEW",
+    "ISI"
   ],
   "key": {
     "I": {
       "type": "forge:ore_dict",
-      "ore": "ingotIron"
+      "ore" : "plateAlloyIridium"
     },
-    "C": {
+    "S": {
       "type": "forge:ore_dict",
-      "ore" : "circuitBasic"
+      "ore": "componentSolenoid"
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore" : "wireGt01Superconductor"
     },
     "E": {
       "type": "forge:ore_dict",
-      "ore": "gemEmerald"
-    },
-    "R": {
-      "item" : "ic2:resource",
-      "data" : 12
+      "ore" : "circuitElite"
     }
   },
   "result": {
-    "item": "powersuits:tile.tinkertable"
+    "type": "forge:ore_dict",
+    "ore" : "componentFieldEmitter"
   }
 }

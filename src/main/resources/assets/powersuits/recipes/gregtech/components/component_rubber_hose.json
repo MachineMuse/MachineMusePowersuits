@@ -7,23 +7,22 @@
   ],
   "type": "powersuits:mps_shaped",
   "pattern": [
-    "CCC",
-    "SSS",
-    "CCC"
+    "RRR",
+    "G G",
+    "RRR"
   ],
   "key": {
-    "C": {
+    "R": {
       "type": "forge:ore_dict",
-      "ore" : "wireCopper"
+      "ore" : "itemRubber"
     },
-    "S": {
+    "G": {
       "type": "forge:ore_dict",
-      "ore" : "ingotSilver"
+      "ore" : "glassReinforced"
     }
   },
   "result": {
     "type": "forge:ore_dict",
-    "ore" : "componentWiring",
-    "count" : 8
+    "ore" : "componentRubberHose"
   }
 }

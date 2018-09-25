@@ -7,29 +7,30 @@
   ],
   "type": "powersuits:mps_shaped",
   "pattern": [
-    " E ",
-    "ICI",
-    " R "
+    "IWI",
+    "HFH",
+    "I I"
   ],
   "key": {
     "I": {
       "type": "forge:ore_dict",
-      "ore": "ingotIron"
+      "ore" : "plateAlloyIridium"
     },
-    "C": {
+    "W": {
       "type": "forge:ore_dict",
-      "ore" : "circuitBasic"
+      "ore" : "wireGt02Superconductor"
     },
-    "E": {
+    "H": {
       "type": "forge:ore_dict",
-      "ore": "gemEmerald"
+      "ore" : "componentHVCapacitor"
     },
-    "R": {
-      "item" : "ic2:resource",
-      "data" : 12
+    "F": {
+      "type": "forge:ore_dict",
+      "ore" : "componentFieldEmitter"
     }
   },
   "result": {
-    "item": "powersuits:tile.tinkertable"
+    "type": "forge:ore_dict",
+    "ore" : "componentIonThruster"
   }
 }

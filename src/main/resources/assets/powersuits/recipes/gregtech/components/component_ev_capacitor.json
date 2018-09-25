@@ -7,23 +7,26 @@
   ],
   "type": "powersuits:mps_shaped",
   "pattern": [
-    "CCC",
-    "SSS",
-    "CCC"
+    "WHW",
+    "WCW",
+    "WHW"
   ],
   "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "H": {
+      "type": "forge:ore_dict",
+      "ore": "componentHVCapacitor"
+    },
     "C": {
       "type": "forge:ore_dict",
-      "ore" : "wireCopper"
-    },
-    "S": {
-      "type": "forge:ore_dict",
-      "ore" : "ingotSilver"
+      "ore": "componentComputerChip"
     }
   },
   "result": {
     "type": "forge:ore_dict",
-    "ore" : "componentWiring",
-    "count" : 8
+    "ore" : "componentEVCapacitor"
   }
 }

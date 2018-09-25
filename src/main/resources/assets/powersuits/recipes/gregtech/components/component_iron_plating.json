@@ -7,23 +7,22 @@
   ],
   "type": "powersuits:mps_shaped",
   "pattern": [
-    "CCC",
-    "SSS",
-    "CCC"
+    "II",
+    "BI",
+    "II"
   ],
   "key": {
-    "C": {
+    "B": {
       "type": "forge:ore_dict",
-      "ore" : "wireCopper"
+      "ore" : "circuitBasic"
     },
-    "S": {
+    "I": {
       "type": "forge:ore_dict",
-      "ore" : "ingotSilver"
+      "ore" : "ingotNickel"
     }
   },
   "result": {
-    "type": "forge:ore_dict",
-    "ore" : "componentWiring",
-    "count" : 8
+    "item": "powersuits:powerarmorcomponent",
+    "data": 10
   }
 }

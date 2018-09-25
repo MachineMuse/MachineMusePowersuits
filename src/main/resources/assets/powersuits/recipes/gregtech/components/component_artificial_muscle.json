@@ -7,23 +7,22 @@
   ],
   "type": "powersuits:mps_shaped",
   "pattern": [
+    "CRC",
     "CCC",
-    "SSS",
     "CCC"
   ],
   "key": {
     "C": {
       "type": "forge:ore_dict",
-      "ore" : "wireCopper"
+      "ore": "componentCarbonMyofiber"
     },
-    "S": {
+    "R": {
       "type": "forge:ore_dict",
-      "ore" : "ingotSilver"
+      "ore" : "itemRubber"
     }
   },
   "result": {
     "type": "forge:ore_dict",
-    "ore" : "componentWiring",
-    "count" : 8
+    "ore" : "componentArtificialMuscle"
   }
 }

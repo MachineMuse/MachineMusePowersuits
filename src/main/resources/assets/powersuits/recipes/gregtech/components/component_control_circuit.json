@@ -7,26 +7,34 @@
   ],
   "type": "powersuits:mps_shaped",
   "pattern": [
-    "WIW",
-    "WCW",
-    "WIW"
+    "WAE",
+    "DCA",
+    "EDW"
   ],
   "key": {
     "W": {
       "type": "forge:ore_dict",
       "ore": "componentWiring"
     },
-    "I": {
+    "A": {
       "type": "forge:ore_dict",
-      "ore" : "plateIron"
+      "ore" : "circuitAdvanced"
+    },
+    "E": {
+      "type": "forge:ore_dict",
+      "ore" : "ingotElectrum"
+    },
+    "D": {
+      "type": "forge:ore_dict",
+      "ore" : "circuitData"
     },
     "C": {
       "type": "forge:ore_dict",
-      "ore" : "circuitBasic"
+      "ore" : "circuitElite"
     }
   },
   "result": {
     "type": "forge:ore_dict",
-    "ore" : "componentSolenoid"
+    "ore" : "componentControlCircuit"
   }
 }

@@ -7,23 +7,22 @@
   ],
   "type": "powersuits:mps_shaped",
   "pattern": [
-    "CCC",
-    "SSS",
-    "CCC"
+    "II",
+    "AI",
+    "II"
   ],
   "key": {
-    "C": {
+    "A": {
       "type": "forge:ore_dict",
-      "ore" : "wireCopper"
+      "ore" : "circuitAdvanced"
     },
-    "S": {
+    "I": {
       "type": "forge:ore_dict",
-      "ore" : "ingotSilver"
+      "ore" : "plateAlloyIridium"
     }
   },
   "result": {
     "type": "forge:ore_dict",
-    "ore" : "componentWiring",
-    "count" : 8
+    "ore" : "componentPlatingDiamond"
   }
 }

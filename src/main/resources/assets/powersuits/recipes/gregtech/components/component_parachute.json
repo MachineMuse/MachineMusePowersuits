@@ -7,23 +7,26 @@
   ],
   "type": "powersuits:mps_shaped",
   "pattern": [
-    "CCC",
-    "SSS",
-    "CCC"
+    "WWW",
+    "S S",
+    "C C"
   ],
   "key": {
-    "C": {
+    "W": {
       "type": "forge:ore_dict",
-      "ore" : "wireCopper"
+      "ore": "blockWool"
     },
     "S": {
       "type": "forge:ore_dict",
-      "ore" : "ingotSilver"
+      "ore": "string"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore" : "plateAlloyCarbon"
     }
   },
   "result": {
     "type": "forge:ore_dict",
-    "ore" : "componentWiring",
-    "count" : 8
+    "ore" : "componentParachute"
   }
 }

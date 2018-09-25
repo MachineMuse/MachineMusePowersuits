@@ -7,23 +7,26 @@
   ],
   "type": "powersuits:mps_shaped",
   "pattern": [
-    "CCC",
-    "SSS",
-    "CCC"
+    "CWC",
+    "CUC",
+    "CUC"
   ],
   "key": {
     "C": {
       "type": "forge:ore_dict",
-      "ore" : "wireCopper"
+      "ore" : "ingotChrome"
     },
-    "S": {
+    "W": {
       "type": "forge:ore_dict",
-      "ore" : "ingotSilver"
+      "ore" : "componentWiring"
+    },
+    "U": {
+      "type": "forge:ore_dict",
+      "ore" : "batteryUltimate"
     }
   },
   "result": {
     "type": "forge:ore_dict",
-    "ore" : "componentWiring",
-    "count" : 8
+    "ore" : "componentHVCapacitor"
   }
 }

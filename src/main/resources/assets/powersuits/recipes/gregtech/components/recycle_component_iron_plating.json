@@ -7,23 +7,16 @@
   ],
   "type": "powersuits:mps_shaped",
   "pattern": [
-    "CCC",
-    "SSS",
-    "CCC"
+    "P"
   ],
   "key": {
-    "C": {
+    "P": {
       "type": "forge:ore_dict",
-      "ore" : "wireCopper"
-    },
-    "S": {
-      "type": "forge:ore_dict",
-      "ore" : "ingotSilver"
+      "ore": "componentPlatingIron"
     }
   },
   "result": {
-    "type": "forge:ore_dict",
-    "ore" : "componentWiring",
-    "count" : 8
+    "item": "minecraft:iron_ingot",
+    "count": 5
   }
 }

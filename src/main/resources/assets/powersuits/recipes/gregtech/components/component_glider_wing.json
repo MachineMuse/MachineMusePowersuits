@@ -7,23 +7,22 @@
   ],
   "type": "powersuits:mps_shaped",
   "pattern": [
-    "CCC",
-    "SSS",
-    "CCC"
+    " CC",
+    "CCS",
+    "C  "
   ],
   "key": {
-    "C": {
-      "type": "forge:ore_dict",
-      "ore" : "wireCopper"
-    },
     "S": {
       "type": "forge:ore_dict",
-      "ore" : "ingotSilver"
+      "ore": "componentSolenoid"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore" : "plateAlloyCarbon"
     }
   },
   "result": {
     "type": "forge:ore_dict",
-    "ore" : "componentWiring",
-    "count" : 8
+    "ore" : "componentGliderWing"
   }
 }

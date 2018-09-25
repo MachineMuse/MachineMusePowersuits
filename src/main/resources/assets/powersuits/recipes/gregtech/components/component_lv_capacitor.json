@@ -7,23 +7,26 @@
   ],
   "type": "powersuits:mps_shaped",
   "pattern": [
-    "CCC",
-    "SSS",
-    "CCC"
+    "SWS",
+    "SES",
+    "SES"
   ],
   "key": {
-    "C": {
+    "W": {
       "type": "forge:ore_dict",
-      "ore" : "wireCopper"
+      "ore": "componentWiring"
     },
     "S": {
       "type": "forge:ore_dict",
-      "ore" : "ingotSilver"
+      "ore" : "ingotSteel"
+    },
+    "E": {
+      "type": "forge:ore_dict",
+      "ore" : "batteryElite"
     }
   },
   "result": {
     "type": "forge:ore_dict",
-    "ore" : "componentWiring",
-    "count" : 8
+    "ore" : "componentLVCapacitor"
   }
 }

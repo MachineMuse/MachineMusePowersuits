@@ -7,23 +7,30 @@
   ],
   "type": "powersuits:mps_shaped",
   "pattern": [
-    "CCC",
+    "IAI",
     "SSS",
-    "CCC"
+    "IEI"
   ],
   "key": {
-    "C": {
+    "I": {
       "type": "forge:ore_dict",
-      "ore" : "wireCopper"
+      "ore": "ingotIron"
+    },
+    "A": {
+      "type": "forge:ore_dict",
+      "ore" : "circuitAdvanced"
     },
     "S": {
       "type": "forge:ore_dict",
-      "ore" : "ingotSilver"
+      "ore": "componentSolenoid"
+    },
+    "E": {
+      "type": "forge:ore_dict",
+      "ore" : "circuitElite"
     }
   },
   "result": {
     "type": "forge:ore_dict",
-    "ore" : "componentWiring",
-    "count" : 8
+    "ore" : "componentMagnet"
   }
 }

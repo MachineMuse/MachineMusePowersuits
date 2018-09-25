@@ -1,7 +1,7 @@
 {
   "conditions": [
     {
-      "type": "powersuits:vanilla_recipes_enabled",
+      "type": "gregtech_recipes_enabled",
       "value": true
     }
   ],

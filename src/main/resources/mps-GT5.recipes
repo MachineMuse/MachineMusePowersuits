@@ -8,96 +8,14 @@
 
 
 
-  {
-    "ingredients" : [
-      [  { "ore" : "ingotSteel" }, { "ore" : "ingotBrass" }, { "ore" : "ingotSteel" } ],
-      [  { "ore" : "circuitAdvanced" }, { "ore" : "componentSolenoid" }, { "ore" : "circuitAdvanced" } ],
-      [  { "ore" : "ingotSteel" }, { "ore" : "ingotBrass" }, { "ore" : "ingotSteel" } ]
-    ],
-    "result" : {
-      "ore" : "componentServo"
-    }
-  },
-  {
-    "ingredients" : [
-      [  null, { "ore" : "plateAlloyCarbon"  }, { "ore" : "plateAlloyCarbon"  } ],
-      [  { "ore" : "plateAlloyCarbon"  }, { "ore" : "plateAlloyCarbon"  }, { "ore" : "componentSolenoid" } ],
-      [  { "ore" : "plateAlloyCarbon"  }, null, { "ore" : "ingotIron" } ]
-    ],
-    "result" : {
-      "ore" : "componentGliderWing"
-    }
-  },
-  {
-    "ingredients" : [
-      [  { "ore" : "plateAlloyIridium" }, { "ore" : "wireGt02Superconductor" }, { "ore" : "plateAlloyIridium" } ],
-      [  { "ore" : "componentHVCapacitor" }, { "ore" : "componentFieldEmitter" }, { "ore" : "componentHVCapacitor" } ],
-      [  { "ore" : "plateAlloyIridium" }, null, { "ore" : "plateAlloyIridium" } ]
-    ],
-    "result" : {
-      "ore" : "componentIonThruster"
-    }
-  },
-  {
-    "ingredients" : [
-      [  { "ore" : "ingotSteel" }, { "ore" : "componentWiring" }, { "ore" : "ingotSteel" } ],
-      [  { "ore" : "ingotSteel" }, { "ore" : "batteryElite" }, { "ore" : "ingotSteel" } ],
-      [  { "ore" : "ingotSteel" }, { "ore" : "batteryElite" }, { "ore" : "ingotSteel" } ]
-    ],
-    "result" : {
-      "ore" : "componentLVCapacitor"
-    }
-  },
-  {
-    "ingredients" : [
-      [  { "ore" : "ingotNickel" }, { "ore" : "componentWiring" }, { "ore" : "ingotNickel" } ],
-      [  { "ore" : "ingotNickel" }, { "ore" : "batteryMaster" }, { "ore" : "ingotNickel" } ],
-      [  { "ore" : "ingotNickel" }, { "ore" : "batteryMaster" }, { "ore" : "ingotNickel" } ]
-    ],
-    "result" : {
-      "ore" : "componentMVCapacitor"
-    }
-  },
-  {
-    "ingredients" : [
-      [  { "ore" : "ingotChrome" }, { "ore" : "componentWiring" }, { "ore" : "ingotChrome" } ],
-      [  { "ore" : "ingotChrome" }, { "ore" : "batteryUltimate" }, { "ore" : "ingotChrome" } ],
-      [  { "ore" : "ingotChrome" }, { "ore" : "batteryUltimate" }, { "ore" : "ingotChrome" } ]
-    ],
-    "result" : {
-      "ore" : "componentHVCapacitor"
-    }
-  },
-  {
-    "ingredients" : [
-      [  {"ore" : "componentWiring" }, { "ore" : "componentHVCapacitor" }, {"ore" : "componentWiring" } ],
-      [  {"ore" : "componentWiring" }, {"ore" : "componentComputerChip"}, {"ore" : "componentWiring" } ],
-      [  {"ore" : "componentWiring" }, { "ore" : "componentHVCapacitor" }, {"ore" : "componentWiring" } ]
-    ],
-    "result" : {
-      "ore" : "componentEVCapacitor"
-    }
-  },
-  {
-    "ingredients" : [
-      [  { "item" : "minecraft:wool" }, { "item" : "minecraft:wool" }, { "item" : "minecraft:wool" } ],
-      [  { "item" : "minecraft:string" }, null, { "item" : "minecraft:string" } ],
-      [  { "ore" : "plateAlloyCarbon"  }, null, { "ore" : "plateAlloyCarbon"  } ]
-    ],
-    "result" : {
-      "ore" : "componentParachute"
-    }
-  },
-  {
-    "ingredients" : [
-      [ { "ore" : "ingotNickel" }, { "ore" : "ingotNickel" } ],
-      [ { "ore" : "circuitBasic" }, { "ore" : "ingotNickel" } ],
-      [ { "ore" : "ingotNickel" }, { "ore" : "ingotNickel" } ]
-    ],
-    "result" : {
-      "ore" : "componentPlatingIron"
-    }
-  },
+
+
+
+
+
+
+
+
   {
     "ingredients" : [
       [ { "ore" : "componentPlatingIron" } ]
@@ -107,16 +25,7 @@
       "count" : 5
     }
   },
-  {
-    "ingredients" : [
-      [ { "ore" : "plateAlloyIridium" }, { "ore" : "plateAlloyIridium" } ],
-      [ { "ore" : "circuitAdvanced" }, { "ore" : "plateAlloyIridium" } ],
-      [ { "ore" : "plateAlloyIridium" }, { "ore" : "plateAlloyIridium" } ]
-    ],
-    "result" : {
-      "ore" : "componentPlatingDiamond"
-    }
-  },
+
   {
     "ingredients" : [
       [ { "ore" : "componentPlatingDiamond" } ]
@@ -126,106 +35,5 @@
       "count" : 5
     }
   },
-  {
-    "ingredients" : [
-      [  {"ore" : "plateAlloyIridium" }, {"ore" : "componentSolenoid" }, {"ore" : "plateAlloyIridium" } ],
-      [  {"ore" : "wireGt01Superconductor" }, { "ore" : "circuitElite" }, {"ore" : "wireGt01Superconductor" } ],
-      [  {"ore" : "plateAlloyIridium" }, {"ore" : "componentSolenoid" }, {"ore" : "plateAlloyIridium" } ]
-    ],
-    "result" : {
-      "ore" : "componentFieldEmitter"
-    },
-    "mirror" : true
-  },
-  {
-    "ingredients" : [
-      [ { "ore" : "circuitAdvanced" }, { "ore" : "glassReinforced" }, { "ore" : "circuitAdvanced" } ],
-      [ { "ore" : "glassReinforced" }, { "ore" : "circuitAdvanced" }, { "ore" : "glassReinforced" } ],
-      [ { "ore" : "plateAlloyCarbon"  }, { "ore" : "glassReinforced" }, { "ore" : "plateAlloyCarbon"  } ]
-    ],
-    "result" : {
-      "ore" : "componentLaserEmitter"
-    }
-  },
-  {
-    "ingredients" : [
-      [ { "ore" : "plateAlloyCarbon"  }, { "ore" : "plateAlloyCarbon"  }, { "ore" : "plateAlloyCarbon"  } ],
-      [ { "ore" : "plateAlloyCarbon"  }, { "ore" : "plateAlloyCarbon"  }, { "ore" : "plateAlloyCarbon"  } ],
-      [ { "ore" : "plateAlloyCarbon"  }, { "ore" : "plateAlloyCarbon"  }, { "ore" : "plateAlloyCarbon"  } ]
-    ],
-    "result" : {
-      "ore" : "componentCarbonMyofiber"
-    }
-  },
-  {
-    "ingredients" : [
-      [ { "ore" : "componentWiring" }, { "ore" : "circuitAdvanced" }, { "ore" : "ingotElectrum" } ],
-      [ { "ore" : "circuitData" }, { "ore" : "circuitElite" }, { "ore" : "circuitAdvanced" } ],
-      [ { "ore" : "ingotElectrum" }, { "ore" : "circuitData" }, { "ore" : "componentWiring" } ]
-    ],
-    "result" : {
-      "ore" : "componentControlCircuit"
-    },
-    "mirror" : true
-  },
-  {
-    "ingredients" : [
-      [ null, { "item" : "minecraft:magma_cream" }, null ],
-      [ { "ore" : "plateAlloyCarbon"  }, { "item" : "ic2:resource", "meta" : 4 }, { "ore" : "plateAlloyCarbon"  } ],
-      [ { "ore" : "plateAlloyCarbon"  }, { "item" : "minecraft:magma_cream" }, { "ore" : "plateAlloyCarbon"  } ]
-    ],
-    "result" : {
-      "ore" : "componentMyofiberGel"
-    }
-  },
-  {
-    "ingredients" : [
-      [ { "ore" : "componentCarbonMyofiber" }, { "ore" : "itemRubber" }, { "ore" : "componentCarbonMyofiber" } ],
-      [ { "ore" : "componentCarbonMyofiber" }, { "ore" : "componentMyofiberGel" }, { "ore" : "componentCarbonMyofiber" } ],
-      [ { "ore" : "componentCarbonMyofiber" }, { "ore" : "componentMyofiberGel" }, { "ore" : "componentCarbonMyofiber" } ]
-    ],
-    "result" : {
-      "ore" : "componentArtificialMuscle"
-    }
-  },
-  {
-    "ingredients" : [
-      [ { "ore" : "glassReinforced" }, { "ore" : "glassReinforced" }, { "ore" : "glassReinforced" } ],
-      [ { "ore" : "plateAlloyIridium" }, { "ore" : "circuitElite" }, { "ore" : "plateAlloyIridium" } ]
-    ],
-    "result" : {
-      "ore" : "componentSolarPanel"
-    }
-  },
-  {
-    "ingredients" : [
-      [ { "ore" : "ingotIron" }, { "ore" : "circuitAdvanced" }, { "ore" : "ingotIron" } ],
-      [ { "ore" : "componentSolenoid" }, { "ore" : "componentSolenoid" }, { "ore" : "componentSolenoid" } ],
-      [ { "ore" : "ingotIron" }, { "ore" : "circuitElite" }, { "ore" : "ingotIron" } ]
-    ],
-    "result" : {
-      "ore" : "componentMagnet"
-    }
-  },
-  {
-    "ingredients" : [
-      [ { "ore" : "wireGt01Superconductor" }, { "ore" : "componentFieldEmitter" }, { "ore" : "wireGt01Superconductor" } ],
-      [ { "ore" : "circuitElite" }, { "ore" : "componentControlCircuit" }, { "ore" : "circuitElite" } ],
-      [ { "ore" : "wireGt01Superconductor" }, { "ore" : "componentFieldEmitter" }, { "ore" : "wireGt01Superconductor" } ]
-    ],
-    "result" : {
-      "ore" : "componentComputerChip"
-    }
-  },
-  {
-    "ingredients" : [
-      [ { "ore" : "itemRubber" }, { "ore" : "itemRubber" }, { "ore" : "itemRubber" } ],
-      [ { "ore" : "glassReinforced" }, null, { "ore" : "glassReinforced" } ],
-      [ { "ore" : "itemRubber" }, { "ore" : "itemRubber" }, { "ore" : "itemRubber" } ]
-    ],
-    "result" : {
-      "ore" : "componentRubberHose"
-    }
-  },
 
-]
+

@@ -7,23 +7,26 @@
   ],
   "type": "powersuits:mps_shaped",
   "pattern": [
-    "CCC",
-    "SSS",
-    "CCC"
+    "NWN",
+    "NBN",
+    "NBN"
   ],
   "key": {
-    "C": {
+    "N": {
       "type": "forge:ore_dict",
-      "ore" : "wireCopper"
+      "ore" : "ingotNickel"
     },
-    "S": {
+    "W": {
       "type": "forge:ore_dict",
-      "ore" : "ingotSilver"
+      "ore": "componentWiring"
+    },
+    "B": {
+      "type": "forge:ore_dict",
+      "ore" : "batteryMaster"
     }
   },
   "result": {
-    "type": "forge:ore_dict",
-    "ore" : "componentWiring",
-    "count" : 8
+    "ore" : "componentMVCapacitor",
+    "ore": "dyeBlue"
   }
 }
