@@ -16,7 +16,8 @@
     }
   },
   "result": {
-    "item": "minecraft:iron_ingot",
+    "type": "forge:ore_dict",
+    "ore" : "gemDiamond",
     "count": 5
   }
 }

@@ -22,7 +22,7 @@
     }
   },
   "result": {
-    "item": "powersuits:powerarmorcomponent",
-    "data": 3
+    "type": "forge:ore_dict",
+    "ore" : "componentGliderWing"
   }
 }

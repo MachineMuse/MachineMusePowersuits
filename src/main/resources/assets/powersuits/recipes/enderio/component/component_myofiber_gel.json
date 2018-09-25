@@ -25,7 +25,7 @@
     }
   },
   "result": {
-    "item": "powersuits:powerarmorcomponent",
-    "data": 16
+    "type": "forge:ore_dict",
+    "ore" : "componentMyofiberGel"
   }
 }

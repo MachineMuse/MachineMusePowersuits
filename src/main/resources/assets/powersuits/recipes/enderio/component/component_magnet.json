@@ -26,7 +26,7 @@
     }
   },
   "result": {
-    "item": "powersuits:powerarmorcomponent",
-    "data": 19
+    "type": "forge:ore_dict",
+    "ore" : "componentMagnet"
   }
 }

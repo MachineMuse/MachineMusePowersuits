@@ -17,8 +17,5 @@
       "ore": "componentCarbonMyofiber"
     }
   },
-  "result": {
-    "item": "powersuits:powerarmorcomponent",
-    "data": 17
-  }
+"result": {     "type": "forge:ore_dict",     "ore" : "componentArtificialMuscle"   }
 }

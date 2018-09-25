@@ -36,7 +36,7 @@
     }
   },
   "result": {
-    "item": "powersuits:powerarmorcomponent",
-    "data": 18
+    "type": "forge:ore_dict",
+    "ore" : "componentSolarPanel"
   }
 }

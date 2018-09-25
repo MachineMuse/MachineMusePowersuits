@@ -20,8 +20,8 @@
     }
   },
   "result": {
-    "item": "powersuits:powerarmorcomponent",
-    "data": 0,
+    "type": "forge:ore_dict",
+    "ore" : "componentWiring",
     "count": 8
   }
 }

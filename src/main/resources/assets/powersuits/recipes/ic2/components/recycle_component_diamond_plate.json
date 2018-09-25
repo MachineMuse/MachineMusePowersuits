@@ -16,7 +16,8 @@
     }
   },
   "result": {
-    "item": "minecraft:diamond",
+    "type": "forge:ore_dict",
+    "ore" : "gemDiamond",
     "count": 5
   }
 }

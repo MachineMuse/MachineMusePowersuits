@@ -27,7 +27,7 @@
     }
   },
   "result": {
-    "item": "powersuits:powerarmorcomponent",
-    "data": 2
+    "type": "forge:ore_dict",
+    "ore" : "componentServo"
   }
 }

@@ -29,7 +29,7 @@
     }
   },
   "result": {
-    "item": "powersuits:powerarmorcomponent",
-    "data": 6
+    "type": "forge:ore_dict",
+    "ore" : "componentMVCapacitor"
   }
 }

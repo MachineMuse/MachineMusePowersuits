@@ -22,7 +22,7 @@
     }
   },
   "result": {
-    "item": "powersuits:powerarmorcomponent",
-    "data": 17
+    "type": "forge:ore_dict",
+    "ore": "componentArtificialMuscle"
   }
 }

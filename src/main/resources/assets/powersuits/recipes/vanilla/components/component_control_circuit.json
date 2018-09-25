@@ -34,7 +34,7 @@
     }
   },
   "result": {
-    "item": "powersuits:powerarmorcomponent",
-    "data": 15
+    "type": "forge:ore_dict",
+    "ore" : "componentControlCircuit"
   }
 }
