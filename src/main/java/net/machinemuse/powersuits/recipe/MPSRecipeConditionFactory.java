@@ -44,12 +44,11 @@ public class MPSRecipeConditionFactory implements IConditionFactory {
 
                 // Vanilla reciples only as fallback
                 case "powersuits:vanilla_recipes_enabled":
-                    return () -> (ModCompatibility.isEnderIOLoaded() ||
+                    return () -> (!(ModCompatibility.isEnderIOLoaded() ||
                             ModCompatibility.isGregTechLoaded() ||
                             ModCompatibility.isIndustrialCraftLoaded() ||
                             ModCompatibility.isTechRebornLoaded() ||
-                            ModCompatibility.isThermalExpansionLoaded());
-
+                            ModCompatibility.isThermalExpansionLoaded()));
             }
         }
         return () -> false;

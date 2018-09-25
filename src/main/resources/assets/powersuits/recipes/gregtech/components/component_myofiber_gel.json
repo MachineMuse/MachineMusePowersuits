@@ -19,8 +19,8 @@
       "ore" : "plateAlloyCarbon"
     },
     "I": {
-      "item" : "ic2:resource",
-      "data" : 4
+      "type": "forge:ore_dict",
+      "ore" : "blockCarbon"
     }
   },
   "result": {

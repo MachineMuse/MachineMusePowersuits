@@ -24,8 +24,8 @@
       "ore": "gemEmerald"
     },
     "R": {
-      "item" : "ic2:resource",
-      "data" : 12
+      "item" : "gregtech:metal_casing",
+      "data" : 4
     }
   },
   "result": {

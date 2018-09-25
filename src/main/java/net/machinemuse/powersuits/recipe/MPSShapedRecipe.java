@@ -4,6 +4,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.*;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -30,7 +31,9 @@ import java.util.Set;
  */
 @SuppressWarnings("unused")
 public class MPSShapedRecipe extends ShapedRecipes {
+
     private static Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+    static boolean isRecipeValid = true;
 
 
     public MPSShapedRecipe(String group, int width, int height, NonNullList<Ingredient> ingredients, ItemStack result) {
@@ -112,17 +115,29 @@ public class MPSShapedRecipe extends ShapedRecipes {
         else
             itemstack = deserializeOreAsResult(obj, context);
 
-        return new MPSShapedRecipe(group, width, height, nonnulllist, itemstack);
+        return new MPSShapedRecipe(group, width, height, nonnulllist, isRecipeValid ? itemstack : ItemStack.EMPTY );
     }
 
     /**
      * Use an Oredict entry as a result
      */
     public static ItemStack deserializeOreAsResult(JsonObject json, JsonContext context) {
-        NonNullList<ItemStack> itemStackList = OreDictionary.getOres(JsonUtils.getString(json, "ore"));
-        ItemStack itemStack = itemStackList.get(0);
-        itemStack.setCount(JsonUtils.getInt(json, "count", 1));
+        String oreName = JsonUtils.getString(json, "ore");
+
+        NonNullList<ItemStack> itemStackList = OreDictionary.getOres(oreName);
+        ItemStack itemStack = ItemStack.EMPTY;
+        if (itemStackList.size() > 0) {
+            itemStack = itemStackList.get(0);
+            itemStack.setCount(JsonUtils.getInt(json, "count", 1));
+            setRecipeToInvalid();
+
+        } else
+            MuseLogger.logException("no ore dictionary entry found for " + oreName, new JsonSyntaxException("missing oredict entry"));
         return itemStack;
+    }
+
+    static void setRecipeToInvalid() {
+        isRecipeValid = false;
     }
 
     private static Map<String, Ingredient> deserializeKey(JsonObject json, JsonContext context) {
