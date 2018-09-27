@@ -7,7 +7,6 @@ import com.google.gson.*;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.nbt.NBTException;
@@ -99,20 +98,19 @@ public class NuminaShapedRecipe extends ShapedRecipes {
         ItemStack itemstack = deserializeItem(JsonUtils.getJsonObject(json, "result"), true);
         return new NuminaShapedRecipe(s, i, j, nonnulllist, itemstack);
     }
-
-    private static NonNullList<Ingredient> deserializeIngredients(String[] p_192402_0_, Map<String, Ingredient> p_192402_1_, int p_192402_2_, int p_192402_3_) {
-        NonNullList<Ingredient> nonnulllist = NonNullList.<Ingredient>withSize(p_192402_2_ * p_192402_3_, Ingredient.EMPTY);
-        Set<String> set = Sets.newHashSet(p_192402_1_.keySet());
+    private static NonNullList<Ingredient> deserializeIngredients(String[] strings, Map<String, Ingredient> ingredientMap, int patternWidth, int patternHeight) {
+        NonNullList<Ingredient> nonnulllist = NonNullList.<Ingredient>withSize(patternWidth * patternHeight, Ingredient.EMPTY);
+        Set<String> set = Sets.newHashSet(ingredientMap.keySet());
         set.remove(" ");
 
-        for (int i = 0; i < p_192402_0_.length; ++i) {
-            for (int j = 0; j < p_192402_0_[i].length(); ++j) {
-                String s = p_192402_0_[i].substring(j, j + 1);
-                Ingredient ingredient = p_192402_1_.get(s);
+        for (int i = 0; i < strings.length; ++i) {
+            for (int j = 0; j < strings[i].length(); ++j) {
+                String s = strings[i].substring(j, j + 1);
+                Ingredient ingredient = ingredientMap.get(s);
                 if (ingredient == null)
                     throw new JsonSyntaxException("Pattern references symbol '" + s + "' but it's not defined in the key");
                 set.remove(s);
-                nonnulllist.set(j + p_192402_2_ * i, ingredient);
+                nonnulllist.set(j + patternWidth * i, ingredient);
             }
         }
         if (!set.isEmpty())
@@ -121,14 +119,14 @@ public class NuminaShapedRecipe extends ShapedRecipes {
     }
 
     @VisibleForTesting
-    static String[] shrink(String... p_194134_0_) {
+    static String[] shrink(String... strings) {
         int i = Integer.MAX_VALUE;
         int j = 0;
         int k = 0;
         int l = 0;
 
-        for (int i1 = 0; i1 < p_194134_0_.length; ++i1) {
-            String s = p_194134_0_[i1];
+        for (int i1 = 0; i1 < strings.length; ++i1) {
+            String s = strings[i1];
             i = Math.min(i, firstNonSpace(s));
             int j1 = lastNonSpace(s);
             j = Math.max(j, j1);
@@ -141,15 +139,14 @@ public class NuminaShapedRecipe extends ShapedRecipes {
                 l = 0;
         }
 
-        if (p_194134_0_.length == l)
+        if (strings.length == l)
             return new String[0];
 
-        String[] astring = new String[p_194134_0_.length - l - k];
+        String[] astring = new String[strings.length - l - k];
         for (int k1 = 0; k1 < astring.length; ++k1)
-            astring[k1] = p_194134_0_[k1 + k].substring(i, j + 1);
+            astring[k1] = strings[k1 + k].substring(i, j + 1);
 
         return astring;
-
     }
 
     private static int firstNonSpace(String str) {
@@ -187,11 +184,11 @@ public class NuminaShapedRecipe extends ShapedRecipes {
         return astring;
     }
 
-    private static Map<String, Ingredient> deserializeKey(JsonObject p_192408_0_) {
+    private static Map<String, Ingredient> deserializeKey(JsonObject jsonObj) {
         Map<String, Ingredient> map = Maps.<String, Ingredient>newHashMap();
-        for (Map.Entry<String, JsonElement> entry : p_192408_0_.entrySet()) {
+        for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
             if (entry.getKey().length() != 1)
-                throw new JsonSyntaxException("Invalid key entry: '" + (String) entry.getKey() + "' is an invalid symbol (must be 1 character only).");
+                throw new JsonSyntaxException("Invalid key entry: '" + entry.getKey() + "' is an invalid symbol (must be 1 character only).");
             if (" ".equals(entry.getKey()))
                 throw new JsonSyntaxException("Invalid key entry: ' ' is a reserved symbol.");
             map.put(entry.getKey(), deserializeIngredient(entry.getValue()));
