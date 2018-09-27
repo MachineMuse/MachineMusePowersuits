@@ -22,6 +22,10 @@
     "S": {
       "type": "forge:ore_dict",
       "ore": "componentSolenoid"
+    },
+    "B": {
+      "type": "forge:ore_dict",
+      "ore": "ingotBrass"
     }
   },
   "result": {

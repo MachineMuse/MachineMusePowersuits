@@ -31,7 +31,8 @@
         "chisel",
         "cofhcore",
         "refinedstorage",
-        "tesla"
+        "tesla",
+        "gregtech"
         ],
     "useDependencyInformation": true
 }]

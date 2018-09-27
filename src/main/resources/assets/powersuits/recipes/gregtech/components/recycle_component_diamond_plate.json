@@ -16,7 +16,7 @@
   },
   "result": {
     "type": "forge:ore_dict",
-    "ore" : "plateAlloyIridium",
+    "ore" : "plateIridium",
     "count": 5
   }
 }

@@ -13,7 +13,8 @@
   "key": {
     "W": {
       "type": "forge:ore_dict",
-      "ore": "blockWool"
+      "ore": "blockWoolWhite",
+      "_comment" : "Fixme: there is no universal oredict entry for wool so using white for now"
     },
     "S": {
       "type": "forge:ore_dict",

@@ -13,7 +13,7 @@
   "key": {
     "I": {
       "type": "forge:ore_dict",
-      "ore" : "plateAlloyIridium"
+      "ore" : "plateIridium"
     },
     "S": {
       "type": "forge:ore_dict",

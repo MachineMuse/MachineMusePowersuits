@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.recipe;
+package net.machinemuse.numina.recipe;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Lists;

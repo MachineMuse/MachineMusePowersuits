@@ -16,7 +16,7 @@
     },
     "I": {
       "type": "forge:ore_dict",
-      "ore": "plateAlloyIridium"
+      "ore": "plateIridium"
     },
     "E": {
       "type": "forge:ore_dict",

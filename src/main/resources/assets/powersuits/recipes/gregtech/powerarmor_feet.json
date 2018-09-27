@@ -16,7 +16,7 @@
     },
     "W": {
       "type": "forge:ore_dict",
-      "ore": "circuitBasic"
+      "ore" : "circuitBasic"
     }
   },
   "result": {

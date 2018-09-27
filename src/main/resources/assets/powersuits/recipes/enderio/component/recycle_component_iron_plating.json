@@ -16,7 +16,7 @@
   },
   "result": {
     "type": "forge:ore_dict",
-    "ore" : "ingotNickel",
+    "ore" : "ingotIron",
     "count": 5
   }
 }
