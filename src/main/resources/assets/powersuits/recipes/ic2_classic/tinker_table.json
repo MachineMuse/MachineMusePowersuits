@@ -24,8 +24,8 @@
       "ore": "circuitBasic"
     },
     "M": {
-      "item": "ic2:resource",
-      "data": 12
+      "item": "ic2:blockmachinelv",
+      "data" : 0
     }
   },
   "result": {

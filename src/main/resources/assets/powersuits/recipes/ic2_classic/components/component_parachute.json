@@ -13,7 +13,7 @@
   "key": {
     "W": {
       "type": "forge:ore_dict",
-      "ore": "blockWool"
+      "ore": "blockWoolWhite"
     },
     "S": {
       "type": "forge:ore_dict",

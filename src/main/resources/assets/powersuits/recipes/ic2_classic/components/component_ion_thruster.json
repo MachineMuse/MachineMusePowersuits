@@ -28,7 +28,8 @@
       "ore": "circuitAdvanced"
     },
     "I": {
-      "item" : "ic2:blockMachineLV"
+      "item" : "ic2:blockmachinemv",
+      "data" : 0
     }
   },
   "result": {

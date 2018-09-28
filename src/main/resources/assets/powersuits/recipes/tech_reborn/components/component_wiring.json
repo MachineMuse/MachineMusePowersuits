@@ -1,7 +1,7 @@
 {
   "conditions": [
     {
-      "type": "tech_reborn_recipes_enabled"
+      "type": "powersuits:tech_reborn_recipes_enabled"
     }
   ],
   "type": "powersuits:mps_shaped",
@@ -12,7 +12,7 @@
   ],
   "key": {
     "C": {
-      "item" : "techreborn:cables",
+      "item" : "techreborn:cable",
       "data": 0
     },
     "S": {

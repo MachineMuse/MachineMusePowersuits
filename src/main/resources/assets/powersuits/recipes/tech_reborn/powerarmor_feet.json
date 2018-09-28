@@ -1,7 +1,7 @@
 {
   "conditions": [
     {
-      "type": "tech_reborn_recipes_enabled"
+      "type": "powersuits:tech_reborn_recipes_enabled"
     }
   ],
   "type": "powersuits:mps_shaped",
@@ -14,7 +14,7 @@
       "type": "forge:ore_dict",
       "ore": "circuitBasic"
     },
-    "W": {
+    "S": {
       "type": "forge:ore_dict",
       "ore": "ingotSilver"
     }

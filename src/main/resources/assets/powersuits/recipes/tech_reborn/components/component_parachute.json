@@ -1,19 +1,19 @@
 {
   "conditions": [
     {
-      "type": "tech_reborn_recipes_enabled"
+      "type": "powersuits:tech_reborn_recipes_enabled"
     }
   ],
   "type": "powersuits:mps_shaped",
   "pattern": [
     "WWW",
     "S S",
-    "C C"
+    "I I"
   ],
   "key": {
     "W": {
       "type": "forge:ore_dict",
-      "ore": "blockWool"
+      "ore": "blockWoolWhite"
     },
     "S": {
       "type": "forge:ore_dict",

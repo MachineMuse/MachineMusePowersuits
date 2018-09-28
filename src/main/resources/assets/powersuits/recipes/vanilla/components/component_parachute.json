@@ -12,8 +12,9 @@
   ],
   "key": {
     "W": {
-      "type": "forge:ore_dict",
-      "ore": "blockWool"
+      "item" : "minecraft:wool",
+      "data" : 0,
+      "_comment" : "no vanilla oredict entries at all for wool"
     },
     "S": {
       "type": "forge:ore_dict",

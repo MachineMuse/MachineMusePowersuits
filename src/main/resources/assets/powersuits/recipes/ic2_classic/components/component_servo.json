@@ -20,7 +20,8 @@
       "ore": "componentWiring"
     },
     "I": {
-      "item" : "ic2:blockMachineLV"
+      "item" : "ic2:blockmachinelv",
+      "data" : 0
     }
   },
   "result": {

@@ -10,7 +10,8 @@
   ],
   "key": {
     "C": {
-      "item": "ic2:cable"
+      "item": "ic2:itemcable",
+      "data" : 0
     },
     "R": {
       "type": "forge:ore_dict",

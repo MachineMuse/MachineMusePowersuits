@@ -1,13 +1,13 @@
 {
   "conditions": [
     {
-      "type": "tech_reborn_recipes_enabled"
+      "type": "powersuits:tech_reborn_recipes_enabled"
     }
   ],
   "type": "powersuits:mps_shaped",
   "pattern": [
     "II",
-    "WI",
+    "AI",
     "II"
   ],
   "key": {

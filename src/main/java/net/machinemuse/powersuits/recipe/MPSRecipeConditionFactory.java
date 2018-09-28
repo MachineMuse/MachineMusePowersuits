@@ -14,7 +14,6 @@ public class MPSRecipeConditionFactory implements IConditionFactory {
     public BooleanSupplier parse(JsonContext context, JsonObject json) {
         if(JsonUtils.hasField(json, "type")) {
             String key = JsonUtils.getString(json, "type");
-
             switch (key) {
                 // Thermal Expansion
                 case "powersuits:thermal_expansion_recipes_enabled":
