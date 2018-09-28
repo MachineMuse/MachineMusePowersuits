@@ -15,8 +15,10 @@ import net.minecraft.util.JsonUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.JsonContext;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.OreIngredient;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -201,9 +203,12 @@ public class NuminaShapedRecipe extends ShapedRecipes {
         if (jsonElement == null ||jsonElement.isJsonNull())
             throw new JsonSyntaxException("Item cannot be null");
 
-        if (jsonElement.isJsonObject())
-            return Ingredient.fromStacks(deserializeItem(jsonElement.getAsJsonObject(), false));
-        else if (!jsonElement.isJsonArray())
+        if (jsonElement.isJsonObject()) {
+            if (jsonElement.getAsJsonObject().has("item"))
+                return Ingredient.fromStacks(deserializeItem(jsonElement.getAsJsonObject(), false));
+            if (jsonElement.getAsJsonObject().has("ore"))
+                return new OreIngredient(JsonUtils.getString(jsonElement.getAsJsonObject(), "ore"));
+        } else if (!jsonElement.isJsonArray())
             throw new JsonSyntaxException("Expected item to be object or array of objects");
 
         JsonArray jsonarray = jsonElement.getAsJsonArray();
