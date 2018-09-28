@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.recipe;
 
 import com.google.gson.JsonObject;
+import net.machinemuse.numina.recipe.NuminaShapedRecipe;
 import net.machinemuse.powersuits.common.ModCompatibility;
 import net.minecraft.util.JsonUtils;
 import net.minecraftforge.common.crafting.IConditionFactory;
@@ -28,23 +29,24 @@ public class MPSRecipeConditionFactory implements IConditionFactory {
                 case "powersuits:tech_reborn_recipes_enabled":
                     return () -> ModCompatibility.isTechRebornLoaded();
 
-                // GregTech
-                case "powersuits:gregtech_recipes_enabled":
-                    return () -> (ModCompatibility.isGregTechLoaded() && !ModCompatibility.isTechRebornLoaded());
+                    // FIXME: Gregtech recipe loading is broken due to ores being registered during recipe loading.
+//                // GregTech
+//                case "powersuits:gregtech_recipes_enabled":
+//                    return () -> (ModCompatibility.isGregTechLoaded() && !ModCompatibility.isTechRebornLoaded());
 
                 // IC2
                 case "powersuits:ic2_recipes_enabled":
                     return () -> (ModCompatibility.isIndustrialCraftExpLoaded() &&
-                            (!ModCompatibility.isGregTechLoaded() && !ModCompatibility.isTechRebornLoaded()));
+                            (/*!ModCompatibility.isGregTechLoaded() &&*/ !ModCompatibility.isTechRebornLoaded()));
                 // IC2 Classic
                 case "powersuits:ic2_classic_recipes_enabled":
                     return () -> (ModCompatibility.isIndustrialCraftClassicLoaded() &&
-                            (!ModCompatibility.isGregTechLoaded() && !ModCompatibility.isTechRebornLoaded()));
+                            (/*!ModCompatibility.isGregTechLoaded() && */!ModCompatibility.isTechRebornLoaded()));
 
                 // Vanilla reciples only as fallback
                 case "powersuits:vanilla_recipes_enabled":
                     return () -> (!(ModCompatibility.isEnderIOLoaded() ||
-                            ModCompatibility.isGregTechLoaded() ||
+                            /*ModCompatibility.isGregTechLoaded() || */
                             ModCompatibility.isIndustrialCraftLoaded() ||
                             ModCompatibility.isTechRebornLoaded() ||
                             ModCompatibility.isThermalExpansionLoaded()));

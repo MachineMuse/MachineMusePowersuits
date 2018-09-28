@@ -1,7 +1,8 @@
 {
   "conditions": [
     {
-      "type": "powersuits:gregtech_recipes_enabled"
+      "type": "powersuits:gregtech_recipes_enabled",
+      "useLateLoading" : true
     }
   ],
   "type": "powersuits:mps_shaped",

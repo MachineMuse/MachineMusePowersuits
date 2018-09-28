@@ -103,17 +103,17 @@ artifacts {
     archives devJar
 }
 
-task copyToLib(type: Copy) {
-    into "$buildDir/libs"
-    from(sourceSets.main.resources.srcDirs){
-        include 'mps-vanilla.recipes'
-//        include 'mps-thermalexpansion.recipes'
-        include 'mps-ic2.recipes'
-        include 'mps-enderio.recipes'
-    }
-}
+//task copyToLib(type: Copy) {
+//    into "$buildDir/libs"
+//    from(sourceSets.main.resources.srcDirs){
+////        include 'mps-vanilla.recipes'
+//////        include 'mps-thermalexpansion.recipes'
+////        include 'mps-ic2.recipes'
+////        include 'mps-enderio.recipes'
+//    }
+//}
 
-build.dependsOn(copyToLib)
+//build.dependsOn(copyToLib)
 
 idea {
     module {
