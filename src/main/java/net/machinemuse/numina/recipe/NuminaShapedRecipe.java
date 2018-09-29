@@ -100,6 +100,7 @@ public class NuminaShapedRecipe extends ShapedRecipes {
         ItemStack itemstack = deserializeItem(JsonUtils.getJsonObject(json, "result"), true);
         return new NuminaShapedRecipe(s, i, j, nonnulllist, itemstack);
     }
+
     private static NonNullList<Ingredient> deserializeIngredients(String[] strings, Map<String, Ingredient> ingredientMap, int patternWidth, int patternHeight) {
         NonNullList<Ingredient> nonnulllist = NonNullList.<Ingredient>withSize(patternWidth * patternHeight, Ingredient.EMPTY);
         Set<String> set = Sets.newHashSet(ingredientMap.keySet());
