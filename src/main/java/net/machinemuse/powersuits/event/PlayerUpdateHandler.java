@@ -12,8 +12,6 @@ import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -33,7 +31,7 @@ public class PlayerUpdateHandler {
 
             List<ItemStack> modularItemsEquipped = MuseItemUtils.getModularItemsEquipped(player);
 
-            // FIXME: is this really nescessary?
+//            // FIXME: is this really nescessary... apparently it is
 //            for (ItemStack stack : modularItemsEquipped) {
 //                // Temporary Advanced Rocketry hack Not the best way but meh.
 //                NBTTagList tagList = stack.getEnchantmentTagList();
@@ -56,21 +54,10 @@ public class PlayerUpdateHandler {
 //                    }
 //                }
 //            }
-//
-//            boolean foundItemWithModule = false;
-//            for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IPlayerTickModule.class)) {
-//                for (ItemStack itemStack : modularItemsEquipped) {
-//                    if (module.isValidForItem(itemStack) && ModuleManager.INSTANCE.itemHasActiveModule(itemStack, module.getDataName())) {
-//                        ((IPlayerTickModule)module).onPlayerTickActive(player, itemStack);
-//                        foundItemWithModule = true;
-//                    }
-//                }
-//                if (!foundItemWithModule) {
-//                    for (ItemStack itemStack : modularItemsEquipped) {
-//                        ((IPlayerTickModule)module).onPlayerTickInactive(player, itemStack);
-//                    }
-//                }
-//            }
+
+
+//            Enchantment.getEnchantmentID(AdvancedRocketryAPI.enchantmentSpaceProtection);
+
 
             for (ItemStack itemStack : modularItemsEquipped) {
                 for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IPlayerTickModule.class)) {

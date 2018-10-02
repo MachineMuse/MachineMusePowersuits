@@ -89,7 +89,7 @@ public class Musique {
     public static void stopPlayerSound(EntityPlayer player, ResourceLocation location) {
         SoundEvent soundEvent = SoundEvent.REGISTRY.getObject(location);
         if (soundEvent != null) {
-            System.out.println(soundEvent.getSoundName().toString());
+//            System.out.println(soundEvent.getSoundName().toString());
             stopPlayerSound(player, soundEvent);
         } else {
             soundEvent = new SoundEvent(location);

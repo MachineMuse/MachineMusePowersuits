@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.item.tool;
 //import appeng.api.config.AccessRestriction;
 
 import com.google.common.collect.Sets;
-import net.machinemuse.powersuits.api.electricity.adapter.IMuseElectricItem;
+import net.machinemuse.numina.api.energy.adapter.IMuseElectricItem;
 import net.machinemuse.powersuits.item.IModularItemBase;
 import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.block.Block;

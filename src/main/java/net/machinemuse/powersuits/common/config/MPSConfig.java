@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.common.config;
 
 import net.machinemuse.numina.common.Numina;
 import net.machinemuse.powersuits.common.MPSCreativeTab;
+import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorHelmet;
@@ -181,6 +182,25 @@ public enum MPSConfig {
     }
 
 
+    public static int rfValueOfComponent(ItemStack stackInCost) {
+        if (stackInCost.getItem() instanceof ItemComponent) {
+            switch(stackInCost.getItemDamage() - ItemComponent.lvcapacitor.getItemDamage()) {
+                case 0:
+                    return 200000 * stackInCost.getCount();
+                case 1:
+                    return 1000000 * stackInCost.getCount();
+                case 2:
+                    return 7500000 * stackInCost.getCount();
+                case 3:
+                    return 10000000 * stackInCost.getCount();
+                default:
+                    return 0;
+            }
+        }
+        return 0;
+    }
+
+
 
     /** Models ------------------------------------------------------------------------------------ */
     public boolean modelSetUp() {
@@ -215,46 +235,7 @@ public enum MPSConfig {
 
 
 
-    /** Energy ------------------------------------------------------------------------------------ */
 
-
-
-
-    // 1 RF = 0.1 MJ (Mekanism)
-    public static double getMekRatio() {
-        return getServerSettings() != null ? getServerSettings().mekRatio : MPSSettings.energy.mekRatio;
-    }
-
-    // 1 RF = 0.25 EU
-    public static double getIC2Ratio() {
-        return getServerSettings() != null ? getServerSettings().ic2Ratio : MPSSettings.energy.ic2Ratio;
-    }
-
-    // (Refined Storage) 1 RS = 1 RF
-    public static double getRSRatio() {
-        return getServerSettings() != null ? getServerSettings().refinedStorageRatio : MPSSettings.energy.refinedStorageRatio;
-    }
-
-    // 1 RF = 0.5 AE
-    public static double getAE2Ratio() {
-        return getServerSettings() != null ? getServerSettings().ae2Ratio : MPSSettings.energy.ae2Ratio;
-    }
-
-    public static int getTier1MaxRF() {
-        return getServerSettings() != null ? getServerSettings().maxTier1 : MPSSettings.energy.maxTier1;
-    }
-
-    public static int getTier2MaxRF() {
-        return getServerSettings() != null ? getServerSettings().maxTier2 : MPSSettings.energy.maxTier2;
-    }
-
-    public static int getTier3MaxRF() {
-        return getServerSettings() != null ? getServerSettings().maxTier3 : MPSSettings.energy.maxTier3;
-    }
-
-    public static int getTier4MaxRF() {
-        return getServerSettings() != null ? getServerSettings().maxTier4 : MPSSettings.energy.maxTier4;
-    }
 
     /**
      * The annotation based config system lacks the ability to handle

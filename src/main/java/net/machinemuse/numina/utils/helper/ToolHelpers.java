@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.powermodule.tool;
+package net.machinemuse.numina.utils.helper;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
@@ -12,44 +12,39 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Helper methods for the tool classes. Gets rid of multiple copies of similar code.
- *  by lehjr on 11/27/16.
+ * by lehjr on 11/27/16.
  */
 public class ToolHelpers {
-    public static boolean canHarvestBlock(@Nonnull ItemStack stack, IBlockState state, EntityPlayer player) {
-        String tool = state.getBlock().getHarvestTool(state);
-        if (stack.isEmpty() || tool == null) return false;
-        return stack.getItem().getHarvestLevel(stack, tool, null, null) >= state.getBlock().getHarvestLevel(state);
-    }
-
-    public static boolean isEffectiveTool(IBlockState state, @Nonnull ItemStack emulatedTool) {
-        String effectiveTool = state.getBlock().getHarvestTool(state);
-        Set<String> emulatedToolClass = emulatedTool.getItem().getToolClasses(emulatedTool);
-
-        // this should be enough but nooooo, stairs still don't work here;
-        for (String tool : emulatedToolClass) {
-            if (state.getBlock().isToolEffective(tool, state) || Objects.equals(state.getBlock().getHarvestTool(state), tool))
-                return true;
-        }
+    public static boolean isToolEffective(IBlockAccess world, BlockPos pos, @Nonnull ItemStack emulatedTool) {
+        IBlockState state = world.getBlockState(pos);
+        state = state.getBlock().getActualState(state, world, pos);
 
         if (emulatedTool.getItem().canHarvestBlock(state))
             return true;
 
-        if (effectiveTool == null) {
+        String harvestTool = state.getBlock().getHarvestTool(state);
+        if (harvestTool != null) {
+            // this should be enough but nooooo, stairs still don't work here;
+            for (String type : emulatedTool.getItem().getToolClasses(emulatedTool)) {
+                if (state.getBlock().isToolEffective(type, state) || (Objects.equals(harvestTool, type) &&
+                        emulatedTool.getItem().getHarvestLevel(emulatedTool, harvestTool, null, null) >= state.getBlock().getHarvestLevel(state)))
+                    return true;
+            }
+        } else {
             Item.ToolMaterial material;
-            if (emulatedTool.getItem() instanceof ItemTool) {
+            if (emulatedTool.getItem() instanceof ItemTool)
                 material = Item.ToolMaterial.valueOf(((ItemTool) emulatedTool.getItem()).getToolMaterialName());
-            } else {
+            else
                 material = Item.ToolMaterial.IRON;
-                }
             if (emulatedTool.getDestroySpeed(state) >= material.getEfficiency())
                 return true;
         }

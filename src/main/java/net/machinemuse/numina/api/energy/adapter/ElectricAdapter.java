@@ -1,9 +1,9 @@
-package net.machinemuse.powersuits.api.electricity.adapter;
+package net.machinemuse.numina.api.energy.adapter;
 
 import cofh.redstoneflux.api.IEnergyContainerItem;
 import ic2.api.item.IElectricItem;
 import net.darkhax.tesla.capability.TeslaCapabilities;
-import net.machinemuse.powersuits.common.ModCompatibility;
+import net.machinemuse.numina.common.ModCompatibility;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -17,6 +17,8 @@ import javax.annotation.Nullable;
 public abstract class ElectricAdapter {
     @Nullable
     public static ElectricAdapter wrap(@Nonnull ItemStack itemStack) {
+        //TODO: add a configurable blacklist
+
         if (itemStack.isEmpty())
             return null;
         Item i = itemStack.getItem();

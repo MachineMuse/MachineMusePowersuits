@@ -6,15 +6,15 @@ import com.raoulvdberge.refinedstorage.apiimpl.network.item.NetworkItemWirelessG
 import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.numina.common.ModCompatibility;
+import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.numina.general.MuseMathUtils;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
-import net.machinemuse.powersuits.common.ModCompatibility;
-import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
@@ -72,11 +72,11 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
                 return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
             }
 
-            int energy = (int)MuseMathUtils.clampDouble(ElectricItemUtils.getPlayerEnergy(playerIn) * MPSConfig.INSTANCE.getRSRatio(), 0, 3500);
+            int energy = (int)MuseMathUtils.clampDouble(ElectricItemUtils.getPlayerEnergy(playerIn) * NuminaConfig.INSTANCE.getRSRatio(), 0, 3500);
             tag.setInteger("Energy", energy);
             emulatedTool.setTagCompound(tag);
             ActionResult result = emulatedTool.getItem().onItemRightClick(worldIn, playerIn, hand);
-            double energyUsed = ((energy - emulatedTool.getTagCompound().getInteger("Energy")) * MPSConfig.INSTANCE.getRSRatio()) ;
+            double energyUsed = ((energy - emulatedTool.getTagCompound().getInteger("Energy")) * NuminaConfig.INSTANCE.getRSRatio()) ;
             ElectricItemUtils.drainPlayerEnergy(playerIn, (int) energyUsed);
             return ActionResult.newResult(result.getType(), itemStackIn);
         }

@@ -1,5 +1,49 @@
 package net.machinemuse.powersuits.powermodule.special;
 
-// TODO
-public class SilkTouchModule {
+import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.api.module.EnumModuleTarget;
+import net.machinemuse.numina.api.module.IEnchantmentModule;
+import net.machinemuse.numina.api.module.IToggleableModule;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.powersuits.powermodule.PowerModuleBase;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.init.Enchantments;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+
+
+public class SilkTouchModule extends PowerModuleBase implements IEnchantmentModule, IToggleableModule {
+    final ItemStack book;
+    public SilkTouchModule(EnumModuleTarget moduleTarget) {
+        super(moduleTarget);
+        book = new ItemStack(Items.ENCHANTED_BOOK);
+        book.addEnchantment(Enchantments.SILK_TOUCH, 1);
+    }
+
+    @Override
+    public TextureAtlasSprite getIcon(ItemStack item) {
+        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(book).getParticleTexture();
+    }
+
+    @Override
+    public EnumModuleCategory getCategory() {
+        return EnumModuleCategory.CATEGORY_SPECIAL;
+    }
+
+    @Override
+    public String getDataName() {
+        return MPSModuleConstants.MODULE_SILK_TOUCH__DATANAME;
+    }
+
+    @Override
+    public Enchantment getEnchantment() {
+        return Enchantments.SILK_TOUCH;
+    }
+
+    @Override
+    public short getLevel() {
+        return 1;
+    }
 }

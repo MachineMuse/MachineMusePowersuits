@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.api.electricity.adapter;
+package net.machinemuse.numina.api.energy.adapter;
 
 //import appeng.api.config.AccessRestriction;
 //import appeng.api.implementations.items.IAEItemPowerStorage;
@@ -7,7 +7,7 @@ import cofh.redstoneflux.api.IEnergyContainerItem;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItemManager;
 import ic2.api.item.ISpecialElectricItem;
-import net.machinemuse.powersuits.api.electricity.ElectricConversions;
+import net.machinemuse.numina.api.energy.ElectricConversions;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.energy.CapabilityEnergy;

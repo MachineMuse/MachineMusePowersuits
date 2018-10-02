@@ -5,13 +5,13 @@ import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.machinemuse.powersuits.utils.MusePlayerUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
@@ -32,9 +32,7 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
         addBasePropertyDouble(MPSModuleConstants.BLINK_DRIVE_RANGE, 5, "m");
         addTradeoffPropertyDouble("Range", MPSModuleConstants.BLINK_DRIVE_ENERGY_CONSUMPTION, 30000);
         addTradeoffPropertyDouble("Range", MPSModuleConstants.BLINK_DRIVE_RANGE, 59);
-
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
-        addIntTradeoffProperty(MPSModuleConstants.BLINK_DRIVE_RANGE, MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5, "pts");
     }
 
     @Override

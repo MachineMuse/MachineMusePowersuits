@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.item.tool;
 import appeng.api.implementations.items.IAEWrench;
 import buildcraft.api.tools.IToolWrench;
 import cofh.api.item.IToolHammer;
+import com.google.common.collect.Multimap;
 import com.raoulvdberge.refinedstorage.api.network.item.INetworkItem;
 import com.raoulvdberge.refinedstorage.api.network.item.INetworkItemHandler;
 import com.raoulvdberge.refinedstorage.api.network.item.INetworkItemProvider;
@@ -15,6 +16,7 @@ import net.machinemuse.numina.api.item.IModularItem;
 import net.machinemuse.numina.api.module.IBlockBreakingModule;
 import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
@@ -23,12 +25,15 @@ import net.machinemuse.powersuits.capabilities.MPSCapProvider;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.powermodule.tool.MADModule;
 import net.machinemuse.powersuits.powermodule.tool.RefinedStorageWirelessModule;
-import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -82,7 +87,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         IModeChangingItem {
 
     public ItemPowerFist() {
-        super(0.0f, 0.0f, ToolMaterial.DIAMOND); // FIXME
+        super(0.0f, 0.0f, ToolMaterial.IRON); // FIXME
         this.setMaxStackSize(1);
         this.setMaxDamage(0);
         this.setCreativeTab(MPSConfig.INSTANCE.mpsCreativeTab);
@@ -131,9 +136,10 @@ public class ItemPowerFist extends MPSItemElectricTool
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
         if (entityLiving instanceof EntityPlayer) {
+            int playerEnergy = ElectricItemUtils.getPlayerEnergy((EntityPlayer) entityLiving);
             for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IBlockBreakingModule.class)) {
                 if (ModuleManager.INSTANCE.itemHasActiveModule(stack, module.getDataName())) {
-                    if (((IBlockBreakingModule)module).onBlockDestroyed(stack, worldIn, state, pos, entityLiving)) {
+                    if (((IBlockBreakingModule)module).onBlockDestroyed(stack, worldIn, state, pos, entityLiving, playerEnergy)) {
                         return true;
                     }
                 }
@@ -152,34 +158,57 @@ public class ItemPowerFist extends MPSItemElectricTool
         return false;
     }
 
-    /**
-     * An itemstack sensitive version of getDamageVsEntity - allows items to
-     * handle damage based on
-     * itemstack data, like tags. Falls back to getDamageVsEntity.
-     *
-     * @param par1Entity The entity being attacked (or the attacking mob, if it's a mob
-     *                   - vanilla bug?)
-     * @param itemStack  The itemstack
-     * @return the damage
-     */
+    @Override
+    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack itemStack) {
+        Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, itemStack);
 
-    // FIXME: no longer valid
-
-    public float getDamageVsEntity(Entity par1Entity, ItemStack itemStack) {
-        return (float) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.PUNCH_DAMAGE);
+        if (slot == EntityEquipmentSlot.MAINHAND) {
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Tool modifier", ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.PUNCH_DAMAGE), 0));
+        }
+        return multimap;
     }
+
 
     @Override
     public boolean isFull3D() {
         return true;
     }
 
-    /**
-     * Return the enchantability factor of the item. In this case, 0. Might add
-     * an enchantability module later :P
-     */
+    /** Enchantments ----------------------------------------------------------------------- */
+    // TODO: for enchantment modules
+    @Override
+    public boolean hasEffect(ItemStack stack) {
+        return false;
+    }
+
+    @Override
     public int getItemEnchantability() {
+        return 30; // :P
+    }
+
+    @Override
+    public int getHarvestLevel(ItemStack stack, String toolClass, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
+        return super.getHarvestLevel(stack, toolClass, player, blockState);
+    }
+
+    @Override
+    public boolean isEnchantable(ItemStack stack) {
+        return false;
+    }
+
+    @Override
+    public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
+        return false;
+    }
+
+    @Override
+    public int getItemEnchantability(ItemStack stack) {
         return 0;
+    }
+
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        return false;
     }
 
     /**
@@ -278,12 +307,11 @@ public class ItemPowerFist extends MPSItemElectricTool
     }
 
     // The Item/ItemTool version doesn't give us the player, so we can't override that.
-    public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
+    public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player, BlockPos pos, int playerEnergy) {
         if(state.getMaterial().isToolNotRequired())
             return true;
-
         for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IBlockBreakingModule.class)) {
-            if (ModuleManager.INSTANCE.itemHasActiveModule(stack, module.getDataName()) && ((IBlockBreakingModule)module).canHarvestBlock(stack, state, player)) {
+            if (ModuleManager.INSTANCE.itemHasActiveModule(stack, module.getDataName()) && ((IBlockBreakingModule)module).canHarvestBlock(stack, state, player, pos, playerEnergy)  ) {
                 return true;
             }
         }
@@ -388,6 +416,11 @@ public class ItemPowerFist extends MPSItemElectricTool
     /* Mekanism Wrench */
     @Override
     public boolean canUseWrench(ItemStack itemStack, EntityPlayer entityPlayer, BlockPos blockPos) {
+        return this.getActiveMode(itemStack).equals(MPSModuleConstants.MODULE_OMNI_WRENCH__DATANAME);
+    }
+
+    @Override
+    public boolean canUseWrench(EntityPlayer player, EnumHand hand, ItemStack itemStack, RayTraceResult rayTrace) {
         return this.getActiveMode(itemStack).equals(MPSModuleConstants.MODULE_OMNI_WRENCH__DATANAME);
     }
 

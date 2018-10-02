@@ -4,7 +4,7 @@ import cofh.api.block.IDismantleable;
 import cofh.core.util.helpers.BlockHelper;
 import cofh.core.util.helpers.ServerHelper;
 import ic2.api.tile.IWrenchable;
-import net.machinemuse.powersuits.common.ModCompatibility;
+import net.machinemuse.numina.common.ModCompatibility;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;

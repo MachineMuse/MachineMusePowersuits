@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.client.event;
 
 import api.player.model.ModelPlayerAPI;
+import net.machinemuse.numina.common.ModCompatibility;
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.machinemuse.powersuits.client.model.block.ModelLuxCapacitor;
 import net.machinemuse.powersuits.client.model.item.armor.SMovingArmorModel;
@@ -8,7 +9,6 @@ import net.machinemuse.powersuits.client.render.entity.EntityRendererLuxCapacito
 import net.machinemuse.powersuits.client.render.entity.EntityRendererPlasmaBolt;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererSpinningBlade;
 import net.machinemuse.powersuits.common.MPSItems;
-import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;

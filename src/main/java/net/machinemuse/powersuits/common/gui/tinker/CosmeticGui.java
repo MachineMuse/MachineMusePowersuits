@@ -8,7 +8,6 @@ import net.machinemuse.powersuits.common.gui.tinker.frame.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 
 /**
  * Author: MachineMuse (Claire Semple)

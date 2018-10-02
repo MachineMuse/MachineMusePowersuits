@@ -1,7 +1,6 @@
-package net.machinemuse.powersuits.api.electricity;
+package net.machinemuse.numina.api.energy;
 
-import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.numina.common.config.NuminaConfig;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -10,14 +9,14 @@ import net.minecraft.item.ItemStack;
  *
  * Ported to Java by lehjr on 11/4/16.
  */
-public final class ElectricConversions {
-    static MPSConfig config = MPSConfig.INSTANCE;
+public class ElectricConversions {
+    static NuminaConfig config = NuminaConfig.INSTANCE;
 
-    /* Industrialcraft 2 -------------------------------------------------------------------------- */
+    /** Industrialcraft 2 -------------------------------------------------------------------------- */
     public static final String IC2_TIER = "IC2 Tier";
 
     public static int getTier(final ItemStack stack) {
-        return ElectricItemUtils.getTierForItem(stack);
+        return NuminaConfig.INSTANCE.getTierForItem(stack);
     }
 
     public static double museEnergyToEU(final double museEnergy) {
@@ -28,7 +27,7 @@ public final class ElectricConversions {
         return (int) Math.round(eu * config.getIC2Ratio());
     }
 
-    /* Mekanism ------------------------------------------------------------------------------------ */
+    /** Mekanism ------------------------------------------------------------------------------------ */
     public static double museEnergyToMek(final double museEnergy) { // no current conversion rate
         return Math.ceil(museEnergy / config.getMekRatio());
     }
@@ -37,14 +36,7 @@ public final class ElectricConversions {
         return (int) Math.round(mj * config.getMekRatio());
     }
 
-
-
-
-
-
-
-
-    /* Applied Energistics 2 ---------------------------------------------------------------------- */
+    /** Applied Energistics 2 ---------------------------------------------------------------------- */
     public static double museEnergyFromAE(final double ae) {
         return ae * config.getAE2Ratio();
     }

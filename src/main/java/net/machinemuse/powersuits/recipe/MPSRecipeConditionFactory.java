@@ -1,8 +1,7 @@
 package net.machinemuse.powersuits.recipe;
 
 import com.google.gson.JsonObject;
-import net.machinemuse.numina.recipe.NuminaShapedRecipe;
-import net.machinemuse.powersuits.common.ModCompatibility;
+import net.machinemuse.numina.common.ModCompatibility;
 import net.minecraft.util.JsonUtils;
 import net.minecraftforge.common.crafting.IConditionFactory;
 import net.minecraftforge.common.crafting.JsonContext;

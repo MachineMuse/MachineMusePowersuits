@@ -4,12 +4,12 @@ import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IBlockBreakingModule;
 import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.machinemuse.powersuits.utils.MusePlayerUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -35,6 +35,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
@@ -103,40 +104,33 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
     }
 
     @Override
-    public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
-        if (ToolHelpers.isEffectiveTool(state, emulatedTool)) {
-            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.SHEARING_ENERGY_CONSUMPTION)) {
-                return true;
-            }
-        }
-        return false;
+    public int getEnergyUsage(@Nonnull ItemStack itemStack) {
+        return (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.SHEARING_ENERGY_CONSUMPTION);
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack itemStack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-        if (entityLiving.world.isRemote) {
-            return false;
-        }
-        Block block = state.getBlock();
+    public boolean onBlockDestroyed(ItemStack itemStack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving, int playerEnergy) {
+        if (this.canHarvestBlock(itemStack, state, (EntityPlayer) entityLiving, pos, playerEnergy)) {
+            Block block = state.getBlock();
+            if (block instanceof IShearable) {
+                IShearable target = (IShearable) block;
+                if (target.isShearable(itemStack, entityLiving.world, pos)) {
+                    List<ItemStack> drops = target.onSheared(itemStack, entityLiving.world, pos, EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemStack));
+                    Random rand = new Random();
 
-        if (block instanceof IShearable && ElectricItemUtils.getPlayerEnergy(((EntityPlayer) entityLiving)) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.SHEARING_ENERGY_CONSUMPTION)) {
-            IShearable target = (IShearable) block;
-            if (target.isShearable(itemStack, entityLiving.world, pos)) {
-                List<ItemStack> drops = target.onSheared(itemStack, entityLiving.world, pos, EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemStack));
-                Random rand = new Random();
-
-                for (ItemStack stack : drops) {
-                    float f = 0.7F;
-                    double d = (double) (rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-                    double d1 = (double) (rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-                    double d2 = (double) (rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-                    EntityItem entityitem = new EntityItem(entityLiving.world, (double) pos.getX() + d, (double) pos.getY() + d1, (double) pos.getZ() + d2, stack);
-                    entityitem.setDefaultPickupDelay(); // this is 10
-                    entityitem.world.spawnEntity(entityitem);
+                    for (ItemStack stack : drops) {
+                        float f = 0.7F;
+                        double d = (double) (rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                        double d1 = (double) (rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                        double d2 = (double) (rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+                        EntityItem entityitem = new EntityItem(entityLiving.world, (double) pos.getX() + d, (double) pos.getY() + d1, (double) pos.getZ() + d2, stack);
+                        entityitem.setDefaultPickupDelay(); // this is 10
+                        entityitem.world.spawnEntity(entityitem);
+                    }
+                    ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, getEnergyUsage(itemStack));
+                    ((EntityPlayer) (entityLiving)).addStat(StatList.getBlockStats(block), 1);
+                    return true;
                 }
-                ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.SHEARING_ENERGY_CONSUMPTION));
-                ((EntityPlayer) (entityLiving)).addStat(StatList.getBlockStats(block), 1);
-                return true;
             }
         }
         return false;

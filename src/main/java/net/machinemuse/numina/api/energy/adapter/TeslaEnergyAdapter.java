@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.api.electricity.adapter;
+package net.machinemuse.numina.api.energy.adapter;
 
 import net.darkhax.tesla.api.ITeslaConsumer;
 import net.darkhax.tesla.api.ITeslaHolder;

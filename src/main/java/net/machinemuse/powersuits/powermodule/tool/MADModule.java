@@ -4,14 +4,14 @@ import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IBlockBreakingModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
+import net.machinemuse.numina.common.ModCompatibility;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
-import net.machinemuse.powersuits.common.ModCompatibility;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
@@ -23,6 +23,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+
+import javax.annotation.Nonnull;
 
 //
 
@@ -49,16 +51,19 @@ public class MADModule extends PowerModuleBase implements IBlockBreakingModule, 
     }
 
     @Override
-    public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
-        // TODO: check more than this, like power?
-//        return state.getBlock() != Blocks.BEDROCK;
+    public boolean canHarvestBlock(@Nonnull ItemStack stack, IBlockState state, EntityPlayer player, BlockPos pos, int playerEnergy) {
         return false;
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
+    public boolean onBlockDestroyed(ItemStack itemStack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving, int playerEnergy) {
         // Nothing actually happens here because canHarvest is set to return false
         return false;
+    }
+
+    @Override
+    public int getEnergyUsage(@Nonnull ItemStack itemStack) {
+        return 0;
     }
 
     // MPS Version
@@ -77,7 +82,6 @@ public class MADModule extends PowerModuleBase implements IBlockBreakingModule, 
         ElectricItemUtils.chargeEmulatedToolFromPlayerEnergy(player, emulatedTool);
         return emulatedTool.getItem().onBlockStartBreak(emulatedTool, pos, player);
     }
-
 
     @Override
     public void handleBreakSpeed(PlayerEvent.BreakSpeed event) {

@@ -4,10 +4,11 @@ import io.netty.buffer.ByteBufInputStream;
 import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.api.module.ModuleManager;
-import net.machinemuse.powersuits.utils.ElectricItemUtils;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -61,7 +62,7 @@ public class MusePacketInstallModuleRequest extends MusePacket {
                 MuseNBTUtils.removeMuseValuesTag(stack);
                 ModuleManager.INSTANCE.itemAddModule(stack, moduleType);
                 for (ItemStack stackInCost : cost) {
-                    ElectricItemUtils.givePlayerEnergy(player, ElectricItemUtils.rfValueOfComponent(stackInCost));
+                    ElectricItemUtils.givePlayerEnergy(player, MPSConfig.INSTANCE.rfValueOfComponent(stackInCost));
                 }
 
                 if (!player.capabilities.isCreativeMode) {

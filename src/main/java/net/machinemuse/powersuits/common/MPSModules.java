@@ -1,7 +1,11 @@
 package net.machinemuse.powersuits.common;
 
+import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.numina.common.ModCompatibility;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.powermodule.armor.DiamondPlatingModule;
 import net.machinemuse.powersuits.powermodule.armor.EnergyShieldModule;
 import net.machinemuse.powersuits.powermodule.armor.IronPlatingModule;
@@ -10,13 +14,11 @@ import net.machinemuse.powersuits.powermodule.cosmetic.TransparentArmorModule;
 import net.machinemuse.powersuits.powermodule.energy.*;
 import net.machinemuse.powersuits.powermodule.environmental.*;
 import net.machinemuse.powersuits.powermodule.movement.*;
-import net.machinemuse.powersuits.powermodule.special.ClockModule;
-import net.machinemuse.powersuits.powermodule.special.CompassModule;
-import net.machinemuse.powersuits.powermodule.special.InvisibilityModule;
-import net.machinemuse.powersuits.powermodule.special.MagnetModule;
+import net.machinemuse.powersuits.powermodule.special.*;
 import net.machinemuse.powersuits.powermodule.tool.*;
 import net.machinemuse.powersuits.powermodule.vision.BinocularsModule;
 import net.machinemuse.powersuits.powermodule.vision.NightVisionModule;
+import net.machinemuse.powersuits.powermodule.vision.ThaumGogglesModule;
 import net.machinemuse.powersuits.powermodule.weapon.*;
 
 import static net.machinemuse.numina.api.module.EnumModuleTarget.*;
@@ -24,7 +26,12 @@ import static net.machinemuse.numina.api.module.EnumModuleTarget.*;
 public class MPSModules {
 
     public static void addModule(IPowerModule module) {
-        ModuleManager.INSTANCE.addModule(module);
+        addModuleConditionally(module, true);
+    }
+
+    public static void addModuleConditionally(IPowerModule module, boolean condition) {
+        if (condition && MPSConfig.INSTANCE.getModuleAllowedorDefault(module.getDataName(), condition))
+            ModuleManager.INSTANCE.addModule(module);
     }
 
     /**
@@ -66,11 +73,11 @@ public class MPSModules {
         addModule(new BlinkDriveModule(TOOLONLY));
         addModule(new AquaAffinityModule(TOOLONLY));
         addModule(new InPlaceAssemblerModule(TOOLONLY));
-//        addModule(new OreScannerModule(TOOLONLY)); Enabled by mod compat as "Scannable" module
         addModule(new LeafBlowerModule(TOOLONLY));
         addModule(new FlintAndSteelModule(TOOLONLY));
         addModule(new LightningModule(TOOLONLY));
         addModule(new DimensionalRiftModule(TOOLONLY));
+        addModule(new SilkTouchModule(TOOLONLY));
 
 
         /* Helmet ------------------------------- */
@@ -94,10 +101,8 @@ public class MPSModules {
         addModule(new MagnetModule(TORSOONLY));
         addModule(new ThermalGeneratorModule(TORSOONLY));
         addModule(new MobRepulsorModule(TORSOONLY));
-//        addModule(new WaterTankModule(TORSOONLY));
         addModule(new AdvancedCoolingSystem(TORSOONLY));
-//        addModule(new MechanicalAssistance(TORSOONLY)); // TODO replace with slot expansion module
-        //addModule(new CoalGenerator(TORSOONLY)); //doesn't seem to be working
+        //addModule(new CoalGenerator(TORSOONLY)); //TODO: Finish
 
 
         /* Legs --------------------------------- */
@@ -111,5 +116,59 @@ public class MPSModules {
         /* Feet --------------------------------- */
         addModule(new JetBootsModule(FEETONLY));
         addModule(new ShockAbsorberModule(FEETONLY));
+
+
+        /** Conditional loading ------------------------------------------------------------------- */
+        // Thaumcraft
+        addModuleConditionally(new ThaumGogglesModule(EnumModuleTarget.HEADONLY),  ModCompatibility.isThaumCraftLoaded());
+
+        // CoFHCore
+        addModuleConditionally(new OmniWrenchModule(EnumModuleTarget.TOOLONLY), ModCompatibility.isCOFHCoreLoaded());
+
+        // Mekanism
+        addModuleConditionally(new MADModule(EnumModuleTarget.TOOLONLY), ModCompatibility.isMekanismLoaded());
+
+        // Industrialcraft
+        addModuleConditionally(new HazmatModule(EnumModuleTarget.ARMORONLY), ModCompatibility.isIndustrialCraftLoaded());
+        addModuleConditionally(new TreetapModule(EnumModuleTarget.TOOLONLY), ModCompatibility.isIndustrialCraftLoaded());
+
+        // Galacticraft
+        addModuleConditionally(new AirtightSealModule(EnumModuleTarget.HEADONLY), ModCompatibility.isGalacticraftLoaded());
+
+        // Forestry
+        addModuleConditionally(new GrafterModule(EnumModuleTarget.TOOLONLY), ModCompatibility.isForestryLoaded());
+        addModuleConditionally(new ScoopModule(EnumModuleTarget.TOOLONLY), ModCompatibility.isForestryLoaded());
+        addModuleConditionally(new ApiaristArmorModule(EnumModuleTarget.ARMORONLY), ModCompatibility.isForestryLoaded());
+
+        // Chisel
+        try {
+            addModuleConditionally(new ChiselModule(EnumModuleTarget.TOOLONLY), ModCompatibility.isChiselLoaded());
+        } catch(Exception e) {
+            MuseLogger.logException("Couldn't add Chisel module", e);
+        }
+
+        // Applied Energistics
+        addModuleConditionally(new AppEngWirelessModule(EnumModuleTarget.TOOLONLY), ModCompatibility.isAppengLoaded());
+
+        // Extra Cells 2
+        addModuleConditionally(new AppEngWirelessFluidModule(EnumModuleTarget.TOOLONLY),
+                ModCompatibility.isAppengLoaded() &&
+                        ModCompatibility.isExtraCellsLoaded());
+
+        // Multi-Mod Compatible OmniProbe
+        addModuleConditionally(new OmniProbeModule(EnumModuleTarget.TOOLONLY),
+                ModCompatibility.isEnderIOLoaded() ||
+                        ModCompatibility.isMFRLoaded() ||
+                        ModCompatibility.isRailcraftLoaded());
+
+// TODO: on hold for now. Needs a conditional fiuld tank and handler. May not be worth it.
+        // Compact Machines
+        addModuleConditionally(new PersonalShrinkingModule(EnumModuleTarget.TOOLONLY), ModCompatibility.isCompactMachinesLoaded());
+
+        // Refined Storage
+        addModuleConditionally(new RefinedStorageWirelessModule(EnumModuleTarget.TOOLONLY), ModCompatibility.isRefinedStorageLoaded());
+
+        // Scannable
+        addModuleConditionally(new OreScannerModule(EnumModuleTarget.TOOLONLY),  ModCompatibility.isScannableLoaded());
     }
 }

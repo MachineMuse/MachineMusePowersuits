@@ -115,17 +115,25 @@ public interface IModuleManager {
         tag.setTag(module.getDataName(), module.getNewTag());
     }
 
-    default void toggleModule(NBTTagCompound itemTag, String name, boolean toggleval) {
+    default boolean toggleModule(NBTTagCompound itemTag, String name, boolean toggleval) {
         if (tagHasModule(itemTag, name)) {
             NBTTagCompound moduleTag = itemTag.getCompoundTag(name);
             moduleTag.setBoolean(TAG_ONLINE, toggleval);
+            return true;
         }
+        return false;
     }
 
     default void toggleModuleForPlayer(EntityPlayer player, String dataName, boolean toggleval) {
+        IPowerModule module = getModuleMap().get(dataName);
         for (ItemStack stack : MuseItemUtils.getModularItemsEquipped(player)) {
             NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
-            toggleModule(itemTag, dataName, toggleval);
+            if (toggleModule(itemTag, dataName, toggleval) && module instanceof IEnchantmentModule) {
+                if (toggleval)
+                    ((IEnchantmentModule) module).addEnchantment(stack);
+                else
+                    ((IEnchantmentModule) module).removeEnchantment(stack);
+            }
         }
     }
 
@@ -166,8 +174,11 @@ public interface IModuleManager {
         return false;
     }
 
-    default void itemAddModule(@Nonnull ItemStack stack, IPowerModule moduleType) {
-        tagAddModule(MuseNBTUtils.getMuseItemTag(stack), moduleType);
+    default void itemAddModule(@Nonnull ItemStack stack, IPowerModule moduleName) {
+        IPowerModule module = getModuleMap().get(moduleName);
+        if (module instanceof IEnchantmentModule)
+            ((IEnchantmentModule) module).addEnchantment(stack);
+        tagAddModule(MuseNBTUtils.getMuseItemTag(stack), moduleName);
     }
 
     default boolean removeModule(NBTTagCompound tag, String moduleName) {
@@ -180,6 +191,9 @@ public interface IModuleManager {
     }
 
     default boolean removeModule(@Nonnull ItemStack stack, String moduleName) {
+        IPowerModule module = getModuleMap().get(moduleName);
+        if (module instanceof IEnchantmentModule)
+            ((IEnchantmentModule) module).removeEnchantment(stack);
         return removeModule(MuseNBTUtils.getMuseItemTag(stack), moduleName);
     }
 

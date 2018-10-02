@@ -19,6 +19,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by Eximius88 on 1/29/14.
  */
@@ -46,12 +48,17 @@ public class AOEPickUpgradeModule extends PowerModuleBase implements IBlockBreak
     }
 
     @Override
-    public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player) {
+    public boolean canHarvestBlock(@Nonnull ItemStack stack, IBlockState state, EntityPlayer player, BlockPos pos, int playerEnergy) {
         return false;
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
+    public int getEnergyUsage(@Nonnull ItemStack itemStack) {
+        return 0;
+    }
+
+    @Override
+    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving, int playerEnergy) {
         return false;
     }
 

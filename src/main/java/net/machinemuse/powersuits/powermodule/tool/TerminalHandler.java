@@ -9,10 +9,10 @@ import appeng.api.features.IWirelessTermHandler;
 import appeng.api.util.IConfigManager;
 import extracells.api.ECApi;
 import extracells.api.IWirelessFluidTermHandler;
+import net.machinemuse.numina.common.ModCompatibility;
+import net.machinemuse.numina.common.config.NuminaConfig;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.powersuits.common.MPSItems;
-import net.machinemuse.powersuits.common.ModCompatibility;
-import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.machinemuse.powersuits.utils.ElectricItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -44,8 +44,8 @@ public class TerminalHandler implements
     @Optional.Method(modid = "appliedenergistics2")
     @Override
     public boolean usePower(EntityPlayer entityPlayer, double v, @Nonnull ItemStack itemStack) {
-        if ((v * MPSConfig.INSTANCE.getAE2Ratio()) < (ElectricItemUtils.getPlayerEnergy(entityPlayer) * MPSConfig.INSTANCE.getAE2Ratio())) {
-            ElectricItemUtils.drainPlayerEnergy(entityPlayer, (int) (v * MPSConfig.INSTANCE.getAE2Ratio()));
+        if ((v * NuminaConfig.INSTANCE.getAE2Ratio()) < (ElectricItemUtils.getPlayerEnergy(entityPlayer) * NuminaConfig.INSTANCE.getAE2Ratio())) {
+            ElectricItemUtils.drainPlayerEnergy(entityPlayer, (int) (v * NuminaConfig.INSTANCE.getAE2Ratio()));
             return true;
         }
         return false;
@@ -54,7 +54,7 @@ public class TerminalHandler implements
     @Optional.Method(modid = "appliedenergistics2")
     @Override
     public boolean hasPower(EntityPlayer entityPlayer, double v, @Nonnull ItemStack itemStack) {
-        return ((v * MPSConfig.INSTANCE.getAE2Ratio()) < (ElectricItemUtils.getPlayerEnergy(entityPlayer) * MPSConfig.INSTANCE.getAE2Ratio()));
+        return ((v * NuminaConfig.INSTANCE.getAE2Ratio()) < (ElectricItemUtils.getPlayerEnergy(entityPlayer) * NuminaConfig.INSTANCE.getAE2Ratio()));
     }
 
     @Optional.Method(modid = "extracells")

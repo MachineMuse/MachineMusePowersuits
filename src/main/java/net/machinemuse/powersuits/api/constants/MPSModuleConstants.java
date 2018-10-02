@@ -159,7 +159,7 @@ public class MPSModuleConstants {
     public static final String MODULE_COMPASS__DATANAME = "compass";
     public static final String MODULE_ACTIVE_CAMOUFLAGE__DATANAME = "invisibility";
     public static final String MODULE_MAGNET__DATANAME = "magnet";
-
+    public static final String MODULE_SILK_TOUCH__DATANAME = "silk_touch";
 
     // Vision -------------------------------------------------------------------------------------
     public static final String FOV_MULTIPLIER = "Field of View";

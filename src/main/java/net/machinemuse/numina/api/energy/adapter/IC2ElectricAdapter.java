@@ -1,8 +1,8 @@
-package net.machinemuse.powersuits.api.electricity.adapter;
+package net.machinemuse.numina.api.energy.adapter;
 
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
-import net.machinemuse.powersuits.api.electricity.ElectricConversions;
+import net.machinemuse.numina.api.energy.ElectricConversions;
 import net.minecraft.item.ItemStack;
 
 /**
