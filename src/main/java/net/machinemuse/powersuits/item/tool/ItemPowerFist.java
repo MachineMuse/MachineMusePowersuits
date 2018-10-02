@@ -168,7 +168,6 @@ public class ItemPowerFist extends MPSItemElectricTool
         return multimap;
     }
 
-
     @Override
     public boolean isFull3D() {
         return true;

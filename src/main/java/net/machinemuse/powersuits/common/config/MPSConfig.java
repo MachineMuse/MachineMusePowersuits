@@ -182,8 +182,8 @@ public enum MPSConfig {
     }
 
 
-    public static int rfValueOfComponent(ItemStack stackInCost) {
-        if (stackInCost.getItem() instanceof ItemComponent) {
+    public static int rfValueOfComponent(@Nonnull ItemStack stackInCost) {
+        if (!stackInCost.isEmpty() && stackInCost.getItem() instanceof ItemComponent) {
             switch(stackInCost.getItemDamage() - ItemComponent.lvcapacitor.getItemDamage()) {
                 case 0:
                     return 200000 * stackInCost.getCount();

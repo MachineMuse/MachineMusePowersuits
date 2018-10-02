@@ -58,7 +58,6 @@ public class PlayerUpdateHandler {
 
 //            Enchantment.getEnchantmentID(AdvancedRocketryAPI.enchantmentSpaceProtection);
 
-
             for (ItemStack itemStack : modularItemsEquipped) {
                 for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IPlayerTickModule.class)) {
                     if (module.isValidForItem(itemStack) && ModuleManager.INSTANCE.itemHasModule(itemStack, module.getDataName())) {
@@ -70,10 +69,24 @@ public class PlayerUpdateHandler {
                 }
             }
 
-            boolean foundItem = modularItemsEquipped.size() > 0;
-            if (foundItem) {
+            if (modularItemsEquipped.size() > 0) {
                 player.fallDistance = (float) MovementManager.computeFallHeightFromVelocity(MuseMathUtils.clampDouble(player.motionY, -1000.0, 0.0));
 
+                // Sound update
+                double velsq2 = MuseMathUtils.sumsq(player.motionX, player.motionY, player.motionZ) - 0.5;
+                if (player.world.isRemote && NuminaConfig.useSounds()) {
+                    if (player.isAirBorne && velsq2 > 0) {
+                        Musique.playerSound(player, SoundDictionary.SOUND_EVENT_GLIDER, SoundCategory.PLAYERS, (float) (velsq2 / 3), 1.0f, true);
+                    } else {
+                        Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_GLIDER);
+                    }
+                }
+            } else if (player.world.isRemote && NuminaConfig.useSounds())
+                Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_GLIDER);
+
+            // Done this way so players can let their stuff cool in their inventory without having to equip it.
+            List<ItemStack> modularItemsInInventory = MuseItemUtils.getModularItemsInInventory(player);
+            if (modularItemsInInventory.size() > 0) {
                 // Heat update
                 double currHeat = MuseHeatUtils.getPlayerHeat(player);
                 if (currHeat >=0 && !player.world.isRemote) { // only apply serverside so change is not applied twice
@@ -93,18 +106,7 @@ public class PlayerUpdateHandler {
                         player.extinguish();
                     }
                 }
-
-                // Sound update
-                double velsq2 = MuseMathUtils.sumsq(player.motionX, player.motionY, player.motionZ) - 0.5;
-                if (player.world.isRemote && NuminaConfig.useSounds()) {
-                    if (player.isAirBorne && velsq2 > 0) {
-                        Musique.playerSound(player, SoundDictionary.SOUND_EVENT_GLIDER, SoundCategory.PLAYERS, (float) (velsq2 / 3), 1.0f, true);
-                    } else {
-                        Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_GLIDER);
-                    }
-                }
-            } else if (player.world.isRemote && NuminaConfig.useSounds())
-                Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_GLIDER);
+            }
         }
     }
 }
