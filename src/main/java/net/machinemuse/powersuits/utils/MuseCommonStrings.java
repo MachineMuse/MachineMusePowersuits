@@ -41,6 +41,10 @@ public abstract class MuseCommonStrings {
     public static void addInformation(@Nonnull ItemStack stack, World worldIn, List currentTipList, ITooltipFlag advancedToolTips) {
         EntityPlayer player  = Minecraft.getMinecraft().player;
 
+        if (currentTipList.contains(I18n.format("silkTouch")))
+            currentTipList.remove(I18n.format("silkTouch"));
+
+
         // Mode changing item such as power fist
         if (stack.getItem() instanceof IModeChangingItem) {
             String mode = MuseItemUtils.getStringOrNull(stack, NuminaNBTConstants.TAG_MODE);

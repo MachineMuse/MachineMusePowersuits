@@ -52,7 +52,7 @@ public class SilkTouchModule extends PowerModuleBase implements IEnchantmentModu
     }
 
     @Override
-    public short getLevel() {
+    public int getLevel() {
         return 1;
     }
 }
