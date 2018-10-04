@@ -13,12 +13,16 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionType;
 
 public class NightVisionModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
-    private static Potion nightvision = Potion.getPotionFromResourceLocation("night_vision");
+    private static final Potion nightvision = MobEffects.NIGHT_VISION;
+    static final int powerDrain = 50;
+
     public NightVisionModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.laserHologram, 1));
@@ -39,32 +43,32 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
+        if (player.world.isRemote)
+            return;
+
         double totalEnergy = ElectricItemUtils.getPlayerEnergy(player);
-        PotionEffect nightVision = null;
+        PotionEffect nightVisionEffect = null;
+
         if (player.isPotionActive(nightvision)) {
-            nightVision = player.getActivePotionEffect(nightvision);
+            nightVisionEffect = player.getActivePotionEffect(nightvision);
         }
-        if (totalEnergy > 5) {
-            if (nightVision == null || nightVision.getDuration() < 210) {
+
+        if (totalEnergy > powerDrain) {
+            if (nightVisionEffect == null || nightVisionEffect.getDuration() < 250 && nightVisionEffect.getAmplifier() == -3) {
                 player.addPotionEffect(new PotionEffect(nightvision, 500, -3, false, false));
-                ElectricItemUtils.drainPlayerEnergy(player, 5);
+                ElectricItemUtils.drainPlayerEnergy(player, powerDrain);
             }
-        } else {
+        } else
             onPlayerTickInactive(player, item);
-        }
     }
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
-        PotionEffect nightVision = null;
+        PotionEffect nightVisionEffect = null;
         if (player.isPotionActive(nightvision)) {
-            nightVision = player.getActivePotionEffect(nightvision);
-            if (nightVision.getAmplifier() == -3) {
-                if (player.world.isRemote) {
-                    player.removeActivePotionEffect(nightvision);
-                } else {
+            nightVisionEffect = player.getActivePotionEffect(nightvision);
+            if (nightVisionEffect.getAmplifier() == -3) {
                     player.removePotionEffect(nightvision);
-                }
             }
         }
     }
