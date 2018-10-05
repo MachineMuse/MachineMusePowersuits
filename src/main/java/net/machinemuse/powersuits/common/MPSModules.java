@@ -24,13 +24,8 @@ import net.machinemuse.powersuits.powermodule.weapon.*;
 import static net.machinemuse.numina.api.module.EnumModuleTarget.*;
 
 public class MPSModules {
-
     public static void addModule(IPowerModule module) {
-        addModuleConditionally(module, true);
-    }
-
-    public static void addModuleConditionally(IPowerModule module, boolean condition) {
-        if (condition && MPSConfig.INSTANCE.getModuleAllowedorDefault(module.getDataName(), condition))
+        if (MPSConfig.INSTANCE.getModuleAllowedorDefault(module.getDataName(), true))
             ModuleManager.INSTANCE.addModule(module);
     }
 
@@ -120,55 +115,66 @@ public class MPSModules {
 
         /** Conditional loading ------------------------------------------------------------------- */
         // Thaumcraft
-        addModuleConditionally(new ThaumGogglesModule(EnumModuleTarget.HEADONLY),  ModCompatibility.isThaumCraftLoaded());
+        if (ModCompatibility.isThaumCraftLoaded())
+            addModule(new ThaumGogglesModule(EnumModuleTarget.HEADONLY));
 
         // CoFHCore
-        addModuleConditionally(new OmniWrenchModule(EnumModuleTarget.TOOLONLY), ModCompatibility.isCOFHCoreLoaded());
+        if(ModCompatibility.isCOFHCoreLoaded())
+            addModule(new OmniWrenchModule(EnumModuleTarget.TOOLONLY));
 
         // Mekanism
-        addModuleConditionally(new MADModule(EnumModuleTarget.TOOLONLY), ModCompatibility.isMekanismLoaded());
+        if(ModCompatibility.isMekanismLoaded())
+            addModule(new MADModule(EnumModuleTarget.TOOLONLY));
 
         // Industrialcraft
-        addModuleConditionally(new HazmatModule(EnumModuleTarget.ARMORONLY), ModCompatibility.isIndustrialCraftLoaded());
-        addModuleConditionally(new TreetapModule(EnumModuleTarget.TOOLONLY), ModCompatibility.isIndustrialCraftLoaded());
-
-        // Galacticraft
-        addModuleConditionally(new AirtightSealModule(EnumModuleTarget.HEADONLY), ModCompatibility.isGalacticraftLoaded());
-
-        // Forestry
-        addModuleConditionally(new GrafterModule(EnumModuleTarget.TOOLONLY), ModCompatibility.isForestryLoaded());
-        addModuleConditionally(new ScoopModule(EnumModuleTarget.TOOLONLY), ModCompatibility.isForestryLoaded());
-        addModuleConditionally(new ApiaristArmorModule(EnumModuleTarget.ARMORONLY), ModCompatibility.isForestryLoaded());
-
-        // Chisel
-        try {
-            addModuleConditionally(new ChiselModule(EnumModuleTarget.TOOLONLY), ModCompatibility.isChiselLoaded());
-        } catch(Exception e) {
-            MuseLogger.logException("Couldn't add Chisel module", e);
+        if (ModCompatibility.isIndustrialCraftLoaded()) {
+            addModule(new HazmatModule(EnumModuleTarget.ARMORONLY));
+            addModule(new TreetapModule(EnumModuleTarget.TOOLONLY));
         }
 
-        // Applied Energistics
-        addModuleConditionally(new AppEngWirelessModule(EnumModuleTarget.TOOLONLY), ModCompatibility.isAppengLoaded());
+        // Galacticraft
+        if (ModCompatibility.isGalacticraftLoaded())
+            addModule(new AirtightSealModule(EnumModuleTarget.HEADONLY));
 
-        // Extra Cells 2
-        addModuleConditionally(new AppEngWirelessFluidModule(EnumModuleTarget.TOOLONLY),
-                ModCompatibility.isAppengLoaded() &&
-                        ModCompatibility.isExtraCellsLoaded());
+        // Forestry
+        if(ModCompatibility.isForestryLoaded()) {
+            addModule(new GrafterModule(EnumModuleTarget.TOOLONLY));
+            addModule(new ScoopModule(EnumModuleTarget.TOOLONLY));
+            addModule(new ApiaristArmorModule(EnumModuleTarget.ARMORONLY));
+        }
+
+        // Chisel
+        if (ModCompatibility.isChiselLoaded())
+            try {
+                addModule(new ChiselModule(EnumModuleTarget.TOOLONLY));
+            } catch(Exception e) {
+                MuseLogger.logException("Couldn't add Chisel module", e);
+            }
+
+        // Applied Energistics
+        if(ModCompatibility.isAppengLoaded()) {
+            addModule(new AppEngWirelessModule(EnumModuleTarget.TOOLONLY));
+
+            // Extra Cells 2
+            if(ModCompatibility.isExtraCellsLoaded())
+                addModule(new AppEngWirelessFluidModule(EnumModuleTarget.TOOLONLY));
+        }
 
         // Multi-Mod Compatible OmniProbe
-        addModuleConditionally(new OmniProbeModule(EnumModuleTarget.TOOLONLY),
-                ModCompatibility.isEnderIOLoaded() ||
-                        ModCompatibility.isMFRLoaded() ||
-                        ModCompatibility.isRailcraftLoaded());
+        if(ModCompatibility.isEnderIOLoaded() || ModCompatibility.isMFRLoaded() || ModCompatibility.isRailcraftLoaded())
+            addModule(new OmniProbeModule(EnumModuleTarget.TOOLONLY));
 
 // TODO: on hold for now. Needs a conditional fiuld tank and handler. May not be worth it.
         // Compact Machines
-        addModuleConditionally(new PersonalShrinkingModule(EnumModuleTarget.TOOLONLY), ModCompatibility.isCompactMachinesLoaded());
+        if (ModCompatibility.isCompactMachinesLoaded())
+            addModule(new PersonalShrinkingModule(EnumModuleTarget.TOOLONLY));
 
         // Refined Storage
-        addModuleConditionally(new RefinedStorageWirelessModule(EnumModuleTarget.TOOLONLY), ModCompatibility.isRefinedStorageLoaded());
+        if (ModCompatibility.isRefinedStorageLoaded())
+            addModule(new RefinedStorageWirelessModule(EnumModuleTarget.TOOLONLY));
 
         // Scannable
-        addModuleConditionally(new OreScannerModule(EnumModuleTarget.TOOLONLY),  ModCompatibility.isScannableLoaded());
+        if (ModCompatibility.isScannableLoaded())
+            addModule(new OreScannerModule(EnumModuleTarget.TOOLONLY));
     }
 }

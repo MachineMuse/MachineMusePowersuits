@@ -16,8 +16,8 @@ import thaumcraft.api.items.IVisDiscountGear;
  * Ported to Java by lehjr on 10/26/16.
  */
 @Optional.InterfaceList({
-    @Optional.Interface(iface = "forestry.api.core.IArmorNaturalist", modid = "forestry", striprefs = true),
-        @Optional.Interface(iface = "thaumcraft.api.items.IGoggles;", modid = "thaumcraft", striprefs = true),
+        @Optional.Interface(iface = "forestry.api.core.IArmorNaturalist", modid = "forestry", striprefs = true),
+        @Optional.Interface(iface = "thaumcraft.api.items.IGoggles", modid = "thaumcraft", striprefs = true),
         @Optional.Interface(iface = "thaumcraft.api.items.IRevealer", modid = "thaumcraft", striprefs = true),
         @Optional.Interface(iface = "thaumcraft.api.items.IVisDiscountGear", modid = "thaumcraft", striprefs = true)
 })
