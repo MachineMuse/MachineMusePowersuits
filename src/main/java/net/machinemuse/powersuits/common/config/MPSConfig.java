@@ -203,42 +203,13 @@ public enum MPSConfig {
 
 
     /** Models ------------------------------------------------------------------------------------ */
-    public boolean modelSetUp() {
-//        return getServerSettings() != null ? getServerSettings().modelSetup : MPSSettings.modelconfig.modelSetup;
-        return true;
-    }
-
     public static boolean allowHighPollyArmorModels() {
 //        return getServerSettings() != null ? getServerSettings().allowHighPollyArmorModels : MPSSettings.modelconfig.allowHighPollyArmorModels;
         return true;
     }
 
-    public static boolean allowCustomHighPollyArmor() {
-//        return getServerSettings() != null ? getServerSettings().allowCustomHighPollyArmorModels : MPSSettings.modelconfig.allowCustomHighPollyArmor;
-        return true;
-    }
-
-    public static boolean allowHighPollyPowerFistModels() {
-//        return getServerSettings() != null ? getServerSettings().allowHighPollyPowerFistModels : MPSSettings.modelconfig.allowHighPollyPowerFistModels;
-        return true;
-    }
-
-    public boolean allowCustomPowerFistModels() {
-//        return getServerSettings() != null ? getServerSettings().allowCustomPowerFistModels : MPSSettings.modelconfig.allowCustomPowerFistModels;
-        return true;
-    }
-
-    public boolean allowCustomHighPollyPowerFistModels() {
-//        return getServerSettings() != null ? getServerSettings().allowCustomHighPollyPowerFistModels : MPSSettings.modelconfig.allowCustomHighPollyPowerFistModels;
-        return true;
-    }
-
-
-
-
-
     /**
-     * The annotation based config system lacks the ability to handle
+     * The annotation based config system lacks the ability to handle entries not set at runtime.
      * Writes the missing values to a file
      */
     Map<String, Double> missingModuleDoubles = new HashMap<>();
@@ -258,7 +229,7 @@ public enum MPSConfig {
     }
 
     /**
-     * The annotation based config system lacks the ability to handle
+     * The annotation based config system lacks the ability to handle entries not set at runtime.
      * Writes the missing values to a file
      */
     Map<String, Integer> missingModuleIntegers = new HashMap<>();

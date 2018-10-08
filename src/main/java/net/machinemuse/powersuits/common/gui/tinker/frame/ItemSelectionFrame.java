@@ -25,7 +25,8 @@ public class ItemSelectionFrame extends ScrollableFrame {
     public ItemSelectionFrame(MusePoint2D topleft, MusePoint2D bottomright, Colour borderColour, Colour insideColour, EntityPlayer player) {
         super(topleft, bottomright, borderColour, insideColour);
         this.player = player;
-        List<Integer> slots = MuseItemUtils.getModularItemSlotsEquiped(player);
+        List<Integer> slots = MuseItemUtils.getModularItemSlotsInInventory(player);
+//        List<Integer> slots = MuseItemUtils.getModularItemSlotsEquiped(player);
         loadPoints(slots.size());
         loadItems();
     }
@@ -50,7 +51,8 @@ public class ItemSelectionFrame extends ScrollableFrame {
             itemButtons = new ArrayList<>();
             double centerx = (border.left() + border.right()) / 2;
             double centery = (border.top() + border.bottom()) / 2;
-            List<Integer> slots = MuseItemUtils.getModularItemSlotsEquiped(player);
+//            List<Integer> slots = MuseItemUtils.getModularItemSlotsEquiped(player);
+            List<Integer> slots = MuseItemUtils.getModularItemSlotsInInventory(player);
             if (slots.size() > itemPoints.size()) {
                 loadPoints(slots.size());
             }

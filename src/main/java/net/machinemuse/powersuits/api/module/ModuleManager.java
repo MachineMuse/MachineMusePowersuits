@@ -8,14 +8,16 @@ import net.minecraft.util.NonNullList;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public enum ModuleManager implements IModuleManager {
     INSTANCE;
 
     protected static final Map<String, NonNullList<ItemStack>> installCosts = new HashMap<>();
     protected static final Map<String, NonNullList<ItemStack>> customInstallCosts = new HashMap<>();
-    protected static final Map<String, IPowerModule> moduleMap = new HashMap<>();
+    protected static final Map<String, IPowerModule> moduleMap = new LinkedHashMap<>();
 
     @Override
     public void addModule(IPowerModule module) {

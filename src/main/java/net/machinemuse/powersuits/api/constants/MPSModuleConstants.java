@@ -113,7 +113,7 @@ public class MPSModuleConstants {
     public static final String MODULE_NITROGEN_COOLING_SYSTEM__DATANAME = "advancedCoolingSystem";
     public static final String MODULE_MOB_REPULSOR__DATANAME = "mobRepulsor";
     public static final String MODULE_WATER_ELECTROLYZER__DATANAME = "waterElectrolyzer";
-    public static final String MODULE_WATER_TANK__DATANAME = "waterTank";
+//    public static final String MODULE_WATER_TANK__DATANAME = "waterTank";
 
 
     // Movement -----------------------------------------------------------------------------------

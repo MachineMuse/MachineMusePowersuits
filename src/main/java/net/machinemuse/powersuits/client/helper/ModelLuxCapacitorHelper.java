@@ -40,24 +40,24 @@ public enum ModelLuxCapacitorHelper {
                 }
 
                 public IBakedModel getBase(@Nullable EnumFacing facing) {
-                    return ModelHelper.getBakedModel(baseModelLocation, new TRSRTransformation((facing != null) ? facing : EnumFacing.NORTH));
+                    return ModelHelper.getBakedModel(baseModelLocation, TRSRTransformation.from((facing != null) ? facing : EnumFacing.NORTH));
                 }
 
                 public IBakedModel getLens(@Nullable EnumFacing facing) {
-                    return ModelHelper.getBakedModel(lensModelLocation, new TRSRTransformation((facing != null) ? facing : EnumFacing.NORTH));
+                    return ModelHelper.getBakedModel(lensModelLocation, TRSRTransformation.from((facing != null) ? facing : EnumFacing.NORTH));
                 }
 
                 List<BakedQuad> getBaseQuads(@Nullable EnumFacing facing) {
                     facing = (facing != null) ? facing : EnumFacing.NORTH;
 
-                    TRSRTransformation transform = new TRSRTransformation(facing);
+                    TRSRTransformation transform = TRSRTransformation.from(facing);
                     IBakedModel bakedModel = ModelHelper.getBakedModel(baseModelLocation, transform);
                     return bakedModel.getQuads(MPSItems.INSTANCE.luxCapacitor.getDefaultState().withProperty(BlockDirectional.FACING, facing), null, 0);
                 }
 
                 List<BakedQuad> getLensColoredQuads(Colour color, @Nullable EnumFacing facing) {
                     facing = (facing != null) ? facing : EnumFacing.NORTH;
-                    TRSRTransformation transform = new TRSRTransformation(facing);
+                    TRSRTransformation transform = TRSRTransformation.from(facing);
                     IBakedModel bakedModel = ModelHelper.getBakedModel(lensModelLocation, transform);
                     List<BakedQuad> quads = bakedModel.getQuads(MPSItems.INSTANCE.luxCapacitor.getDefaultState().withProperty(BlockDirectional.FACING, facing), null, 0);
                     return ModelHelper.getColoredQuadsWithGlow(quads, color, true);

@@ -95,6 +95,27 @@ public class MuseItemUtils {
     }
 
     /**
+     * Scans a specified inventory for modular items.
+     *
+     * @param player's whose inventory to scan.
+     * @return A List of inventory slots containing an IModularItem
+     */
+    public static List<Integer> getModularItemSlotsInInventory(EntityPlayer player) {
+        ArrayList<Integer> slots = new ArrayList<>();
+        ItemStack stack;
+        for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
+            stack = player.inventory.getStackInSlot(i);
+            if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
+                slots.add(i);
+            }
+        }
+        return slots;
+    }
+
+
+
+
+    /**
      * Checks if the player has a copy of all of the items in
      * workingUpgradeCost.
      *
