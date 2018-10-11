@@ -33,9 +33,9 @@ public class TabSelectFrame implements IGuiFrame {
         this.worldy = worldy;
         this.worldz = worldz;
 
-        this.buttons.put(new ClickableButton(I18n.format("gui.tab.tinker"), topleft.midpoint(bottomright).minus(100, 0), worldy < 256  && worldy > 0), 0);
-        this.buttons.put(new ClickableButton(I18n.format("gui.tab.keybinds"), topleft.midpoint(bottomright), true), 1);
-        this.buttons.put(new ClickableButton(I18n.format("gui.tab.visual"), topleft.midpoint(bottomright).plus(100, 0), true), 3);
+        this.buttons.put(new ClickableButton(I18n.format("gui.powersuits.tab.tinker"), topleft.midpoint(bottomright).minus(100, 0), worldy < 256  && worldy > 0), 0);
+        this.buttons.put(new ClickableButton(I18n.format("gui.powersuits.tab.keybinds"), topleft.midpoint(bottomright), true), 1);
+        this.buttons.put(new ClickableButton(I18n.format("gui.powersuits.tab.visual"), topleft.midpoint(bottomright).plus(100, 0), true), 3);
     }
 
     @Override

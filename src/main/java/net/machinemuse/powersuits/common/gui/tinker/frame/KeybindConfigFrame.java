@@ -52,8 +52,8 @@ public class KeybindConfigFrame implements IGuiFrame {
         this.br = br;
         this.player = player;
         MusePoint2D center = br.plus(ul).times(0.5);
-        newKeybindButton = new ClickableButton(I18n.format("gui.newKeybind"), center.plus(new MusePoint2D(0, -8)), true);
-        trashKeybindButton = new ClickableButton(I18n.format("gui.trashKeybind"), center.plus(new MusePoint2D(0, 8)), true);
+        newKeybindButton = new ClickableButton(I18n.format("gui.powersuits.newKeybind"), center.plus(new MusePoint2D(0, -8)), true);
+        trashKeybindButton = new ClickableButton(I18n.format("gui.powersuits.trashKeybind"), center.plus(new MusePoint2D(0, 8)), true);
     }
 
     @Override
@@ -226,7 +226,7 @@ public class KeybindConfigFrame implements IGuiFrame {
         RenderState.blendingOn();
         RenderState.on2D();
         if (selecting) {
-            MuseRenderer.drawCenteredString(I18n.format("gui.pressKey"), center.getX(), center.getY());
+            MuseRenderer.drawCenteredString(I18n.format("gui.powersuits.pressKey"), center.getX(), center.getY());
             RenderState.off2D();
             RenderState.blendingOff();
             return;
@@ -234,13 +234,13 @@ public class KeybindConfigFrame implements IGuiFrame {
         newKeybindButton.draw();
         trashKeybindButton.draw();
         MuseTextureUtils.pushTexture(MuseTextureUtils.TEXTURE_QUILT);
-        MuseRenderer.drawCenteredString(I18n.format("gui.keybindInstructions1"), center.getX(), center.getY() + 40);
-        MuseRenderer.drawCenteredString(I18n.format("gui.keybindInstructions2"), center.getX(), center.getY() + 50);
-        MuseRenderer.drawCenteredString(I18n.format("gui.keybindInstructions3"), center.getX(), center.getY() + 60);
-        MuseRenderer.drawCenteredString(I18n.format("gui.keybindInstructions4"), center.getX(), center.getY() + 70);
+        MuseRenderer.drawCenteredString(I18n.format("gui.powersuits.keybindInstructions1"), center.getX(), center.getY() + 40);
+        MuseRenderer.drawCenteredString(I18n.format("gui.powersuits.keybindInstructions2"), center.getX(), center.getY() + 50);
+        MuseRenderer.drawCenteredString(I18n.format("gui.powersuits.keybindInstructions3"), center.getX(), center.getY() + 60);
+        MuseRenderer.drawCenteredString(I18n.format("gui.powersuits.keybindInstructions4"), center.getX(), center.getY() + 70);
         if (takenTime + 1000 > System.currentTimeMillis()) {
             MusePoint2D pos = newKeybindButton.getPosition().plus(new MusePoint2D(0, -20));
-            MuseRenderer.drawCenteredString(I18n.format("gui.keybindTaken"), pos.getX(), pos.getY());
+            MuseRenderer.drawCenteredString(I18n.format("gui.powersuits.keybindTaken"), pos.getX(), pos.getY());
         }
         for (ClickableModule module : modules) {
             module.draw();

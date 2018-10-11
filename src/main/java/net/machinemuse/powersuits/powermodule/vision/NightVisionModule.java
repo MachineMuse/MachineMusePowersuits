@@ -17,7 +17,6 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.potion.PotionType;
 
 public class NightVisionModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
     private static final Potion nightvision = MobEffects.NIGHT_VISION;

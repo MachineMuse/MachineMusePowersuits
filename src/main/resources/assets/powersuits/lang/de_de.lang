@@ -250,13 +250,13 @@ gui.powersuits.armor=Rüstung
 gui.powersuits.slotpoints=Slot-Punkte
 
 # Kurzinfo
-tooltip.pressShift=Drücken Sie UMSCHALTTASTE für weitere Informationen.
-tooltip.componentTooltip=Zur Verwendung in Tinker Table
-tooltip.changeModes=Modi ändern: Halten Sie die Nummer des Hotbar-Slots gedrückt, auf dem sich die PowerFist befindet.
-tooltip.energy=Energie:
-tooltip.noModules=Keine installierten Module! Dieser Gegenstand ist nutzlos, bis Sie einige Module an einer Tinker-Tabelle hinzugefügt haben.
-tooltip.installedModules=Installierte Module:
-tooltip.mode=Modus:
+tooltip.powersuits.pressShift=Drücken Sie UMSCHALTTASTE für weitere Informationen.
+tooltip.powersuits.componentTooltip=Zur Verwendung in Tinker Table
+tooltip.powersuits.changeModes=Modi ändern: Halten Sie die Nummer des Hotbar-Slots gedrückt, auf dem sich die PowerFist befindet.
+tooltip.powersuits.energy=Energie:
+tooltip.powersuits.noModules=Keine installierten Module! Dieser Gegenstand ist nutzlos, bis Sie einige Module an einer Tinker-Tabelle hinzugefügt haben.
+tooltip.powersuits.installedModules=Installierte Module:
+tooltip.powersuits.mode=Modus:
 
 # Default Model Helm
 model.mps_helm.modelName=MPS Helm

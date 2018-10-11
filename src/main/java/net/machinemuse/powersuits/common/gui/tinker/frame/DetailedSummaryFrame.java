@@ -62,12 +62,12 @@ public class DetailedSummaryFrame extends ScrollableFrame {
             super.draw();
             int margin = 4;
             int nexty = (int) border.top() + margin;
-            MuseRenderer.drawCenteredString(I18n.format("gui.equippedTotals"), (border.left() + border.right())/2, nexty);
+            MuseRenderer.drawCenteredString(I18n.format("gui.powersuits.equippedTotals"), (border.left() + border.right())/2, nexty);
             nexty += 10;
 
             // Max Energy
             String formattedValue = MuseStringUtils.formatNumberFromUnits(energy, PowerModuleBase.getUnit(NuminaNBTConstants.MAXIMUM_ENERGY));
-            String name = I18n.format("gui.energyStorage");
+            String name = I18n.format("gui.powersuits.energyStorage");
             double valueWidth = MuseRenderer.getStringWidth(formattedValue);
             double allowedNameWidth = border.width() - valueWidth - margin * 2;
             List<String> namesList = MuseStringUtils.wrapStringToVisualLength(name, allowedNameWidth);
@@ -80,7 +80,7 @@ public class DetailedSummaryFrame extends ScrollableFrame {
             // Slot points
             if (slotPoints > 0) {
                 formattedValue = MuseStringUtils.wrapFormatTags(MuseStringUtils.formatNumberFromUnits(slotPoints, "pts"), MuseStringUtils.FormatCodes.BrightGreen);
-                name = I18n.format("gui.slotpoints");
+                name = I18n.format("gui.powersuits.slotpoints");
                 valueWidth = MuseRenderer.getStringWidth(formattedValue);
                 allowedNameWidth = border.width() - valueWidth - margin * 2;
                 namesList = MuseStringUtils.wrapStringToVisualLength(name, allowedNameWidth);
@@ -94,7 +94,7 @@ public class DetailedSummaryFrame extends ScrollableFrame {
 
             // Armor points
             formattedValue = MuseStringUtils.formatNumberFromUnits(armor, "pts");
-            name = I18n.format("gui.armor");
+            name = I18n.format("gui.powersuits.armor");
             valueWidth = MuseRenderer.getStringWidth(formattedValue);
             allowedNameWidth = border.width() - valueWidth - margin * 2;
             namesList = MuseStringUtils.wrapStringToVisualLength(name, allowedNameWidth);

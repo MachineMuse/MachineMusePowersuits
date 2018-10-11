@@ -4,7 +4,6 @@ import com.google.common.collect.Multimap;
 import net.machinemuse.numina.api.item.IArmorTraits;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
-import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
@@ -201,10 +200,6 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
             if (ModuleManager.INSTANCE.itemHasActiveModule(stack, MPSModuleConstants.MODULE_DIAMOND_PLATING__DATANAME) || ModuleManager.INSTANCE.itemHasActiveModule(stack, MPSModuleConstants.MODULE_ENERGY_SHIELD__DATANAME)) {
                 multimap.put(SharedMonsterAttributes.ARMOR_TOUGHNESS.getName(), new AttributeModifier(ARMOR_MODIFIERS[slot.getIndex()], "Armor toughness", 2.5, 0));
-            }
-
-            if (slot == EntityEquipmentSlot.LEGS && ModuleManager.INSTANCE.itemHasActiveModule(stack, MPSModuleConstants.MODULE_SPRINT_ASSIST__DATANAME)) {
-                multimap.put(SharedMonsterAttributes.MOVEMENT_SPEED.getName(), new AttributeModifier(ARMOR_MODIFIERS[slot.getIndex()], "Sprint Assist", MuseItemUtils.getDoubleOrZero(stack, MPSModuleConstants.TAG_SPRINT_ASSIST_VALUE), 0));
             }
         }
         return multimap;

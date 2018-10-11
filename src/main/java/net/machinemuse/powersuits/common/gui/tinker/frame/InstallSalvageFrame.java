@@ -45,11 +45,11 @@ public class InstallSalvageFrame extends ScrollableFrame {
         double sizex = border.right() - border.left();
         double sizey = border.bottom() - border.top();
 
-        this.installButton = new ClickableButton(I18n.format("gui.install"), new MusePoint2D(
+        this.installButton = new ClickableButton(I18n.format("gui.powersuits.install"), new MusePoint2D(
                 border.right() - sizex / 2.0, border.bottom() - sizey
                 / 4.0),
                 true);
-        this.salvageButton = new ClickableButton(I18n.format("gui.salvage"), new MusePoint2D(
+        this.salvageButton = new ClickableButton(I18n.format("gui.powersuits.salvage"), new MusePoint2D(
                 border.left() + sizex / 2.0, border.top() + sizey / 4.0),
                 true);
 

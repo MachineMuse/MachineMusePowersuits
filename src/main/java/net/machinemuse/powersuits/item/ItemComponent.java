@@ -84,7 +84,7 @@ public class ItemComponent extends Item {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> currentTipList, ITooltipFlag flagIn) {
         if (MPSConfig.INSTANCE.doAdditionalInfo()) {
-            String message =  I18n.format("tooltip.componentTooltip");
+            String message =  I18n.format("tooltip.powersuits.componentTooltip");
             message = MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic);
             currentTipList.add(message);
             String description = I18n.format(getUnlocalizedName(stack)+ ".desc");

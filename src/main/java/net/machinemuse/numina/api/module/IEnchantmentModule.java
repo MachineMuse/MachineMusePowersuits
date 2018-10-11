@@ -3,8 +3,6 @@ package net.machinemuse.numina.api.module;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 
 import javax.annotation.Nonnull;
 import java.util.Map;

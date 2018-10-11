@@ -239,13 +239,13 @@ gui.powersuits.energyStorage=能量存储
 gui.powersuits.armor=护甲
 gui.powersuits.slotpoints=槽点
 
-tooltip.pressShift=按下shift显示更多内容.
-tooltip.componentTooltip=在动力装甲改装台中使用.
-tooltip.changeModes=改变模式:潜行+鼠标滚轮.
-tooltip.energy=能量:
-tooltip.noModules=未安装模块!该装备目前无法使用,需要在动力装甲改装台安装一些模块.
-tooltip.installedModules=已安装模块:
-tooltip.mode=模式:
+tooltip.powersuits.pressShift=按下shift显示更多内容.
+tooltip.powersuits.componentTooltip=在动力装甲改装台中使用.
+tooltip.powersuits.changeModes=改变模式:潜行+鼠标滚轮.
+tooltip.powersuits.energy=能量:
+tooltip.powersuits.noModules=未安装模块!该装备目前无法使用,需要在动力装甲改装台安装一些模块.
+tooltip.powersuits.installedModules=已安装模块:
+tooltip.powersuits.mode=模式:
 
 # Default Model Helm
 model.mps_helm.modelName=MPS头盔

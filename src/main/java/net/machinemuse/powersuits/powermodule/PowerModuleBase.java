@@ -4,7 +4,6 @@ import net.machinemuse.numina.api.item.IModularItem;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.api.nbt.*;
-import net.machinemuse.powersuits.api.constants.MPSConfigConstants;
 import net.machinemuse.powersuits.api.constants.MPSModConstants;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.armor.*;

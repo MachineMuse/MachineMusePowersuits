@@ -6,18 +6,17 @@ import net.machinemuse.numina.api.module.IPlayerTickModule;
 import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
-import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.machinemuse.powersuits.item.armor.ItemPowerArmorLeggings;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Ported by leon on 10/18/16.
@@ -42,7 +41,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
         addBasePropertyDouble(MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 0.01, "%");
         addTradeoffPropertyDouble("Walking Assist", MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 1.99);
 
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 4);
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override
@@ -51,6 +50,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
             double horzMovement = player.distanceWalkedModified - player.prevDistanceWalkedModified;
             double totalEnergy = ElectricItemUtils.getPlayerEnergy(player);
             if (horzMovement > 0) { // stop doing drain calculations when player hasn't moved
+                IAttributeInstance movementSpeedAtrr = player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
                 if (player.isSprinting()) {
                     double exhaustion = Math.round(horzMovement * 100.0F) * 0.01;
                     double sprintCost = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION);
@@ -58,8 +58,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
                         double sprintMultiplier = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.SPRINT_SPEED_MULTIPLIER);
                         double exhaustionComp = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.SPRINT_FOOD_COMPENSATION);
                         ElectricItemUtils.drainPlayerEnergy(player, (int) (sprintCost * horzMovement * 5));
-                        setMovementModifier(item, sprintMultiplier);
-                        player.capabilities.setPlayerWalkSpeed((float) 0.1);
+                        movementSpeedAtrr.setBaseValue((double) player.capabilities.getWalkSpeed() + player.capabilities.getWalkSpeed() * sprintMultiplier);
                         player.getFoodStats().addExhaustion((float) (-0.01 * exhaustion * exhaustionComp));
                         player.jumpMovementFactor = player.getAIMoveSpeed() * .2f;
                     }
@@ -68,8 +67,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
                     if (cost < totalEnergy) {
                         double walkMultiplier = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.WALKING_SPEED_MULTIPLIER);
                         ElectricItemUtils.drainPlayerEnergy(player, (int) (cost * horzMovement * 5));
-                        player.capabilities.setPlayerWalkSpeed((float) 0.1);
-                        setMovementModifier(item, walkMultiplier);
+                            movementSpeedAtrr.setBaseValue((double) player.capabilities.getWalkSpeed() + player.capabilities.getWalkSpeed() * walkMultiplier);
                         player.jumpMovementFactor = player.getAIMoveSpeed() * .2f;
                     }
                 }
@@ -80,19 +78,8 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack itemStack) {
-        if (!itemStack.isEmpty() && itemStack.getItem() instanceof ItemPowerArmorLeggings) {
-            // TODO: remove or add config option. Only needed for cleanup of old tag
-            NBTTagCompound itemTag = itemStack.getTagCompound();
-            itemTag.removeTag("AttributeModifiers");
 
-            MuseNBTUtils.getMuseItemTag(itemStack).setDouble(MPSModuleConstants.TAG_SPRINT_ASSIST_VALUE, 0);
-        }
     }
-
-    public void setMovementModifier(ItemStack itemStack, double multiplier) {
-        MuseNBTUtils.getMuseItemTag(itemStack).setDouble(MPSModuleConstants.TAG_SPRINT_ASSIST_VALUE, multiplier);
-    }
-
 
     @Override
     public EnumModuleCategory getCategory() {

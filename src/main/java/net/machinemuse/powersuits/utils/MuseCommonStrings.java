@@ -49,14 +49,14 @@ public abstract class MuseCommonStrings {
         if (stack.getItem() instanceof IModeChangingItem) {
             String mode = MuseItemUtils.getStringOrNull(stack, NuminaNBTConstants.TAG_MODE);
             if (mode != null)
-                currentTipList.add(I18n.format("tooltip.mode") + " " + MuseStringUtils.wrapFormatTags(mode, MuseStringUtils.FormatCodes.Red));
+                currentTipList.add(I18n.format("tooltip.powersuits.mode") + " " + MuseStringUtils.wrapFormatTags(mode, MuseStringUtils.FormatCodes.Red));
             else
-                currentTipList.add(I18n.format("tooltip.changeModes"));
+                currentTipList.add(I18n.format("tooltip.powersuits.changeModes"));
         }
 
         ElectricAdapter adapter = ElectricAdapter.wrap(stack);
         if (adapter != null) {
-            String energyinfo = I18n.format("tooltip.energy") + " " + MuseStringUtils.formatNumberShort(adapter.getEnergyStored()) + '/'
+            String energyinfo = I18n.format("tooltip.powersuits.energy") + " " + MuseStringUtils.formatNumberShort(adapter.getEnergyStored()) + '/'
                     + MuseStringUtils.formatNumberShort(adapter.getMaxEnergyStored());
             currentTipList.add(MuseStringUtils.wrapMultipleFormatTags(energyinfo, MuseStringUtils.FormatCodes.Italic.character,
                     MuseStringUtils.FormatCodes.Aqua));
@@ -82,10 +82,10 @@ public abstract class MuseCommonStrings {
 
             List<String> installed = getItemInstalledModules(player, stack);
             if (installed.size() == 0) {
-                String message = I18n.format("tooltip.noModules");
+                String message = I18n.format("tooltip.powersuits.noModules");
                 currentTipList.addAll(MuseStringUtils.wrapStringToLength(message, 30));
             } else {
-                currentTipList.add(I18n.format("tooltip.installedModules"));
+                currentTipList.add(I18n.format("tooltip.powersuits.installedModules"));
                 for (String moduleName : installed) {
                     currentTipList.add(MuseStringUtils.wrapFormatTags(moduleName, MuseStringUtils.FormatCodes.Indigo));
                 }
@@ -105,7 +105,7 @@ public abstract class MuseCommonStrings {
 
     @SideOnly(Side.CLIENT)
     public static String additionalInfoInstructions() {
-        String message = I18n.format("tooltip.pressShift");
+        String message = I18n.format("tooltip.powersuits.pressShift");
         return MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic);
     }
 

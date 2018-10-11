@@ -46,10 +46,10 @@ public class ColourPickerFrame implements IGuiFrame {
     public ColourPickerFrame(MuseRect borderRef, Colour insideColour, Colour borderColour, ItemSelectionFrame itemSelector) {
         this.itemSelector = itemSelector;
         this.border = new DrawableMuseRect(borderRef, insideColour, borderColour);
-        this.rslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 4), this.border.width() - 10, I18n.format("gui.red"));
-        this.gslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 20), this.border.width() - 10, I18n.format("gui.green"));
-        this.bslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 36), this.border.width() - 10, I18n.format("gui.blue"));
-        this.aslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 52), this.border.width() - 10, I18n.format("gui.alpha"));
+        this.rslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 4), this.border.width() - 10, I18n.format("gui.powersuits.red"));
+        this.gslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 20), this.border.width() - 10, I18n.format("gui.powersuits.green"));
+        this.bslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 36), this.border.width() - 10, I18n.format("gui.powersuits.blue"));
+        this.aslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 52), this.border.width() - 10, I18n.format("gui.powersuits.alpha"));
         this.selectedSlider = null;
         this.selectedColour = 0;
         this.decrAbove = -1;

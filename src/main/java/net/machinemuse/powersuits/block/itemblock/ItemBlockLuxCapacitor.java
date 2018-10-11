@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.block.itemblock;
 
-import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.minecraft.item.ItemBlock;
 
