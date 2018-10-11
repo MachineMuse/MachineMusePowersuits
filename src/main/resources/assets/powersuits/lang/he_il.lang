@@ -195,10 +195,10 @@ module.powersuits.plasmaCannon.desc=Use electrical arcs in a containment field t
 module.powersuits.railgun.name=נשק ישיר
 module.powersuits.railgun.desc=An assembly which accelerates a projectile to supersonic speeds using magnetic force. Heavy recoil.
 gui.slotpoints=Slot Points
-gui.noModulesFound.line1=No modular powersuit items
-gui.noModulesFound.line2=found in inventory. Make some!
+gui.powersuits.noModulesFound.line1=No modular powersuit items
+gui.powersuits.noModulesFound.line2=found in inventory. Make some!
 
-gui.red=Red
+gui.powersuits.redRed
 gui.green=Green
 gui.blue=Blue
 

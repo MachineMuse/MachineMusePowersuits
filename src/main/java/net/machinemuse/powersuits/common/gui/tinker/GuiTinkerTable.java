@@ -99,8 +99,8 @@ public class GuiTinkerTable extends MuseGui {
         if (itemSelectFrame.hasNoItems()) {
             double centerx = absX(0);
             double centery = absY(0);
-            MuseRenderer.drawCenteredString(I18n.format("gui.noModulesFound.line1"), centerx, centery - 5);
-            MuseRenderer.drawCenteredString(I18n.format("gui.noModulesFound.line2"), centerx, centery + 5);
+            MuseRenderer.drawCenteredString(I18n.format("gui.powersuits.noModulesFound.line1"), centerx, centery - 5);
+            MuseRenderer.drawCenteredString(I18n.format("gui.powersuits.noModulesFound.line2"), centerx, centery + 5);
         }
     }
 }

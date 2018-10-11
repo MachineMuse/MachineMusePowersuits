@@ -195,10 +195,10 @@ module.plasmaCannon.desc=Use electrical arcs in a containment field to superheat
 module.railgun.name=Рельсотрон
 module.railgun.desc=Сборка, которая ускоряет снаряд до сверхзвуковой скорости, применяя магнитную силу. Большая отдача.
 gui.slotpoints=Slot Points
-gui.noModulesFound.line1=Части модульной силовой брони
-gui.noModulesFound.line2=не найдены в инвентаре. Сделайте несколько!
+gui.powersuits.noModulesFound.line1=Части модульной силовой брони
+gui.powersuits.noModulesFound.line2=не найдены в инвентаре. Сделайте несколько!
 
-gui.red=Красный
+gui.powersuits.redКрасный
 gui.green=Зелёный
 gui.blue=Синий
 

@@ -440,5 +440,3 @@ model.powerfist_fingers_firing_left.pinky1.partName=Pinky 1
 model.powerfist_fingers_firing_left.pinky2.partName=Pinky 2
 model.powerfist_fingers_firing_left.thumb1.partName=Thumb 1
 model.powerfist_fingers_firing_left.thumb2.partName=Thumb 2
-item.powersuits.powerArmorComponent.componentLiquidNitrogen.name=Liquid Nitrogen Bucket
-item.powersuits.powerArmorComponent.componentRawCarbon.name=Raw Carbon
