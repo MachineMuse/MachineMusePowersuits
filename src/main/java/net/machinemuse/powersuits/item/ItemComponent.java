@@ -9,6 +9,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -16,6 +17,8 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
 
 public class ItemComponent extends Item {
     private volatile static ItemComponent INSTANCE;
@@ -57,18 +60,18 @@ public class ItemComponent extends Item {
 
     private ItemComponent() {
         this.maxStackSize = 64;
-        this.setRegistryName("powerarmorcomponent");
-        this.setUnlocalizedName("item.powerArmorComponent.");
+        String name = "powerArmorComponent";
+        this.setRegistryName(new ResourceLocation(MODID, name.toLowerCase()));
+        this.setUnlocalizedName(new StringBuilder(MODID).append(".").append(name).toString());
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setCreativeTab(MPSConfig.INSTANCE.mpsCreativeTab);
         this.populate();
     }
 
-    public ItemStack addComponent(int meta, String oredictName, String description) {
+    public ItemStack addComponent(int meta, String oredictName) {
         ItemStack stack = new ItemStack(this, 1, meta);
         names.put(meta, oredictName);
-        descriptions.put(meta, description);
         return stack;
     }
 
@@ -84,7 +87,7 @@ public class ItemComponent extends Item {
             String message =  I18n.format("tooltip.componentTooltip");
             message = MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic);
             currentTipList.add(message);
-            String description = (descriptions.get(stack.getMetadata()) != null) ? descriptions.get(stack.getMetadata()) : "";
+            String description = I18n.format(getUnlocalizedName(stack)+ ".desc");
             currentTipList.addAll(MuseStringUtils.wrapStringToLength(description, 30));
         } else {
             currentTipList.add(MuseCommonStrings.additionalInfoInstructions());
@@ -94,28 +97,28 @@ public class ItemComponent extends Item {
     // changed this to static values for meta just in case we need to change or add things later
     public void populate() {
         // NOTE: Only add to end otherwise people's IDs will get screwed up n.n'
-        wiring = addComponent(0, "componentWiring", "A special type of wiring with high voltaic capacity and precision, necessary for the sensitive electronics in power armor.");
-        solenoid = addComponent(1, "componentSolenoid", "Wires wound around a ferromagnetic core produces a basic electromagnet.");
-        servoMotor = addComponent(2, "componentServo", "A special type of motor which uses a pulse-modulated signal to enact very precise movements.");
-        gliderWing = addComponent(3, "componentGliderWing", "A lightweight aerodynamic wing with an electromagnet for quick deployment and retraction.");
-        ionThruster = addComponent(4, "componentIonThruster", "Essentially a miniature particle accelerator. Accelerates ions to near-light speed to produce thrust.");
-        lvcapacitor = addComponent(5, "componentLVCapacitor", "A simple capacitor can store and discharge small amounts of energy rapidly.");
-        mvcapacitor = addComponent(6, "componentMVCapacitor", "A more advanced capacitor which can store more energy at higher voltages.");
-        hvcapacitor = addComponent(7, "componentHVCapacitor", "A synthetic crystal device which can store and release massive amounts of energy.");
-        evcapacitor = addComponent(8, "componentEVCapacitor", "The most advanced energy storage device ever created. Now 15% less likely to randomly explode!");
-        parachute = addComponent(9, "componentParachute", "A simple reusable parachute which can be deployed and recovered in midair.");
-        ironPlating = addComponent(10, "componentPlatingIron", "Some carefully-arranged metal armor plates.");
-        diamonddPlating = addComponent(11, "componentPlatingDiamond", "Some carefully-arranged armor plates of a rare and stronger material");
-        fieldEmitter = addComponent(12, "componentFieldEmitter", "An advanced device which directly manipulates electromagnetic and gravitational fields in an area.");
-        laserHologram = addComponent(13, "componentLaserEmitter", "A multicoloured laser array which can cheaply alter the appearance of something.");
-        carbonMyofiber = addComponent(14,"componentCarbonMyofiber", "A small bundle of carbon fibers, refined for use in artificial muscles.");
-        controlCircuit = addComponent(15, "componentControlCircuit", "A simple networkable microcontroller for coordinating an individual component.");
-        myofiberGel = addComponent(16, "componentMyofiberGel", "A thick, conductive paste, perfect for fitting between myofibers in an artificial muscle.");
-        artificialMuscle = addComponent(17, "componentArtificialMuscle", "An electrical, artificial muscle, with less range of movement than human muscle but orders of magnitude more strength.");
-        solarPanel = addComponent(18, "componentSolarPanel", "A light sensitive device that will generate electricity from the sun.");
-        magnet = addComponent(19, "componentMagnet", "A metallic device that generates a magnetic field which pulls items towards the player.");
-        computerChip = addComponent(20, "componentComputerChip", "An upgraded control circuit that contains a CPU which is capable of more advanced calculations.");
-        rubberHose = addComponent(21,"componentRubberHose", "A heavily insulated rubber hose capable of withstanding extreme heat or cold");
+        wiring = addComponent(0, "componentWiring");
+        solenoid = addComponent(1, "componentSolenoid");
+        servoMotor = addComponent(2, "componentServo");
+        gliderWing = addComponent(3, "componentGliderWing");
+        ionThruster = addComponent(4, "componentIonThruster");
+        lvcapacitor = addComponent(5, "componentLVCapacitor");
+        mvcapacitor = addComponent(6, "componentMVCapacitor");
+        hvcapacitor = addComponent(7, "componentHVCapacitor");
+        evcapacitor = addComponent(8, "componentEVCapacitor");
+        parachute = addComponent(9, "componentParachute");
+        ironPlating = addComponent(10, "componentPlatingIron");
+        diamonddPlating = addComponent(11, "componentPlatingDiamond");
+        fieldEmitter = addComponent(12, "componentFieldEmitter");
+        laserHologram = addComponent(13, "componentLaserEmitter");
+        carbonMyofiber = addComponent(14,"componentCarbonMyofiber");
+        controlCircuit = addComponent(15, "componentControlCircuit");
+        myofiberGel = addComponent(16, "componentMyofiberGel");
+        artificialMuscle = addComponent(17, "componentArtificialMuscle");
+        solarPanel = addComponent(18, "componentSolarPanel");
+        magnet = addComponent(19, "componentMagnet");
+        computerChip = addComponent(20, "componentComputerChip");
+        rubberHose = addComponent(21,"componentRubberHose");
     }
 
     @Override
@@ -126,7 +129,7 @@ public class ItemComponent extends Item {
         } else
             unlocalizedName = "";
 
-        return "item.powerArmorComponent." + unlocalizedName;
+        return this.getUnlocalizedName() + "." + unlocalizedName;
    }
 
     /**

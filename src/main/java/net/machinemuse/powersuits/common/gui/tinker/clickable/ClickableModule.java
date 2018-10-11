@@ -41,11 +41,11 @@ public class ClickableModule extends Clickable {
     }
 
     public String getLocalizedName(IPowerModule m) {
-        return I18n.format("module." + m.getUnlocalizedName() + ".name");
+        return I18n.format(m.getUnlocalizedName() + ".name");
     }
 
     public String getLocalizedDescription(IPowerModule m) {
-        return I18n.format("module." + m.getUnlocalizedName() + ".desc");
+        return I18n.format(m.getUnlocalizedName() + ".desc");
     }
 
     @Override
@@ -61,15 +61,10 @@ public class ClickableModule extends Clickable {
     public void drawPartial(double xmino, double ymino, double xmaxo, double ymaxo) {
 //         IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, world, null);
 
-
-
         double left = getPosition().getX() - 8;
         double top = getPosition().getY() - 8;
 
         MuseTextureUtils.pushTexture(MuseTextureUtils.TEXTURE_QUILT);
-
-//        TextureAtlasSprite icon = getModule().getIcon(null);
-
         MuseIconUtils.drawIconAt(left, top, getModule().getIcon(null), Colour.WHITE);
         MuseTextureUtils.popTexture();
 

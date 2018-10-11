@@ -9,7 +9,7 @@ import net.minecraftforge.fluids.BlockFluidFinite;
 public class BlockFluidLiquidNitrogen extends BlockFluidFinite {
     public BlockFluidLiquidNitrogen() {
         super(MPSItems.liquidNitrogen, Material.WATER);
-       setRegistryName(MPSModConstants.MODID, "liquid_nitrogen");
-       setUnlocalizedName(new ResourceLocation(MPSModConstants.MODID, "liquid_nitrogen").toString());
+        setRegistryName(MPSModConstants.MODID, LiquidNitrogen.name.toLowerCase());
+        setUnlocalizedName(new StringBuilder(MPSModConstants.MODID).append(".").append(LiquidNitrogen.name).toString());
     }
 }

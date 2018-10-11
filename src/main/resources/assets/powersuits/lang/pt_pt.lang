@@ -1,6 +1,6 @@
 
-tile.luxCapacitor.name=Condensador de Luz
-tile.tinkerTable.name=Mesa de Trabalho Power Armor
+tile.powersuits.luxCapacitor.name=Condensador de Luz
+tile.powersuits.tinkerTable.name=Mesa de Trabalho Power Armor
 
 itemGroup.powersuits=Modular Powersuits
 
@@ -10,30 +10,30 @@ item.powersuits.powerArmorChestplate.name=Peitoral Power Armor
 item.powersuits.powerArmorHelmet.name=Capacete Power Armor
 item.powersuits.powerFist.name=Power Fist
 
-item.powerArmorComponent.componentWiring.name=Fiação
-item.powerArmorComponent.componentSolenoid.name=Solenoide
-item.powerArmorComponent.componentServo.name=Servomotor
-item.powerArmorComponent.componentGliderWing.name=Asa de Planador
-item.powerArmorComponent.componentIonThruster.name=Propulsor Iónico
-item.powerArmorComponent.componentLVCapacitor.name=Condensador LV
-item.powerArmorComponent.componentMVCapacitor.name=Condensador MV
-item.powerArmorComponent.componentHVCapacitor.name=Condensador HV
-item.powerArmorComponent.componentEVCapacitor.name=EV Capacitor
-item.powerArmorComponent.componentParachute.name=Paraquedas
-item.powerArmorComponent.componentPlatingIron.name=Blindagem Básica
-item.powerArmorComponent.componentPlatingDiamond.name=Blindagem Avançada
-item.powerArmorComponent.componentFieldEmitter.name=Emissor de Campo de Força
-item.powerArmorComponent.componentLaserEmitter.name=Emissor de Holograma
-item.powerArmorComponent.componentCarbonMyofiber.name=Miofibra de Carbono
-item.powerArmorComponent.componentControlCircuit.name=Circuito de Controle
-item.powerArmorComponent.componentMyofiberGel.name=Gel de Miofibra
-item.powerArmorComponent.componentArtificialMuscle.name=Músculo Artificial
-item.powerArmorComponent.componentSolarPanel.name=Solar Panel
-item.powerArmorComponent.componentMagnet.name=Magnet
-item.powerArmorComponent.componentComputerChip.name=Computer Chip
-item.powerArmorComponent.componentLiquidNitrogen.name=Liquid Nitrogen Bucket
-item.powerArmorComponent.componentRubberHose.name=Insulated Rubber Hose
-item.powerArmorComponent.componentRawCarbon.name=Raw Carbon
+item.powersuits.powerArmorComponent.componentWiring.name=Fiação
+item.powersuits.powerArmorComponent.componentSolenoid.name=Solenoide
+item.powersuits.powerArmorComponent.componentServo.name=Servomotor
+item.powersuits.powerArmorComponent.componentGliderWing.name=Asa de Planador
+item.powersuits.powerArmorComponent.componentIonThruster.name=Propulsor Iónico
+item.powersuits.powerArmorComponent.componentLVCapacitor.name=Condensador LV
+item.powersuits.powerArmorComponent.componentMVCapacitor.name=Condensador MV
+item.powersuits.powerArmorComponent.componentHVCapacitor.name=Condensador HV
+item.powersuits.powerArmorComponent.componentEVCapacitor.name=EV Capacitor
+item.powersuits.powerArmorComponent.componentParachute.name=Paraquedas
+item.powersuits.powerArmorComponent.componentPlatingIron.name=Blindagem Básica
+item.powersuits.powerArmorComponent.componentPlatingDiamond.name=Blindagem Avançada
+item.powersuits.powerArmorComponent.componentFieldEmitter.name=Emissor de Campo de Força
+item.powersuits.powerArmorComponent.componentLaserEmitter.name=Emissor de Holograma
+item.powersuits.powerArmorComponent.componentCarbonMyofiber.name=Miofibra de Carbono
+item.powersuits.powerArmorComponent.componentControlCircuit.name=Circuito de Controle
+item.powersuits.powerArmorComponent.componentMyofiberGel.name=Gel de Miofibra
+item.powersuits.powerArmorComponent.componentArtificialMuscle.name=Músculo Artificial
+item.powersuits.powerArmorComponent.componentSolarPanel.name=Solar Panel
+item.powersuits.powerArmorComponent.componentMagnet.name=Magnet
+item.powersuits.powerArmorComponent.componentComputerChip.name=Computer Chip
+item.powersuits.powerArmorComponent.componentLiquidNitrogen.name=Liquid Nitrogen Bucket
+item.powersuits.powerArmorComponent.componentRubberHose.name=Insulated Rubber Hose
+item.powersuits.powerArmorComponent.componentRawCarbon.name=Raw Carbon
 
 fluid.liquid_nitrogen=Liquid Nitrogen
 
@@ -194,34 +194,34 @@ module.plasmaCannon.name=Canhão de Plasma
 module.plasmaCannon.desc=Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.
 module.railgun.name=Railgun
 module.railgun.desc=An assembly which accelerates a projectile to supersonic speeds using magnetic force. Heavy recoil.
-gui.slotpoints=Slot Points
-gui.noModulesFound.line1=No modular powersuit items
-gui.noModulesFound.line2=found in inventory. Make some!
+gui.powersuits.slotpoints=Slot Points
+gui.powersuits.noModulesFound.line1=No modular powersuit items
+gui.powersuits.noModulesFound.line2=found in inventory. Make some!
 
-gui.red=Red
-gui.green=Green
-gui.blue=Blue
+gui.powersuits.red=Red
+gui.powersuits.green=Green
+gui.powersuits.blue=Blue
 
-gui.install=Install
-gui.salvage=Salvage
+gui.powersuits.install=Install
+gui.powersuits.salvage=Salvage
 
-gui.newKeybind=New
-gui.trashKeybind=Trash
-gui.pressKey=Press Key
-gui.keybindInstructions1=Use 'new' to bind new keys.
-gui.keybindInstructions2=Drag and drop modules to bind them to keys.
-gui.keybindInstructions3=Drop keys on 'trash' to unbind them.
-gui.keybindInstructions4=Right-click keybinds to add them to the HUD.
-gui.keybindTaken=Taken!
+gui.powersuits.newKeybind=New
+gui.powersuits.trashKeybind=Trash
+gui.powersuits.pressKey=Press Key
+gui.powersuits.keybindInstructions1=Use 'new' to bind new keys.
+gui.powersuits.keybindInstructions2=Drag and drop modules to bind them to keys.
+gui.powersuits.keybindInstructions3=Drop keys on 'trash' to unbind them.
+gui.powersuits.keybindInstructions4=Right-click keybinds to add them to the HUD.
+gui.powersuits.keybindTaken=Taken!
 
-gui.tab.tinker=Tinker
-gui.tab.keybinds=Keybinds
-gui.tab.visual=Visual
+gui.powersuits.tab.tinker=Tinker
+gui.powersuits.tab.keybinds=Keybinds
+gui.powersuits.tab.visual=Visual
 
-gui.equippedTotals=Equipped Totals
-gui.energyStorage=Energy Storage
-gui.weight=Weight
-gui.armor=Armor
+gui.powersuits.equippedTotals=Equipped Totals
+gui.powersuits.energyStorage=Energy Storage
+gui.powersuits.weight=Weight
+gui.powersuits.armor=Armor
 
 nei.jsonShaped=JSON Shaped
 

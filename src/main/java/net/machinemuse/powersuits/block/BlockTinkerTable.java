@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.block;
 
+import net.machinemuse.powersuits.api.constants.MPSModConstants;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.minecraft.block.BlockHorizontal;
@@ -40,8 +41,8 @@ public class BlockTinkerTable extends BlockHorizontal {
         setLightOpacity(0);
         setLightLevel(0.4f);
         setTickRandomly(false);
-        setUnlocalizedName(name);
-        setRegistryName(ModularPowersuits.MODID, "tile." + name.toLowerCase());
+        setRegistryName(MPSModConstants.MODID, name.toLowerCase());
+        setUnlocalizedName(new StringBuilder(MPSModConstants.MODID).append(".").append(name).toString());
         setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
         GameRegistry.registerTileEntity(TileEntityTinkerTable.class, getRegistryName());
     }

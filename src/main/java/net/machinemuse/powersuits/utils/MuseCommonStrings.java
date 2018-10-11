@@ -124,7 +124,7 @@ public abstract class MuseCommonStrings {
         List<String> modules = new LinkedList();
         for (IPowerModule module : ModuleManager.INSTANCE.getValidModulesForItem(stack)) {
             if (ModuleManager.INSTANCE.tagHasModule(itemTag, module.getDataName())) {
-                modules.add(I18n.format("module." + module.getUnlocalizedName()+ ".name"));
+                modules.add(I18n.format(module.getUnlocalizedName()+ ".name"));
             }
         }
         return modules;

@@ -10,6 +10,6 @@ import net.minecraft.item.ItemBlock;
 public class ItemBlockLuxCapacitor extends ItemBlock {
     public ItemBlockLuxCapacitor() {
         super(MPSItems.INSTANCE.luxCapacitor);
-        setRegistryName(BlockLuxCapacitor.name);
+        setRegistryName(MPSItems.INSTANCE.luxCapacitor.getRegistryName());
     }
 }

@@ -1,6 +1,6 @@
 
-tile.luxCapacitor.name=Конденсатор света
-tile.tinkerTable.name=Верстак для создания силовой брони
+tile.powersuits.luxCapacitor.name=Конденсатор света
+tile.powersuits.tinkerTable.name=Верстак для создания силовой брони
 
 itemGroup.powersuits=Modular Powersuits
 
@@ -10,30 +10,30 @@ item.powersuits.powerArmorChestplate.name=Силовая кираса
 item.powersuits.powerArmorHelmet.name=Силовой шлем
 item.powersuits.powerFist.name=Силовой кулак
 
-item.powerArmorComponent.componentWiring.name=Провод
-item.powerArmorComponent.componentSolenoid.name=Соленоид
-item.powerArmorComponent.componentServo.name=Серводвигатель
-item.powerArmorComponent.componentGliderWing.name=Планёрное крыло
-item.powerArmorComponent.componentIonThruster.name=Ионный двигатель
-item.powerArmorComponent.componentLVCapacitor.name=Конденсатор низкого напряжения
-item.powerArmorComponent.componentMVCapacitor.name=Конденсатор среднего напряжения
-item.powerArmorComponent.componentHVCapacitor.name=Конденсатор высокого напряжения
-item.powerArmorComponent.componentEVCapacitor.name=EV Capacitor
-item.powerArmorComponent.componentParachute.name=Парашют
-item.powerArmorComponent.componentPlatingIron.name=Основная обшивка
-item.powerArmorComponent.componentPlatingDiamond.name=Продвинутая обшивка
-item.powerArmorComponent.componentFieldEmitter.name=Излучатель силового поля
-item.powerArmorComponent.componentLaserEmitter.name=Излучатель голограммы
-item.powerArmorComponent.componentCarbonMyofiber.name=Углеродное мышечное волокно
-item.powerArmorComponent.componentControlCircuit.name=Микросхема управления
-item.powerArmorComponent.componentMyofiberGel.name=Гель из мышечного волокна
-item.powerArmorComponent.componentArtificialMuscle.name=Искусственные мышцы
-item.powerArmorComponent.componentSolarPanel.name=Solar Panel
-item.powerArmorComponent.componentMagnet.name=Magnet
-item.powerArmorComponent.componentComputerChip.name=Computer Chip
-item.powerArmorComponent.componentLiquidNitrogen.name=Liquid Nitrogen Bucket
-item.powerArmorComponent.componentRubberHose.name=Insulated Rubber Hose
-item.powerArmorComponent.componentRawCarbon.name=Raw Carbon
+item.powersuits.powerArmorComponent.componentWiring.name=Провод
+item.powersuits.powerArmorComponent.componentSolenoid.name=Соленоид
+item.powersuits.powerArmorComponent.componentServo.name=Серводвигатель
+item.powersuits.powerArmorComponent.componentGliderWing.name=Планёрное крыло
+item.powersuits.powerArmorComponent.componentIonThruster.name=Ионный двигатель
+item.powersuits.powerArmorComponent.componentLVCapacitor.name=Конденсатор низкого напряжения
+item.powersuits.powerArmorComponent.componentMVCapacitor.name=Конденсатор среднего напряжения
+item.powersuits.powerArmorComponent.componentHVCapacitor.name=Конденсатор высокого напряжения
+item.powersuits.powerArmorComponent.componentEVCapacitor.name=EV Capacitor
+item.powersuits.powerArmorComponent.componentParachute.name=Парашют
+item.powersuits.powerArmorComponent.componentPlatingIron.name=Основная обшивка
+item.powersuits.powerArmorComponent.componentPlatingDiamond.name=Продвинутая обшивка
+item.powersuits.powerArmorComponent.componentFieldEmitter.name=Излучатель силового поля
+item.powersuits.powerArmorComponent.componentLaserEmitter.name=Излучатель голограммы
+item.powersuits.powerArmorComponent.componentCarbonMyofiber.name=Углеродное мышечное волокно
+item.powersuits.powerArmorComponent.componentControlCircuit.name=Микросхема управления
+item.powersuits.powerArmorComponent.componentMyofiberGel.name=Гель из мышечного волокна
+item.powersuits.powerArmorComponent.componentArtificialMuscle.name=Искусственные мышцы
+item.powersuits.powerArmorComponent.componentSolarPanel.name=Solar Panel
+item.powersuits.powerArmorComponent.componentMagnet.name=Magnet
+item.powersuits.powerArmorComponent.componentComputerChip.name=Computer Chip
+item.powersuits.powerArmorComponent.componentLiquidNitrogen.name=Liquid Nitrogen Bucket
+item.powersuits.powerArmorComponent.componentRubberHose.name=Insulated Rubber Hose
+item.powersuits.powerArmorComponent.componentRawCarbon.name=Raw Carbon
 
 fluid.liquid_nitrogen=Liquid Nitrogen
 

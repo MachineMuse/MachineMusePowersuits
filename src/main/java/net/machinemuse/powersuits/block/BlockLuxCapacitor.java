@@ -2,20 +2,20 @@ package net.machinemuse.powersuits.block;
 
 
 import net.machinemuse.numina.utils.math.Colour;
-import net.machinemuse.powersuits.common.ModularPowersuits;
+import net.machinemuse.powersuits.api.constants.MPSModConstants;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
@@ -52,7 +52,7 @@ public class BlockLuxCapacitor extends BlockDirectional {
 
         @Override
         public String valueToString(Colour value) {
-            return (value != null) ? value.hexColour() :  defaultColor.hexColour();
+            return (value != null) ? value.hexColour() : defaultColor.hexColour();
         }
     };
 
@@ -61,8 +61,8 @@ public class BlockLuxCapacitor extends BlockDirectional {
     public BlockLuxCapacitor() {
         super(Material.CIRCUITS);
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN));
-        setUnlocalizedName(name);
-        setRegistryName(ModularPowersuits.MODID, "tile." + name.toLowerCase());
+        setRegistryName(MPSModConstants.MODID, name.toLowerCase());
+        setUnlocalizedName(new StringBuilder(MPSModConstants.MODID).append(".").append(name).toString());
         setHardness(0.05F);
         setResistance(10.0F);
         setSoundType(SoundType.METAL);
@@ -99,30 +99,39 @@ public class BlockLuxCapacitor extends BlockDirectional {
         return false;
     }
 
-    @SuppressWarnings("deprecation")
-    public boolean isFullyOpaque(IBlockState state) {
-        return  state.getValue(FACING) == EnumFacing.UP || state.getValue(FACING) == EnumFacing.DOWN;
-    }
-
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        worldIn.setBlockState(pos, ((IExtendedBlockState)state.withProperty(FACING, getFacingFromEntity(pos, placer).getOpposite())).withProperty(COLOR, defaultColor), 2);
-    }
-
-    public static EnumFacing getFacingFromEntity(BlockPos pos, EntityLivingBase entityIn) {
-        if (MathHelper.abs((float)entityIn.posX - (float)pos.getX()) < 2.0F && MathHelper.abs((float)entityIn.posZ - (float)pos.getZ()) < 2.0F) {
-            double d0 = entityIn.posY + (double)entityIn.getEyeHeight();
-            if (d0 - (double)pos.getY() > 2.0D)
-                return EnumFacing.UP;
-
-            if ((double)pos.getY() - d0 > 0.0D)
-                return EnumFacing.DOWN;
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        if (!canPlaceAt(worldIn, pos, facing.getOpposite())) {
+            for (EnumFacing enumFacing : EnumFacing.VALUES) {
+                if (canPlaceAt(worldIn, pos, facing.getOpposite())) {
+                    facing = enumFacing;
+                    break;
+                }
+            }
         }
-        return entityIn.getHorizontalFacing().getOpposite();
+        return ((IExtendedBlockState) this.getDefaultState().withProperty(FACING, facing.getOpposite())).withProperty(COLOR, defaultColor);
     }
+
+//    @Override
+//    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+//        worldIn.setBlockState(pos, ((IExtendedBlockState) state.withProperty(FACING, getFacingFromEntity(pos, placer).getOpposite())).withProperty(COLOR, defaultColor), 2);
+//    }
+//
+//    public static EnumFacing getFacingFromEntity(BlockPos pos, EntityLivingBase entityIn) {
+//        if (MathHelper.abs((float) entityIn.posX - (float) pos.getX()) < 2.0F && MathHelper.abs((float) entityIn.posZ - (float) pos.getZ()) < 2.0F) {
+//            double d0 = entityIn.posY + (double) entityIn.getEyeHeight();
+//            if (d0 - (double) pos.getY() > 2.0D)
+//                return EnumFacing.UP;
+//
+//            if ((double) pos.getY() - d0 > 0.0D)
+//                return EnumFacing.DOWN;
+//        }
+//        return entityIn.getHorizontalFacing().getOpposite();
+//    }
 
     @Override
     public BlockStateContainer createBlockState() {
-        return new ExtendedBlockState(this, new IProperty[] { FACING  }, new IUnlistedProperty[]{ COLOR });
+        return new ExtendedBlockState(this, new IProperty[]{FACING}, new IUnlistedProperty[]{COLOR});
     }
 
     @Override
@@ -131,6 +140,31 @@ public class BlockLuxCapacitor extends BlockDirectional {
         if (te instanceof TileEntityLuxCapacitor && state instanceof IExtendedBlockState)
             return ((IExtendedBlockState) state).withProperty(COLOR, ((TileEntityLuxCapacitor) te).getColor());
         return state;
+    }
+
+    @Override
+    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+        System.out.println("doing something here");
+
+        for (EnumFacing enumfacing : FACING.getAllowedValues()) {
+            if (this.canPlaceAt(worldIn, pos, enumfacing)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean canPlaceAt(World worldIn, BlockPos pos, EnumFacing facing) {
+        BlockPos blockpos = pos.offset(facing);
+        IBlockState iblockstate = worldIn.getBlockState(blockpos);
+        BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, blockpos, facing);
+        return iblockstate.isSideSolid(worldIn, pos, facing) && blockfaceshape == BlockFaceShape.SOLID;
+    }
+
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        if (!canPlaceBlockAt(worldIn, pos))
+            worldIn.setBlockToAir(pos);
     }
 
     @SuppressWarnings("deprecation")
@@ -158,8 +192,14 @@ public class BlockLuxCapacitor extends BlockDirectional {
     @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
         if (state instanceof IExtendedBlockState)
-            return new TileEntityLuxCapacitor(((IExtendedBlockState)state).getValue(COLOR));
+            return new TileEntityLuxCapacitor(((IExtendedBlockState) state).getValue(COLOR));
         return new TileEntityLuxCapacitor();
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+        return BlockFaceShape.UNDEFINED;
     }
 
     @Override
