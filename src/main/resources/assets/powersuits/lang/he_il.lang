@@ -10,14 +10,20 @@ item.powersuits.powerArmorChestplate.name=שריון חליפת כוח
 item.powersuits.powerArmorHelmet.name=קסדת חליפת כוח
 item.powersuits.powerFist.name=זרוע כוח
 
-item.powersuits.powerArmorComponent.componentWiring.name=מחברים
-item.powersuits.powerArmorComponent.componentWiring.desc=A special type of wiring with high voltaic capacity and precision, necessary for the sensitive electronics in power armor.
-item.powersuits.powerArmorComponent.componentSolenoid.name=סולנואיד
-item.powersuits.powerArmorComponent.componentSolenoid.desc=Wires wound around a ferromagnetic core produces a basic electromagnet.
+
+item.powersuits.powerArmorComponent.componentWiring.name= מחברים
+item.powersuits.powerArmorComponent.componentWiring.desc= סוג מיוחד של חיווט עם קיבולת voltaic גבוהה ודיוק, הכרחי עבור האלקטרוניקה רגיש שריון כוח.
+item.powersuits.powerArmorComponent.componentSolenoid.name= סולנואיד
+item.powersuits.powerArmorComponent.componentSolenoid.desc= חוטי הפצע סביב ליבה פרומגנטית מייצרת אלקטרומגנט בסיסי.
+
+
 item.powersuits.powerArmorComponent.componentServo.name=מנוע סרוו
 item.powersuits.powerArmorComponent.componentServo.desc=A special type of motor which uses a pulse-modulated signal to enact very precise movements.
 item.powersuits.powerArmorComponent.componentGliderWing.name=כנף רחיפה
 item.powersuits.powerArmorComponent.componentGliderWing.desc=A lightweight aerodynamic wing with an electromagnet for quick deployment and retraction.
+
+
+
 item.powersuits.powerArmorComponent.componentIonThruster.name=מדחפי יונים
 item.powersuits.powerArmorComponent.componentIonThruster.desc=Essentially a miniature particle accelerator. Accelerates ions to near-light speed to produce thrust.
 item.powersuits.powerArmorComponent.componentLVCapacitor.name=מצבר מתח נמוך
