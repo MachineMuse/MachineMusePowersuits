@@ -1,8 +1,8 @@
 
+itemGroup.powersuits=חליפות כוח
+
 tile.powersuits.luxCapacitor.name=מאחסן אור
 tile.powersuits.tinkerTable.name=שולחן התעסקות לחליפות כוח
-
-itemGroup.powersuits=חליפות כוח
 
 item.powersuits.powerArmorBoots.name=מגפי חליפת כוח
 item.powersuits.powerArmorLeggings.name=מכנסי חליפת כוח
@@ -11,29 +11,49 @@ item.powersuits.powerArmorHelmet.name=קסדת חליפת כוח
 item.powersuits.powerFist.name=זרוע כוח
 
 item.powersuits.powerArmorComponent.componentWiring.name=מחברים
+item.powersuits.powerArmorComponent.componentWiring.desc=A special type of wiring with high voltaic capacity and precision, necessary for the sensitive electronics in power armor.
 item.powersuits.powerArmorComponent.componentSolenoid.name=סולנואיד
+item.powersuits.powerArmorComponent.componentSolenoid.desc=Wires wound around a ferromagnetic core produces a basic electromagnet.
 item.powersuits.powerArmorComponent.componentServo.name=מנוע סרוו
+item.powersuits.powerArmorComponent.componentServo.desc=A special type of motor which uses a pulse-modulated signal to enact very precise movements.
 item.powersuits.powerArmorComponent.componentGliderWing.name=כנף רחיפה
+item.powersuits.powerArmorComponent.componentGliderWing.desc=A lightweight aerodynamic wing with an electromagnet for quick deployment and retraction.
 item.powersuits.powerArmorComponent.componentIonThruster.name=מדחפי יונים
+item.powersuits.powerArmorComponent.componentIonThruster.desc=Essentially a miniature particle accelerator. Accelerates ions to near-light speed to produce thrust.
 item.powersuits.powerArmorComponent.componentLVCapacitor.name=מצבר מתח נמוך
+item.powersuits.powerArmorComponent.componentLVCapacitor.desc=A simple capacitor can store and discharge small amounts of energy rapidly.
 item.powersuits.powerArmorComponent.componentMVCapacitor.name=מצבר מתח בינוני
+item.powersuits.powerArmorComponent.componentMVCapacitor.desc=A more advanced capacitor which can store more energy at higher voltages.
 item.powersuits.powerArmorComponent.componentHVCapacitor.name=מצבר מתח גבוה
+item.powersuits.powerArmorComponent.componentHVCapacitor.desc=A synthetic crystal device which can store and release massive amounts of energy.
 item.powersuits.powerArmorComponent.componentEVCapacitor.name=EV Capacitor
+item.powersuits.powerArmorComponent.componentEVCapacitor.desc=The most advanced energy storage device ever created. Now 15% less likely to randomly explode!
 item.powersuits.powerArmorComponent.componentParachute.name=מצנח
+item.powersuits.powerArmorComponent.componentParachute.desc=A simple reusable parachute which can be deployed and recovered in midair.
 item.powersuits.powerArmorComponent.componentPlatingIron.name=ציפוי בסיסי
+item.powersuits.powerArmorComponent.componentPlatingIron.desc=Some carefully-arranged metal armor plates.
 item.powersuits.powerArmorComponent.componentPlatingDiamond.name=ציפוי מתקדם
+item.powersuits.powerArmorComponent.componentPlatingDiamond.desc=Some carefully-arranged armor plates of a rare and stronger material.
 item.powersuits.powerArmorComponent.componentFieldEmitter.name=פולטן שדה כוח
+item.powersuits.powerArmorComponent.componentFieldEmitter.desc=An advanced device which directly manipulates electromagnetic and gravitational fields in an area.
 item.powersuits.powerArmorComponent.componentLaserEmitter.name=מקרן הולוגרמה
+item.powersuits.powerArmorComponent.componentLaserEmitter.desc=A multicoloured laser array which can cheaply alter the appearance of something.
 item.powersuits.powerArmorComponent.componentCarbonMyofiber.name=סיבי פחמן
+item.powersuits.powerArmorComponent.componentCarbonMyofiber.desc=A small bundle of carbon fibers, refined for use in artificial muscles.
 item.powersuits.powerArmorComponent.componentControlCircuit.name=מעגל בקרה
+item.powersuits.powerArmorComponent.componentControlCircuit.desc=A simple networkable microcontroller for coordinating an individual component.
 item.powersuits.powerArmorComponent.componentMyofiberGel.name=ג'ל סיבי
+item.powersuits.powerArmorComponent.componentMyofiberGel.desc=A thick, conductive paste, perfect for fitting between myofibers in an artificial muscle."
 item.powersuits.powerArmorComponent.componentArtificialMuscle.name=שריר מלאכותי
+item.powersuits.powerArmorComponent.componentArtificialMuscle.desc=An electrical, artificial muscle, with less range of movement than human muscle but orders of magnitude more strength.
 item.powersuits.powerArmorComponent.componentSolarPanel.name=Solar Panel
+item.powersuits.powerArmorComponent.componentSolarPanel.desc=A light sensitive device that will generate electricity from the sun.
 item.powersuits.powerArmorComponent.componentMagnet.name=Magnet
+item.powersuits.powerArmorComponent.componentMagnet.desc=A metallic device that generates a magnetic field which pulls items towards the player.
 item.powersuits.powerArmorComponent.componentComputerChip.name=Computer Chip
-item.powersuits.powerArmorComponent.componentLiquidNitrogen.name=Liquid Nitrogen Bucket
+item.powersuits.powerArmorComponent.componentComputerChip.desc=An upgraded control circuit that contains a CPU which is capable of more advanced calculations.
 item.powersuits.powerArmorComponent.componentRubberHose.name=Insulated Rubber Hose
-item.powersuits.powerArmorComponent.componentRawCarbon.name=Raw Carbon
+item.powersuits.powerArmorComponent.componentRubberHose.desc=A heavily insulated rubber hose capable of withstanding extreme heat or cold
 
 fluid.liquid_nitrogen=Liquid Nitrogen
 
@@ -194,36 +214,29 @@ module.powersuits.plasmaCannon.name=תותח פלזמה
 module.powersuits.plasmaCannon.desc=Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.
 module.powersuits.railgun.name=נשק ישיר
 module.powersuits.railgun.desc=An assembly which accelerates a projectile to supersonic speeds using magnetic force. Heavy recoil.
-gui.slotpoints=Slot Points
+
 gui.powersuits.noModulesFound.line1=No modular powersuit items
 gui.powersuits.noModulesFound.line2=found in inventory. Make some!
-
-gui.powersuits.redRed
-gui.green=Green
-gui.blue=Blue
-
-gui.install=Install
-gui.salvage=Salvage
-
-gui.newKeybind=New
-gui.trashKeybind=Trash
-gui.pressKey=Press Key
-gui.keybindInstructions1=Use 'new' to bind new keys.
-gui.keybindInstructions2=Drag and drop modules to bind them to keys.
-gui.keybindInstructions3=Drop keys on 'trash' to unbind them.
-gui.keybindInstructions4=Right-click keybinds to add them to the HUD.
-gui.keybindTaken=Taken!
-
-gui.tab.tinker=Tinker
-gui.tab.keybinds=Keybinds
-gui.tab.visual=Visual
-
-gui.equippedTotals=Equipped Totals
-gui.energyStorage=Energy Storage
-gui.weight=Weight
-gui.armor=Armor
-
-nei.jsonShaped=JSON Shaped
+gui.powersuits.red=Red
+gui.powersuits.green=Green
+gui.powersuits.blue=Blue
+gui.powersuits.install=Install
+gui.powersuits.salvage=Salvage
+gui.powersuits.newKeybind=New
+gui.powersuits.trashKeybind=Trash
+gui.powersuits.pressKey=Press Key
+gui.powersuits.keybindInstructions1=Use 'new' to bind new keys.
+gui.powersuits.keybindInstructions2=Drag and drop modules to bind them to keys.
+gui.powersuits.keybindInstructions3=Drop keys on 'trash' to unbind them.
+gui.powersuits.keybindInstructions4=Right-click keybinds to add them to the HUD.
+gui.powersuits.keybindTaken=Taken!
+gui.powersuits.tab.tinker=Tinker
+gui.powersuits.tab.keybinds=Keybinds
+gui.powersuits.tab.visual=Visual
+gui.powersuits.equippedTotals=Equipped Totals
+gui.powersuits.energyStorage=Energy Storage
+gui.powersuits.armor=Armor
+gui.powersuits.slotpoints=Slot Points
 
 tooltip.powersuits.pressShift=Press SHIFT for more information.
 tooltip.powersuits.componentTooltip=For use in Tinker Table.

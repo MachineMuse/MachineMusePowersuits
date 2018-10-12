@@ -26,7 +26,6 @@ public class ItemSelectionFrame extends ScrollableFrame {
         super(topleft, bottomright, borderColour, insideColour);
         this.player = player;
         List<Integer> slots = MuseItemUtils.getModularItemSlotsInInventory(player);
-//        List<Integer> slots = MuseItemUtils.getModularItemSlotsEquiped(player);
         loadPoints(slots.size());
         loadItems();
     }
@@ -72,7 +71,6 @@ public class ItemSelectionFrame extends ScrollableFrame {
     @Override
     public void update(double mousex, double mousey) {
         loadItems();
-
     }
 
     @Override

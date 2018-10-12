@@ -57,7 +57,11 @@ public class InstallSalvageFrame extends ScrollableFrame {
 
     @Override
     public void update(double mousex, double mousey) {
-        // TODO Auto-generated method stub
+        if (targetItem.getSelectedItem() != null && targetModule.getSelectedModule() != null)
+            System.out.println("update method would run here");
+
+
+        // TODO: update the install/uninstall button when a module is installed
     }
 
     @Override
@@ -124,9 +128,8 @@ public class InstallSalvageFrame extends ScrollableFrame {
         ItemStack stack = targetItem.getSelectedItem().getItem();
         IPowerModule module = targetModule.getSelectedModule().getModule();
         if (!ModuleManager.INSTANCE.itemHasModule(stack, module.getDataName())) {
-
-            installButton.setEnabled(player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(
-                    ModuleManager.INSTANCE.getInstallCost(module.getDataName()), player.inventory));
+            installButton.setEnabled(player.capabilities.isCreativeMode ||
+                    MuseItemUtils.hasInInventory(ModuleManager.INSTANCE.getInstallCost(module.getDataName()), player.inventory));
             installButton.draw();
         } else {
             salvageButton.draw();

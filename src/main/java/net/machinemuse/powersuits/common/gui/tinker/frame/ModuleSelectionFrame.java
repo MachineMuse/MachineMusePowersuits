@@ -18,8 +18,8 @@ import java.util.*;
 
 public class ModuleSelectionFrame extends ScrollableFrame {
     protected ItemSelectionFrame target;
-    protected Map<String, ModuleSelectionSubFrame> categories = new HashMap<>();
-    protected List<ClickableModule> moduleButtons = new ArrayList<>();
+    protected Map<String, ModuleSelectionSubFrame> categories = new LinkedHashMap<>();
+    protected List<ClickableModule> moduleButtons = new LinkedList<>();
     protected int selectedModule = -1;
     protected IPowerModule prevSelection;
     protected ClickableItem lastItem;
@@ -89,8 +89,8 @@ public class ModuleSelectionFrame extends ScrollableFrame {
         this.lastPosition = null;
         ClickableItem selectedItem = target.getSelectedItem();
         if (selectedItem != null) {
-            moduleButtons = new ArrayList<>();
-            categories = new HashMap<>();
+            moduleButtons = new LinkedList<>();
+            categories = new LinkedHashMap<>();
 
             List<IPowerModule> workingModules = ModuleManager.INSTANCE.getValidModulesForItem(selectedItem.getItem());
 

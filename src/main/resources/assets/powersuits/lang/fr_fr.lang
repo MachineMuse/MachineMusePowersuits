@@ -241,10 +241,8 @@ gui.powersuits.tab.visual=Apparence
 
 gui.powersuits.equippedTotals=Equipped Totals
 gui.powersuits.energyStorage=Energy Storage
-gui.powersuits.weight=Weight
 gui.powersuits.armor=Armor
 
-nei.jsonShaped=JSON Shaped
 
 tooltip.powersuits.pressShift=Press SHIFT for more information.
 tooltip.powersuits.componentTooltip=For use in Tinker Table.
