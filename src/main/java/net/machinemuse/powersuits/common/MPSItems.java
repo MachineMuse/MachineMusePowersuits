@@ -49,7 +49,6 @@ public enum MPSItems {
     public static BlockLuxCapacitor luxCapacitor = new BlockLuxCapacitor();
     public static ItemBlockLuxCapacitor itemLuxCapacitor = new ItemBlockLuxCapacitor();
 
-
     // Fluid --------------------------------------------------------------------------------------
     public static LiquidNitrogen liquidNitrogen = new LiquidNitrogen();
     public static BlockFluidLiquidNitrogen blockLiquidNitrogen = new BlockFluidLiquidNitrogen();
@@ -87,10 +86,7 @@ public enum MPSItems {
     public static void initBlocks(RegistryEvent.Register<Block> event) {
         event.getRegistry().register(tinkerTable);
         event.getRegistry().register(luxCapacitor);
-
-
         event.getRegistry().register(blockLiquidNitrogen);
-
     }
 
 
@@ -98,6 +94,5 @@ public enum MPSItems {
 //        FluidRegistry.enableUniversalBucket();
         FluidRegistry.registerFluid(liquidNitrogen);
         FluidRegistry.addBucketForFluid(liquidNitrogen);
-
     }
  }

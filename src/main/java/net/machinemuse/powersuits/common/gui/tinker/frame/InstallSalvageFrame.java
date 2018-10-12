@@ -57,8 +57,8 @@ public class InstallSalvageFrame extends ScrollableFrame {
 
     @Override
     public void update(double mousex, double mousey) {
-        if (targetItem.getSelectedItem() != null && targetModule.getSelectedModule() != null)
-            System.out.println("update method would run here");
+//        if (targetItem.getSelectedItem() != null && targetModule.getSelectedModule() != null)
+//            System.out.println("update method would run here");
 
 
         // TODO: update the install/uninstall button when a module is installed
