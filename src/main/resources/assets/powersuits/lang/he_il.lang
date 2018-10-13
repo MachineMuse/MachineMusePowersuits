@@ -15,85 +15,87 @@ item.powersuits.powerArmorComponent.componentWiring.name= מחברים
 item.powersuits.powerArmorComponent.componentWiring.desc= סוג מיוחד של חיווט עם קיבולת voltaic גבוהה ודיוק, הכרחי עבור האלקטרוניקה רגיש שריון כוח.
 item.powersuits.powerArmorComponent.componentSolenoid.name= סולנואיד
 item.powersuits.powerArmorComponent.componentSolenoid.desc= חוטי הפצע סביב ליבה פרומגנטית מייצרת אלקטרומגנט בסיסי.
-
-
 item.powersuits.powerArmorComponent.componentServo.name=מנוע סרוו
-item.powersuits.powerArmorComponent.componentServo.desc=A special type of motor which uses a pulse-modulated signal to enact very precise movements.
+item.powersuits.powerArmorComponent.componentServo.desc=סוג מיוחד של מנוע אשר משתמש אות הדופק מווסת כדי לחוקק תנועות מדויקות מאוד.
 item.powersuits.powerArmorComponent.componentGliderWing.name=כנף רחיפה
-item.powersuits.powerArmorComponent.componentGliderWing.desc=A lightweight aerodynamic wing with an electromagnet for quick deployment and retraction.
-
-
-
-item.powersuits.powerArmorComponent.componentIonThruster.name=מדחפי יונים
-item.powersuits.powerArmorComponent.componentIonThruster.desc=Essentially a miniature particle accelerator. Accelerates ions to near-light speed to produce thrust.
-item.powersuits.powerArmorComponent.componentLVCapacitor.name=מצבר מתח נמוך
-item.powersuits.powerArmorComponent.componentLVCapacitor.desc=A simple capacitor can store and discharge small amounts of energy rapidly.
-item.powersuits.powerArmorComponent.componentMVCapacitor.name=מצבר מתח בינוני
-item.powersuits.powerArmorComponent.componentMVCapacitor.desc=A more advanced capacitor which can store more energy at higher voltages.
-item.powersuits.powerArmorComponent.componentHVCapacitor.name=מצבר מתח גבוה
-item.powersuits.powerArmorComponent.componentHVCapacitor.desc=A synthetic crystal device which can store and release massive amounts of energy.
-item.powersuits.powerArmorComponent.componentEVCapacitor.name=EV Capacitor
-item.powersuits.powerArmorComponent.componentEVCapacitor.desc=The most advanced energy storage device ever created. Now 15% less likely to randomly explode!
+item.powersuits.powerArmorComponent.componentGliderWing.desc=אגף אווירודינמי קל עם אלקטרומגנט לפריסה מהירה וירידה.
+item.powersuits.powerArmorComponent.componentIonThruster.name= מדחפי יונים
+item.powersuits.powerArmorComponent.componentIonThruster.desc= למעשה מאיץ חלקיקים זעירים. מאיץ יונים במהירות האור הקרוב לייצר דחף.
+item.powersuits.powerArmorComponent.componentLVCapacitor.name= מצבר נמוך נמוך
+item.powersuits.powerArmorComponent.componentLVCapacitor.desc= קבלים פשוטים יכולים לאחסן ולפרוק כמויות קטנות של אנרגיה במהירות.
+item.powersuits.powerArmorComponent.componentMVCapacitor.name= מצבר מתח בינוני
+item.powersuits.powerArmorComponent.componentMVCapacitor.desc= קבל מתקדם יותר אשר יכול לאחסן יותר אנרגיה במתח גבוה.
+item.powersuits.powerArmorComponent.componentHVCapacitor.name= מצבר ציפוי אמריקאי
+item.powersuits.powerArmorComponent.componentHVCapacitor.desc= מכשיר גביש סינתטי אשר יכול לאחסן ולשחרר כמויות אדירות של אנרגיה.
+item.powersuits.powerArmorComponent.componentEVCapacitor.name=קבלים EV
+item.powersuits.powerArmorComponent.componentEVCapacitor.desc= התקן אחסון האנרגיה המתקדמים ביותר שנוצרו אי פעם. עכשיו 15% פחות סביר להתפוצץ באופן אקראי!
 item.powersuits.powerArmorComponent.componentParachute.name=מצנח
-item.powersuits.powerArmorComponent.componentParachute.desc=A simple reusable parachute which can be deployed and recovered in midair.
+item.powersuits.powerArmorComponent.componentParachute.desc=מצנח הניתן לשימוש חוזר, שניתן לפרוס ולהחלים באוויר.
 item.powersuits.powerArmorComponent.componentPlatingIron.name=ציפוי בסיסי
-item.powersuits.powerArmorComponent.componentPlatingIron.desc=Some carefully-arranged metal armor plates.
+item.powersuits.powerArmorComponent.componentPlatingIron.desc=כמה צלחות מתכת מסודרות בקפידה.
 item.powersuits.powerArmorComponent.componentPlatingDiamond.name=ציפוי מתקדם
-item.powersuits.powerArmorComponent.componentPlatingDiamond.desc=Some carefully-arranged armor plates of a rare and stronger material.
+item.powersuits.powerArmorComponent.componentPlatingDiamond.desc=כמה צלחות שריון מסודרות בקפידה של חומר נדיר וחזק יותר.
 item.powersuits.powerArmorComponent.componentFieldEmitter.name=פולטן שדה כוח
-item.powersuits.powerArmorComponent.componentFieldEmitter.desc=An advanced device which directly manipulates electromagnetic and gravitational fields in an area.
+item.powersuits.powerArmorComponent.componentFieldEmitter.desc=מכשיר מתקדם אשר לתפעל ישירות שדות אלקטרומגנטיים הכבידה באזור.God is evil
 item.powersuits.powerArmorComponent.componentLaserEmitter.name=מקרן הולוגרמה
-item.powersuits.powerArmorComponent.componentLaserEmitter.desc=A multicoloured laser array which can cheaply alter the appearance of something.
+item.powersuits.powerArmorComponent.componentLaserEmitter.desc=מערך לייזר רב צבעוני אשר יכול לשנות בזול את המראה של משהו.
 item.powersuits.powerArmorComponent.componentCarbonMyofiber.name=סיבי פחמן
-item.powersuits.powerArmorComponent.componentCarbonMyofiber.desc=A small bundle of carbon fibers, refined for use in artificial muscles.
+item.powersuits.powerArmorComponent.componentCarbonMyofiber.desc=צרור קטן של סיבי פחמן, מעודן לשימוש בשרירים מלאכותיים.Anal sex
 item.powersuits.powerArmorComponent.componentControlCircuit.name=מעגל בקרה
-item.powersuits.powerArmorComponent.componentControlCircuit.desc=A simple networkable microcontroller for coordinating an individual component.
+item.powersuits.powerArmorComponent.componentControlCircuit.desc=מיקרו-בקר פשוט לתאום רכיב בודד.
 item.powersuits.powerArmorComponent.componentMyofiberGel.name=ג'ל סיבי
-item.powersuits.powerArmorComponent.componentMyofiberGel.desc=A thick, conductive paste, perfect for fitting between myofibers in an artificial muscle."
+item.powersuits.powerArmorComponent.componentMyofiberGel.desc=עיסה עבה, מוליך, מושלם עבור התאמה בין myofibers בשריר מלאכותי.
 item.powersuits.powerArmorComponent.componentArtificialMuscle.name=שריר מלאכותי
-item.powersuits.powerArmorComponent.componentArtificialMuscle.desc=An electrical, artificial muscle, with less range of movement than human muscle but orders of magnitude more strength.
-item.powersuits.powerArmorComponent.componentSolarPanel.name=Solar Panel
-item.powersuits.powerArmorComponent.componentSolarPanel.desc=A light sensitive device that will generate electricity from the sun.
-item.powersuits.powerArmorComponent.componentMagnet.name=Magnet
-item.powersuits.powerArmorComponent.componentMagnet.desc=A metallic device that generates a magnetic field which pulls items towards the player.
-item.powersuits.powerArmorComponent.componentComputerChip.name=Computer Chip
-item.powersuits.powerArmorComponent.componentComputerChip.desc=An upgraded control circuit that contains a CPU which is capable of more advanced calculations.
-item.powersuits.powerArmorComponent.componentRubberHose.name=Insulated Rubber Hose
-item.powersuits.powerArmorComponent.componentRubberHose.desc=A heavily insulated rubber hose capable of withstanding extreme heat or cold
+item.powersuits.powerArmorComponent.componentArtificialMuscle.desc=שריר חשמלי, מלאכותי, עם פחות טווח תנועה מאשר שריר אנושי, אבל פקודות בסדר גודל יותר.
+item.powersuits.powerArmorComponent.componentSolarPanel.name=פנל סולארי
+item.powersuits.powerArmorComponent.componentSolarPanel.desc=מכשיר רגיש לאור אשר יפיק חשמל מהשמש.
+item.powersuits.powerArmorComponent.componentMagnet.name=מגנט
+item.powersuits.powerArmorComponent.componentMagnet.desc=מכשיר מתכתי המייצר שדה מגנטי אשר מושך פריטים לכיוון השחקן.
+item.powersuits.powerArmorComponent.componentComputerChip.name=שבב מחשב
+item.powersuits.powerArmorComponent.componentComputerChip.desc=מעגל בקרה משודרג המכיל מעבד המסוגל לחישובים מתקדמים יותר.
+item.powersuits.powerArmorComponent.componentRubberHose.name=צינור גומי מבודדים
+item.powersuits.powerArmorComponent.componentRubberHose.desc=צינור גומי מבודד היטב המסוגל לעמוד בחום או בקור
 
-fluid.liquid_nitrogen=Liquid Nitrogen
+
+
+fluid.liquid_nitrogen=חנקן נוזלי
+
 
 # Armor
-module.powersuits.leatherPlating.name=Leather Plating
-module.powersuits.leatherPlating.desc=Leather plating is light but offers a bit of protection.
-module.powersuits.ironPlating.name=Iron Plating
-module.powersuits.ironPlating.desc=Iron plating is heavy but offers a bit more protection.
+module.powersuits.leatherPlating.name=ציפוי עור
+module.powersuits.leatherPlating.desc=ציפוי עור הוא אור אבל מציעה קצת הגנה.
+module.powersuits.ironPlating.name=ברזל ציפוי
+module.powersuits.ironPlating.desc=ציפוי ברזל הוא כבד אבל מציע קצת יותר הגנה.
 module.powersuits.diamondPlating.name=ציפוי יהלום
-module.powersuits.diamondPlating.desc=Advanced plating is lighter, harder, and more protective than Basic but much harder to make.
+module.powersuits.diamondPlating.desc=יהלום ציפוי קשה יותר יקר לעשות, אבל מציע הגנה טובה יותר.
 module.powersuits.energyShield.name=מגן אנרגיה
-module.powersuits.energyShield.desc=Energy shields are much lighter than plating, but consume energy.
+module.powersuits.energyShield.desc=מגני אנרגיה הם הרבה יותר קל מאשר ציפוי, אבל לצרוך אנרגיה.
+
 
 module.powersuits.transparentArmor.name=שריון שקוף
-module.powersuits.transparentArmor.desc=Make the item transparent, so you can show off your skin without losing armor.
+module.powersuits.transparentArmor.desc=הפוך את הפריט לשקוף, כך שתוכל להראות את העור מבלי לאבד שריון.
+
 
 module.powersuits.basicBattery.name=סוללה בסיסית
-module.powersuits.basicBattery.desc=Integrate a battery to allow the item to store energy.
+module.powersuits.basicBattery.desc=שלב סוללה כדי לאפשר לפריט לאחסן אנרגיה.
 module.powersuits.advancedBattery.name=סוללה מתקדמת
-module.powersuits.advancedBattery.desc=Integrate a more advanced battery to store more energy.
+module.powersuits.advancedBattery.desc=שלב סוללה מתקדמת יותר כדי לאחסן יותר אנרגיה.
 module.powersuits.eliteBattery.name=סוללת עלית
-module.powersuits.eliteBattery.desc=Integrate a the most advanced battery to store an extensive amount of energy.
-module.powersuits.ultimateBattery.name=Ultimate Battery
-module.powersuits.ultimateBattery.desc=Experimental high end power storage device, now with almost no chance of exploding (we think). Despite nasty rumors, it is not based on stolen alien technology.
-module.powersuits.solarGenerator.name=Solar Generator
-module.powersuits.solarGenerator.desc=Let the sun power your adventures.
-module.powersuits.advSolarGenerator.name=High Efficiency Solar Generator
-module.powersuits.advSolarGenerator.desc=A solar generator with 3 times the power generation of the standard solar generator.
-module.powersuits.coalGenerator.name=Coal Generator
-module.powersuits.coalGenerator.desc=Generate power with solid fuels
-module.powersuits.kineticGenerator.name=Kinetic Generator
-module.powersuits.kineticGenerator.desc=Generate power with your movement.
-module.powersuits.thermalGenerator.name=Thermal Generator
-module.powersuits.thermalGenerator.desc=Generate power from extreme amounts of heat.
+module.powersuits.eliteBattery.desc=שלב את הסוללה המתקדמת ביותר לאחסון כמות גדולה של אנרגיה.
+module.powersuits.ultimateBattery.name=סוללה
+module.powersuits.ultimateBattery.desc=ניסויית סוף סוף התקן אחסון כוח, עכשיו עם כמעט שום סיכוי להתפוצץ (אנחנו חושבים). למרות שמועות מגעילות, זה לא מבוסס על טכנולוגיה זר גנוב.
+module.powersuits.solarGenerator.name=גנרטור סולארי
+module.powersuits.solarGenerator.desc=תן השמש כוח ההרפתקאות שלך.
+module.powersuits.advSolarGenerator.name=יעילות גבוהה גנרטור השמש
+module.powersuits.advSolarGenerator.desc=גנרטור סולארי עם 3 פעמים את הדור כוח של גנרטור סולארי סטנדרטי.
+module.powersuits.coalGenerator.name=פחם גנרטור
+module.powersuits.coalGenerator.desc=צור חשמל עם דלק מוצק
+module.powersuits.kineticGenerator.name=מחולל קינטי
+module.powersuits.kineticGenerator.desc=צור כוח עם התנועה שלך.
+module.powersuits.thermalGenerator.name=מחולל תרמי
+module.powersuits.thermalGenerator.desc=צור חשמל מכמויות קיצוניות של חום.
+
+
 
 module.powersuits.airtightSeal.name=סתימת אוויר
 module.powersuits.airtightSeal.desc=Seal the suit against hostile atmospheres for venturing to other planets.
@@ -253,188 +255,181 @@ tooltip.powersuits.installedModules=Installed Modules:
 tooltip.powersuits.mode=Mode:
 
 # Default Model Helm
-model.mps_helm.modelName=MPS Helm
-model.mps_helm.helm_main.partName=Helmet
-model.mps_helm.visor.partName=Visor
-model.mps_helm.helm_tubes.partName=Tubes
-model.mps_helm.helm_tube_entry2.partName=Right Tube Entry
-model.mps_helm.helm_tube_entry1.partName=Left Tube Entry
+model.mps_helm.modelName=MPS הלם
+model.mps_helm.helm_main.partName=קסדה
+model.mps_helm.visor.partName=מגן
+model.mps_helm.helm_tubes.partName=צינורות
+model.mps_helm.helm_tube_entry2.partName=מימין צינור כניסה
+model.mps_helm.helm_tube_entry1.partName=כניסה לשמאל
 
 # Default Model Chestplate
-model.mps_chest.modelName=MPS Chestplate
-model.mps_chest.backpack.partName=Backpack
-model.mps_chest.polySurface36.partName=Accessory
-model.mps_chest.belt.partName=Belt
-model.mps_chest.chest_padding.partName=Chest Padding
-model.mps_chest.crystal_belt.partName=Belt Crystal
-model.mps_chest.chest_main.partName=Chest Plating
+model.mps_chest.modelName=MPS חזה
+model.mps_chest.backpack.partName=תיק גב
+model.mps_chest.polySurface36.partName=אבזר
+model.mps_chest.belt.partName=חגורה
+model.mps_chest.chest_padding.partName=חזה ריפוד
+model.mps_chest.crystal_belt.partName=חגורת קריסטל
+model.mps_chest.chest_main.partName=חזה ציפוי
 
 # Default Model Jetpack
 model.jetpack.modelName=MPS Jetpack
-model.jetpack.default.partName=Main
-model.jetpack.jetpack5.partName=Secondary
-model.jetpack.jetpack_glow.partName=Lights
+model.jetpack.default.partName=ראשי
+model.jetpack.jetpack5.partName=משני
+model.jetpack.jetpack_glow.partName=אורות
 
 # Default Model Arms
-model.mps_arms.modelName=MPS Arms
-model.mps_arms.crystal_shoulder_2.partName=Right Shoulder Crystal
-model.mps_arms.arms3.partName=Right Arm
-model.mps_arms.crystal_shoulder_1.partName=Left Shoulder Crystal
-model.mps_arms.arms2.partName=Left Arm
+model.mps_arms.modelName=MPS נשק
+model.mps_arms.crystal_shoulder_2.partName=כתף ימין
+model.mps_arms.arms3.partName=זרוע ימין
+model.mps_arms.crystal_shoulder_1.partName=כתף שמאל
+model.mps_arms.arms2.partName=יד שמאל
 
 # Default Model Pantaloons
 model.mps_pantaloons.modelName=MPS Pantaloons
-model.mps_pantaloons.leg2.partName=Left Leg
-model.mps_pantaloons.leg1.partName=Right Leg
+model.mps_pantaloons.leg2.partName=רגל שמאל
+model.mps_pantaloons.leg1.partName=רגל ימין
 
 # Default Model Boots
-model.mps_boots.modelName=MPS Boots
-model.mps_boots.boots1.partName=Right Boot
-model.mps_boots.boots2.partName=Left Boot
+model.mps_boots.modelName=מגפי MPS
+model.mps_boots.boots1.partName=אתחול נכון
+model.mps_boots.boots2.partName=שמאל אתחול
 
 # Armor Model 2
-model.armor2.modelName=Armor 2
-
-model.armor2.helmetglow1.partName=Helmet Tubes and Visor
-model.armor2.helmetmain.partName=Helmet
-
-model.armor2.chestgray.partName=Chest Base
-model.armor2.chestmain.partName=Front Chest Protection
-model.armor2.chestback1.partName=Back Chest Protection
-model.armor2.chestglowfront.partName=Frontal Power Crystal
-model.armor2.chestglowback.partName=Spinal Power Crystals
-
-model.armor2.armglow1.partName=Shoulder Light
-model.armor2.armmain1.partName=Arm and Shoulder Protection
-model.armor2.armgray1.partName=Arm Base
-
-model.armor2.armglow.partName=Shoulder Light
-model.armor2.armmain.partName=Arm and Shoulder Protection
-model.armor2.armgray.partName=Arm Base
-
-model.armor2.leggray.partName=Left Leg Base
-model.armor2.legbit.partName=Left Leg Protection
-model.armor2.legglow.partName=Left Leg Light
-
-model.armor2.leggray1.partName=Right Leg Base
-model.armor2.legbit1.partName=Right Leg Protection
-model.armor2.legglow1.partName=Right Leg Light
-
-model.armor2.bootmain1.partName=Right Boot
-model.armor2.bootglow1.partName=Right Boot Glow
-
-model.armor2.bootmain.partName=Left Boot
-model.armor2.bootglow.partName=Left Boot Glow
+model.armor2.modelName=שריון 2
+model.armor2.helmetglow1.partName=קסדה צינורות ו מגן
+model.armor2.helmetmain.partName=קסדה
+model.armor2.chestgray.partName=בסיס החזה
+model.armor2.chestmain.partName=הגנה על החזה הקדמי
+model.armor2.chestback1.partName=חזרה חזה הגנה
+model.armor2.chestglowfront.partName=כוח קדמי
+model.armor2.chestglowback.partName=כוח גבישי כוח
+model.armor2.armglow1.partName=כתף אור
+model.armor2.armmain1.partName=זרוע וכתף הגנה
+model.armor2.armgray1.partName=בסיס זרוע
+model.armor2.armglow.partName=כתף אור
+model.armor2.armmain.partName=זרוע וכתף הגנה
+model.armor2.armgray.partName=בסיס זרוע
+model.armor2.leggray.partName=בסיס רגל שמאל
+model.armor2.legbit.partName=הגנת רגל שמאל
+model.armor2.legglow.partName=שמאל רגל
+model.armor2.leggray1.partName=בסיס רגל ימין
+model.armor2.legbit1.partName=הגנה על רגל ימין
+model.armor2.legglow1.partName=רגל ימין
+model.armor2.bootmain1.partName=אתחול נכון
+model.armor2.bootglow1.partName=העכבר אתחול זוהר
+model.armor2.bootmain.partName=שמאל אתחול
+model.armor2.bootglow.partName=שמאלה אתחול זוהר
 
 
-textureSpec.default_armorskin.specName=Default Armor Skin
-textureSpec.head.partName=Head
-textureSpec.chest.partName=Chest
-textureSpec.legs.partName=Legs
-textureSpec.feet.partName=Feet
+textureSpec.default_armorskin.specName=ברירת מחדל שריון העור
+textureSpec.head.partName=ראש
+textureSpec.chest.partName=חזה
+textureSpec.legs.partName=רגליים
+textureSpec.feet.partName=כף רגל
 
-textureSpec.citizenjoe_armorskin.specName=Citizen Joe Armor Skin
+
+textureSpec.citizenjoe_armorskin.specName=אזרח ג 'ו שריון עור
 
 
 # PowerFist main model
-model.powerfist.modelName=Power Fist Right Hand
-model.powerfist.mainarm.partName=Main Arm
-model.powerfist.armorright.partName=Armor Right
-model.powerfist.armorleft.partName=Armor Left
-model.powerfist.wristtopright.partName=Wrist Top Right
-model.powerfist.wristtopleft.partName=Wrist Top Left
-model.powerfist.wristbottomright.partName=Wrist Bottom Right
-model.powerfist.wristbottomleft.partName=Wrist Bottom Left
-model.powerfist.fingerguard.partName=Finger Guard
-model.powerfist.crystalholder.partName=Crystal Holder
-model.powerfist.crystal.partName=Crystal
-model.powerfist.supportright1.partName=Support Right 1
-model.powerfist.supportright2.partName=Support Right 2
-model.powerfist.supportright3.partName=Support Right 3
-model.powerfist.supportright4.partName=Support Right 4
-model.powerfist.supportright5.partName=Support Right 5
-model.powerfist.supportbaseright.partName=Support Base Right
-model.powerfist.palm.partName=Palm
-model.powerfist.supportbaseleft.partName=Support Base Left
-model.powerfist.supportleftfront.partName=Support Left Front
-model.powerfist.supportrightfront.partName=Support Right Front
-model.powerfist.supportleft1.partName=Support Left 1
-model.powerfist.supportleft2.partName=Support Left 2
-model.powerfist.supportleft3.partName=Support Left 3
-model.powerfist.supportleft4.partName=Support Left 4
-model.powerfist.supportleft5.partName=Support Left 5
+model.powerfist.modelName=אגרוף יד ימין
+model.powerfist.mainarm.partName=זרוע ראשית
+model.powerfist.armorright.partName=שריון נכון
+model.powerfist.armorleft.partName=שריון משמאל
+model.powerfist.wristtopright.partName=זרוע ימנית למעלה
+model.powerfist.wristtopleft.partName=שמאל למעלה משמאל
+model.powerfist.wristbottomright.partName=שורש כף יד ימין
+model.powerfist.wristbottomleft.partName=שורש תחתונה שמאל
+model.powerfist.fingerguard.partName=משמר האצבע
+model.powerfist.crystalholder.partName=מחזיק קריסטל
+model.powerfist.crystal.partName=קריסטל
+model.powerfist.supportright1.partName=תמיכה נכון 1
+model.powerfist.supportright2.partName=תמיכה נכון 2
+model.powerfist.supportright3.partName=תמיכה נכון 3
+model.powerfist.supportright4.partName=תמיכה נכון 4
+model.powerfist.supportright5.partName=תמיכה ימין 5
+model.powerfist.supportbaseright.partName=בסיס תמיכה נכון
+model.powerfist.palm.partName=פאלם
+model.powerfist.supportbaseleft.partName=בסיס תמיכה שמאל
+model.powerfist.supportleftfront.partName=תמוך בחזית השמאלית
+model.powerfist.supportrightfront.partName=תמוך בחזית הימנית
+model.powerfist.supportleft1.partName=תמיכה שמאל 1
+model.powerfist.supportleft2.partName=תמיכה שמאל 2
+model.powerfist.supportleft3.partName=תמיכה שמאל 3
+model.powerfist.supportleft4.partName=תמיכה שמאל 4
+model.powerfist.supportleft5.partName=תמיכה שמאל 5
 
-model.powerfist_fingers_normal.modelName=Power Fist Fingers Normal Pose
-model.powerfist_fingers_normal.index1.partName=Index 1
-model.powerfist_fingers_normal.index2.partName= Index 2
-model.powerfist_fingers_normal.middlefinger1.partName=Middle Finger 1
-model.powerfist_fingers_normal.middlefinger2.partName=Middle Finger 2
-model.powerfist_fingers_normal.ringfinger1.partName=Ring Finger 1
-model.powerfist_fingers_normal.ringfinger2.partName=Ring Finger 2
-model.powerfist_fingers_normal.pinky1.partName=Pinky 1
-model.powerfist_fingers_normal.pinky2.partName=Pinky 2
-model.powerfist_fingers_normal.thumb1.partName=Thumb 1
-model.powerfist_fingers_normal.thumb2.partName=Thumb 2
+model.powerfist_fingers_normal.modelName=אגרוף כוח אצבעות תנוחה רגילה
+model.powerfist_fingers_normal.index1.partName=אינדקס 1
+model.powerfist_fingers_normal.index2.partName= אינדקס 2
+model.powerfist_fingers_normal.middlefinger1.partName=האצבע התיכונה 1
+model.powerfist_fingers_normal.middlefinger2.partName=האצבע התיכונה 2
+model.powerfist_fingers_normal.ringfinger1.partName=טבעת האצבע 1
+model.powerfist_fingers_normal.ringfinger2.partName=טבעת האצבע 2
+model.powerfist_fingers_normal.pinky1.partName=פינקי 1
+model.powerfist_fingers_normal.pinky2.partName=פינקי 2
+model.powerfist_fingers_normal.thumb1.partName=אגודל1
+model.powerfist_fingers_normal.thumb2.partName=אגודל2
 
-model.powerfist_fingers_firing.modelName=Power Fist Fingers Firing Pose
-model.powerfist_fingers_firing.index1.partName=Index 1
-model.powerfist_fingers_firing.index2.partName= Index 2
-model.powerfist_fingers_firing.middlefinger1.partName=Middle Finger 1
-model.powerfist_fingers_firing.middlefinger2.partName=Middle Finger 2
-model.powerfist_fingers_firing.ringfinger1.partName=Ring Finger 1
-model.powerfist_fingers_firing.ringfinger2.partName=Ring Finger 2
-model.powerfist_fingers_firing.pinky1.partName=Pinky 1
-model.powerfist_fingers_firing.pinky2.partName=Pinky 2
-model.powerfist_fingers_firing.thumb1.partName=Thumb 1
-model.powerfist_fingers_firing.thumb2.partName=Thumb 2
+model.powerfist_fingers_firing.modelName=כוח אגרוף אצבעות הירי
+model.powerfist_fingers_firing.index1.partName=אינדקס 1
+model.powerfist_fingers_firing.index2.partName= אינדקס 2
+model.powerfist_fingers_firing.middlefinger1.partName=האצבע התיכונה 1
+model.powerfist_fingers_firing.middlefinger2.partName=האצבע התיכונה 2
+model.powerfist_fingers_firing.ringfinger1.partName=טבעת האצבע 1
+model.powerfist_fingers_firing.ringfinger2.partName=טבעת האצבע 2
+model.powerfist_fingers_firing.pinky1.partName=פינקי 1
+model.powerfist_fingers_firing.pinky2.partName=פינקי 2
+model.powerfist_fingers_firing.thumb1.partName=אגודל1
+model.powerfist_fingers_firing.thumb2.partName=אגודל2
 
-model.powerfist_left.modelName=Power Fist Left Hand
-model.powerfist_left.mainarm.partName=Main Arm
-model.powerfist_left.armorright.partName=Armor Right
-model.powerfist_left.armorleft.partName=Armor Left
-model.powerfist_left.wristtopright.partName=Wrist Top Right
-model.powerfist_left.wristtopleft.partName=Wrist Top Left
-model.powerfist_left.wristbottomright.partName=Wrist Bottom Right
-model.powerfist_left.wristbottomleft.partName=Wrist Bottom Left
-model.powerfist_left.fingerguard.partName=Finger Guard
-model.powerfist_left.crystalholder.partName=Crystal Holder
-model.powerfist_left.crystal.partName=Crystal
-model.powerfist_left.supportright1.partName=Support Right 1
-model.powerfist_left.supportright2.partName=Support Right 2
-model.powerfist_left.supportright3.partName=Support Right 3
-model.powerfist_left.supportright4.partName=Support Right 4
-model.powerfist_left.supportright5.partName=Support Right 5
-model.powerfist_left.supportbaseright.partName=Support Base Right
-model.powerfist_left.palm.partName=Palm
-model.powerfist_left.supportbaseleft.partName=Support Base Left
-model.powerfist_left.supportleftfront.partName=Support Left Front
-model.powerfist_left.supportrightfront.partName=Support Right Front
-model.powerfist_left.supportleft1.partName=Support Left 1
-model.powerfist_left.supportleft2.partName=Support Left 2
-model.powerfist_left.supportleft3.partName=Support Left 3
-model.powerfist_left.supportleft4.partName=Support Left 4
-model.powerfist_left.supportleft5.partName=Support Left 5
+model.powerfist_left.modelName=אגרוף כוח יד שמאל
+model.powerfist_left.mainarm.partName=זרוע ראשית
+model.powerfist_left.armorright.partName=שריון נכון
+model.powerfist_left.armorleft.partName=שריון משמאל
+model.powerfist_left.wristtopright.partName=זרוע ימנית למעלה
+model.powerfist_left.wristtopleft.partName=שמאל למעלה משמאל
+model.powerfist_left.wristbottomright.partName=שורש כף יד ימין
+model.powerfist_left.wristbottomleft.partName=שורש תחתונה שמאל
+model.powerfist_left.fingerguard.partName=משמר האצבע
+model.powerfist_left.crystalholder.partName=מחזיק קריסטל
+model.powerfist_left.crystal.partName=קריסטל
+model.powerfist_left.supportright1.partName=תמיכה נכון 1
+model.powerfist_left.supportright2.partName=תמיכה נכון 2
+model.powerfist_left.supportright3.partName=תמיכה נכון 3
+model.powerfist_left.supportright4.partName=תמיכה נכון 4
+model.powerfist_left.supportright5.partName=תמיכה ימין 5
+model.powerfist_left.supportbaseright.partName=בסיס תמיכה נכון
+model.powerfist_left.palm.partName=פאלם
+model.powerfist_left.supportbaseleft.partName=בסיס תמיכה שמאל
+model.powerfist_left.supportleftfront.partName=תמוך בחזית השמאלית
+model.powerfist_left.supportrightfront.partName=תמוך בחזית הימנית
+model.powerfist_left.supportleft1.partName=תמיכה שמאל 1
+model.powerfist_left.supportleft2.partName=תמיכה שמאל 2
+model.powerfist_left.supportleft3.partName=תמיכה שמאל 3
+model.powerfist_left.supportleft4.partName=תמיכה שמאל 4
+model.powerfist_left.supportleft5.partName=תמיכה שמאל 5
 
-model.powerfist_fingers_normal_left.modelName=Power Fist Left Fingers Normal Pose
-model.powerfist_fingers_normal_left.index1.partName=Index 1
-model.powerfist_fingers_normal_left.index2.partName= Index 2
-model.powerfist_fingers_normal_left.middlefinger1.partName=Middle Finger 1
-model.powerfist_fingers_normal_left.middlefinger2.partName=Middle Finger 2
-model.powerfist_fingers_normal_left.ringfinger1.partName=Ring Finger 1
-model.powerfist_fingers_normal_left.ringfinger2.partName=Ring Finger 2
-model.powerfist_fingers_normal_left.pinky1.partName=Pinky 1
-model.powerfist_fingers_normal_left.pinky2.partName=Pinky 2
-model.powerfist_fingers_normal_left.thumb1.partName=Thumb 1
-model.powerfist_fingers_normal_left.thumb2.partName=Thumb 2
+model.powerfist_fingers_normal_left.modelName=אגרוף כוח שמאל אצבעות
+model.powerfist_fingers_normal_left.index1.partName=אינדקס 1
+model.powerfist_fingers_normal_left.index2.partName= אינדקס 2
+model.powerfist_fingers_normal_left.middlefinger1.partName=האצבע התיכונה 1
+model.powerfist_fingers_normal_left.middlefinger2.partName=האצבע התיכונה 2
+model.powerfist_fingers_normal_left.ringfinger1.partName=טבעת האצבע 1
+model.powerfist_fingers_normal_left.ringfinger2.partName=טבעת האצבע 2
+model.powerfist_fingers_normal_left.pinky1.partName=פינקי 1
+model.powerfist_fingers_normal_left.pinky2.partName=פינקי 2
+model.powerfist_fingers_normal_left.thumb1.partName=אגודל1
+model.powerfist_fingers_normal_left.thumb2.partName=אגודל2
 
-model.powerfist_fingers_firing_left.modelName=Power Fist Left Fingers Firing Pose
-model.powerfist_fingers_firing_left.index1.partName=Index 1
-model.powerfist_fingers_firing_left.index2.partName= Index 2
-model.powerfist_fingers_firing_left.middlefinger1.partName=Middle Finger 1
-model.powerfist_fingers_firing_left.middlefinger2.partName=Middle Finger 2
-model.powerfist_fingers_firing_left.ringfinger1.partName=Ring Finger 1
-model.powerfist_fingers_firing_left.ringfinger2.partName=Ring Finger 2
-model.powerfist_fingers_firing_left.pinky1.partName=Pinky 1
-model.powerfist_fingers_firing_left.pinky2.partName=Pinky 2
-model.powerfist_fingers_firing_left.thumb1.partName=Thumb 1
-model.powerfist_fingers_firing_left.thumb2.partName=Thumb 2
+model.powerfist_fingers_firing_left.modelName=כוח אגרוף שמאל אצבעות הירי
+model.powerfist_fingers_firing_left.index1.partName=אינדקס 1
+model.powerfist_fingers_firing_left.index2.partName=אינדקס 2
+model.powerfist_fingers_firing_left.middlefinger1.partName=האצבע התיכונה 1
+model.powerfist_fingers_firing_left.middlefinger2.partName=האצבע התיכונה 2
+model.powerfist_fingers_firing_left.ringfinger1.partName=טבעת האצבע 1
+model.powerfist_fingers_firing_left.ringfinger2.partName=טבעת האצבע 2
+model.powerfist_fingers_firing_left.pinky1.partName=פינקי 1
+model.powerfist_fingers_firing_left.pinky2.partName=פינקי 2
+model.powerfist_fingers_firing_left.thumb1.partName=אגודל1
+model.powerfist_fingers_firing_left.thumb2.partName=אגודל2

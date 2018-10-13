@@ -302,35 +302,27 @@ model.mps_boots.boots2.partName=Left Boot
 
 # Armor Model 2
 model.armor2.modelName=Armor 2
-
 model.armor2.helmetglow1.partName=Helmet Tubes and Visor
 model.armor2.helmetmain.partName=Helmet
-
 model.armor2.chestgray.partName=Chest Base
 model.armor2.chestmain.partName=Front Chest Protection
 model.armor2.chestback1.partName=Back Chest Protection
 model.armor2.chestglowfront.partName=Frontal Power Crystal
 model.armor2.chestglowback.partName=Spinal Power Crystals
-
 model.armor2.armglow1.partName=Shoulder Light
 model.armor2.armmain1.partName=Arm and Shoulder Protection
 model.armor2.armgray1.partName=Arm Base
-
 model.armor2.armglow.partName=Shoulder Light
 model.armor2.armmain.partName=Arm and Shoulder Protection
 model.armor2.armgray.partName=Arm Base
-
 model.armor2.leggray.partName=Left Leg Base
 model.armor2.legbit.partName=Left Leg Protection
 model.armor2.legglow.partName=Left Leg Light
-
 model.armor2.leggray1.partName=Right Leg Base
 model.armor2.legbit1.partName=Right Leg Protection
 model.armor2.legglow1.partName=Right Leg Light
-
 model.armor2.bootmain1.partName=Right Boot
 model.armor2.bootglow1.partName=Right Boot Glow
-
 model.armor2.bootmain.partName=Left Boot
 model.armor2.bootglow.partName=Left Boot Glow
 
