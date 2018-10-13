@@ -231,38 +231,38 @@ module.powersuits.railgun.desc=הרכבה המאיצה קליע למהירויו
 
 
 
-gui.powersuits.noModulesFound.line1=No modular powersuit items
-gui.powersuits.noModulesFound.line2=found in inventory. Make some!
-gui.powersuits.red=Red
-gui.powersuits.green=Green
-gui.powersuits.blue=Blue
-gui.powersuits.install=Install
-gui.powersuits.salvage=Salvage
-gui.powersuits.newKeybind=New
-gui.powersuits.trashKeybind=Trash
-gui.powersuits.pressKey=Press Key
-gui.powersuits.keybindInstructions1=Use 'new' to bind new keys.
-gui.powersuits.keybindInstructions2=Drag and drop modules to bind them to keys.
-gui.powersuits.keybindInstructions3=Drop keys on 'trash' to unbind them.
-gui.powersuits.keybindInstructions4=Right-click keybinds to add them to the HUD.
-gui.powersuits.keybindTaken=Taken!
-gui.powersuits.tab.tinker=Tinker
-gui.powersuits.tab.keybinds=Keybinds
-gui.powersuits.tab.visual=Visual
-gui.powersuits.equippedTotals=Equipped Totals
-gui.powersuits.energyStorage=Energy Storage
-gui.powersuits.armor=Armor
-gui.powersuits.slotpoints=Slot Points
+gui.powersuits.noModulesFound.line1=אין פריטים כוחיים מודולריים
+gui.powersuits.noModulesFound.line2=נמצא במלאי. תכין קצת!
+gui.powersuits.red=אדום
+gui.powersuits.green=ירוק
+gui.powersuits.blue=כחול
+gui.powersuits.install=להתקין
+gui.powersuits.salvage=הצלה
+gui.powersuits.newKeybind=חדש
+gui.powersuits.trashKeybind=אשפה
+gui.powersuits.pressKey=לחץ על הכפתור
+gui.powersuits.keybindInstructions1=השתמש 'חדש' כדי לקשור מפתחות חדשים.
+gui.powersuits.keybindInstructions2=גרור ושחרר מודולים כדי לקשור אותם למפתחות.
+gui.powersuits.keybindInstructions3=זרוק מפתחות על 'זבל' כדי לבטל את הצמדתם.
+gui.powersuits.keybindInstructions4=לחץ לחיצה ימנית על keybinds כדי להוסיף אותם ל- HUD.
+gui.powersuits.keybindTaken=נלקח!
+gui.powersuits.tab.tinker=טינקר
+gui.powersuits.tab.keybinds=קיבינדס
+gui.powersuits.tab.visual=חזותי
+gui.powersuits.equippedTotals=מאובטחת סך הכל
+gui.powersuits.energyStorage=אחסון אנרגיה
+gui.powersuits.armor=שריון
+gui.powersuits.slotpoints=נקודות חריץ
 
 
 
-tooltip.powersuits.pressShift=Press SHIFT for more information.
-tooltip.powersuits.componentTooltip=For use in Tinker Table.
-tooltip.powersuits.changeModes=Change modes: Press and hold the number of the hotbar slot the PowerFist is in.
-tooltip.powersuits.energy=Energy:
-tooltip.powersuits.noModules=No installed modules! This item is useless until you add some modules at a Tinker Table.
-tooltip.powersuits.installedModules=Installed Modules:
-tooltip.powersuits.mode=Mode:
+tooltip.powersuits.pressShift=הקש SHIFT לקבלת מידע נוסף.
+tooltip.powersuits.componentTooltip=לשימוש ב טינקר טבלה.
+tooltip.powersuits.changeModes=שינוי מצבים: לחץ והחזק את מספר חריץ ה- hotbar שנמצא ב- PowerFist.
+tooltip.powersuits.energy=אנרגיה
+tooltip.powersuits.noModules=אין מודולים מותקנים! פריט זה הוא חסר תועלת עד שתוסיף כמה מודולים על שולחן טינקר.
+tooltip.powersuits.installedModules=מודולים מותקנים:
+tooltip.powersuits.mode=מצב:
 
 # Default Model Helm
 model.mps_helm.modelName=MPS הלם
