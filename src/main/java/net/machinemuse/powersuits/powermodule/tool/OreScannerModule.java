@@ -51,7 +51,6 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
         scanner = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("scannable", "scanner")));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), scanner);
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

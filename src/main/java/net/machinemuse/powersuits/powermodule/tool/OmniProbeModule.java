@@ -66,8 +66,6 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
             tHighest = conduitProbe;
         }
         ModuleManager.INSTANCE.addInstallCost(getDataName(), tHighest);
-
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

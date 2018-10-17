@@ -6,6 +6,7 @@ import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.EnumFacing;
@@ -77,33 +78,41 @@ public class EntityLuxCapacitor extends EntityThrowable implements IEntityAdditi
             int z = hitResult.getBlockPos().getZ() - dir.getFrontOffsetZ();
             if (y > 0) {
                 BlockPos blockPos = new BlockPos(x, y, z);
-                Block block = world.getBlockState(blockPos).getBlock();
-                if (block == null || block.isAir(world.getBlockState(blockPos), world, blockPos)) {
-                    Block blockToStickTo = world.getBlockState(new BlockPos(hitResult.getBlockPos().getX(),
-                            hitResult.getBlockPos().getY(), hitResult.getBlockPos().getZ())).getBlock();
-                    if (blockToStickTo.isNormalCube(world.getBlockState(blockPos), world, blockPos) &&
-                            !(blockToStickTo instanceof BlockLuxCapacitor) && color != null) {
-                        world.setBlockState(blockPos, ((IExtendedBlockState) MPSItems.INSTANCE.luxCapacitor.getDefaultState().
-                                withProperty(FACING, dir)).withProperty(COLOR, color));
-                        world.setTileEntity(blockPos, new TileEntityLuxCapacitor(color));
-
-                    } else {
-                        for (EnumFacing d : EnumFacing.VALUES) {
-                            int xo = x + d.getFrontOffsetX();
-                            int yo = y + d.getFrontOffsetY();
-                            int zo = z + d.getFrontOffsetZ();
-                            BlockPos blockPos2 = new BlockPos(xo, yo, zo);
-                            blockToStickTo = world.getBlockState( new BlockPos(xo, yo, zo)).getBlock();
-                            if (blockToStickTo.isNormalCube(world.getBlockState(blockPos2), world, blockPos) &&
-                                    !(blockToStickTo instanceof BlockLuxCapacitor) && color != null) {
-                                world.setBlockState(blockPos, ((IExtendedBlockState) MPSItems.INSTANCE.luxCapacitor.getDefaultState().
-                                        withProperty(FACING, dir)).withProperty(COLOR, color));
-                                world.setTileEntity(blockPos, new TileEntityLuxCapacitor(color));
-                                break;
-                            }
-                        }
-                    }
+                if (MPSItems.INSTANCE.luxCapacitor.canPlaceBlockAt(world, blockPos)) {
+                    IBlockState blockState = MPSItems.INSTANCE.luxCapacitor.getStateForPlacement(world, blockPos, dir, hitResult.getBlockPos().getX(), hitResult.getBlockPos().getY(), hitResult.getBlockPos().getZ(), 0, null);
+                    world.setBlockState(blockPos, ((IExtendedBlockState) blockState).withProperty(COLOR, color));
+                    world.setTileEntity(blockPos, new TileEntityLuxCapacitor(color));
                 }
+
+//                Block block = world.getBlockState(blockPos).getBlock();
+//                if (block == null || block.isAir(world.getBlockState(blockPos), world, blockPos)) {
+//                    Block blockToStickTo = world.getBlockState(new BlockPos(hitResult.getBlockPos().getX(),
+//                            hitResult.getBlockPos().getY(), hitResult.getBlockPos().getZ())).getBlock();
+//
+//
+//                    if (blockToStickTo.isNormalCube(world.getBlockState(blockPos), world, blockPos) &&
+//                            !(blockToStickTo instanceof BlockLuxCapacitor) && color != null) {
+//                        world.setBlockState(blockPos, ((IExtendedBlockState) MPSItems.INSTANCE.luxCapacitor.getDefaultState().
+//                                withProperty(FACING, dir)).withProperty(COLOR, color));
+//                        world.setTileEntity(blockPos, new TileEntityLuxCapacitor(color));
+//
+//                    } else {
+//                        for (EnumFacing d : EnumFacing.VALUES) {
+//                            int xo = x + d.getFrontOffsetX();
+//                            int yo = y + d.getFrontOffsetY();
+//                            int zo = z + d.getFrontOffsetZ();
+//                            BlockPos blockPos2 = new BlockPos(xo, yo, zo);
+//                            blockToStickTo = world.getBlockState( new BlockPos(xo, yo, zo)).getBlock();
+//                            if (blockToStickTo.isNormalCube(world.getBlockState(blockPos2), world, blockPos) &&
+//                                    !(blockToStickTo instanceof BlockLuxCapacitor) && color != null) {
+//                                world.setBlockState(blockPos, ((IExtendedBlockState) MPSItems.INSTANCE.luxCapacitor.getDefaultState().
+//                                        withProperty(FACING, dir)).withProperty(COLOR, color));
+//                                world.setTileEntity(blockPos, new TileEntityLuxCapacitor(color));
+//                                break;
+//                            }
+//                        }
+//                    }
+//                }
                 this.setDead();
             }
         }

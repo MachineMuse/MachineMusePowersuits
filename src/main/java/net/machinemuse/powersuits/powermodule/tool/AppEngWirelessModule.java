@@ -33,8 +33,6 @@ public class AppEngWirelessModule extends PowerModuleBase implements IRightClick
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         Optional<ItemStack> wirelessTerminal = AEApi.instance().definitions().items().wirelessTerminal().maybeStack(1);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), wirelessTerminal.get());
-
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

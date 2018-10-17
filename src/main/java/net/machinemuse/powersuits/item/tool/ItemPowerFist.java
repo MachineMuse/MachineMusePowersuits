@@ -470,4 +470,9 @@ public class ItemPowerFist extends MPSItemElectricTool
         int energy =  Math.min(capacity, (int) Math.round(MuseItemUtils.getDoubleOrZero(stack, NuminaNBTConstants.CURRENT_ENERGY)));
         return 1 - energy/(float) capacity;
     }
+
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return false;
+    }
 }

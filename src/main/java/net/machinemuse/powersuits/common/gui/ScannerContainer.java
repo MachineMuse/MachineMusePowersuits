@@ -13,6 +13,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.SlotItemHandler;
 
+import javax.annotation.Nonnull;
+
 /**
  * Copied from Scannable: li.cil.scannable.common.container.ContainerScanner
  */
@@ -20,7 +22,7 @@ public class ScannerContainer extends Container {
     private final EntityPlayer player;
     private final EnumHand hand;
 
-    public ScannerContainer(final EntityPlayer player, final EnumHand hand) {
+    public ScannerContainer(final EntityPlayer player, @Nonnull final EnumHand hand) {
         this.player = player;
         this.hand = hand;
 

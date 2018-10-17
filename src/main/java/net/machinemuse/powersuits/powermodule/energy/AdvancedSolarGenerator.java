@@ -31,7 +31,6 @@ public class AdvancedSolarGenerator extends PowerModuleBase implements IPlayerTi
         addBasePropertyDouble(MPSModuleConstants.SOLAR_ENERGY_GENERATION_NIGHT, 1500, "RF");
         addBasePropertyDouble(MPSModuleConstants.SOLAR_HEAT_GENERATION_DAY, 15);
         addBasePropertyDouble(MPSModuleConstants.SOLAR_HEAT_GENERATION_NIGHT, 5);
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

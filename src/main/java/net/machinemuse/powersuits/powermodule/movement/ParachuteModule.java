@@ -22,8 +22,6 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
     public ParachuteModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.parachute, 2));
-
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

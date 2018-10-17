@@ -39,8 +39,6 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
         addBasePropertyDouble(MPSModuleConstants.CHISEL_HARVEST_SPEED, 8, "x");
         addTradeoffPropertyDouble("Overclock", MPSModuleConstants.CHISEL_ENERGY_CONSUMPTION, 9500);
         addTradeoffPropertyDouble("Overclock", MPSModuleConstants.CHISEL_HARVEST_SPEED, 22);
-
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

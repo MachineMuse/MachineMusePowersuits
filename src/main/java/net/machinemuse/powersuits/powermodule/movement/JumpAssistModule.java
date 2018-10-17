@@ -23,18 +23,14 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 4));
 
         addBasePropertyDouble(MPSModuleConstants.JUMP_ENERGY_CONSUMPTION, 0, "RF");
-        addTradeoffPropertyDouble("Power", MPSModuleConstants.JUMP_ENERGY_CONSUMPTION, 250);
+        addTradeoffPropertyDouble(MPSModuleConstants.POWER, MPSModuleConstants.JUMP_ENERGY_CONSUMPTION, 250);
         addBasePropertyDouble(MPSModuleConstants.JUMP_MULTIPLIER, 1, "%");
-        addTradeoffPropertyDouble("Power", MPSModuleConstants.JUMP_MULTIPLIER, 4);
+        addTradeoffPropertyDouble(MPSModuleConstants.POWER, MPSModuleConstants.JUMP_MULTIPLIER, 4);
 
         addBasePropertyDouble(MPSModuleConstants.JUMP_ENERGY_CONSUMPTION, 0, "RF");
         addTradeoffPropertyDouble("Compensation", MPSModuleConstants.JUMP_ENERGY_CONSUMPTION, 50);
         addBasePropertyDouble(MPSModuleConstants.JUMP_FOOD_COMPENSATION, 0, "%");
         addTradeoffPropertyDouble("Compensation", MPSModuleConstants.JUMP_FOOD_COMPENSATION, 1);
-
-
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
-        addIntTradeoffProperty(MPSModuleConstants.JUMP_ENERGY_CONSUMPTION, MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
     }
 
     @Override

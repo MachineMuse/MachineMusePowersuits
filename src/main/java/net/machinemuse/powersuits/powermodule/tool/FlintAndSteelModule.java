@@ -36,7 +36,6 @@ public class FlintAndSteelModule extends PowerModuleBase implements IRightClickM
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), fas);
         addBasePropertyDouble(MPSModuleConstants.IGNITION_ENERGY_CONSUMPTION, 10000, "RF");
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

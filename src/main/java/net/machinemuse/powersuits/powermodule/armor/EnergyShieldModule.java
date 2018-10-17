@@ -16,11 +16,10 @@ public class EnergyShieldModule extends PowerModuleBase {
     public EnergyShieldModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(this.getDataName(), MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
+
         addTradeoffPropertyDouble(MPSModuleConstants.MODULE_FIELD_STRENGTH, MPSModuleConstants.ARMOR_VALUE_ENERGY, 6, " Points");
         addTradeoffPropertyDouble(MPSModuleConstants.MODULE_FIELD_STRENGTH, MPSModuleConstants.ARMOR_ENERGY_CONSUMPTION, 5000, "RF");
         addTradeoffPropertyDouble(MPSModuleConstants.MODULE_FIELD_STRENGTH, NuminaNBTConstants.MAXIMUM_HEAT, 500, "");
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
-        addIntTradeoffProperty(MPSModuleConstants.MODULE_FIELD_STRENGTH, MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
     }
 
     @Override

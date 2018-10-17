@@ -22,9 +22,6 @@ public class BasicCoolingSystemModule extends CoolingSystemBase {
 
         addTradeoffPropertyDouble(MPSModuleConstants.BASIC_COOLING_POWER, MPSModuleConstants.COOLING_BONUS, 4, "%");
         addTradeoffPropertyDouble(MPSModuleConstants.BASIC_COOLING_POWER, MPSModuleConstants.BASIC_COOLING_SYSTEM_ENERGY_CONSUMPTION, 100, "RF/t");
-
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5, "pts");
-        addIntTradeoffProperty(MPSModuleConstants.BASIC_COOLING_POWER, MPSModuleConstants.SLOT_POINTS, 15, "m", 1, 0);
     }
 
     @Override

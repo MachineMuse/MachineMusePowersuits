@@ -33,8 +33,6 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
         addBasePropertyDouble(MPSModuleConstants.SHOVEL_HARVEST_SPEED, 8, "x");
         addTradeoffPropertyDouble("Overclock", MPSModuleConstants.SHOVEL_ENERGY_CONSUMPTION, 9500);
         addTradeoffPropertyDouble("Overclock", MPSModuleConstants.SHOVEL_HARVEST_SPEED, 22);
-
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

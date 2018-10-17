@@ -38,7 +38,6 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         addBasePropertyDouble(MPSModuleConstants.DIMENSIONAL_RIFT_HEAT_GENERATION, 55);
         addBasePropertyDouble(MPSModuleConstants.DIMENSIONAL_RIFT_ENERGY_CONSUMPTION, 200000);
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5, "pts");
         this.defaultTag.setBoolean(TAG_ONLINE, false);
     }
 

@@ -5,6 +5,7 @@ import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.api.nbt.*;
 import net.machinemuse.powersuits.api.constants.MPSModConstants;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.armor.*;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
@@ -34,6 +35,7 @@ public abstract class PowerModuleBase implements IPowerModule {
         this.defaultTag = new NBTTagCompound();
         this.defaultTag.setBoolean(TAG_ONLINE, true);
         this.isAllowed = MPSConfig.INSTANCE.getModuleAllowedorDefault(dataNameIn, true);
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
     }
 
     public PowerModuleBase(EnumModuleTarget moduleTargetIn) {
@@ -41,7 +43,8 @@ public abstract class PowerModuleBase implements IPowerModule {
         this.propertyModifiers = new HashMap();
         this.defaultTag = new NBTTagCompound();
         this.defaultTag.setBoolean(TAG_ONLINE, true);
-        this.isAllowed = this.isAllowed = MPSConfig.INSTANCE.getModuleAllowedorDefault(getDataName(), true);
+        this.isAllowed = MPSConfig.INSTANCE.getModuleAllowedorDefault(getDataName(), true);
+        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
     }
 
     public static String getUnit(String propertyName) {

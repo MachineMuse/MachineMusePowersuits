@@ -8,24 +8,7 @@ public class MPSModuleConstants {
 
 
 
-
-
-
-
-
-
-
-    public static final String POINTS = " Points";
-
-
-
-
-
-
-
-    public static final String MODULE_TECH_TIER = "module tier";
-
-
+    public static String POWER = "Power";
 
 
 
@@ -58,6 +41,11 @@ public class MPSModuleConstants {
     public static final String COAL_HEAT_GEN = "Heat Generation";
     public static final String MAX_COAL_STORAGE = "Maximum storage amount";
     public static final String KINETIC_ENERGY_GENERATION = "Energy Per 5 Blocks";
+    public static final String KINETIC_ENERGY_MOVEMENT_RESISTANCE = "Movement Resistance";
+    public static final String KINETIC_ENERGY_GENERATED = "Energy Generated";
+
+
+
     public static final String KINETIC_HEAT_GENERATION = "Heat Generation";
     public static final String SOLAR_HEAT_GENERATION_DAY = "Daytime Heat Generation";
     public static final String SOLAR_HEAT_GENERATION_NIGHT = "Nighttime Heat Generation";

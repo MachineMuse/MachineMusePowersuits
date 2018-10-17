@@ -3,6 +3,7 @@ package net.machinemuse.numina.utils.item;
 import net.machinemuse.numina.api.item.IModularItem;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
+import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -29,9 +30,15 @@ public class MuseItemUtils {
     public static NonNullList<ItemStack> getModularItemsEquipped(EntityPlayer player) {
         NonNullList<ItemStack> modulars = NonNullList.create();
         for (EntityEquipmentSlot slot: EntityEquipmentSlot.values()) {
+
             ItemStack itemStack = player.getItemStackFromSlot(slot);
-            if (itemStack.getItem() instanceof IModularItem)
-                modulars.add(itemStack);
+            if (!itemStack.isEmpty() && itemStack.getItem() instanceof IModularItem) {
+                if (slot.getSlotType() == EntityEquipmentSlot.Type.ARMOR ||
+                        // eliminates having held armor count as equipped item
+                        (slot.getSlotType() == EntityEquipmentSlot.Type.HAND && itemStack.getItem() instanceof ItemPowerFist)) {
+                    modulars.add(itemStack);
+                }
+            }
         }
         return modulars;
     }

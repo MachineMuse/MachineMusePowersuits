@@ -36,8 +36,6 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
         addTradeoffPropertyDouble(MPSModuleConstants.LEAF_BLOWER_RADIUS, MPSModuleConstants.LEAF_BLOWER_ENERGY_CONSUMPTION, 9500);
         addBasePropertyDouble(MPSModuleConstants.LEAF_BLOWER_RADIUS, 1, "m");
         addTradeoffPropertyDouble(MPSModuleConstants.LEAF_BLOWER_RADIUS, MPSModuleConstants.LEAF_BLOWER_RADIUS, 15);
-
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

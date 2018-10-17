@@ -34,11 +34,6 @@ public class JetBootsModule extends PowerModuleBase implements IToggleableModule
         addBasePropertyDouble(MPSModuleConstants.JETBOOTS_THRUST, 0);
         addTradeoffPropertyDouble("Thrust", MPSModuleConstants.JETBOOTS_ENERGY_CONSUMPTION, 750, "RF");
         addTradeoffPropertyDouble("Thrust", MPSModuleConstants.JETBOOTS_THRUST, 0.08);
-
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
-        addIntTradeoffProperty("Thrust", MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
-
-
     }
 
     @Override

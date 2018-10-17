@@ -3,7 +3,6 @@ package net.machinemuse.powersuits.block;
 
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSModConstants;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -12,6 +11,7 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -101,33 +101,19 @@ public class BlockLuxCapacitor extends BlockDirectional {
 
     @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        if (!canPlaceAt(worldIn, pos, facing.getOpposite())) {
-            for (EnumFacing enumFacing : EnumFacing.VALUES) {
-                if (canPlaceAt(worldIn, pos, facing.getOpposite())) {
-                    facing = enumFacing;
-                    break;
+        if (this.canPlaceAt(worldIn, pos, facing)) {
+            return((IExtendedBlockState)this.getDefaultState().withProperty(FACING, facing)).withProperty(COLOR, defaultColor);
+        } else {
+            for (EnumFacing enumfacing : EnumFacing.VALUES) {
+                if (enumfacing == facing)
+                    continue;
+                if (this.canPlaceAt(worldIn, pos, enumfacing)) {
+                    return((IExtendedBlockState)this.getDefaultState().withProperty(FACING, enumfacing)).withProperty(COLOR, defaultColor);
                 }
             }
+            return((IExtendedBlockState)this.getDefaultState()).withProperty(COLOR, defaultColor);
         }
-        return ((IExtendedBlockState) this.getDefaultState().withProperty(FACING, facing.getOpposite())).withProperty(COLOR, defaultColor);
     }
-
-//    @Override
-//    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-//        worldIn.setBlockState(pos, ((IExtendedBlockState) state.withProperty(FACING, getFacingFromEntity(pos, placer).getOpposite())).withProperty(COLOR, defaultColor), 2);
-//    }
-//
-//    public static EnumFacing getFacingFromEntity(BlockPos pos, EntityLivingBase entityIn) {
-//        if (MathHelper.abs((float) entityIn.posX - (float) pos.getX()) < 2.0F && MathHelper.abs((float) entityIn.posZ - (float) pos.getZ()) < 2.0F) {
-//            double d0 = entityIn.posY + (double) entityIn.getEyeHeight();
-//            if (d0 - (double) pos.getY() > 2.0D)
-//                return EnumFacing.UP;
-//
-//            if ((double) pos.getY() - d0 > 0.0D)
-//                return EnumFacing.DOWN;
-//        }
-//        return entityIn.getHorizontalFacing().getOpposite();
-//    }
 
     @Override
     public BlockStateContainer createBlockState() {
@@ -144,8 +130,6 @@ public class BlockLuxCapacitor extends BlockDirectional {
 
     @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-        System.out.println("doing something here");
-
         for (EnumFacing enumfacing : FACING.getAllowedValues()) {
             if (this.canPlaceAt(worldIn, pos, enumfacing)) {
                 return true;
@@ -154,17 +138,11 @@ public class BlockLuxCapacitor extends BlockDirectional {
         return false;
     }
 
-    private boolean canPlaceAt(World worldIn, BlockPos pos, EnumFacing facing) {
+    public boolean canPlaceAt(IBlockAccess worldIn, BlockPos pos, EnumFacing facing) {
         BlockPos blockpos = pos.offset(facing);
         IBlockState iblockstate = worldIn.getBlockState(blockpos);
         BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, blockpos, facing);
         return iblockstate.isSideSolid(worldIn, pos, facing) && blockfaceshape == BlockFaceShape.SOLID;
-    }
-
-    @Override
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-        if (!canPlaceBlockAt(worldIn, pos))
-            worldIn.setBlockToAir(pos);
     }
 
     @SuppressWarnings("deprecation")

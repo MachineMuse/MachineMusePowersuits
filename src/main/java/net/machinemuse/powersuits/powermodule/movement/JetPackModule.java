@@ -31,9 +31,6 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
         addBasePropertyDouble(MPSModuleConstants.JETPACK_THRUST, 0, "N");
         addTradeoffPropertyDouble("Thrust", MPSModuleConstants.JETPACK_ENERGY_CONSUMPTION, 1500);
         addTradeoffPropertyDouble("Thrust", MPSModuleConstants.JETPACK_THRUST, 0.16);
-
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
-        addIntTradeoffProperty("Thrust", MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
     }
 
     @Override

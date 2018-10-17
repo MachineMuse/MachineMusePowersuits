@@ -23,12 +23,11 @@ public class ApiaristArmorModule extends PowerModuleBase {
         stack.setItemDamage(3);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), stack);
         addBasePropertyDouble(MPSModuleConstants.APIARIST_ARMOR_ENERGY_CONSUMPTION, 100, "RF");
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5, "pts");
     }
 
     @Override
     public EnumModuleCategory getCategory() {
-        return EnumModuleCategory.CATEGORY_ARMOR;
+        return EnumModuleCategory.CATEGORY_ENVIRONMENTAL;
     }
 
     @Override

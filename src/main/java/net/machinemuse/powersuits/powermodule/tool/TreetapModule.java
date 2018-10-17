@@ -40,6 +40,8 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
     public static ItemStack treetap;
 
     public TreetapModule(EnumModuleTarget moduleTarget) {
+        // TODO: add support for tree taps from other mods?
+
         super(moduleTarget);
         if (ModCompatibility.isIndustrialCraftClassicLoaded()) {
             emulatedTool = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("ic2", "itemTreetapElectric")), 1);
@@ -69,7 +71,6 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
         ModuleManager.INSTANCE.addInstallCost(getDataName(),emulatedTool);
 
         addBasePropertyDouble(MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION, 1000, "RF");
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

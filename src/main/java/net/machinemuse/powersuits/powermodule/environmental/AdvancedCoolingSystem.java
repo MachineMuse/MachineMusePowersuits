@@ -28,9 +28,6 @@ public class AdvancedCoolingSystem extends CoolingSystemBase {
 
         addTradeoffPropertyDouble("Advanced Cooling Power", MPSModuleConstants.COOLING_BONUS, 7, "%");
         addTradeoffPropertyDouble("Advanced Cooling Power", MPSModuleConstants.ADVANCED_COOLING_SYSTEM_ENERGY_CONSUMPTION, 160, "RF/t");
-
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5, "pts");
-        addIntTradeoffProperty("Advanced Cooling Power", MPSModuleConstants.SLOT_POINTS, 15, "m", 1, 0);
     }
 
     @Override

@@ -18,8 +18,6 @@ public class ClimbAssistModule extends PowerModuleBase implements IToggleableMod
     public ClimbAssistModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
-
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5, "pts");
     }
 
     @Override

@@ -34,8 +34,6 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
         addBasePropertyDouble(MPSModuleConstants.PICKAXE_HARVEST_SPEED, 8, "x");
         addTradeoffPropertyDouble("Overclock", MPSModuleConstants.PICKAXE_ENERGY_CONSUMPTION, 9500);
         addTradeoffPropertyDouble("Overclock", MPSModuleConstants.PICKAXE_HARVEST_SPEED, 52);
-
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

@@ -29,10 +29,8 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 1));
         addBasePropertyDouble(MPSModuleConstants.AQUA_AFFINITY_ENERGY_CONSUMPTION, 0, "RF");
         addBasePropertyDouble(MPSModuleConstants.UNDERWATER_HARVEST_SPEED, 0.2, "%");
-        addTradeoffPropertyDouble("Power", MPSModuleConstants.AQUA_AFFINITY_ENERGY_CONSUMPTION, 1000);
-        addTradeoffPropertyDouble("Power", MPSModuleConstants.UNDERWATER_HARVEST_SPEED, 0.8);
-
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
+        addTradeoffPropertyDouble(MPSModuleConstants.POWER, MPSModuleConstants.AQUA_AFFINITY_ENERGY_CONSUMPTION, 1000);
+        addTradeoffPropertyDouble(MPSModuleConstants.POWER, MPSModuleConstants.UNDERWATER_HARVEST_SPEED, 0.8);
     }
 
     @Override

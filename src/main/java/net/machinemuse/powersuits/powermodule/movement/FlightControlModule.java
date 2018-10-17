@@ -17,7 +17,6 @@ public class FlightControlModule extends PowerModuleBase implements IToggleableM
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         addTradeoffPropertyDouble("Verticality", MPSModuleConstants.FLIGHT_VERTICALITY, 1.0, "%");
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

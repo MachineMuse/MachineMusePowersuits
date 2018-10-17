@@ -19,10 +19,8 @@ public class UltimateBatteryModule extends PowerModuleBase {
     public UltimateBatteryModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.evcapacitor, 1));
-        addBasePropertyDouble(NuminaNBTConstants.MAXIMUM_ENERGY, 12500000, "RF");
-        addTradeoffPropertyDouble(MPSModuleConstants.BATTERY_SIZE, NuminaNBTConstants.MAXIMUM_ENERGY, 42500000);
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
-        addIntTradeoffProperty(MPSModuleConstants.BATTERY_SIZE, MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
+
+        addBasePropertyDouble(NuminaNBTConstants.MAXIMUM_ENERGY, 750000000, "RF");
      }
 
     @Override

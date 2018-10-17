@@ -5,12 +5,18 @@ import net.machinemuse.powersuits.common.gui.PortableCraftingGui;
 import net.machinemuse.powersuits.common.gui.ScannerContainer;
 import net.machinemuse.powersuits.common.gui.ScannerGUI;
 import net.machinemuse.powersuits.common.gui.tinker.*;
+import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
 
 /**
  * Gui handler for this mod. Mainly just takes an ID according to what was
@@ -28,7 +34,7 @@ public enum MPSGuiHandler implements IGuiHandler {
         if (ID == 4)
             return new PortableCraftingContainer(player.inventory, world, new BlockPos(x,y,z));
         if (ID ==6) {
-            return new ScannerContainer(player, player.getActiveHand());
+            return new ScannerContainer(player, getPlayerHand(player));
         }
         return null;
     }
@@ -49,11 +55,25 @@ public enum MPSGuiHandler implements IGuiHandler {
             case 4:
                 return new PortableCraftingGui(player, world, new BlockPos(x,y,z));
             case 5:
-            	return new GuiModeSelector(player);
+                return new GuiModeSelector(player);
             case 6:
-                return new ScannerGUI(new ScannerContainer(player, player.getActiveHand()));
+                return new ScannerGUI(new ScannerContainer(player, getPlayerHand(player)));
             default:
                 return null;
         }
+    }
+
+    @Nonnull
+    EnumHand getPlayerHand(EntityPlayer player) {
+        EnumHand hand;
+        hand = player.getActiveHand();
+        if (hand == null) {
+            ItemStack held = player.getHeldItemMainhand();
+            if (!held.isEmpty() && held.getItem() instanceof ItemPowerFist)
+                return EnumHand.MAIN_HAND;
+            else
+                return EnumHand.OFF_HAND;
+        }
+        return hand;
     }
 }

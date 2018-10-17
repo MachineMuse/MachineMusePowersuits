@@ -42,9 +42,6 @@ public class MADModule extends PowerModuleBase implements IBlockBreakingModule, 
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("mekanism", "atomicdisassembler")), 1));
-
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
-
         if (ModCompatibility.isMekanismLoaded()) {
             emulatedTool = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("mekanism", "atomicdisassembler")), 1);
         }

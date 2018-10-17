@@ -30,11 +30,13 @@ public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule,
         addBasePropertyDouble(MPSModuleConstants.MAX_COAL_STORAGE, 128);
         addBasePropertyDouble(MPSModuleConstants.COAL_HEAT_GEN, 2.5);
         addBasePropertyDouble(MPSModuleConstants.COAL_ENERGY_GEN, 300);
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5, "pts");
     }
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
+
+        // TODO: add charging code, change to more generic combustion types... maybe add GUI
+
         IInventory inv = player.inventory;
         int coalNeeded = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.MAX_COAL_STORAGE) - CoalGenHelper.getCoalLevel(item);
         if (coalNeeded > 0) {
@@ -49,12 +51,23 @@ public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule,
                             player.inventory.setInventorySlotContents(i, ItemStack.EMPTY);
                         }
                     }
+
+
+
+
+
+
+
                     if (ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.MAX_COAL_STORAGE) - CoalGenHelper.getCoalLevel(item) < 1) {
                         i = inv.getSizeInventory() + 1;
                     }
                 }
             }
         }
+
+
+
+
     }
 
     @Override

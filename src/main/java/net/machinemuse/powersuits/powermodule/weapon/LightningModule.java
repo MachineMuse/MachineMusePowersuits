@@ -39,7 +39,6 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
 
         addBasePropertyDouble(MPSModuleConstants.LIGHTNING_ENERGY_CONSUMPTION, 4900000, "RF");
         addBasePropertyDouble(MPSModuleConstants.HEAT_EMISSION, 100, "");
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5, "pts");
     }
 
     @Override

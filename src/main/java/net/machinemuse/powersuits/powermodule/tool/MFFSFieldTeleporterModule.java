@@ -24,7 +24,6 @@ public class MFFSFieldTeleporterModule extends PowerModuleBase {
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
 
         addBasePropertyDouble(FIELD_TELEPORTER_ENERGY_CONSUMPTION, 200000, "RF");
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

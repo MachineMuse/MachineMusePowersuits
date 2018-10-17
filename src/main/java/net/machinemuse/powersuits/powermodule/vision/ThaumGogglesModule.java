@@ -25,7 +25,6 @@ public class ThaumGogglesModule extends PowerModuleBase implements IToggleableMo
             ModuleManager.INSTANCE.addInstallCost(getDataName(), ItemComponent.laserHologram.copy());
             ModuleManager.INSTANCE.addInstallCost(getDataName(), gogglesStack);
         }
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

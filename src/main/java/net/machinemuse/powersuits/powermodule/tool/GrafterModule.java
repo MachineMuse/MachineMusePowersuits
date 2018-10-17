@@ -23,7 +23,6 @@ public class GrafterModule extends PowerModuleBase {
         ModuleManager.INSTANCE.addInstallCost(getDataName(), grafter);
         addBasePropertyDouble(MPSModuleConstants.GRAFTER_ENERGY_CONSUMPTION, 10000, "RF");
         addBasePropertyDouble(MPSModuleConstants.GRAFTER_HEAT_GENERATION, 20);
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

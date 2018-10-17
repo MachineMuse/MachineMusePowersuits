@@ -20,19 +20,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class KineticGeneratorModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
-
-
     public KineticGeneratorModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
 
         addBasePropertyDouble(MPSModuleConstants.KINETIC_ENERGY_GENERATION, 2000);
-        addTradeoffPropertyDouble("Energy Generated", MPSModuleConstants.KINETIC_ENERGY_GENERATION, 6000, "RF");
-        addBasePropertyDouble(MPSModuleConstants.KINETIC_HEAT_GENERATION, 5);
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
-        addIntTradeoffProperty("Energy Generated", MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
-  }
+        addTradeoffPropertyDouble(MPSModuleConstants.KINETIC_ENERGY_GENERATED, MPSModuleConstants.KINETIC_ENERGY_GENERATION, 6000, "RF");
+        addBasePropertyDouble(MPSModuleConstants.KINETIC_ENERGY_MOVEMENT_RESISTANCE, 0);
+        addTradeoffPropertyDouble(MPSModuleConstants.KINETIC_ENERGY_GENERATED, MPSModuleConstants.KINETIC_ENERGY_MOVEMENT_RESISTANCE, 0.5, "%");
+    }
 
     @Override
     public EnumModuleCategory getCategory() {
@@ -46,24 +43,25 @@ public class KineticGeneratorModule extends PowerModuleBase implements IPlayerTi
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        if (!player.isAirBorne) {
-            NBTTagCompound tag = MuseNBTUtils.getMuseItemTag(item);
-            boolean isNotWalking = (player.getRidingEntity() != null) || (player.isInWater());
-            if ((!tag.hasKey("x")) || (isNotWalking))
-                tag.setInteger("x", (int) player.posX);
-            if ((!tag.hasKey("z")) || (isNotWalking))
-                tag.setInteger("z", (int) player.posZ);
-            double distance = Math.sqrt((tag.getInteger("x") - (int) player.posX) * (tag.getInteger("x") - (int) player.posX) + (tag.getInteger("z") - (int) player.posZ) * (tag.getInteger("z") - (int) player.posZ));
-            if (distance >= 5.0) {
-                tag.setInteger("x", (int) player.posX);
-                tag.setInteger("z", (int) player.posZ);
-                if (player.isSprinting()) {
-                    ElectricItemUtils.givePlayerEnergy(player, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.KINETIC_ENERGY_GENERATION));
-                    MuseHeatUtils.heatPlayer(player, ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.KINETIC_HEAT_GENERATION));
-                } else {
-                    ElectricItemUtils.givePlayerEnergy(player, (int) (ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.KINETIC_ENERGY_GENERATION) / 2));
-                    MuseHeatUtils.heatPlayer(player, ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.KINETIC_HEAT_GENERATION) / 2);
-                }
+        // really hate running this check on every tick but needed for player speed adjustments
+        if (ElectricItemUtils.getPlayerEnergy(player) < ElectricItemUtils.getMaxPlayerEnergy(player)) {
+            // reduce player speed according to Kinetic Energy Generator setting
+            double movementResistance = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, "Movement Resistance");
+            if (movementResistance > 0) {
+                player.motionX *= movementResistance;
+                player.motionZ *= movementResistance;
+            }
+
+            // server side
+            if (!player.world.isRemote &&
+                    // every 20 ticks
+                    (player.world.getTotalWorldTime() % 20) == 0 &&
+                    // player not jumping
+                    !player.isAirBorne && player.getRidingEntity() == null &&
+                    // player not swimming or w/e
+                    !player.isInWater()) {
+                double distance = player.distanceWalkedModified - player.prevDistanceWalkedModified;
+                ElectricItemUtils.givePlayerEnergy(player, (int) (distance * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.KINETIC_ENERGY_GENERATION)));
             }
         }
     }

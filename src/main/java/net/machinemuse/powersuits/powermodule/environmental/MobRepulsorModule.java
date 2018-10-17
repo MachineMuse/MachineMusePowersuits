@@ -38,7 +38,6 @@ public class MobRepulsorModule extends PowerModuleBase implements IPlayerTickMod
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
 
         addBasePropertyDouble(MPSModuleConstants.MOB_REPULSOR_ENERGY_CONSUMPTION, 2500, "RF");
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5, "pts");
     }
 
     @Override

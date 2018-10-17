@@ -27,8 +27,6 @@ public class SilkTouchModule extends PowerModuleBase implements IEnchantmentModu
         ModuleManager.INSTANCE.addInstallCost(getDataName(), book);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 2));
-
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

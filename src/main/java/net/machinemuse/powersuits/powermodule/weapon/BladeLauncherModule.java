@@ -29,7 +29,6 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.mvcapacitor, 1));
         addBasePropertyDouble(MPSModuleConstants.BLADE_ENERGY, 5000, "RF");
         addBasePropertyDouble(MPSModuleConstants.BLADE_DAMAGE, 6, "pt");
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

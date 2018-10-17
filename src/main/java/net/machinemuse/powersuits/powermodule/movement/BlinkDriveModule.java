@@ -32,7 +32,6 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
         addBasePropertyDouble(MPSModuleConstants.BLINK_DRIVE_RANGE, 5, "m");
         addTradeoffPropertyDouble("Range", MPSModuleConstants.BLINK_DRIVE_ENERGY_CONSUMPTION, 30000);
         addTradeoffPropertyDouble("Range", MPSModuleConstants.BLINK_DRIVE_RANGE, 59);
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5, "pts");
     }
 
     @Override

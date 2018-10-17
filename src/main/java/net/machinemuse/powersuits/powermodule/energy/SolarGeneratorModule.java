@@ -24,7 +24,7 @@ public class SolarGeneratorModule extends PowerModuleBase implements IPlayerTick
 
         addBasePropertyDouble(MPSModuleConstants.SOLAR_ENERGY_GENERATION_DAY, 15000);
         addBasePropertyDouble(MPSModuleConstants.SOLAR_ENERGY_GENERATION_NIGHT, 1500);
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5, "pts");
+
     }
 
     @Override

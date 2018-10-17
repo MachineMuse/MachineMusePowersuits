@@ -16,10 +16,8 @@ public class BasicBatteryModule extends PowerModuleBase {
     public BasicBatteryModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.lvcapacitor, 1));
-        addBasePropertyDouble(NuminaNBTConstants.MAXIMUM_ENERGY, 200000, "RF");
-        addTradeoffPropertyDouble(MPSModuleConstants.BATTERY_SIZE, NuminaNBTConstants.MAXIMUM_ENERGY, 800000);
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
-        addIntTradeoffProperty(MPSModuleConstants.BATTERY_SIZE, MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
+
+        addBasePropertyDouble(NuminaNBTConstants.MAXIMUM_ENERGY, 1000000, "RF");
     }
 
     @Override

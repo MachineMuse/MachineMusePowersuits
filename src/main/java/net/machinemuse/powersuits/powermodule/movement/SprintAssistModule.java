@@ -46,8 +46,6 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
         addTradeoffPropertyDouble("Walking Assist", MPSModuleConstants.WALKING_ENERGY_CONSUMPTION, 100);
         addBasePropertyDouble(MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 0.01, "%");
         addTradeoffPropertyDouble("Walking Assist", MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 1.99);
-
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
     }
 
     @Override

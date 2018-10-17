@@ -33,10 +33,6 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
         addTradeoffPropertyDouble("Green", MPSModuleConstants.LUX_CAPACITOR_GREEN_HUE, 1, "%");
         addTradeoffPropertyDouble("Blue", MPSModuleConstants.LUX_CAPACITOR_BLUE_HUE, 1, "%");
 //        addTradeoffPropertyDouble("alpha", )// TODO: add alpha for the lense
-
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 5);
-
-
     }
 
     @Override

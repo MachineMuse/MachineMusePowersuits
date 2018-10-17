@@ -36,8 +36,6 @@ public class ThermalGeneratorModule extends PowerModuleBase implements IPlayerTi
 
         addBasePropertyDouble(MPSModuleConstants.THERMAL_ENERGY_GENERATION, 250);
         addTradeoffPropertyDouble("Energy Generated", MPSModuleConstants.THERMAL_ENERGY_GENERATION, 250, "RF");
-        addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
-        addIntTradeoffProperty("Energy Generated", MPSModuleConstants.SLOT_POINTS, 4, "pts", 1, 0);
     }
 
     @Override
