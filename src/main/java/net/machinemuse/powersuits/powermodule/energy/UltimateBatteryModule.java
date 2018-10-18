@@ -20,7 +20,7 @@ public class UltimateBatteryModule extends PowerModuleBase {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.evcapacitor, 1));
 
-        addBasePropertyDouble(NuminaNBTConstants.MAXIMUM_ENERGY, 750000000, "RF");
+        addBasePropertyDouble(NuminaNBTConstants.MAXIMUM_ENERGY, 75000000, "RF");
      }
 
     @Override

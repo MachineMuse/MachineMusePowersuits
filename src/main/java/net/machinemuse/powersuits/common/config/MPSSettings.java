@@ -428,12 +428,11 @@ public class MPSSettings {
             put( "transparentArmor.Slot Points.base", 1.0D );
             put( "treetap.Energy Consumption.base", 1000.0D );
             put( "treetap.Slot Points.base", 1.0D );
-            put( "ultimateBattery.Maximum Energy.base", 7.5E8D );
+            put( "ultimateBattery.Maximum Energy.base", 7.5E7D );
             put( "ultimateBattery.Slot Points.base", 1.0D );
             put( "waterElectrolyzer.Jolt Energy.base", 10000.0D );
             put( "waterElectrolyzer.Slot Points.base", 1.0D );
         }};
-
 
         @Config.LangKey(MPSConfigConstants.CONFIG_MODULE_PROPERTY_INTEGERS)
         @Config.Comment("Value of specified property")
