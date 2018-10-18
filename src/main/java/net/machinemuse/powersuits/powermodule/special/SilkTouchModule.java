@@ -24,9 +24,9 @@ public class SilkTouchModule extends PowerModuleBase implements IEnchantmentModu
         book = new ItemStack(Items.ENCHANTED_BOOK);
         book.addEnchantment(Enchantments.SILK_TOUCH, 1);
 
-        ModuleManager.INSTANCE.addInstallCost(getDataName(), book);
-        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 1));
-        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 2));
+//        ModuleManager.INSTANCE.addInstallCost(getDataName(), book);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 4));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 12));
     }
 
     @Override

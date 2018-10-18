@@ -439,7 +439,6 @@ public class MPSSettings {
         public Map<String, Integer> propertyInteger = new HashMap<String, Integer>() {{
 
         }};
-
     }
 
     //TODO: eleiminate; This whole thing is just temporary, I think :P
