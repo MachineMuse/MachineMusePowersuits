@@ -11,7 +11,6 @@ import net.machinemuse.general.gui.WaterMeter;
 import net.machinemuse.general.gui.clickable.ClickableKeybinding;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
-import net.machinemuse.powersuits.block.BlockTinkerTable;
 import net.machinemuse.powersuits.common.Config;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.control.PlayerInputMap;

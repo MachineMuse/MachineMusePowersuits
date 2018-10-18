@@ -66,9 +66,7 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
     @Override
     public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
         if (ForgeHooks.canToolHarvestBlock(block, meta, scoop)) {
-            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SCOOP_ENERGY_CONSUMPTION)) {
-                return true;
-            }
+            return ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SCOOP_ENERGY_CONSUMPTION);
         }
         return false;
     }

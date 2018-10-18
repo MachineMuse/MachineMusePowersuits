@@ -1,10 +1,6 @@
 package net.machinemuse.powersuits.powermodule;
 
-import net.machinemuse.api.ILocalizeableModule;
-import net.machinemuse.api.IPowerModule;
-import net.machinemuse.api.IPropertyModifier;
-import net.machinemuse.api.ModuleManager;
-import net.machinemuse.api.IModularItem;
+import net.machinemuse.api.*;
 import net.machinemuse.general.gui.MuseIcon;
 import net.machinemuse.numina.render.MuseTextureUtils;
 import net.machinemuse.powersuits.common.Config;
@@ -164,11 +160,6 @@ public abstract class PowerModuleBase implements ILocalizeableModule {
         return MuseTextureUtils.ITEM_TEXTURE_QUILT;
         // alternatively
         // return "/terrain.png";
-    }
-
-    @Override
-    public String getLocalizedName() {
-        return StatCollector.translateToLocal("module." + getUnlocalizedName() + ".name");
     }
 
     @Override

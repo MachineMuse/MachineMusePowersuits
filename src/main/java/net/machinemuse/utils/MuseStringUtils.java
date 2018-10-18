@@ -233,7 +233,7 @@ public abstract class MuseStringUtils {
      *
      * @author MachineMuse
      */
-    public static enum FormatCodes {
+    public enum FormatCodes {
         Black('0'),
         DarkBlue('1'),
         DarkGreen('2'),
@@ -259,7 +259,7 @@ public abstract class MuseStringUtils {
 
         public char character;
 
-        private FormatCodes(char character) {
+        FormatCodes(char character) {
             this.character = character;
         }
     }

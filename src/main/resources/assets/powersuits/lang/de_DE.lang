@@ -1,8 +1,8 @@
-#Made by users: KazoBurg, Vexatos, Dongonzales
-#Last edited on 7/2/13
 
 tile.luxCapacitor.name=Luxkompensator
 tile.tinkerTable.name=Energierüstungsbasteltisch
+
+itemGroup.powersuits=Modular Powersuits
 
 item.powerArmorBoots.name=Energiestiefel
 item.powerArmorLeggings.name=Energiehose
@@ -31,6 +31,9 @@ item.powerArmorComponent.componentArtificialMuscle.name=Künstlicher Muskel
 item.powerArmorComponent.componentSolarPanel.name=Solarzelle
 item.powerArmorComponent.componentMagnet.name=Magnet
 item.powerArmorComponent.componentComputerChip.name=Mikroprozessor
+item.powerArmorComponent.componentLiquidNitrogen.name=Liquid Nitrogen Bucket
+item.powerArmorComponent.componentRubberHose.name=Insulated Rubber Hose
+item.powerArmorComponent.componentRawCarbon.name=Raw Carbon
 
 module.basicPlating.name=Eisenplatte
 module.diamondPlating.name=Diamantplatte
@@ -74,6 +77,7 @@ module.transparentArmor.name=Transparentrüstung
 module.cosmeticGlow.name=Leuchtmodul
 module.mffsFieldTeleporter.name=MFFS-Kraftfeldteleporter
 module.grafter.name=Gartenschere
+module.scoop.name=Scoop
 module.apiaristArmor.name=Imkerrüstung
 module.hazmat.name=Strahlungsschild
 module.redstoneLaser.name=Rotsteinlaser
@@ -96,11 +100,15 @@ module.clock.name=Uhr
 module.compass.name=Kompass
 module.lightningSummoner.name=Blitz-o-Mat
 module.waterTank.name=Wassertank
-module.euReader.name=EU-Lesegerät
-module.treetap.name=Kautschukhahn
 module.teMultimeter.name=TE-Multimeter
 module.appengWireless.name=Kabelloses ME-Terminal
-module.bucket.name=Eimer
+module.appengECWirelessFluid.name=ExtraCells Wireless Fluid Terminal
+module.advSolarGenerator.name=High Efficiency Solar Generator
+module.nitrogenCoolingSystem.name=Liquid Nitrogen Cooling System
+module.mechAssistance.name=Mechanical Assistance
+module.cmPSD.name=Personal Shrinking Device
+module.omniProbe.name=Prototype OmniProbe
+module.dimRiftGen.name=Dimensional Tear Generator
 
 module.basicPlating.desc=Basic plating is heavy but protective.
 module.diamondPlating.desc=Advanced plating is lighter, harder, and more protective than Basic but much harder to make.
@@ -142,7 +150,36 @@ module.coolingSystem.desc=Cools down heat-producing modules quicker.
 module.tint.desc=Give your armor some coloured tinting to customize your armor's appearance.
 module.transparentArmor.desc=Make the item transparent, so you can show off your skin without losing armor.
 module.cosmeticGlow.desc=Change the appearance of the glowy bits on your armor.
-
+module.hazmat.desc=Protect yourself from electricity and radiation poisoning. *Must be on every piece for 100% protection*
+module.aurameter.desc=Connect up some Thaumic goggles to have them embedded in your helmet. (Does not give Vis usage discount)
+module.airtightSeal.desc=Seal the suit against hostile atmospheres for venturing to other planets.
+module.grafter.desc=A Forestry grafter integrated into your power tool.
+module.scoop.desc=A Forestry Scoop integrated into your power tool.
+module.apiaristArmor.desc=A set of Forestry apiarist armor integrated into your armor.
+module.chisel.desc=This won't let you chisel blocks, but it will at least let you harvest them.
+module.lightningSummoner.desc=Allows you to summon lightning for a large energy cost.
+module.portableCraftingTable.desc=A larger crafting grid, on the go.
+module.kineticGenerator.desc=Generate power with your movement.
+module.solarGenerator.desc=Let the sun power your adventures.
+module.thermalGenerator.desc=Generate power from extreme amounts of heat.
+module.autoFeeder.desc=Whenever you're hungry, this module will grab the bottom-left-most food item from your inventory and feed it to you, storing the rest for later.
+module.magnet.desc=Generates a magnetic field strong enough to attract items towards the player.         WARNING:                   This module drains power continuously. Turn it off when not needed. (Keybind menu: k)
+module.oreScanner.desc=A way to see how valuable the land around you is.
+module.leafBlower.desc=Create a torrent of air to knock plants out of the ground and leaves off of trees.
+module.mobRepulsor.desc=Pushes mobs away from you when activated, but constantly drains power. It is highly recommended that you set this module to a keybind because of the high energy draw.
+module.flintAndSteel.desc=A portable igniter that creates fire through the power of energy.
+module.clock.desc=A clock on the run that shows you the time, no matter where you are. Toggleable by keybinds.
+module.compass.desc=A compass on the run that shows you your direction, no matter where you are. Toggleable by keybinds.
+module.waterTank.desc=Store water which can later be used to cool yourself in emergency situations.
+module.teMultimeter.desc=A prototype multi-use probe integrated into your power tool.
+module.appengWireless.desc=An Applied Energistics wireless terminal integrated into your power tool.
+module.appengECWirelessFluid.desc=An Applied Energistics ExtraCells wireless fluid terminal integrated into your power tool.
+module.advSolarGenerator.desc=A solar generator with 3 times the power generation of the standard solar generator.
+module.nitrogenCoolingSystem.desc=Cools down heat-producing modules even faster than the standard cooling system.
+module.mechAssistance.desc=Robotic assistance to reduce the effect of weight on the user
+module.cmPSD.desc=A Compact Machines Personal Shrinking Device integrated into your power tool.
+module.omniProbe.desc=A prototype multi-use probe integrated into your power tool.
+module.dimRiftGen.desc=Generate a tear in the space-time continuum that will teleport the player to its relative coordinates in the nether or overworld.
 
 gui.noModulesFound.line1=Keine Energierüstungs-Items
 gui.noModulesFound.line2=im Inventar gefunden. Bastle welche!
@@ -160,8 +197,27 @@ gui.pressKey=Drücke Taste
 gui.keybindInstructions1=Nutze "Neu", um neue Tastenfunktionen zu konfigurieren.
 gui.keybindInstructions2=Ziehe Module hierhin, um sie mit Tasten zu verbinden.
 gui.keybindInstructions3=Ziehe Tasten auf das "Entfernen"-Feld, um die Konfiguration zu entfernen.
+gui.keybindInstructions4=Right-click keybinds to add them to the HUD.
 gui.keybindTaken=Bereits in gebrauch!
 
 gui.tab.tinker=Bastlen
 gui.tab.keybinds=Tastenkombinationen
 gui.tab.visual=Visuelles
+
+gui.equippedTotals=Equipped Totals
+gui.energyStorage=Energy Storage
+gui.weight=Weight
+gui.armor=Armor
+
+nei.jsonShaped=JSON Shaped
+
+tooltip.pressShift=Press SHIFT for more information.
+tooltip.componentTooltip=For use in Tinker Table.
+tooltip.changeModes=Change modes: Sneak+mousewheel.
+tooltip.energy=Energy:
+tooltip.noModules=No installed modules! This item is useless until you add some modules at a Tinker Table.
+tooltip.installedModules=Installed Modules:
+tooltip.mode=Mode:
+module.bucket.name=Eimer
+module.euReader.name=EU-Lesegerät
+module.treetap.name=Kautschukhahn

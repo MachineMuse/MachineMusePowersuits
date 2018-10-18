@@ -6,7 +6,6 @@ import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.api.moduletrigger.IToggleableModule;
 import net.machinemuse.numina.item.NuminaItemUtils;
 import net.machinemuse.powersuits.item.IModeChangingModularItem;
-import net.machinemuse.utils.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -111,10 +110,7 @@ public class ModuleManager {
     public static boolean isModuleOnline(NBTTagCompound itemTag, String moduleName) {
         if (tagHasModule(itemTag, moduleName) && !itemTag.getCompoundTag(moduleName).hasKey(ONLINE)) {
             return true;
-        } else if (tagHasModule(itemTag, moduleName) && itemTag.getCompoundTag(moduleName).getBoolean(ONLINE)) {
-            return true;
-        }
-        return false;
+        } else return tagHasModule(itemTag, moduleName) && itemTag.getCompoundTag(moduleName).getBoolean(ONLINE);
     }
 
     public static void toggleModule(NBTTagCompound itemTag, String name, boolean toggleval) {

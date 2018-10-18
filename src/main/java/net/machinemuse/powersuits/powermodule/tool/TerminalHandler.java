@@ -37,9 +37,7 @@ public class TerminalHandler implements IWirelessTermHandler, IWirelessFluidTerm
                         return false;
                 if(is.getUnlocalizedName() == null)
                         return false;
-                if(is.getUnlocalizedName().equals("item.powerFist"))
-                        return true;
-                return false;
+                return is.getUnlocalizedName().equals("item.powerFist");
         }
 
         @Optional.Method(modid = "appliedenergistics2")
@@ -115,7 +113,7 @@ public class TerminalHandler implements IWirelessTermHandler, IWirelessFluidTerm
 
         @Optional.Method(modid = "extracells")
         private static void registerECHandler(TerminalHandler handler){
-                ECApi.instance().registerWirelessFluidTermHandler(handler);
+                ECApi.instance().registerWirelessTermHandler(handler);
         }
 
         public static void registerHandler() {

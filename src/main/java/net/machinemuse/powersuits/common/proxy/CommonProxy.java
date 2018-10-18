@@ -77,9 +77,9 @@ public class CommonProxy {
         MinecraftForge.EVENT_BUS.register(new MovementManager());
     }
 
-    public void registerHandlers() {};
+    public void registerHandlers() {}
 
-    public void registerRenderers() {};
+    public void registerRenderers() {}
 
-    public void sendModeChange(int dMode, String newMode) {};
+    public void sendModeChange(int dMode, String newMode) {}
 }

@@ -111,9 +111,7 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
     @Override
     public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
         if (ForgeHooks.canToolHarvestBlock(block, meta, shears)) {
-            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SHEARING_ENERGY_CONSUMPTION)) {
-                return true;
-            }
+            return ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, SHEARING_ENERGY_CONSUMPTION);
         }
         return false;
     }

@@ -72,9 +72,7 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
     public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
         if (ModCompatibility.isChiselLoaded() && ITEM_CHISEL != null) {
             if (ForgeHooks.canToolHarvestBlock(block, meta, new ItemStack(ITEM_CHISEL))) {
-                if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, CHISEL_ENERGY_CONSUMPTION)) {
-                    return true;
-                }
+                return ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, CHISEL_ENERGY_CONSUMPTION);
             }
         }
         return false;

@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.item;
 import appeng.api.implementations.items.IAEWrench;
 import buildcraft.api.tools.IToolWrench;
 import cofh.api.item.IToolHammer;
-import com.bluepowermod.api.misc.IScrewdriver;
+import com.google.common.collect.Multimap;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -17,7 +17,6 @@ import net.machinemuse.api.ModuleManager;
 import net.machinemuse.api.moduletrigger.IBlockBreakingModule;
 import net.machinemuse.api.moduletrigger.IRightClickModule;
 import net.machinemuse.general.gui.MuseIcon;
-import net.machinemuse.numina.item.IModeChangingItem;
 import net.machinemuse.numina.item.NuminaItemUtils;
 import net.machinemuse.numina.network.MusePacketModeChangeRequest;
 import net.machinemuse.numina.network.PacketSender;
@@ -29,8 +28,9 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseHeatUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -41,8 +41,6 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import powercrystals.minefactoryreloaded.api.IMFRHammer;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,7 +71,8 @@ public class ItemPowerFist extends MPSItemElectricTool implements
         IToolWrench,
         com.bluepowermod.api.misc.IScrewdriver,
         mrtjp.projectred.api.IScrewdriver,
-        ITool, IMekWrench,
+        ITool,
+        IMekWrench,
         IModeChangingModularItem
 {
     public final String iconpath = MuseIcon.ICON_PREFIX + "handitem";
@@ -163,18 +162,11 @@ public class ItemPowerFist extends MPSItemElectricTool implements
         return true;
     }
 
-    /**
-     * An itemstack sensitive version of getDamageVsEntity - allows items to
-     * handle damage based on
-     * itemstack data, like tags. Falls back to getDamageVsEntity.
-     *
-     * @param entity The entity being attacked (or the attacking mob, if it's a mob
-     *                   - vanilla bug?)
-     * @param itemStack  The itemstack
-     * @return the damage
-     */
-    public float getDamageVsEntity(Entity entity, ItemStack itemStack){
-        return (float) ModuleManager.computeModularProperty(itemStack, MeleeAssistModule.PUNCH_DAMAGE);
+    @Override
+    public Multimap getAttributeModifiers(ItemStack stack) {
+        Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(stack);
+        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", ModuleManager.computeModularProperty(stack, MeleeAssistModule.PUNCH_DAMAGE), 0));
+        return multimap;
     }
 
     @SideOnly(Side.CLIENT)
@@ -249,10 +241,6 @@ public class ItemPowerFist extends MPSItemElectricTool implements
             ((IRightClickModule)module).onPlayerStoppedUsing(itemStack, world, player, par4);
     }
 
-    public boolean shouldPassSneakingClickToBlock(World world, int x, int y, int z) {
-        return true;
-    }
-
     @Override
     public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         String mode = getActiveMode(itemStack, player);
@@ -299,56 +287,67 @@ public class ItemPowerFist extends MPSItemElectricTool implements
     }
 
     /* TE Crescent Hammer */
+    @Optional.Method(modid = "CoFHCore")
     @Override
     public void toolUsed(ItemStack itemStack, EntityLivingBase entityLivingBase, int i, int i1, int i2) {}
 
     /* Railcraft Crowbar */
+    @Optional.Method(modid = "Railcraft")
     @Override
     public boolean canWhack(EntityPlayer entityPlayer, ItemStack itemStack, int i, int i1, int i2) {
         return getActiveMode(itemStack, entityPlayer).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
 
     /* Railcraft Crowbar */
+    @Optional.Method(modid = "Railcraft")
     @Override
     public boolean canLink(EntityPlayer entityPlayer, ItemStack itemStack, EntityMinecart entityMinecart) {
         return getActiveMode(itemStack, entityPlayer).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
 
     /* Railcraft Crowbar */
+    @Optional.Method(modid = "Railcraft")
     @Override
     public boolean canBoost(EntityPlayer entityPlayer, ItemStack itemStack, EntityMinecart entityMinecart) {
         return getActiveMode(itemStack, entityPlayer).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
 
     /* Railcraft Crowbar */
+    @Optional.Method(modid = "Railcraft")
     @Override
     public void onLink(EntityPlayer entityPlayer, ItemStack itemStack, EntityMinecart entityMinecart) {}
 
     /* Railcraft Crowbar */
+    @Optional.Method(modid = "Railcraft")
     @Override
     public void onWhack(EntityPlayer entityPlayer, ItemStack itemStack, int i, int i1, int i2) {}
 
     /* Railcraft Crowbar */
+    @Optional.Method(modid = "Railcraft")
     @Override
     public void onBoost(EntityPlayer entityPlayer, ItemStack itemStack, EntityMinecart entityMinecart) {}
 
     /* AE wrench */
+    @Optional.Method(modid = "appliedenergistics2")
     @Override
     public boolean canWrench(ItemStack itemStack, EntityPlayer entityPlayer, int i, int i1, int i2) {
         return getActiveMode(itemStack, entityPlayer).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
 
     /* Buildcraft Wrench */
+    @Optional.Method(modid = "BuildCraft|Core")
     @Override
     public void wrenchUsed(EntityPlayer entityPlayer, int i, int i1, int i2) {}
 
     /* Buildcraft Wrench */
+    @Optional.Method(modid = "BuildCraft|Core")
     @Override
     public boolean canWrench(EntityPlayer entityPlayer, int i, int i1, int i2) {
         return getActiveMode(entityPlayer.getHeldItem(), entityPlayer).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
 
     /* Bluepower Screwdriver */
+    @Optional.Method(modid = "ProjRed|Core")
     @Override
     public boolean damage(ItemStack itemStack, int i, EntityPlayer entityPlayer, boolean b) {
         return getActiveMode(itemStack, entityPlayer).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
@@ -359,28 +358,33 @@ public class ItemPowerFist extends MPSItemElectricTool implements
     public void damageScrewdriver(EntityPlayer entityPlayer, ItemStack itemStack) {}
 
     /* ProjectRed Screwdriver */
+    @Optional.Method(modid = "ProjRed|Core")
     @Override
     public boolean canUse(EntityPlayer entityPlayer, ItemStack itemStack) {
         return getActiveMode(itemStack, entityPlayer).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
 
     /* EnderIO Tool */
+    @Optional.Method(modid = "EnderIO")
     @Override
     public void used(ItemStack itemStack, EntityPlayer entityPlayer, int i, int i1, int i2) {}
 
     /* EnderIO Tool */
+    @Optional.Method(modid = "EnderIO")
     @Override
     public boolean canUse(ItemStack itemStack, EntityPlayer entityPlayer, int i, int i1, int i2) {
         return getActiveMode(itemStack, entityPlayer).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
 
     /* EnderIO Tool */
+    @Optional.Method(modid = "EnderIO")
     @Override
     public boolean shouldHideFacades(ItemStack itemStack, EntityPlayer entityPlayer) {
         return getActiveMode(itemStack, entityPlayer).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);
     }
 
     /* Mekanism Wrench */
+    @Optional.Method(modid = "Mekanism")
     @Override
     public boolean canUseWrench(EntityPlayer entityPlayer, int i, int i1, int i2) {
         return getActiveMode(entityPlayer.getHeldItem(), entityPlayer).equals(OmniWrenchModule.MODULE_OMNI_WRENCH);

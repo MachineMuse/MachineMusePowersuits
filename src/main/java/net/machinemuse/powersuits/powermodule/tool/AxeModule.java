@@ -88,9 +88,7 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
     @Override
     public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
         if (istEffectiveHarvestTool(block, meta)) {
-            if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION)) {
-                return true;
-            }
+            return ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, AXE_ENERGY_CONSUMPTION);
         }
         return false;
     }

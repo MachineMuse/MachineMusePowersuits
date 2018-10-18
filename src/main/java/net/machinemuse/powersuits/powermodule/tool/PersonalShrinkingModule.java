@@ -73,9 +73,7 @@ public class PersonalShrinkingModule extends PowerModuleBase implements IRightCl
             int block = Block.getIdFromBlock(world.getBlock(x, y, z));
             if (block == Block.getIdFromBlock(GameRegistry.findBlock("CompactMachines", "machine"))) {
                 return false;
-            } else if (block == Block.getIdFromBlock(GameRegistry.findBlock("CompactMachines", "innerwall"))) {
-                return true;
-            }
+            } else return block == Block.getIdFromBlock(GameRegistry.findBlock("CompactMachines", "innerwall"));
         }
         return false;
     }

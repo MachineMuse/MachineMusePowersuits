@@ -23,7 +23,7 @@ public class ModelSpec extends MuseRegistry<ModelPartSpec>
         this.textures = textures;
         this.offset = offset;
         this.rotation = rotation;
-        this.filename = filename;
+        ModelSpec.filename = filename;
     }
     
     public void applyOffsetAndRotation() {

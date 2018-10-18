@@ -24,8 +24,6 @@ public interface IPowerModule {
 	String getDataName();
 
     // Use StatCollector.translateToLocal("module." + m.getUnlocalizedName + ".name") instead
-    @Deprecated
-	String getLocalizedName();
 
 	double applyPropertyModifiers(NBTTagCompound itemTag, String propertyName, double propertyValue);
 

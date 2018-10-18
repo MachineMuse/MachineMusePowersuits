@@ -55,9 +55,7 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
     public boolean canHarvestBlock(ItemStack stack, Block block, int meta, EntityPlayer player) {
         if (!Items.iron_pickaxe.canHarvestBlock(block, stack)) {
             if (Items.diamond_pickaxe.canHarvestBlock(block, stack)) {
-                if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, PickaxeModule.PICKAXE_ENERGY_CONSUMPTION)) {
-                    return true;
-                }
+                return ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.computeModularProperty(stack, PickaxeModule.PICKAXE_ENERGY_CONSUMPTION);
             }
         }
         return false;

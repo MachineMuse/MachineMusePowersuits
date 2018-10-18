@@ -90,10 +90,7 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
 
         // some blocks like stairs do no not have a tool assigned to them
         if (effectiveHarvestTool == null) {
-           if (emulatedTool.func_150997_a/*getStrVsBlock*/(block) >= ((ItemTool) emulatedTool.getItem()).func_150913_i/*getToolMaterial*/().getEfficiencyOnProperMaterial())
-           {
-               return true;
-           }
+            return emulatedTool.func_150997_a/*getStrVsBlock*/(block) >= ((ItemTool) emulatedTool.getItem()).func_150913_i/*getToolMaterial*/().getEfficiencyOnProperMaterial();
         }
         return false;
     }

@@ -34,7 +34,7 @@ public class RenderEventHandler {
     private final DrawableMuseRect frame = new DrawableMuseRect(Config.keybindHUDx(), Config.keybindHUDy(), Config.keybindHUDx() + (double)16, Config.keybindHUDy() + (double)16, true, Colour.DARKGREEN.withAlpha(0.2), Colour.GREEN.withAlpha(0.2));
 
     public RenderEventHandler() {
-        this.ownFly = false;
+        ownFly = false;
     }
 
     @SubscribeEvent
