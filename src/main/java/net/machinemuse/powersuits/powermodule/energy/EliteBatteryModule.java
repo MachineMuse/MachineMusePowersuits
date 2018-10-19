@@ -16,7 +16,7 @@ public class EliteBatteryModule extends PowerModuleBase {
     public EliteBatteryModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
-        addBasePropertyDouble(NuminaNBTConstants.MAXIMUM_ENERGY, 500000000, "RF");
+        addBasePropertyDouble(NuminaNBTConstants.MAXIMUM_ENERGY, 50000000, "RF");
     }
 
     @Override

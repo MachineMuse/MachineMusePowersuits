@@ -283,7 +283,7 @@ public class MPSSettings {
             put( "dimRiftGen.Energy Consumption.base", 200000.0D );
             put( "dimRiftGen.Heat Generation.base", 55.0D );
             put( "dimRiftGen.Slot Points.base", 1.0D );
-            put( "eliteBattery.Maximum Energy.base", 5.0E8D );
+            put( "eliteBattery.Maximum Energy.base", 5.0E7D );
             put( "eliteBattery.Slot Points.base", 1.0D );
             put( "energyShield.Armor (Energy).Field Strength.multiplier", 6.0D );
             put( "energyShield.Energy Per Damage.Field Strength.multiplier", 5000.0D );
@@ -432,6 +432,7 @@ public class MPSSettings {
             put( "ultimateBattery.Slot Points.base", 1.0D );
             put( "waterElectrolyzer.Jolt Energy.base", 10000.0D );
             put( "waterElectrolyzer.Slot Points.base", 1.0D );
+
         }};
 
         @Config.LangKey(MPSConfigConstants.CONFIG_MODULE_PROPERTY_INTEGERS)
