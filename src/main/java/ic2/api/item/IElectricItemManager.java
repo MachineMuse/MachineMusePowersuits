@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
  * - handle charging, taking amount, tier, transfer limit, canProvideEnergy and simulate into account
  * - replace item IDs if appropriate (getChargedItemId() and getEmptyItemId())
  * - update and manage the damage value for the visual charge indicator
- * 
+ *
  * @note If you're implementing your own variant (ISpecialElectricItem), you can delegate to the
  * default implementations through ElectricItem.rawManager. The default implementation is designed
  * to minimize its dependency on its own constraints/structure and delegates most work back to the
@@ -45,7 +45,7 @@ public interface IElectricItemManager {
 
 	/**
 	 * Determine the charge level for the specified item.
-	 * 
+	 *
 	 * @param stack ItemStack containing the electric item
 	 * @return charge level in EU
 	 */
@@ -85,7 +85,7 @@ public interface IElectricItemManager {
 
 	/**
 	 * Get the tool tip to display for electric items.
-	 * 
+	 *
 	 * @param stack ItemStack to determine the tooltip for
 	 * @return tool tip string or null for none
 	 */

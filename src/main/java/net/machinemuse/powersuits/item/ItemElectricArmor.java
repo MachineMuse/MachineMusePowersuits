@@ -1,190 +1,358 @@
 package net.machinemuse.powersuits.item;
 
 import appeng.api.config.AccessRestriction;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import ic2.api.item.ElectricItem;
+import ic2.api.item.IElectricItemManager;
+import net.machinemuse.api.ModuleManager;
+import net.machinemuse.api.electricity.ElectricConversions;
 import net.machinemuse.api.electricity.IMuseElectricItem;
-import net.machinemuse.api.electricity.MuseElectricItem;
 import net.machinemuse.numina.geometry.Colour;
+import net.machinemuse.powersuits.powermodule.misc.CosmeticGlowModule;
+import net.machinemuse.powersuits.powermodule.misc.TintModule;
+import net.machinemuse.utils.ElectricItemUtils;
+import net.machinemuse.utils.MuseCommonStrings;
+import net.machinemuse.utils.MuseItemUtils;
+import net.machinemuse.utils.MuseStringUtils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static net.machinemuse.numina.general.MuseMathUtils.clampDouble;
 
 /**
  * Ported to Java by lehjr on 10/26/16.
  */
+@Optional.InterfaceList({
+        @Optional.Interface(iface = "cofh.api.energy.IEnergyContainerItem", modid = "CoFHAPI|energy", striprefs = true),
+        @Optional.Interface(iface = "ic2.api.item.IElectricItemManager", modid = "IC2", striprefs = true),
+        @Optional.Interface(iface = "ic2.api.item.ISpecialElectricItem", modid = "IC2", striprefs = true),
+        @Optional.Interface(iface = "appeng.api.implementations.items.IAEItemPowerStorage", modid = "appliedenergistics2", striprefs = true)
+})
 public abstract class ItemElectricArmor extends ItemArmor implements IModularItemBase, IMuseElectricItem {
     public ItemElectricArmor(final ItemArmor.ArmorMaterial material, final int index1, final int index2) {
         super(material, index1, index2);
     }
 
+    @SideOnly(Side.CLIENT)
+    @Override
+    public int getColorFromItemStack(ItemStack itemStack, int par2) {
+        return getColorFromItemStack(itemStack).getInt();
+    }
+
+    @Override
+    public Colour getGlowFromItemStack(ItemStack itemStack) {
+        if (!ModuleManager.itemHasActiveModule(itemStack, CosmeticGlowModule.MODULE_GLOW)) {
+            return Colour.LIGHTBLUE;
+        }
+        double computedred = ModuleManager.computeModularProperty(itemStack, CosmeticGlowModule.RED_GLOW);
+        double computedgreen = ModuleManager.computeModularProperty(itemStack, CosmeticGlowModule.GREEN_GLOW);
+        double computedblue = ModuleManager.computeModularProperty(itemStack, CosmeticGlowModule.BLUE_GLOW);
+        return new Colour(clampDouble(computedred, 0, 1), clampDouble(computedgreen, 0, 1), clampDouble(computedblue, 0, 1), 0.8);
+    }
+
+    @Override
+    public Colour getColorFromItemStack(ItemStack itemStack) {
+        if (!ModuleManager.itemHasActiveModule(itemStack, TintModule.MODULE_TINT)) {
+            return Colour.WHITE;
+        }
+        double computedred = ModuleManager.computeModularProperty(itemStack, TintModule.RED_TINT);
+        double computedgreen = ModuleManager.computeModularProperty(itemStack, TintModule.GREEN_TINT);
+        double computedblue = ModuleManager.computeModularProperty(itemStack, TintModule.BLUE_TINT);
+        return new Colour(clampDouble(computedred, 0, 1), clampDouble(computedgreen, 0, 1), clampDouble(computedblue, 0, 1), 1.0F);
+    }
+
+    @Override
+    public boolean requiresMultipleRenderPasses() {
+        return false;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void addInformation(ItemStack itemStack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
+        MuseCommonStrings.addInformation(itemStack, player, currentTipList, advancedToolTips);
+    }
+
+    @Override
+    public String formatInfo(String string, double value) {
+        return string + '\t' + MuseStringUtils.formatNumberShort(value);
+    }
+
+
+    /* IModularItem ------------------------------------------------------------------------------- */
+    @SideOnly(Side.CLIENT)
+    @Override
+    public List<String> getLongInfo(EntityPlayer player, ItemStack itemStack) {
+        List<String> info = new ArrayList<>();
+
+        info.add("Detailed Summary");
+        info.add(formatInfo("Armor", getArmorDouble(player, itemStack)));
+        info.add(formatInfo("Energy Storage", getCurrentEnergy(itemStack)) + 'J');
+        info.add(formatInfo("Weight", MuseCommonStrings.getTotalWeight(itemStack)) + 'g');
+        return info;
+    }
+
+    @Override
+    public double getArmorDouble(EntityPlayer player, ItemStack itemStack) {
+        return 0;
+    }
+
+    @Override
+    public double getPlayerEnergy(EntityPlayer player) {
+        return ElectricItemUtils.getPlayerEnergy(player);
+    }
+
+    @Override
+    public void drainPlayerEnergy(EntityPlayer player, double drainEnergy) {
+        ElectricItemUtils.drainPlayerEnergy(player, drainEnergy);
+    }
+
+    @Override
+    public void givePlayerEnergy(EntityPlayer player, double joulesToGive) {
+        ElectricItemUtils.givePlayerEnergy(player, joulesToGive);
+    }
+
+    @Override
+    public int getMaxDamage(ItemStack itemStack) {
+        return 0;
+    }
+
+    @SideOnly(Side.CLIENT)
     @Override
     public String getToolTip(ItemStack itemStack) {
-        return null;
+        return itemStack.getTooltip(Minecraft.getMinecraft().thePlayer, false).toString();
     }
 
-    @SideOnly(Side.CLIENT)
-    public int getColorFromItemStack(final ItemStack stack, final int par2) {
-        return ModularItemBase.getInstance().getColorFromItemStack(stack, par2);
-    }
-
-    public Colour getGlowFromItemStack(final ItemStack stack) {
-        return ModularItemBase.getInstance().getGlowFromItemStack(stack);
-    }
-
-    public Colour getColorFromItemStack(final ItemStack stack) {
-        return ModularItemBase.getInstance().getColorFromItemStack(stack);
-    }
-
-    @SideOnly(Side.CLIENT)
-    public boolean requiresMultipleRenderPasses() {
-        return ModularItemBase.getInstance().requiresMultipleRenderPasses();
-    }
-
-    @SideOnly(Side.CLIENT)
+    /**
+     * Call to get the energy of an item
+     *
+     * @param stack ItemStack to set
+     * @return Current energy level
+     */
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List currentTipList, boolean advancedToolTips) {
-        ModularItemBase.getInstance().addInformation(stack, player, currentTipList, advancedToolTips);
+    public double getCurrentEnergy(ItemStack stack) {
+        return MuseItemUtils.getDoubleOrZero(stack, ElectricItemUtils.CURRENT_ENERGY);
     }
 
-    public String formatInfo(final String string, final double value) {
-        return ModularItemBase.getInstance().formatInfo(string, value);
+    /**
+     * Call to set the energy of an item
+     *
+     * @param stack ItemStack to set
+     * @return Maximum energy level
+     */
+    @Override
+    public double getMaxEnergy(ItemStack stack) {
+        return ModuleManager.computeModularProperty(stack, ElectricItemUtils.MAXIMUM_ENERGY);
     }
 
-    public List<String> getLongInfo(final EntityPlayer player, final ItemStack stack) {
-        return ModularItemBase.getInstance().getLongInfo(player, stack);
+    /**
+     * Call to set the energy of an item
+     *
+     * @param stack ItemStack to set
+     * @param energy Level to set it to
+     */
+    @Override
+    public void setCurrentEnergy(ItemStack stack, double energy) {
+        MuseItemUtils.setDoubleOrRemove(stack, ElectricItemUtils.CURRENT_ENERGY, Math.min(energy, getMaxEnergy(stack)));
     }
 
-    public double getArmorDouble(final EntityPlayer player, final ItemStack stack) {
-        return ModularItemBase.getInstance().getArmorDouble(player, stack);
+    /**
+     * Call to drain energy from an item
+     *
+     * @param stack ItemStack being requested for energy
+     * @param requested Amount of energy to drain
+     * @return Amount of energy successfully drained
+     */
+    @Override
+    public double drainEnergyFrom(ItemStack stack, double requested) {
+        double available = getCurrentEnergy(stack);
+        if (available > requested) {
+            setCurrentEnergy(stack, available - requested);
+            return requested;
+        } else {
+            setCurrentEnergy(stack, 0);
+            return available;
+        }
     }
 
-    public double getPlayerEnergy(final EntityPlayer player) {
-        return ModularItemBase.getInstance().getPlayerEnergy(player);
+    /**
+     * Call to give energy to an item
+     *
+     * @param stack ItemStack being provided with energy
+     * @param provided Amount of energy to add
+     * @return Amount of energy added
+     */
+    @Override
+    public double giveEnergyTo(ItemStack stack, double provided) {
+        double available = getCurrentEnergy(stack);
+        double max = getMaxEnergy(stack);
+        if (available + provided < max) {
+            setCurrentEnergy(stack, available + provided);
+            return provided;
+        } else {
+            setCurrentEnergy(stack, max);
+            return max - available;
+        }
     }
 
-    public void drainPlayerEnergy(final EntityPlayer player, final double drainEnergy) {
-        ModularItemBase.getInstance().drainPlayerEnergy(player, drainEnergy);
+    /* Industrialcraft 2 -------------------------------------------------------------------------- */
+    @Optional.Method(modid = "IC2")
+    @Override
+    public boolean canProvideEnergy(ItemStack itemStack) {
+        return true;
     }
 
-    public void givePlayerEnergy(final EntityPlayer player, final double joulesToGive) {
-        ModularItemBase.getInstance().givePlayerEnergy(player, joulesToGive);
+    @Optional.Method(modid = "IC2")
+    @Override
+    public Item getChargedItem(ItemStack itemStack) {
+        return this;
     }
 
-    public double getCurrentEnergy(final ItemStack stack) {
-        return MuseElectricItem.getInstance().getCurrentEnergy(stack);
+    @Optional.Method(modid = "IC2")
+    @Override
+    public Item getEmptyItem(ItemStack itemStack) {
+        return this;
     }
 
-    public double getMaxEnergy(final ItemStack stack) {
-        return MuseElectricItem.getInstance().getMaxEnergy(stack);
+    @Optional.Method(modid = "IC2")
+    @Override
+    public double getMaxCharge(ItemStack itemStack) {
+        return ElectricConversions.museEnergyToEU(getMaxEnergy(itemStack));
     }
 
-    public void setCurrentEnergy(final ItemStack stack, final double energy) {
-        MuseElectricItem.getInstance().setCurrentEnergy(stack, energy);
+    @Optional.Method(modid = "IC2")
+    @Override
+    public int getTier(ItemStack itemStack) {
+        return ElectricConversions.getTier(itemStack);
     }
 
-    public double drainEnergyFrom(final ItemStack stack, final double requested) {
-        return MuseElectricItem.getInstance().drainEnergyFrom(stack, requested);
+    @Optional.Method(modid = "IC2")
+    @Override
+    public double getTransferLimit(ItemStack itemStack) {
+        return ElectricConversions.museEnergyToEU(Math.sqrt(getMaxEnergy(itemStack)));
     }
 
-    public double giveEnergyTo(final ItemStack stack, final double provided) {
-        return MuseElectricItem.getInstance().giveEnergyTo(stack, provided);
+    @Optional.Method(modid = "IC2")
+    @Override
+    public double charge(ItemStack itemStack, double amount, int tier, boolean ignoreTransferLimit, boolean simulate){
+        double current = getCurrentEnergy(itemStack);
+        double transfer = (ignoreTransferLimit || amount < getTransferLimit(itemStack)) ? ElectricConversions.museEnergyFromEU(amount) : getTransferLimit(itemStack);
+        double given = giveEnergyTo(itemStack, transfer);
+        if (simulate) {
+            setCurrentEnergy(itemStack, current);
+        }
+        return ElectricConversions.museEnergyToEU(given);
     }
 
-    public IMuseElectricItem getManager(final ItemStack itemStack) {
-        return (IMuseElectricItem) MuseElectricItem.getInstance().getManager(itemStack);
+    @Optional.Method(modid = "IC2")
+    @Override
+    public double discharge(ItemStack itemStack, double amount, int tier, boolean ignoreTransferLimit, boolean externally, boolean simulate) {
+        double current = getCurrentEnergy(itemStack);
+        double transfer = (ignoreTransferLimit || amount < getTransferLimit(itemStack)) ? ElectricConversions.museEnergyFromEU(amount) : getTransferLimit(itemStack);
+        double taken = drainEnergyFrom(itemStack, transfer);
+        if (simulate) {
+            setCurrentEnergy(itemStack, current);
+        }
+        return ElectricConversions.museEnergyToEU(taken);
     }
 
-    public void chargeFromArmor(final ItemStack itemStack, final EntityLivingBase entity) {
-        MuseElectricItem.getInstance().chargeFromArmor(itemStack, entity);
+    @Optional.Method(modid = "IC2")
+    @Override
+    public double getCharge(ItemStack itemStack) {
+        return ElectricConversions.museEnergyToEU(getCurrentEnergy(itemStack));
     }
 
-    public boolean use(final ItemStack itemStack, final double amount, final EntityLivingBase entity) {
-        return MuseElectricItem.getInstance().use(itemStack, amount, entity);
+    @Optional.Method(modid = "IC2")
+    @Override
+    public boolean canUse(ItemStack itemStack, double amount) {
+        return ElectricConversions.museEnergyFromEU(amount) < getCurrentEnergy(itemStack);
     }
 
-    public boolean canProvideEnergy(final ItemStack itemStack) {
-        return MuseElectricItem.getInstance().canProvideEnergy(itemStack);
+    @Optional.Method(modid = "IC2")
+    @Override
+    public boolean use(ItemStack itemStack, double amount, EntityLivingBase entity) {
+        return ElectricItem.rawManager.use(itemStack, ElectricConversions.museEnergyToEU(amount), entity);
     }
 
-    public double getCharge(final ItemStack itemStack) {
-        return MuseElectricItem.getInstance().getCharge(itemStack);
+    @Optional.Method(modid = "IC2")
+    @Override
+    public void chargeFromArmor(ItemStack itemStack, EntityLivingBase entity) {
+        ElectricItem.rawManager.chargeFromArmor(itemStack, entity);
     }
 
-    public double getMaxCharge(final ItemStack itemStack) {
-        return MuseElectricItem.getInstance().getMaxCharge(itemStack);
+    @Optional.Method(modid = "IC2")
+    @Override
+    public IElectricItemManager getManager(ItemStack itemStack) {
+        return this;
+    }
+    /* Thermal Expansion -------------------------------------------------------------------------- */
+    @Override
+    public int receiveEnergy(ItemStack itemStack, int energy, boolean simulate) {
+        double current = getCurrentEnergy(itemStack);
+        double receivedME = ElectricConversions.museEnergyFromRF(energy);
+        double eatenME = giveEnergyTo(itemStack, receivedME);
+        if (simulate) setCurrentEnergy(itemStack, current);
+        return ElectricConversions.museEnergyToRF(eatenME);
     }
 
-    public int getTier(final ItemStack itemStack) {
-        return MuseElectricItem.getInstance().getTier(itemStack);
+    @Override
+    public int extractEnergy(ItemStack itemStack, int energy, boolean simulate) {
+        double current = getCurrentEnergy(itemStack);
+        double requesteddME = ElectricConversions.museEnergyFromRF(energy);
+        double takenME = drainEnergyFrom(itemStack, requesteddME);
+        if (simulate) {
+            setCurrentEnergy(itemStack, current);
+        }
+        return ElectricConversions.museEnergyToRF(takenME);
     }
 
-    public double getTransferLimit(final ItemStack itemStack) {
-        return MuseElectricItem.getInstance().getTransferLimit(itemStack);
+    @Override
+    public int getEnergyStored(ItemStack itemStack) {
+        return ElectricConversions.museEnergyToRF(getCurrentEnergy(itemStack));
     }
 
-    public double charge(final ItemStack itemStack, final double amount, final int tier, final boolean ignoreTransferLimit, final boolean simulate) {
-        return MuseElectricItem.getInstance().charge(itemStack, amount, tier, ignoreTransferLimit, simulate);
-    }
-
-    public double discharge(final ItemStack itemStack, final double amount, final int tier, final boolean ignoreTransferLimit, final boolean externally, final boolean simulate) {
-        return MuseElectricItem.getInstance().discharge(itemStack, amount, tier, ignoreTransferLimit, externally, simulate);
-    }
-
-    public boolean canUse(final ItemStack itemStack, final double amount) {
-        return MuseElectricItem.getInstance().canUse(itemStack, amount);
-    }
-
-    public Item getChargedItem(final ItemStack itemStack) {
-        return MuseElectricItem.getInstance().getChargedItem(itemStack);
-    }
-
-    public Item getEmptyItem(final ItemStack itemStack) {
-        return MuseElectricItem.getInstance().getEmptyItem(itemStack);
-    }
-
-    public int receiveEnergy(final ItemStack stack, final int energy, final boolean simulate) {
-        return MuseElectricItem.getInstance().receiveEnergy(stack, energy, simulate);
-    }
-
-    public int extractEnergy(final ItemStack stack, final int energy, final boolean simulate) {
-        return MuseElectricItem.getInstance().extractEnergy(stack, energy, simulate);
-    }
-
-    public int getEnergyStored(final ItemStack theItem) {
-        return MuseElectricItem.getInstance().getEnergyStored(theItem);
-    }
-
-    public int getMaxEnergyStored(final ItemStack theItem) {
-        return MuseElectricItem.getInstance().getMaxEnergyStored(theItem);
-    }
-
-    public int getMaxDamage(final ItemStack itemStack) {
-        return MuseElectricItem.getInstance().getMaxDamage(itemStack);
+    @Override
+    public int getMaxEnergyStored(ItemStack itemStack) {
+        return ElectricConversions.museEnergyToRF(getMaxEnergy(itemStack));
     }
 
     /* Applied Energistics 2 ---------------------------------------------------------------------- */
-    public double injectAEPower(final ItemStack stack, final double ae) {
-        return MuseElectricItem.getInstance().injectAEPower(stack, ae);
+    @Override
+    public double injectAEPower(ItemStack itemStack, double ae) {
+        double current = getCurrentEnergy(itemStack);
+        double recieved = ElectricConversions.museEnergyFromAE(ae);
+        setCurrentEnergy(itemStack, current);
+        return ElectricConversions.museEnergyToAE(recieved);
     }
 
-    public double extractAEPower(final ItemStack stack, final double ae) {
-        return MuseElectricItem.getInstance().extractAEPower(stack, ae);
+    @Override
+    public double extractAEPower(ItemStack itemStack, double ae) {
+        double current = getCurrentEnergy(itemStack);
+        double taken = ElectricConversions.museEnergyFromAE(ae);
+        setCurrentEnergy(itemStack, current);
+        return ElectricConversions.museEnergyToAE(taken);
     }
 
-    public double getAEMaxPower(final ItemStack stack) {
-        return MuseElectricItem.getInstance().getAEMaxPower(stack);
+    @Override
+    public double getAEMaxPower(ItemStack itemStack) {
+        return ElectricConversions.museEnergyToAE(getCurrentEnergy(itemStack));
     }
 
-    public double getAECurrentPower(final ItemStack stack) {
-        return MuseElectricItem.getInstance().getAECurrentPower(stack);
+    @Override
+    public double getAECurrentPower(ItemStack itemStack) {
+        return ElectricConversions.museEnergyToAE(getCurrentEnergy(itemStack));
     }
 
-    public AccessRestriction getPowerFlow(final ItemStack stack) {
-        return MuseElectricItem.getInstance().getPowerFlow(stack);
+    @Override
+    public AccessRestriction getPowerFlow(ItemStack itemStack) {
+        return AccessRestriction.READ_WRITE;
     }
 }

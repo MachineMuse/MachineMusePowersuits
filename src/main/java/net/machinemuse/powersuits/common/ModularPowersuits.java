@@ -20,7 +20,7 @@ import static net.machinemuse.powersuits.common.ModularPowersuits.VERSION;
  *
  * Ported to Java by lehjr on 11/14/16.
  */
-@Mod(modid = MODID, version = VERSION, dependencies = "required-after:numina@[@numina_version@,)")
+@Mod(modid = MODID, version = VERSION, dependencies = "required-after:numina@[@numina_version@,), ae2wct")
 public final class ModularPowersuits {
     public static final String MODID = "powersuits";
     public static final String VERSION = "@VERSION@";

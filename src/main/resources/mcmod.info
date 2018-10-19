@@ -27,7 +27,8 @@
         "Thaumcraft",
         "GalacticraftCore",
         "numina",
-        "chisel"
+        "chisel",
+        "ae2wct"
         ],
     "useDependencyInformation": true
 

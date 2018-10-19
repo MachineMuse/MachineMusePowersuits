@@ -47,10 +47,4 @@ public interface IModularItemBase extends IModularItem, IMuseElectricItem {
     List<String> getLongInfo(EntityPlayer player, ItemStack stack);
 
     double getArmorDouble(EntityPlayer player, ItemStack stack);
-
-    double getPlayerEnergy(EntityPlayer player);
-
-    void drainPlayerEnergy(EntityPlayer player, double drainEnergy);
-
-    void givePlayerEnergy(EntityPlayer player, double joulesToGive);
 }

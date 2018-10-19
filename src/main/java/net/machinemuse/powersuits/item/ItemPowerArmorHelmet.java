@@ -44,6 +44,7 @@ public class ItemPowerArmorHelmet extends ItemPowerArmor implements
         itemIcon = iconRegister.registerIcon(iconpath);
     }
 
+    @Optional.Method(modid = "Thaumcraft")
     @Override
     public boolean showIngamePopups(ItemStack itemStack, EntityLivingBase entityLivingBase) {
         return ModuleManager.itemHasActiveModule(itemStack, ThaumGogglesModule.MODULE_THAUM_GOGGLES);
