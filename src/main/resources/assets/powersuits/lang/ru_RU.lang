@@ -1,16 +1,16 @@
-Made by users: Adaptivity
-Last edited on 9/08/15
+Made by users: SSKirillSS
+Last edited on 20/10/18
 
 tile.luxCapacitor.name=Конденсатор света
 tile.tinkerTable.name=Верстак для создания силовой брони
 
 itemGroup.powersuits=Modular Powersuits
 
-item.powerArmorBoots.name=Силовые ботинки
-item.powerArmorLeggings.name=Силовые поножи
-item.powerArmorChestplate.name=Силовая кираса
-item.powerArmorHelmet.name=Силовой шлем
-item.powerFist.name=Силовой кулак
+item.powersuits.powerArmorBoots.name=Силовые ботинки
+item.powersuits.powerArmorLeggings.name=Силовые поножи
+item.powersuits.powerArmorChestplate.name=Силовая кираса
+item.powersuits.powerArmorHelmet.name=Силовой шлем
+item.powersuits.powerFist.name=Силовой кулак
 
 item.powerArmorComponent.componentWiring.name=Провод
 item.powerArmorComponent.componentSolenoid.name=Соленоид
@@ -20,109 +20,184 @@ item.powerArmorComponent.componentIonThruster.name=Ионный двигател
 item.powerArmorComponent.componentLVCapacitor.name=Конденсатор низкого напряжения
 item.powerArmorComponent.componentMVCapacitor.name=Конденсатор среднего напряжения
 item.powerArmorComponent.componentHVCapacitor.name=Конденсатор высокого напряжения
+item.powerArmorComponent.componentEVCapacitor.name=EV-Конденсатор
 item.powerArmorComponent.componentParachute.name=Парашют
-item.powerArmorComponent.componentPlatingBasic.name=Основная обшивка
-item.powerArmorComponent.componentPlatingAdvanced.name=Продвинутая обшивка
+item.powerArmorComponent.componentPlatingIron.name=Основная обшивка
+item.powerArmorComponent.componentPlatingDiamond.name=Продвинутая обшивка
 item.powerArmorComponent.componentFieldEmitter.name=Излучатель силового поля
 item.powerArmorComponent.componentLaserEmitter.name=Излучатель голограммы
 item.powerArmorComponent.componentCarbonMyofiber.name=Углеродное мышечное волокно
 item.powerArmorComponent.componentControlCircuit.name=Микросхема управления
 item.powerArmorComponent.componentMyofiberGel.name=Гель из мышечного волокна
 item.powerArmorComponent.componentArtificialMuscle.name=Искусственные мышцы
+item.powerArmorComponent.componentSolarPanel.name=Солнечная панель
+item.powerArmorComponent.componentMagnet.name=Магнит
+item.powerArmorComponent.componentComputerChip.name=Компьютерный чип
+item.powerArmorComponent.componentLiquidNitrogen.name=Ведро жидкого азота
+item.powerArmorComponent.componentRubberHose.name=Изолированный резиновый шланг
+item.powerArmorComponent.componentRawCarbon.name=Сырой карбон
 
-module.basicPlating.name=Железная обшивка
+fluid.liquid_nitrogen=Жидкий азот
+
+# Armor
+module.leatherPlating.name=Кожаная обшивка
+module.leatherPlating.desc=Кожаная обшивка достаточно легкая, но не дает особй защиты.
+module.ironPlating.name=Железная обшифка
+module.ironPlating.desc=Железная обшивка тяжелая, но позволяет отразить достаточное количество урона.
 module.diamondPlating.name=Алмазная обшивка
-module.energyShield.name=Энергетический щит
-module.heatSink.name=Кулер
-module.axe.name=Топор
-module.pickaxe.name=Кирка
-module.shovel.name=Лопата
-module.shears.name=Ножницы
-module.hoe.name=Почвофреза
-module.luxCapacitor.name=Конденсатор света
-module.omniwrench.name=Прототип универсального ключа
-module.fieldTinkerer.name=Модуль инженерного поля
-module.meleeAssist.name=Помощь в рукопашном бою
-module.plasmaCannon.name=Плазменная пушка
-module.railgun.name=Рельсотрон
-module.bladeLauncher.name=Метатель лезвий
-module.basicBattery.name=Основной аккумулятор
-module.eliteBattery.name=Элитный аккумулятор
-module.advancedBattery.name=Продвинутый аккумулятор
-module.parachute.name=Парашют
-module.glider.name=Планёр
-module.jetpack.name=Реактивный ранец
-module.sprintAssist.name=Помощь в спринте
-module.jumpAssist.name=Помощь в прыжке
-module.swimAssist.name=Увеличение скорости плавания
-module.climbAssist.name=Помощь в ходьбе
-module.jetBoots.name=Реактивные ботинки
-module.shockAbsorber.name=Амортизатор
-module.waterElectrolyzer.name=Электролизёр воды
-module.binoculars.name=Бинокль
-module.nightVision.name=Ночное зрение
-module.flightControl.name=Контроль над полётом
-module.invisibility.name=Активный камуфляж
-module.blinkDrive.name=Мгновенный телепорт
-module.diamondPickUpgrade.name=Улучшение «Алмазная кирка»
-module.aquaAffinity.name=Родство с водой
-module.coolingSystem.name=Система охлаждения
-module.tint.name=Модуль пользовательского цвета
-module.transparentArmor.name=Прозрачная броня
-module.cosmeticGlow.name=Модуль свечения
-module.mffsFieldTeleporter.name=Телепортер поля MFFS
-module.grafter.name=Садовый нож
-module.scoop.name=Сачок
-module.apiaristArmor.name=Броня пчеловода
-module.hazmat.name=Защита от радиации
-module.redstoneLaser.name=Красный лазер
-module.aurameter.name=Измеритель ауры
-module.airtightSeal.name=Герметичность
-module.citizenJoe.name=Броня гражданина Джо
-module.sonicWeapon.name=Звуковое оружие
-
-module.basicPlating.desc=Основная обшивка достаточна тяжела, но хорошо защищает.
 module.diamondPlating.desc=Продвинутая обшивка легче, прочнее и защищает ещё лучше основной, но её непросто получить.
+module.energyShield.name=Энергетический щит
 module.energyShield.desc=Энергетические щиты намного легче обшивок, но потребляют энергию.
-module.heatSink.desc=Толстый слой обшивки для впитывания тепла.
-module.axe.desc=Топоры в основном нужны для рубки деревьев.
-module.pickaxe.desc=Кирки хороши для добычи крепких материалов вроде камня и руд.
-module.shovel.desc=Лопаты подходят для добычи мягких материалов вроде земли и песка.
-module.shears.desc=Подходят для стрижки листьев, шерсти и лиан.
-module.hoe.desc=Автоматическое вспахивающее дополнение, подходящее для вспахивания больших кусков земли.
-module.luxCapacitor.desc=Излучает практически бесконечное число источников света на стены.
-module.omniwrench.desc=Ключ, который может взаимодействовать почти с каждым модом.
-module.meleeAssist.desc=Простое дополнение, усиливает удары Вашего силового инструмента.
-module.plasmaCannon.desc=Use electrical arcs in a containment field to superheat air to a plasma and launch it at enemies.
-module.railgun.desc=Сборка, которая ускоряет снаряд до сверхзвуковой скорости, применяя магнитную силу. Большая отдача.
-module.bladeLauncher.desc=Запускает крутящееся лезвие смерти (или стригущее).
-module.basicBattery.desc=Аккумулятор, позволяющий предмету хранить энергию.
-module.advancedBattery.desc=Продвинутый аккумулятор, позволяющий предмету хранить больше энергии.
-module.eliteBattery.desc=Самый продвинутый аккумулятор, позволяющий предмету хранить ещё больше энергии.
-module.parachute.desc=Парашют для замедления падений. Активируется нажатием клавиши приседания (по-умолч. Shift) в воздухе.
-module.jetpack.desc=Реактивный ранец позволит Вам прыгать сколько угодно или, по крайней мере, пока у Вас не кончится энергия.
-module.sprintAssist.desc=Набор серводвигателей, который поможет Вам бежать (дважды нажмите вперёд) и ходить быстрее.
-module.jumpAssist.desc=Ещё один набор серводвигателей, который поможет Вам прыгать выше.
-module.climbAssist.desc=Пара дополнительных серводвигателей позволит Вам перешагивать выступы высотой 1 метр.
-module.nightVision.desc=Пара усиленных очков поможет Вам хорошо видеть как и в ночное время, так и под водой.
-module.binoculars.desc=Из-за многочисленных графических проблем с модификацией Optifine, Вы решили взять способность "Приближения" под свой контроль.
-module.flightControl.desc=Интегрированная схема управления поможет Вам в полёте. Нажмите Z, чтобы снизиться.
-module.invisibility.desc=Излучает голограмму местности, чтобы сделать Вас почти незаметным.
-module.blinkDrive.desc=Доберитесь до точки C из точки A через точку B, при том что точка B спрятана в пространстве-времени.
-module.diamondPickUpgrade.desc=Алмазы позволят модулю "Кирка" добывать обсидиан. *ТРЕБУЕТСЯ МОДУЛЬ КИРКА*
-module.aquaAffinity.desc=Уменьшает понижение скорости инструмента под водой.
-module.coolingSystem.desc=Охлаждает модули, которые излучают тепло.
-module.tint.desc=Добавляет Вашей броне цветную тонировку для настройки её внешнего вида.
-module.transparentArmor.desc=Делает броню прозрачной, позволяя другим игрокам увидеть Ваш скин без потери брони.
-module.cosmeticGlow.desc=Позволяет изменить светящиеся части брони.
-module.hazmat.desc=Защитит Вас от удара электрическим током и радиационного излучения. *Улучшение должно быть на каждой части брони для 100% защиты*
-module.aurameter.desc=Встраивает очки Откровения в Ваш шлем. (Не понижает затраты Вис)
-module.airtightSeal.desc=Делает Вашу броню герметичной, позволяет Вам отправиться на другие планеты.
-module.grafter.desc=Интегрирует садовый нож модификации Forestry в Ваш силовой инструмент.
-module.apiaristArmor.desc=Интегрирует костюм пчеловода модификации Forestry в Вашу броню.
-module.chisel.desc=Это улучшение не позволит Вам обрабатывать блоки, но позволит Вам добывать уже обработанные блоки.
-module.scoop.desc=Сачок, интегрированный в силовой кулак.
 
+module.transparentArmor.name=Прозрачная броня
+module.transparentArmor.desc=Делает броню прозрачной, позволяя другим игрокам увидеть Ваш скин без потери брони.
+
+module.basicBattery.name=Основной аккумулятор
+module.basicBattery.desc=Аккумулятор, позволяющий предмету хранить энергию.
+module.advancedBattery.name=Продвинутый аккумулятор
+module.advancedBattery.desc=Продвинутый аккумулятор, позволяющий предмету хранить больше энергии.
+module.eliteBattery.name=Элитный аккумулятор
+module.eliteBattery.desc=Самый продвинутый аккумулятор, позволяющий предмету хранить ещё больше энергии.
+module.ultimateBattery.name=Ультиматовая батарея
+module.ultimateBattery.desc=Экспериментальное высокопроизводительное устройство накопления энергии, теперь почти не имеющее шансов на взрыв. Несмотря на неприятные слухи, он не основан на украденных инопланетных технологиях.
+module.solarGenerator.name=Солнечный генератор
+module.solarGenerator.desc=Используйте энергию Солнца в собственных целях.
+module.advSolarGenerator.name=Солнечный генератор повышенной эффективности
+module.advSolarGenerator.desc=Генератор, в 3 раза превыщающий уровень мощности обычного солнечного генератора.
+module.coalGenerator.name=Угольный генератор
+module.coalGenerator.desc=Генерирует энергию за счет твердого топлива.
+module.kineticGenerator.name=Кинетический генератор
+module.kineticGenerator.desc=Генерирует энергию при движении.
+module.thermalGenerator.name=Термальный генератор
+module.thermalGenerator.desc=Генерирует энергию за счет огромного количества тепла.
+
+module.airtightSeal.name=Герметичность
+module.airtightSeal.desc=Делает Вашу броню герметичной, позволяет Вам отправиться на другие планеты.
+module.apiaristArmor.name=Броня пчеловода
+module.apiaristArmor.desc=Интегрирует костюм пчеловода модификации Forestry в Вашу броню.
+module.hazmat.name=Защита от радиации
+module.hazmat.desc=Защитит Вас от удара электрическим током и радиационного излучения. *Улучшение должно быть на каждой части брони для 100% защиты*
+module.autoFeeder.name=Автоматическое устройство подачи
+module.autoFeeder.desc=Всякий раз, когда вы голодны, этот модуль будет захватывать нижний левый элемент питания из вашего инвентаря и подавать его вам, сохраняя остальное на потом.
+module.coolingSystem.name=Система охлаждения
+module.coolingSystem.desc=Охлаждает модули, которые излучают тепло.
+module.nitrogenCoolingSystem.name=Система охлаждения на жидком нитрогене
+module.nitrogenCoolingSystem.desc=Охлаждает теплопроизводительные модули быстрее, чем стандартная система охлаждения.
+module.mobRepulsor.name=Отпугиватель страшилишь 
+module.mobRepulsor.desc=Отталкивает мобов от вас. Потребляет много энергии!
+module.waterElectrolyzer.name=Электролизёр воды
+module.waterElectrolyzer.desc=Генерирует небольшой воздушный пузырь в случае, если у Вас закончится запас воздуха.
+module.waterTank.name=Жидкостный резервуар
+module.waterTank.desc=Сохраняет воду, которая в дальнейшем может быть использована для охлаждения в чрезвычайных ситуациях.
+
+module.blinkDrive.name=Мгновенный телепорт
+module.blinkDrive.desc=Доберитесь до точки C из точки A через точку B, при том что точка B спрятана в пространстве-времени.
+module.climbAssist.name=Помощь в ходьбе
+module.climbAssist.desc=Пара дополнительных серводвигателей позволит Вам перешагивать выступы высотой 1 метр.
+module.flightControl.name=Контроль над полётом
+module.flightControl.desc=Интегрированная схема управления поможет Вам в полёте. Нажмите Z, чтобы снизиться.
+module.glider.name=Планёр
+module.glider.desc=Позволяет более рационально управлять своим положением в воздухе. Активация: Shift+Кнопка направления.
+module.jetBoots.name=Реактивные ботинки
+module.jetBoots.desc=Реактивные ботинки не так сильны, как реактивный ранец, но они должны, по крайней мере, быть достаточно сильными, чтобы противодействовать гравитации.
+module.jetpack.name=Реактивный ранец
+module.jetpack.desc=Реактивный ранец позволит Вам прыгать сколько угодно или, по крайней мере, пока у Вас не кончится энергия.
+module.jumpAssist.name=Помощь в прыжке
+module.jumpAssist.desc=Ещё один набор серводвигателей, который поможет Вам прыгать выше.
+module.parachute.name=Парашют
+module.parachute.desc=Парашют для замедления падений. Активируется нажатием клавиши приседания (по-умолч. Shift) в воздухе.
+module.shockAbsorber.name=Амортизатор
+module.shockAbsorber.desc=С некоторыми сервоприводами, пружинами и прокладкой вы должны иметь возможность отрицать часть урона от падения.
+module.sprintAssist.name=Помощь в спринте
+module.sprintAssist.desc=Набор серводвигателей, который поможет Вам бежать (дважды нажмите вперёд) и ходить быстрее.
+module.swimAssist.name=Увеличение скорости плавания
+module.swimAssist.desc=Переоборудовав ионный двигатель для подводного использования, Вы можете добавить дополнительный упор вперед (или назад) под водой.
+
+# Special
+module.clock.name=Часы
+module.clock.desc=Часы, показывающие время вне зависимости от Вашего местанахождения.
+module.compass.name=Компас
+module.compass.desc=Компас, отображающий Ваше текущее положение относительно сторон Света.
+module.invisibility.name=Активный камуфляж
+module.invisibility.desc=Излучает голограмму местности, чтобы сделать Вас почти незаметным.
+module.magnet.name=Магнит
+module.magnet.desc=Создает магнитное поле, достаточно сильное, чтобы притягивать предметы к игроку. ПРЕДУПРЕЖДЕНИЕ: этот модуль непрерывно истощает энергию. Отключайте его, когда это не нужно.(По умолчанию: k)
+module.binoculars.name=Бинокль
+module.binoculars.desc=Из-за многочисленных графических проблем с модификацией Optifine, Вы решили взять способность "Приближения" под свой контроль.
+module.nightVision.name=Ночное зрение
+module.nightVision.desc=Пара усиленных очков поможет Вам хорошо видеть как и в ночное время, так и под водой.
+module.aurameter.name=Измеритель ауры
+module.aurameter.desc=Встраивает очки Откровения в Ваш шлем. (Не понижает затраты Вис)
+
+# Tools
+module.aoePickUpgrade.name=Улучшение алмазного сверла
+module.aoePickUpgrade.desc=Улучшение которое позволит кирке копать блоки 3х3
+module.appengECWirelessFluid.name=Терминал беспроводной связи ExtraCells
+module.appengECWirelessFluid.desc=Терминал беспроводной связи ExtraCells, встроенный в ваш электроинструмент.
+module.appengWireless.name=Беспроводной терминал AE
+module.appengWireless.desc=Беспроводной терминал Applied Energistics, встроенный в Ваш электроинструмент.
+module.aquaAffinity.name=Родство с водой
+module.aquaAffinity.desc=Уменьшает понижение скорости инструмента под водой.
+module.axe.name=Топор
+module.axe.desc=Топоры в основном нужны для рубки деревьев.
+module.chisel.name=Чизел
+module.chisel.desc=Это улучшение не позволит Вам обрабатывать блоки, но позволит Вам добывать уже обработанные блоки.
+module.diamondPickUpgrade.name=Улучшение «Алмазная кирка»
+module.diamondPickUpgrade.desc=Алмазы позволят модулю "Кирка" добывать обсидиан. *ТРЕБУЕТСЯ МОДУЛЬ КИРКА*
+module.dimRiftGen.name=Генератор пространственных разрывов
+module.dimRiftGen.desc=Создайте разрыв в пространственно-временном континууме, который будет телепортировать игрока в его относительные координаты в нижнем или верхнем мире.
+module.fieldTinkerer.name=Модуль инженерного поля
+module.fieldTinkerer.desc=Возможно, вы не можете запомнить чертежи, но вы, по крайней мере, сможете точно настраивать свои модули без Inspiration Inc. LLC.
+module.flintAndSteel.name=Огниво
+module.flintAndSteel.desc=Портабельное огниво, создающее огонь за счет энергии.
+module.grafter.name=Садовый нож
+module.grafter.desc=Интегрирует садовый нож модификации Forestry в Ваш силовой инструмент.
+module.hoe.name=Почвофреза
+module.hoe.desc=Автоматическое вспахивающее дополнение, подходящее для вспахивания больших кусков земли.
+module.leafBlower.name=Сборщик растений
+module.leafBlower.desc=Созадает плотный поток воздуха для удаления растений и листвы с деревьев.
+module.luxCapacitor.name=Конденсатор света
+module.luxCapacitor.desc=Излучает практически бесконечное число источников света на стены.
+module.mffsFieldTeleporter.name=Телепортер поля MFFS
+module.mffsFieldTeleporter.desc=Инструмент, который позволяет вам телепортироваться через силовые поля MFFS, которыми вы владеете.
+module.madModule.name=Жильный шахтер
+module.madModule.desc=Шахтер рудной жилы, приводимый в действие атомным дизассемблером 
+module.ocTerminal.name=Предмет находится в стадии доработки
+module.ocTerminal.desc=Предмет находится в стадии доработки
+module.portableCraftingTable.name=Локальный ассемблер 
+module.portableCraftingTable.desc=Модуль крафта. 
+module.omniProbe.name=Образец зонда
+module.omniProbe.desc=Образец зонда, интегрируемый в Ваш силовой инструмент.
+module.omniwrench.name=Прототип универсального ключа
+module.omniwrench.desc=Ключ, который может взаимодействовать почти с каждым модом.
+module.oreScanner.name=Сканер руд
+module.oreScanner.desc=Способ увидеть, насколько ценна окружающая вас земля.
+module.cmPSD.name=Личный сжимающий прибор
+module.cmPSD.desc=Компактный механизм персонального сжима, встроенный в ваш инструмент
+module.pickaxe.name=Кирка
+module.pickaxe.desc=Кирки хороши для добычи крепких материалов вроде камня и руд.
+module.refinedStorageWirelessGrid.name=Усовершенствованный беспроводной модуль хранения
+module.refinedStorageWirelessGrid.desc=Модуль для подключения к усовершенствованной системе хранения
+module.scoop.name=Сачок
+module.scoop.desc=Сачок, интегрированный в силовой кулак.
+module.shears.name=Ножницы
+module.shears.desc=Подходят для стрижки листьев, шерсти и лиан.
+module.shovel.name=Лопата
+module.shovel.desc=Лопаты подходят для добычи мягких материалов вроде земли и песка.
+module.treetap.name=Дрель
+module.treetap.desc=Дрель, встроенная в ваш электроинструмент
+
+module.bladeLauncher.name=Метатель лезвий
+module.bladeLauncher.desc=Запускает крутящееся лезвие смерти (или стригущее).
+module.lightningSummoner.name=Призыватель молний
+module.lightningSummoner.desc=Призывает молнию для больших затрат энергии
+module.meleeAssist.name=Помощь в рукопашном бою
+module.meleeAssist.desc=Простое дополнение, усиливает удары Вашего силового инструмента.
+module.plasmaCannon.name=Плазменная пушка
+module.plasmaCannon.desc=Используйте электрические дуги в защитном поле для перегрева воздуха в плазму и запускайте его в врагов.
+module.railgun.name=Рельсотрон
+module.railgun.desc=Сборка, которая ускоряет снаряд до сверхзвуковой скорости, применяя магнитную силу. Большая отдача.
+gui.slotpoints=Slot Points
 gui.noModulesFound.line1=Части модульной силовой брони
 gui.noModulesFound.line2=не найдены в инвентаре. Сделайте несколько!
 
@@ -152,3 +227,208 @@ gui.weight=Вес
 gui.armor=Броня
 
 nei.jsonShaped=Форменное JSON
+
+tooltip.pressShift=Нажмите SHIFT для получения дополнительной информации.
+tooltip.componentTooltip=Для использования в верстоке силовой брони
+tooltip.changeModes=Изменение режимов: нажмите и удерживайте номер слота горячей панели в котором находится "Силовой кулак"
+tooltip.energy=Энергия:
+tooltip.noModules=Нет установленных модулей! Этот элемент бесполезен, пока вы не добавите некоторые модули в верстаке силовой брони
+tooltip.installedModules=Установленные модули:
+tooltip.mode=Режим:
+
+# Default Model Helm
+model.mps_helm.modelName=MPS Шлем
+model.mps_helm.helm_main.partName=Шлем
+model.mps_helm.visor.partName=Маска
+model.mps_helm.helm_tubes.partName=Трубы
+model.mps_helm.helm_tube_entry2.partName=Права входная труба
+model.mps_helm.helm_tube_entry1.partName=Левая входная труба
+
+# Default Model Chestplate
+model.mps_chest.modelName=MPS Нагрудник
+model.mps_chest.backpack.partName=Рюкзак
+model.mps_chest.polySurface36.partName=Аксессуар 
+model.mps_chest.belt.partName=Ремень
+model.mps_chest.chest_padding.partName=Сундучок
+model.mps_chest.crystal_belt.partName=Кристалл пояса
+model.mps_chest.chest_main.partName=Пластины для грудной клетки
+
+# Default Model Jetpack
+model.jetpack.modelName=MPS Реактивный ранец
+model.jetpack.default.partName=Главный
+model.jetpack.jetpack5.partName=Второстепенный
+model.jetpack.jetpack_glow.partName=Огни
+
+# Default Model Arms
+model.mps_arms.modelName=MPS Руки
+model.mps_arms.crystal_shoulder_2.partName=Правый кристалл плеча
+model.mps_arms.arms3.partName=Правая рука
+model.mps_arms.crystal_shoulder_1.partName=Левый кристалл плеча
+model.mps_arms.arms2.partName=Левая рука
+
+# Default Model Pantaloons
+model.mps_pantaloons.modelName=MPS Поножи
+model.mps_pantaloons.leg2.partName=Левая нога
+model.mps_pantaloons.leg1.partName=Правая нога
+
+# Default Model Boots
+model.mps_boots.modelName=MPS Ботинки
+model.mps_boots.boots1.partName=Правый ботинок
+model.mps_boots.boots2.partName=Левый ботинок
+
+# Armor Model 2
+model.armor2.modelName=Armor 2
+
+model.armor2.helmetglow1.partName=Шлем c маской и трубами
+model.armor2.helmetmain.partName=Шлем
+
+model.armor2.chestgray.partName=Основа груди
+model.armor2.chestmain.partName=Защита груди
+model.armor2.chestback1.partName=Защита спины
+model.armor2.chestglowfront.partName=Нагрудный энергитический кристалл
+model.armor2.chestglowback.partName=Наспинный энергитический кристалл
+
+model.armor2.armglow1.partName=Левая рука
+model.armor2.armmain1.partName=Левая защита руки и плеча
+model.armor2.armgray1.partName=Левая основа руки
+
+model.armor2.armglow.partName=Права рука
+model.armor2.armmain.partName=Правая защита руки и плеча
+model.armor2.armgray.partName=Правая основа руки
+
+model.armor2.leggray.partName=Основа левой ноги
+model.armor2.legbit.partName=Защита левой ноги
+model.armor2.legglow.partName=Левая нога
+
+model.armor2.leggray1.partName=Основа правой ноги
+model.armor2.legbit1.partName=Защита правой ноги
+model.armor2.legglow1.partName=Правая нога
+
+model.armor2.bootmain1.partName=Правый ботинок
+model.armor2.bootglow1.partName=Светящийся правый ботинок
+
+model.armor2.bootmain.partName=Левый ботинок
+model.armor2.bootglow.partName=Светящийся левый ботинок
+
+
+textureSpec.default_armorskin.specName=Базовый внешний вид брони
+textureSpec.head.partName=Голова
+textureSpec.chest.partName=Грудь
+textureSpec.legs.partName=Нога
+textureSpec.feet.partName=Стопы
+
+textureSpec.citizenjoe_armorskin.specName=Внешний вид гаражанина Джо
+
+# PowerFist main model
+model.powerfist.modelName=Энергетический кулак правой руки
+model.powerfist.mainarm.partName=Основная рука
+model.powerfist.armorright.partName=Защита правого кулака
+model.powerfist.armorleft.partName=Защита левого кулака
+model.powerfist.wristtopright.partName=Правое верхнее запястие 
+model.powerfist.wristtopleft.partName=Левое верхнее запястие
+model.powerfist.wristbottomright.partName=Правое нижнее запястие
+model.powerfist.wristbottomleft.partName=Левое нижнее запястие
+model.powerfist.fingerguard.partName=Пальцовщик
+model.powerfist.crystalholder.partName=Держатель кристаллов
+model.powerfist.crystal.partName=Кристал
+model.powerfist.supportright1.partName=Правый помощник 1
+model.powerfist.supportright2.partName=Правый помощник 2
+model.powerfist.supportright3.partName=Правый помощник 3
+model.powerfist.supportright4.partName=Правый помощник 4
+model.powerfist.supportright5.partName=Правый помощник 5
+model.powerfist.supportbaseright.partName=Правое основание помощника
+model.powerfist.palm.partName=Ладонь
+model.powerfist.supportbaseleft.partName=Левое основание помощника
+model.powerfist.supportleftfront.partName=Левый лицевой помощник
+model.powerfist.supportrightfront.partName=Правый лицевой помощник
+model.powerfist.supportleft1.partName=Левый помощник 1
+model.powerfist.supportleft2.partName=Левый помощник 2
+model.powerfist.supportleft3.partName=Левый помощник 3
+model.powerfist.supportleft4.partName=Левый помощник 4
+model.powerfist.supportleft5.partName=Левый помощник 5
+
+model.powerfist_fingers_normal.modelName=Обычная поза силового кулака
+model.powerfist_fingers_normal.index1.partName=Индекс 1
+model.powerfist_fingers_normal.index2.partName= Индекс 2
+model.powerfist_fingers_normal.middlefinger1.partName=Средний палец 1
+model.powerfist_fingers_normal.middlefinger2.partName=Средний палец 2
+model.powerfist_fingers_normal.ringfinger1.partName=Кольцо 1
+model.powerfist_fingers_normal.ringfinger2.partName=Кольцо 2
+model.powerfist_fingers_normal.pinky1.partName=Мизинец 1
+model.powerfist_fingers_normal.pinky2.partName=Мизинец 2
+model.powerfist_fingers_normal.thumb1.partName=Большой палец 1
+model.powerfist_fingers_normal.thumb2.partName=Большой палец 2
+
+model.powerfist_fingers_firing.modelName=Поза стрельбы силового кулака
+model.powerfist_fingers_firing.index1.partName=Индекс 1
+model.powerfist_fingers_firing.index2.partName= Индекс 2
+model.powerfist_fingers_firing.middlefinger1.partName=Средний палец 1
+model.powerfist_fingers_firing.middlefinger2.partName=Средний палец 2
+model.powerfist_fingers_firing.ringfinger1.partName=Кольцо 1
+model.powerfist_fingers_firing.ringfinger2.partName=Кольцо 2
+model.powerfist_fingers_firing.pinky1.partName=Мизинец 1
+model.powerfist_fingers_firing.pinky2.partName=Мизинец 2
+model.powerfist_fingers_firing.thumb1.partName=Большой палец 1
+model.powerfist_fingers_firing.thumb2.partName=Большой палец 2
+
+model.powerfist_left.modelName=Энергетический кулак левой руки
+model.powerfist_left.mainarm.partName=Основная рука
+model.powerfist_left.armorright.partName=Защита правого кулака
+model.powerfist_left.armorleft.partName=Защита левого кулака
+model.powerfist_left.wristtopright.partName=Правое верхнее запястие
+model.powerfist_left.wristtopleft.partName=Левое верхнее запястие
+model.powerfist_left.wristbottomright.partName=Правое нижнее запястие
+model.powerfist_left.wristbottomleft.partName=Левое нижнее запястие
+model.powerfist_left.fingerguard.partName=Пальцовщик
+model.powerfist_left.crystalholder.partName=Держатель кристаллов
+model.powerfist_left.crystal.partName=Кристалл
+model.powerfist_left.supportright1.partName=Правый помощник 1
+model.powerfist_left.supportright2.partName=Правый помощник 2
+model.powerfist_left.supportright3.partName=Правый помощник 3
+model.powerfist_left.supportright4.partName=Правый помощник 4
+model.powerfist_left.supportright5.partName=Правый помощник 5
+model.powerfist_left.supportbaseright.partName=Правое основание помощника
+model.powerfist_left.palm.partName=Ладонь
+model.powerfist_left.supportbaseleft.partName=Левое основание помощника
+model.powerfist_left.supportleftfront.partName=Левый лицевой помощник
+model.powerfist_left.supportrightfront.partName=Левый помощник 1
+model.powerfist_left.supportleft1.partName=Левый помощник 1
+model.powerfist_left.supportleft2.partName=Левый помощник 2
+model.powerfist_left.supportleft3.partName=Левый помощник 3
+model.powerfist_left.supportleft4.partName=Левый помощник 4
+model.powerfist_left.supportleft5.partName=Левый помощник 5
+
+model.powerfist_fingers_normal_left.modelName=Обычная поза левого силового кулака
+model.powerfist_fingers_normal_left.index1.partName=Индекс 1
+model.powerfist_fingers_normal_left.index2.partName= Индекс 2
+model.powerfist_fingers_normal_left.middlefinger1.partName=Средний палец 1
+model.powerfist_fingers_normal_left.middlefinger2.partName=Кольцо 1
+model.powerfist_fingers_normal_left.ringfinger1.partName=Кольцо 1
+model.powerfist_fingers_normal_left.ringfinger2.partName=Кольцо 2
+model.powerfist_fingers_normal_left.pinky1.partName=Мизинец 1
+model.powerfist_fingers_normal_left.pinky2.partName=Мизинец 2
+model.powerfist_fingers_normal_left.thumb1.partName=Большой палец 1
+model.powerfist_fingers_normal_left.thumb2.partName=Большой палец 2
+
+model.powerfist_fingers_firing_left.modelName=Поза стрельбылевого силового кулака
+model.powerfist_fingers_firing_left.index1.partName=Индекс 1
+model.powerfist_fingers_firing_left.index2.partName= Индекс 2
+model.powerfist_fingers_firing_left.middlefinger1.partName=Средний палец 1
+model.powerfist_fingers_firing_left.middlefinger2.partName=Средний палец 2
+model.powerfist_fingers_firing_left.ringfinger1.partName=Кольцо 2
+model.powerfist_fingers_firing_left.ringfinger2.partName=Кольцо 2
+model.powerfist_fingers_firing_left.pinky1.partName=Мизинец 1
+model.powerfist_fingers_firing_left.pinky2.partName=Мизинец 2
+model.powerfist_fingers_firing_left.thumb1.partName=Большой палец 1
+model.powerfist_fingers_firing_left.thumb2.partName=Большой палец 2
+module.basicPlating.desc=Основная обшивка достаточна тяжела, но хорошо защищает.
+module.basicPlating.name=Железная обшивка
+module.citizenJoe.name=Броня гражданина Джо
+module.cosmeticGlow.desc=Позволяет изменить светящиеся части брони.
+module.cosmeticGlow.name=Модуль свечения
+module.heatSink.desc=Толстый слой обшивки для впитывания тепла.
+module.heatSink.name=Кулер
+module.redstoneLaser.name=Красный лазер
+module.sonicWeapon.name=Звуковое оружие
+module.tint.desc=Добавляет Вашей броне цветную тонировку для настройки её внешнего вида.
+module.tint.name=Модуль пользовательского цвета
