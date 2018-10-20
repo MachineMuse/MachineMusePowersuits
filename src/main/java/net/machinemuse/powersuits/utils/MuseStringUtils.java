@@ -2,6 +2,9 @@ package net.machinemuse.powersuits.utils;
 
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.minecraft.util.ResourceLocation;
+import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang3.text.WordUtils;
+import scala.actors.threadpool.Arrays;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -189,22 +192,33 @@ public abstract class MuseStringUtils {
      *                         </pre>
      */
     public static List<String> wrapStringToLength(String str, int length) {
-        List<String> strlist = new ArrayList();
+        String wrapped = WordUtils.wrap(str,  length);
+        String[] stringArray =  wrapped.split(SystemUtils.LINE_SEPARATOR);
+        List<String> strlist = Arrays.asList(stringArray);
 
-        int i = 0;
-        while (i + length < str.length()) {
-            int j = str.lastIndexOf(' ', i + length);
-            if (j == -1) {
-                j = str.indexOf(' ', i + length);
-            }
-            if (j == -1) {
-                break;
-            }
-            strlist.add(str.substring(i, j));
-            i = j + 1;
-        }
-        strlist.add(str.substring(i));
 
+//        if (str != null && !str.isEmpty()) {
+//            int i = 0;
+//            while (i + length < str.length()) {
+//                int j = str.lastIndexOf(' ', i + length);
+//                if (j == -1) {
+//                    j = str.indexOf(' ', i + length);
+//                }
+//                if (j == -1) {
+//                    break;
+//                }
+//
+//                System.out.println("i: " + i);
+//                System.out.println("j: " + j);
+//
+//                strlist.add(str.substring(i, j));
+//                i = j + 1;
+//            }
+//
+//
+//
+//            strlist.add(str.substring(i));
+//        }
         return strlist;
     }
 

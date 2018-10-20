@@ -71,7 +71,7 @@ public class HarvestEventHandler {
 //    }
 
 //    @SubscribeEvent
-//    public void test(BlockEvent.HarvestDropsEvent event) {
+//    public void lang(BlockEvent.HarvestDropsEvent event) {
 //        if (event.getHarvester() != null) {
 //            System.out.println("made it here");
 //

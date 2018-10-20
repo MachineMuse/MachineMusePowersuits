@@ -36,23 +36,21 @@ public class ClickableModule extends Clickable {
     public List<String> getToolTip() {
         List<String> toolTipText = new ArrayList<>();
         toolTipText.add(getLocalizedName(getModule()));
-        String description = getLocalizedDescription(getModule());
         toolTipText.addAll(MuseStringUtils.wrapStringToLength(getLocalizedDescription(getModule()), 30));
         return toolTipText;
     }
 
     public String getLocalizedName(IPowerModule m) {
-        String localizedName = I18n.format(m.getUnlocalizedName() + ".name");
-        if (localizedName != null && !localizedName.isEmpty())
-            return I18n.format(m.getUnlocalizedName() + ".name");
-        return "broken translation for module name";
+        if (m == null)
+            return "";
+
+        return (m.getDataName() != null && !m.getDataName().isEmpty()) ? I18n.format(m.getUnlocalizedName() + ".name") : "broken translation for module name";
     }
 
     public String getLocalizedDescription(IPowerModule m) {
-        String description =  I18n.format(m.getUnlocalizedName() + ".desc");
-        if (description != null && !description.isEmpty())
-            return description;
-        return "broken translation for module description";
+        if (m == null)
+            return "";
+        return (m.getDataName() != null && !m.getDataName().isEmpty()) ? I18n.format(m.getUnlocalizedName() + ".desc") : "broken translation for module description";
     }
 
     @Override

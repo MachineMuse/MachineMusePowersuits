@@ -239,7 +239,7 @@ public class NuminaShapedRecipe extends ShapedRecipes {
                 throw new JsonParseException("Missing data for item '" + name + "'");
 
             if (jsonObj.has("nbt")) {
-                // Lets hope this works? Needs test
+                // Lets hope this works? Needs lang
                 try {
                     JsonElement element = jsonObj.get("nbt");
                     NBTTagCompound nbt;
