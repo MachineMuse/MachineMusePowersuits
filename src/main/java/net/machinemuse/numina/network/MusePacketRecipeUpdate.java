@@ -8,7 +8,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 11:40 PM, 12/16/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/14/16.
  */
 public class MusePacketRecipeUpdate extends MusePacket {
@@ -16,6 +16,10 @@ public class MusePacketRecipeUpdate extends MusePacket {
 
     public MusePacketRecipeUpdate(EntityPlayer player, String recipe) {
         this.recipe = recipe;
+    }
+
+    public static MusePacketRecipeUpdatePackager getPackagerInstance() {
+        return MusePacketRecipeUpdatePackager.INSTANCE;
     }
 
     @SideOnly(Side.CLIENT)
@@ -36,10 +40,6 @@ public class MusePacketRecipeUpdate extends MusePacket {
     @Override
     public void write() {
         writeString(recipe);
-    }
-
-    public static MusePacketRecipeUpdatePackager getPackagerInstance() {
-        return MusePacketRecipeUpdatePackager.INSTANCE;
     }
 
     public enum MusePacketRecipeUpdatePackager implements IMusePackager {

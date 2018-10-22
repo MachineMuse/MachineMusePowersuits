@@ -18,13 +18,13 @@ import net.minecraftforge.common.property.IExtendedBlockState;
 import org.lwjgl.opengl.GL11;
 
 import static net.machinemuse.powersuits.block.BlockLuxCapacitor.COLOR;
-public class EntityRendererLuxCapacitorEntity extends MuseEntityRenderer <EntityLuxCapacitor> {
+
+public class EntityRendererLuxCapacitorEntity extends MuseEntityRenderer<EntityLuxCapacitor> {
+    ModelLuxCapacitor luxCapacitorModel = new ModelLuxCapacitor();
+    IExtendedBlockState blockState;
     public EntityRendererLuxCapacitorEntity(RenderManager renderManager) {
         super(renderManager);
     }
-
-    ModelLuxCapacitor luxCapacitorModel = new ModelLuxCapacitor();
-    IExtendedBlockState blockState;
 
     @Override
     public void doRender(EntityLuxCapacitor entity, double x, double y, double z, float entityYaw, float partialTicks) {

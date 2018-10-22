@@ -13,7 +13,7 @@ import java.io.DataOutputStream;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 12:28 PM, 5/6/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/14/16.
  */
 public class MusePacketPlayerUpdate extends MusePacket {
@@ -23,6 +23,10 @@ public class MusePacketPlayerUpdate extends MusePacket {
     public MusePacketPlayerUpdate(EntityPlayer player, PlayerInputMap inputMap) {
         this.player = player;
         this.inputMap = inputMap;
+    }
+
+    public static MusePacketPlayerUpdatePackager getPackagerInstance() {
+        return MusePacketPlayerUpdatePackager.INSTANCE;
     }
 
     @Override
@@ -44,10 +48,6 @@ public class MusePacketPlayerUpdate extends MusePacket {
         player.motionY = inputMap.motionY;
         player.motionZ = inputMap.motionZ;
         PacketSender.sendToAllAround(updatePacket, player, 128);
-    }
-
-    public static MusePacketPlayerUpdatePackager getPackagerInstance() {
-        return MusePacketPlayerUpdatePackager.INSTANCE;
     }
 
     public enum MusePacketPlayerUpdatePackager implements IMusePackager {

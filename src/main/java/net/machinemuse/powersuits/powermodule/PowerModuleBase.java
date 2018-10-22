@@ -23,11 +23,11 @@ import java.util.Map;
 import static net.machinemuse.numina.api.constants.NuminaNBTConstants.TAG_ONLINE;
 
 public abstract class PowerModuleBase implements IPowerModule {
-    EnumModuleTarget moduleTarget;
-    protected Map<String, List<IPropertyModifier>> propertyModifiers;
     protected static Map<String, String> units = new HashMap<>();
+    protected Map<String, List<IPropertyModifier>> propertyModifiers;
     protected NBTTagCompound defaultTag;
     protected boolean isAllowed;
+    EnumModuleTarget moduleTarget;
 
     public PowerModuleBase(String dataNameIn, EnumModuleTarget moduleTargetIn) {
         this.moduleTarget = moduleTargetIn;
@@ -184,7 +184,9 @@ public abstract class PowerModuleBase implements IPowerModule {
     }
 
 
-    /** Integer ----------------------------------------------------------------------------------- */
+    /**
+     * Integer -----------------------------------------------------------------------------------
+     */
     public PowerModuleBase addIntTradeoffProperty(String tradeoffName, String propertyName, int multiplier, String unit, int roundTo, int offset) {
         units.put(propertyName, unit);
         String key = new StringBuilder(getDataName()).append('.').append(propertyName).append('.').append(tradeoffName).append(".multiplier").toString();

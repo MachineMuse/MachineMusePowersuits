@@ -26,6 +26,7 @@ import javax.annotation.Nonnull;
 
 public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
     protected static final ItemStack emulatedTool = new ItemStack(Items.IRON_PICKAXE);
+
     public PickaxeModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Items.IRON_INGOT, 3));
@@ -48,7 +49,7 @@ public class PickaxeModule extends PowerModuleBase implements IBlockBreakingModu
 
     @Override
     public boolean onBlockDestroyed(ItemStack itemStack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving, int playerEnergy) {
-        if (this.canHarvestBlock(itemStack, state, (EntityPlayer)entityLiving, pos, playerEnergy)) {
+        if (this.canHarvestBlock(itemStack, state, (EntityPlayer) entityLiving, pos, playerEnergy)) {
             ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, getEnergyUsage(itemStack));
             return true;
         }

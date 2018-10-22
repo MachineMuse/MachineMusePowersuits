@@ -1,13 +1,12 @@
 package net.machinemuse.powersuits.common;
 
-import net.machinemuse.powersuits.common.gui.PortableCraftingContainer;
-import net.machinemuse.powersuits.common.gui.PortableCraftingGui;
-import net.machinemuse.powersuits.common.gui.ScannerContainer;
-import net.machinemuse.powersuits.common.gui.ScannerGUI;
-import net.machinemuse.powersuits.common.gui.tinker.*;
+import net.machinemuse.powersuits.gui.PortableCraftingContainer;
+import net.machinemuse.powersuits.gui.PortableCraftingGui;
+import net.machinemuse.powersuits.gui.ScannerContainer;
+import net.machinemuse.powersuits.gui.ScannerGUI;
+import net.machinemuse.powersuits.gui.tinker.*;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -23,7 +22,7 @@ import javax.annotation.Nonnull;
  * passed to player.OpenGUI, and opens the corresponding GUI.
  *
  * @author MachineMuse
- *
+ * <p>
  * Ported to Java by lehjr on 11/3/16.
  */
 public enum MPSGuiHandler implements IGuiHandler {
@@ -32,8 +31,8 @@ public enum MPSGuiHandler implements IGuiHandler {
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         if (ID == 4)
-            return new PortableCraftingContainer(player.inventory, world, new BlockPos(x,y,z));
-        if (ID ==6) {
+            return new PortableCraftingContainer(player.inventory, world, new BlockPos(x, y, z));
+        if (ID == 6) {
             return new ScannerContainer(player, getPlayerHand(player));
         }
         return null;
@@ -53,7 +52,7 @@ public enum MPSGuiHandler implements IGuiHandler {
             case 3:
                 return new CosmeticGui(player, x, y, z);
             case 4:
-                return new PortableCraftingGui(player, world, new BlockPos(x,y,z));
+                return new PortableCraftingGui(player, world, new BlockPos(x, y, z));
             case 5:
                 return new GuiModeSelector(player);
             case 6:

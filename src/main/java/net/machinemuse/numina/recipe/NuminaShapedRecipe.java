@@ -34,61 +34,6 @@ public class NuminaShapedRecipe extends ShapedRecipes {
         super(group, width, height, ingredients, result);
     }
 
-    @Override
-    public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
-        NonNullList<ItemStack> nonnulllist = NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
-        for (int i = 0; i < nonnulllist.size(); ++i) {
-            ItemStack itemstack = inv.getStackInSlot(i);
-            nonnulllist.set(i, net.minecraftforge.common.ForgeHooks.getContainerItem(itemstack));
-        }
-        return nonnulllist;
-    }
-
-    @Override
-    public NonNullList<Ingredient> getIngredients() {
-        return this.recipeItems;
-    }
-
-    @Override
-    public boolean canFit(int width, int height) {
-        return width >= this.recipeWidth && height >= this.recipeHeight;
-    }
-
-    @Override
-    public boolean matches(InventoryCrafting inv, World worldIn) {
-        for (int i = 0; i <= inv.getWidth() - this.recipeWidth; ++i) {
-            for (int j = 0; j <= inv.getHeight() - this.recipeHeight; ++j) {
-                if (this.checkMatch(inv, i, j, true))
-                    return true;
-                if (this.checkMatch(inv, i, j, false))
-                    return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Checks if the region of a crafting inventory is match for the recipe.
-     */
-    private boolean checkMatch(InventoryCrafting craftingInventory, int startX, int startY, boolean mirror) {
-        for (int i = 0; i < craftingInventory.getWidth(); ++i) {
-            for (int j = 0; j < craftingInventory.getHeight(); ++j) {
-                int k = i - startX;
-                int l = j - startY;
-                Ingredient ingredient = Ingredient.EMPTY;
-                if (k >= 0 && l >= 0 && k < this.recipeWidth && l < this.recipeHeight) {
-                    if (mirror)
-                        ingredient = this.recipeItems.get(this.recipeWidth - k - 1 + l * this.recipeWidth);
-                    else
-                        ingredient = this.recipeItems.get(k + l * this.recipeWidth);
-                }
-                if (!ingredient.apply(craftingInventory.getStackInRowAndColumn(i, j)))
-                    return false;
-            }
-        }
-        return true;
-    }
-
     public static NuminaShapedRecipe deserialize(JsonContext context, JsonObject json) {
         String s = JsonUtils.getString(json, "group", "");
         Map<String, Ingredient> map = deserializeKey(JsonUtils.getJsonObject(json, "key"));
@@ -200,7 +145,7 @@ public class NuminaShapedRecipe extends ShapedRecipes {
     }
 
     public static Ingredient deserializeIngredient(@Nullable JsonElement jsonElement) {
-        if (jsonElement == null ||jsonElement.isJsonNull())
+        if (jsonElement == null || jsonElement.isJsonNull())
             throw new JsonSyntaxException("Item cannot be null");
 
         if (jsonElement.isJsonObject()) {
@@ -285,6 +230,61 @@ public class NuminaShapedRecipe extends ShapedRecipes {
         }
 
         throw new JsonSyntaxException("no such or item found");
+    }
+
+    @Override
+    public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
+        NonNullList<ItemStack> nonnulllist = NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+        for (int i = 0; i < nonnulllist.size(); ++i) {
+            ItemStack itemstack = inv.getStackInSlot(i);
+            nonnulllist.set(i, net.minecraftforge.common.ForgeHooks.getContainerItem(itemstack));
+        }
+        return nonnulllist;
+    }
+
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return this.recipeItems;
+    }
+
+    @Override
+    public boolean canFit(int width, int height) {
+        return width >= this.recipeWidth && height >= this.recipeHeight;
+    }
+
+    @Override
+    public boolean matches(InventoryCrafting inv, World worldIn) {
+        for (int i = 0; i <= inv.getWidth() - this.recipeWidth; ++i) {
+            for (int j = 0; j <= inv.getHeight() - this.recipeHeight; ++j) {
+                if (this.checkMatch(inv, i, j, true))
+                    return true;
+                if (this.checkMatch(inv, i, j, false))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the region of a crafting inventory is match for the recipe.
+     */
+    private boolean checkMatch(InventoryCrafting craftingInventory, int startX, int startY, boolean mirror) {
+        for (int i = 0; i < craftingInventory.getWidth(); ++i) {
+            for (int j = 0; j < craftingInventory.getHeight(); ++j) {
+                int k = i - startX;
+                int l = j - startY;
+                Ingredient ingredient = Ingredient.EMPTY;
+                if (k >= 0 && l >= 0 && k < this.recipeWidth && l < this.recipeHeight) {
+                    if (mirror)
+                        ingredient = this.recipeItems.get(this.recipeWidth - k - 1 + l * this.recipeWidth);
+                    else
+                        ingredient = this.recipeItems.get(k + l * this.recipeWidth);
+                }
+                if (!ingredient.apply(craftingInventory.getStackInRowAndColumn(i, j)))
+                    return false;
+            }
+        }
+        return true;
     }
 
     @Override

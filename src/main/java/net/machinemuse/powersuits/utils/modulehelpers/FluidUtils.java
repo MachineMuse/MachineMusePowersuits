@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.utils.modulehelpers;
 
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.capabilities.MPSChestPlateFluidHandler;
-import net.machinemuse.powersuits.common.gui.hud.FluidMeter;
+import net.machinemuse.powersuits.gui.hud.FluidMeter;
 import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
@@ -76,9 +76,9 @@ public class FluidUtils {
     public double getFluidMass() {
         FluidStack fluid = fluidTank != null ? fluidTank.getFluid() : null;
 
-        if ( fluid != null ) {
+        if (fluid != null) {
             // fluidVolumeInBuckets * density
-            return fluid.amount/1000 * fluid.getFluid().getDensity();
+            return fluid.amount / 1000 * fluid.getFluid().getDensity();
         }
         return 0;
     }
@@ -96,10 +96,10 @@ public class FluidUtils {
         FluidStack fluid = fluidTank != null ? fluidTank.getFluid() : null;
         if (fluid != null) {
             // closer to full greater heat transfer efficiency
-            double volumeEfficiency = fluidTank.getFluidAmount()/fluidTank.getCapacity();
+            double volumeEfficiency = fluidTank.getFluidAmount() / fluidTank.getCapacity();
 
             int boilingPointOfWater = 100;
-            int fluidTemperatureInCelsius = fluid.getFluid().getTemperature() -273; // should be - 273.15 but we're not working with much precision here.
+            int fluidTemperatureInCelsius = fluid.getFluid().getTemperature() - 273; // should be - 273.15 but we're not working with much precision here.
 
             int temperatureEfficiency = boilingPointOfWater - fluidTemperatureInCelsius;
 
@@ -178,7 +178,7 @@ public class FluidUtils {
     public int getViscosity() {
         FluidStack fluid = fluidTank != null ? fluidTank.getFluid() : null;
 
-        if ( fluid != null ) {
+        if (fluid != null) {
             return fluid.getFluid().getViscosity();
         }
         return 0;
@@ -188,7 +188,7 @@ public class FluidUtils {
         int fluidTemp = 300;
         if (fluidTank != null) {
             FluidStack fluid = fluidTank.getFluid();
-            fluidTemp = fluid != null ? fluid.getFluid().getTemperature(fluid) : fluidTemp ;
+            fluidTemp = fluid != null ? fluid.getFluid().getTemperature(fluid) : fluidTemp;
         }
         return fluidTemp - 273; // convert to celsius
     }
@@ -214,7 +214,7 @@ public class FluidUtils {
 
         // Fill tank if raining
         boolean isRaining = (player.world.getBiomeForCoordsBody(player.getPosition()).getRainfall() > 0) && (player.world.isRaining() || player.world.isThundering());
-        if (isRaining && player.world.canBlockSeeSky(player.getPosition().add(0,1,0))
+        if (isRaining && player.world.canBlockSeeSky(player.getPosition().add(0, 1, 0))
                 && (player.world.getTotalWorldTime() % 5) == 0 && getFluidLevel() < getMaxFluidLevel()) {
             fluidTank.fill(new FluidStack(FluidRegistry.WATER, Math.min(getMaxFluidLevel() - getFluidLevel(), 100)), false);
         }

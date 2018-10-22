@@ -15,18 +15,12 @@ public class NuminaNBTConstants {
     public static final String FLUID_NBT_KEY = "Fluid";
 
 
-
-
     // ModularItemHandler tag
     public static final String TAG_MODULES = "modules";
 
 
-
     // heat parent tag
     public static final String TAG_HEAT = "Heat"; // parent tag
-
-
-
 
 
     // used in various places where parent tag is unique

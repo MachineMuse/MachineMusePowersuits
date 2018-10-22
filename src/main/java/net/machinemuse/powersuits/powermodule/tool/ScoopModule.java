@@ -29,12 +29,12 @@ import javax.annotation.Nonnull;
  * Time: 5:53 PM
  */
 public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule {
-    public static final ItemStack emulatedTool = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("forestry", "scoop")), 1);
+    public static final ItemStack emulatedTool = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("forestry", "scoop")), 1);
 
     public ScoopModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        ModuleManager.INSTANCE.addInstallCost(getDataName(),emulatedTool);
-        ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), emulatedTool);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBasePropertyDouble(MPSModuleConstants.SCOOP_ENERGY_CONSUMPTION, 20000, "RF");
         addBasePropertyDouble(MPSModuleConstants.SCOOP_HARVEST_SPEED, 5, "x");
     }
@@ -61,7 +61,7 @@ public class ScoopModule extends PowerModuleBase implements IBlockBreakingModule
 
     @Override
     public boolean onBlockDestroyed(ItemStack itemStack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving, int playerEnergy) {
-        if (this.canHarvestBlock(itemStack, state, (EntityPlayer)entityLiving, pos, playerEnergy)) {
+        if (this.canHarvestBlock(itemStack, state, (EntityPlayer) entityLiving, pos, playerEnergy)) {
             ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, getEnergyUsage(itemStack));
             return true;
         }

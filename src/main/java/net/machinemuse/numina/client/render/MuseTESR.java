@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 4:28 PM, 8/3/13
- *
+ * <p>
  * Ported to Java by lehjr on 10/23/16.
  */
 public class MuseTESR<T extends TileEntitySpecialRenderer> {

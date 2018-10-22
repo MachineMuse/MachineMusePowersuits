@@ -61,8 +61,8 @@ public class MovingSoundPlayer extends MovingSound {
 
     @Override
     public void update() {
-        this.xPosF = (float)this.player().posX;
-        this.yPosF = (float)this.player().posY;
-        this.zPosF = (float)this.player().posZ;
+        this.xPosF = (float) this.player().posX;
+        this.yPosF = (float) this.player().posY;
+        this.zPosF = (float) this.player().posZ;
     }
 }

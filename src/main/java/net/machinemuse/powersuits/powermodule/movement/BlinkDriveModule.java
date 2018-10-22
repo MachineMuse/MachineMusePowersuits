@@ -46,7 +46,7 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
 
     @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        SoundEvent enderman_portal =  SoundEvent.REGISTRY.getObject(new ResourceLocation("entity.endermen.teleport"));
+        SoundEvent enderman_portal = SoundEvent.REGISTRY.getObject(new ResourceLocation("entity.endermen.teleport"));
         int range = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.BLINK_DRIVE_RANGE);
         int energyConsumption = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.BLINK_DRIVE_ENERGY_CONSUMPTION);
         if (ElectricItemUtils.getPlayerEnergy(playerIn) > energyConsumption) {
@@ -61,7 +61,7 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
             MusePlayerUtils.teleportEntity(playerIn, hitRayTrace);
             worldIn.playSound(playerIn, playerIn.getPosition(), enderman_portal, SoundCategory.PLAYERS, 0.5F, 0.4F / ((float) Math.random() * 0.4F + 0.8F));
 
-            MuseLogger.logDebug("blink drive anount drained: "+ amountDrained);
+            MuseLogger.logDebug("blink drive anount drained: " + amountDrained);
             return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
         }
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);

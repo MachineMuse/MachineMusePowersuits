@@ -69,26 +69,10 @@ public class Colour {
      * Takes colours in the integer format that Minecraft uses, and converts.
      */
     public Colour(int c) {
-        this.a = (c >> 24 & 0xFF)/ 255.0D;
+        this.a = (c >> 24 & 0xFF) / 255.0D;
         this.r = (c >> 16 & 0xFF) / 255.0D;
         this.g = (c >> 8 & 0xFF) / 255.0D;
         this.b = (c & 0xFF) / 255.0D;
-    }
-
-    /**
-     * Returns this colour as an int in Minecraft's format (I think)
-     *
-     * note: full values for RGBA will yield -1
-     *
-     * @return int getValue of this colour
-     */
-    public int getInt() {
-        int val = 0;
-        val = val | ((int) (a * 255) << 24);
-        val = val | ((int) (r * 255) << 16);
-        val = val | ((int) (g * 255) << 8);
-        val = val | ((int) (b * 255));
-        return val;
     }
 
     public static int getInt(double r, double g, double b, double a) {
@@ -108,6 +92,48 @@ public class Colour {
         return new Colour(value, value, value, alpha);
     }
 
+    public static void doGLByInt(int c) {
+        double a = (c >> 24 & 255) / 255.0F;
+        double r = (c >> 16 & 255) / 255.0F;
+        double g = (c >> 8 & 255) / 255.0F;
+        double b = (c & 255) / 255.0F;
+        GL11.glColor4d(r, g, b, a);
+    }
+
+    /**
+     * Handles RRGGBB and RRGGBBAA hex strings
+     *
+     * @param hexString
+     * @return new colour based on getValue or default of white if error
+     */
+    public static Colour fromHexString(String hexString) {
+        try {
+            if (hexString == null || hexString.isEmpty())
+                return WHITE;
+            return new Colour((int) Long.parseLong(hexString, 16));
+
+        } catch (Exception e) {
+            MuseLogger.logException("Failed to generate colour from Hex: ", e);
+        }
+        return WHITE;
+    }
+
+    /**
+     * Returns this colour as an int in Minecraft's format (I think)
+     * <p>
+     * note: full values for RGBA will yield -1
+     *
+     * @return int getValue of this colour
+     */
+    public int getInt() {
+        int val = 0;
+        val = val | ((int) (a * 255) << 24);
+        val = val | ((int) (r * 255) << 16);
+        val = val | ((int) (g * 255) << 8);
+        val = val | ((int) (b * 255));
+        return val;
+    }
+
     /**
      * Returns a colour at interval interval along a linear gradient from this
      * to target
@@ -119,14 +145,6 @@ public class Colour {
     }
 
     public void doGL() {
-        GL11.glColor4d(r, g, b, a);
-    }
-
-    public static void doGLByInt(int c) {
-        double a = (c >> 24 & 255) / 255.0F;
-        double r = (c >> 16 & 255) / 255.0F;
-        double g = (c >> 8 & 255) / 255.0F;
-        double b = (c & 255) / 255.0F;
         GL11.glColor4d(r, g, b, a);
     }
 
@@ -149,23 +167,6 @@ public class Colour {
         int y = (int) (x * 255);
         String hexDigits = "0123456789ABCDEF";
         return hexDigits.charAt(y / 16) + "" + hexDigits.charAt(y % 16);
-    }
-
-    /**
-     * Handles RRGGBB and RRGGBBAA hex strings
-     * @param hexString
-     * @return new colour based on getValue or default of white if error
-     */
-    public static Colour fromHexString(String hexString) {
-        try {
-            if (hexString == null || hexString.isEmpty())
-                return WHITE;
-            return new Colour((int) Long.parseLong(hexString, 16));
-
-        } catch (Exception e) {
-            MuseLogger.logException("Failed to generate colour from Hex: " , e);
-        }
-        return WHITE;
     }
 
     public Color awtColor() {

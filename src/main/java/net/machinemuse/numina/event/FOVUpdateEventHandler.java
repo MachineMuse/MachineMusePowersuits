@@ -19,7 +19,7 @@ import org.lwjgl.input.Keyboard;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 10:07 PM, 10/17/13
- *
+ * <p>
  * Ported to Java by lehjr on 10/10/16.
  */
 
@@ -44,7 +44,7 @@ public class FOVUpdateEventHandler {
     public void onKeyInput(InputEvent.KeyInputEvent event) {
         if (NuminaConfig.useFOVFix()) {
             EntityPlayerSP player = Minecraft.getMinecraft().player;
-            if (fovToggleKey.isPressed()){
+            if (fovToggleKey.isPressed()) {
                 fovIsActive = !fovIsActive;
                 if (fovIsActive)
                     player.sendMessage(new TextComponentString(I18n.format("fovfixtoggle.enabled")));

@@ -9,6 +9,8 @@ import javax.annotation.Nullable;
 public enum NuminaConfig {
     INSTANCE;
 
+    private static NuminaServerSettings serverSettings;
+
     public static boolean useSounds() {
         return NuminaSettings.useSounds;
     }
@@ -25,9 +27,9 @@ public enum NuminaConfig {
         return NuminaSettings.fovFixDefaultState;
     }
 
-
-
-    /** Energy ------------------------------------------------------------------------------------ */
+    /**
+     * Energy ------------------------------------------------------------------------------------
+     */
     // 1 RF = 0.1 MJ (Mekanism)
     public static double getMekRatio() {
         return getServerSettings() != null ? getServerSettings().mekRatio : NuminaSettings.mekRatio;
@@ -64,14 +66,8 @@ public enum NuminaConfig {
         return getServerSettings() != null ? getServerSettings().maxTier4 : NuminaSettings.maxTier4;
     }
 
-    private static NuminaServerSettings serverSettings;
-    public static void setServerSettings(@Nullable final NuminaServerSettings serverSettings) {
-        INSTANCE.serverSettings = serverSettings;
-    }
-
     /**
      * Used for getting the tier of an ItemStack. Used for various functions
-     *
      */
     public static int getTierForItem(@Nonnull ItemStack itemStack) {
         ElectricAdapter adapter = ElectricAdapter.wrap(itemStack);
@@ -93,5 +89,9 @@ public enum NuminaConfig {
     @Nullable
     public static final NuminaServerSettings getServerSettings() {
         return INSTANCE.serverSettings;
+    }
+
+    public static void setServerSettings(@Nullable final NuminaServerSettings serverSettings) {
+        INSTANCE.serverSettings = serverSettings;
     }
 }

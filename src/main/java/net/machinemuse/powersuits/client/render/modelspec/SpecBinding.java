@@ -12,13 +12,13 @@ public class SpecBinding {
     public SpecBinding(@Nullable MorphTarget target, @Nullable EntityEquipmentSlot slot, @Nullable String itemState) {
         this.target = target;
         this.slot = slot;
-        this.itemStateString = (itemState != null || itemState !="")? itemState : "all";
+        this.itemStateString = (itemState != null || itemState != "") ? itemState : "all";
     }
 
     public SpecBinding(EntityEquipmentSlot slot, @Nullable String itemState) {
         this.target = null;
         this.slot = slot;
-        this.itemStateString = (itemState != null || itemState !="")? itemState : "all";
+        this.itemStateString = (itemState != null || itemState != "") ? itemState : "all";
     }
 
     @Nullable

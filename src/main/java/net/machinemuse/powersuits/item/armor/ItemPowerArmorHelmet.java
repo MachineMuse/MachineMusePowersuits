@@ -27,6 +27,7 @@ public class ItemPowerArmorHelmet extends ItemPowerArmor implements
         IRevealer,
         IGoggles {
     public final EntityEquipmentSlot armorType;
+
     public ItemPowerArmorHelmet() {
         super(0, EntityEquipmentSlot.HEAD);
         this.setUnlocalizedName("powerArmorHelmet");

@@ -22,6 +22,10 @@ import java.util.Map;
 
 public class MovementManager {
     public static final Map<String, Double> playerJumpMultipliers = new HashMap();
+    /**
+     * Gravity, in meters per tick per tick.
+     */
+    public static final double DEFAULT_GRAVITY = -0.0784000015258789;
 
     public static double getPlayerJumpMultiplier(EntityPlayer player) {
         if (playerJumpMultipliers.containsKey(player.getCommandSenderEntity().getName())) {
@@ -33,6 +37,11 @@ public class MovementManager {
 
     public static void setPlayerJumpTicks(EntityPlayer player, double number) {
         playerJumpMultipliers.put(player.getCommandSenderEntity().getName(), number);
+    }
+
+    public static double computeFallHeightFromVelocity(double velocity) {
+        double ticks = velocity / DEFAULT_GRAVITY;
+        return -0.5 * DEFAULT_GRAVITY * ticks * ticks;
     }
 
     @SubscribeEvent
@@ -72,7 +81,7 @@ public class MovementManager {
                 if (ModuleManager.INSTANCE.itemHasActiveModule(boots, MPSModuleConstants.MODULE_SHOCK_ABSORBER__DATANAME)) {
                     double distanceAbsorb = event.getDistance() * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(boots, MPSModuleConstants.SHOCK_ABSORB_MULTIPLIER);
                     if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
-                        Musique.playerSound(player, SoundDictionary.SOUND_EVENT_GUI_INSTALL, SoundCategory.PLAYERS, (float) (distanceAbsorb), (float)1, false);
+                        Musique.playerSound(player, SoundDictionary.SOUND_EVENT_GUI_INSTALL, SoundCategory.PLAYERS, (float) (distanceAbsorb), (float) 1, false);
                     }
 
                     double drain = distanceAbsorb * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(boots, MPSModuleConstants.SHOCK_ABSORB_ENERGY_CONSUMPTION);
@@ -85,15 +94,5 @@ public class MovementManager {
 
             }
         }
-    }
-
-    /**
-     * Gravity, in meters per tick per tick.
-     */
-    public static final double DEFAULT_GRAVITY = -0.0784000015258789;
-
-    public static double computeFallHeightFromVelocity(double velocity) {
-        double ticks = velocity / DEFAULT_GRAVITY;
-        return -0.5 * DEFAULT_GRAVITY * ticks * ticks;
     }
 }

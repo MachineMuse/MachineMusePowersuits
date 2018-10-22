@@ -22,10 +22,10 @@ import java.util.List;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 9:11 AM, 29/04/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/8/16.
  * rewritten to be custom model compatible by lehjr on 12/26/17
- *
+ * <p>
  * Special note: tried forEach() with a filter, but speed was up to 8 times slower
  */
 @SideOnly(Side.CLIENT)
@@ -86,7 +86,7 @@ public class DefaultModelSpec {
                     }
 
                     // Armor models
-                    else if (spec.getSpecType().equals(EnumSpecType.ARMOR_MODEL) && MPSConfig.INSTANCE.allowHighPollyArmorModels() ) {
+                    else if (spec.getSpecType().equals(EnumSpecType.ARMOR_MODEL) && MPSConfig.INSTANCE.allowHighPollyArmorModels()) {
 
                         for (PartSpecBase partSpec : spec.getPartSpecs()) {
                             if (partSpec.binding.getSlot() == slot) {
@@ -124,7 +124,6 @@ public class DefaultModelSpec {
 
     /**
      * When dealing with possibly multiple specs and color lists, new list needs to be created, since there is only one list per item.
-     *
      */
     static List<Integer> addNewColourstoList(List<Integer> colours, List<Integer> coloursToAdd) {
         for (Integer i : coloursToAdd) {

@@ -49,7 +49,7 @@ public class ModelPartSpec extends PartSpecBase {
     }
 
     public List<BakedQuad> getQuads() {
-        return ((ModelSpec)(this.spec)).getModel().getQuadsforPart(this.partName);
+        return ((ModelSpec) (this.spec)).getModel().getQuadsforPart(this.partName);
     }
 
     public NBTTagCompound multiSet(NBTTagCompound nbt, Integer colourIndex, Boolean glow) {

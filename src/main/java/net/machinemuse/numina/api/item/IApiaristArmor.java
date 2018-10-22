@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.Optional;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 6:54 AM, 4/28/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/4/16.
  */
 @Optional.Interface(iface = "forestry.api.apiculture.IArmorApiarist", modid = "forestry", striprefs = true)

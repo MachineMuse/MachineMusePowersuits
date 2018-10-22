@@ -11,9 +11,8 @@ import java.util.regex.Pattern;
  * From net.minecraft.nbt.JsonToNBT;
  * <p>
  * Only difference is edited readTypedValue() to actually work as intended
- *
+ * <p>
  * can't just extend JsonToNBT because the constructor calls a private method :P
- *
  */
 public class JsonToNBTFixed {
     private static final Pattern DOUBLE_PATTERN_NOSUFFIX = Pattern.compile("[-+]?(?:[0-9]+[.]|[0-9]*[.][0-9]+)(?:e[-+]?[0-9]+)?", 2);
@@ -25,6 +24,11 @@ public class JsonToNBTFixed {
     private static final Pattern INT_PATTERN = Pattern.compile("[-+]?(?:0|[1-9][0-9]*)");
     private final String string;
     private int cursor;
+
+    @VisibleForTesting
+    JsonToNBTFixed(String stringIn) {
+        this.string = stringIn;
+    }
 
     public static NBTTagCompound getTagFromJson(String jsonString) throws NBTException {
         return (new JsonToNBTFixed(jsonString)).readSingleStruct();
@@ -40,11 +44,6 @@ public class JsonToNBTFixed {
             throw this.exception("Trailing data found");
         } else
             return nbttagcompound;
-    }
-
-    @VisibleForTesting
-    JsonToNBTFixed(String stringIn) {
-        this.string = stringIn;
     }
 
     protected String readKey() throws NBTException {

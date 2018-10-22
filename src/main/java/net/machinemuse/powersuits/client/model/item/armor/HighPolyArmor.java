@@ -15,27 +15,25 @@ import net.minecraft.util.EnumHandSide;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 9:24 PM, 11/07/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/7/16.
- *
+ * <p>
  * FIXME: IMPORTANT!!!!: Note that SmartMoving will mess up the rendering here and the armor's yaw will not change with the player's yaw but will be fine with it not installed.
- *
  */
 public class HighPolyArmor extends ModelBiped implements IArmorModel {
+    private static HighPolyArmor INSTANCE;
     public NBTTagCompound renderSpec = null;
     public EntityEquipmentSlot visibleSection = EntityEquipmentSlot.HEAD;
 
-    private static HighPolyArmor INSTANCE;
+    private HighPolyArmor() {
+        super(0);
+        init();
+    }
 
     public static HighPolyArmor getInstance() {
         if (INSTANCE == null)
             INSTANCE = new HighPolyArmor();
         return INSTANCE;
-    }
-
-    private HighPolyArmor() {
-        super(0);
-        init();
     }
 
     @Override

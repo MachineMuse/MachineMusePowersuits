@@ -18,10 +18,10 @@ import net.minecraft.util.NonNullList;
  * Packet for requesting to purchase an upgrade. Player-to-server. Server
  * decides whether it is a valid upgrade or not and replies with an associated
  * inventoryrefresh packet.
- *
+ * <p>
  * Author: MachineMuse (Claire Semple)
  * Created: 12:28 PM, 5/6/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/14/16.
  */
 public class MusePacketSalvageModuleRequest extends MusePacket {
@@ -33,6 +33,10 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
         this.player = player;
         this.itemSlot = itemSlot;
         this.moduleName = moduleName;
+    }
+
+    public static MusePacketSalvageModuleRequestPackager getPackagerInstance() {
+        return MusePacketSalvageModuleRequestPackager.INSTANCE;
     }
 
     @Override
@@ -62,10 +66,6 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
                     ((IModeChangingItem) stack.getItem()).setActiveMode(stack, "");
             }
         }
-    }
-
-    public static MusePacketSalvageModuleRequestPackager getPackagerInstance() {
-        return  MusePacketSalvageModuleRequestPackager.INSTANCE;
     }
 
     public enum MusePacketSalvageModuleRequestPackager implements IMusePackager {

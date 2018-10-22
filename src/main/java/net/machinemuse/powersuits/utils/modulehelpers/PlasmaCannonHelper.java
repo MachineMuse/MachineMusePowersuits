@@ -30,7 +30,7 @@ public class PlasmaCannonHelper {
         if (!powerfist.isEmpty() && player.isHandActive() &&
                 ((ModuleManager.INSTANCE.itemHasActiveModule(powerfist, MPSModuleConstants.MODULE_PLASMA_CANNON__DATANAME)) ||
                         (ModuleManager.INSTANCE.itemHasActiveModule(powerfist, MPSModuleConstants.MODULE_ORE_SCANNER__DATANAME)))) {
-                return 100;
+            return 100;
         }
         return 0;
     }

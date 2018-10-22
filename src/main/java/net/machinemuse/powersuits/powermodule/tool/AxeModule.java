@@ -26,6 +26,7 @@ import javax.annotation.Nonnull;
 
 public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
     private static final ItemStack emulatedTool = new ItemStack(Items.IRON_AXE);
+
     public AxeModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
@@ -52,7 +53,7 @@ public class AxeModule extends PowerModuleBase implements IBlockBreakingModule, 
 
     @Override
     public boolean onBlockDestroyed(ItemStack itemStack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving, int playerEnergy) {
-        if (this.canHarvestBlock(itemStack, state, (EntityPlayer)entityLiving, pos, playerEnergy)) {
+        if (this.canHarvestBlock(itemStack, state, (EntityPlayer) entityLiving, pos, playerEnergy)) {
             ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, getEnergyUsage(itemStack));
             return true;
         }

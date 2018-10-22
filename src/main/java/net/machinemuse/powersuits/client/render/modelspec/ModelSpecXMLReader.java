@@ -37,7 +37,7 @@ import java.util.Objects;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 8:44 AM, 4/28/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/8/16.
  */
 @SideOnly(Side.CLIENT)
@@ -76,20 +76,20 @@ public enum ModelSpecXMLReader {
                 xml.normalizeDocument();
                 if (xml.hasChildNodes()) {
                     NodeList specList = xml.getElementsByTagName("modelSpec");
-                    for(int i = 0; i< specList.getLength(); i++) {
+                    for (int i = 0; i < specList.getLength(); i++) {
                         Node specNode = specList.item(i);
-                        if(specNode.getNodeType() == Node.ELEMENT_NODE) {
+                        if (specNode.getNodeType() == Node.ELEMENT_NODE) {
                             Element eElement = (Element) specNode;
                             EnumSpecType specType = EnumSpecType.getTypeFromName(eElement.getAttribute("type"));
                             String specName = eElement.getAttribute("specName");
 
                             boolean isDefault = (eElement.hasAttribute("default") ? Boolean.parseBoolean(eElement.getAttribute("default")) : false);
 
-                            switch(specType) {
+                            switch (specType) {
                                 case POWER_FIST:
                                     // only allow custom models if allowed by config
 //                                    if (isDefault || MPSConfig.INSTANCE.allowCustomPowerFistModels())
-                                        parseModelSpec(specNode, event, EnumSpecType.POWER_FIST, specName, isDefault);
+                                    parseModelSpec(specNode, event, EnumSpecType.POWER_FIST, specName, isDefault);
                                     break;
 
                                 case ARMOR_MODEL:
@@ -102,7 +102,7 @@ public enum ModelSpecXMLReader {
                                 case ARMOR_SKIN:
                                     if (event == null) {
                                         TextureSpec textureSpec = new TextureSpec(specName, isDefault);
-                                        parseTextureSpec(specNode,textureSpec);
+                                        parseTextureSpec(specNode, textureSpec);
                                     }
                                     break;
 
@@ -126,7 +126,7 @@ public enum ModelSpecXMLReader {
         for (int i = 0; i < textures.getLength(); i++) {
             Node textureNode = textures.item(i);
             if (textureNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element)textureNode;
+                Element eElement = (Element) textureNode;
                 String fileLocation = eElement.getAttribute("file");
                 NodeList bindings = eElement.getElementsByTagName("binding");
                 for (int j = 0; j < bindings.getLength(); j++) {
@@ -145,16 +145,16 @@ public enum ModelSpecXMLReader {
         java.util.List<String> textures = new ArrayList<>();
         IModelState modelState = null;
 
-        for (int i=0; i < models.getLength(); i++) {
+        for (int i = 0; i < models.getLength(); i++) {
 
             Node modelNode = models.item(i);
             if (modelNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element modelElement = (Element)modelNode;
+                Element modelElement = (Element) modelNode;
 
                 // Register textures
                 if (event != null) {
                     List<String> tempTextures = Arrays.asList(modelElement.getAttribute("textures").split(","));
-                    for (String texture: tempTextures)
+                    for (String texture : tempTextures)
                         if (!(textures.contains(texture)))
                             textures.add(texture);
                 } else {
@@ -171,7 +171,7 @@ public enum ModelSpecXMLReader {
                         if (transformNodeList.getLength() > 0)
                             modelState = getTransform(transformNodeList.item(0));
                         else
-                            modelState= TRSRTransformation.identity();
+                            modelState = TRSRTransformation.identity();
                     }
 
                     OBJModelPlus.OBJBakedModelPus bakedModel = ModelRegistry.getInstance().loadBakedModel(new ResourceLocation(modelLocation), modelState);
@@ -185,7 +185,7 @@ public enum ModelSpecXMLReader {
                                 Node bindingNode = bindingNodeList.item(k);
                                 SpecBinding binding = getBinding(bindingNode);
                                 NodeList partNodeList = ((Element) bindingNode).getElementsByTagName(NuminaNBTConstants.TAG_PART);
-                                for(int j=0; j<partNodeList.getLength(); j++) {
+                                for (int j = 0; j < partNodeList.getLength(); j++) {
                                     getModelPartSpec(modelspec, partNodeList.item(j), binding);
                                 }
                             }
@@ -255,12 +255,13 @@ public enum ModelSpecXMLReader {
 
     /**
      * This gets the map of TransformType, TRSRTransformation> used for handheld items
+     *
      * @param itemCameraTransformsNode
      * @return
      */
     public static IModelState getIModelState(Node itemCameraTransformsNode) {
         ImmutableMap.Builder<IModelPart, TRSRTransformation> builder = ImmutableMap.builder();
-        NodeList transformationList = ((Element)itemCameraTransformsNode).getElementsByTagName("trsrTransformation");
+        NodeList transformationList = ((Element) itemCameraTransformsNode).getElementsByTagName("trsrTransformation");
         for (int i = 0; i < transformationList.getLength(); i++) {
             Node transformationNode = transformationList.item(i);
             ItemCameraTransforms.TransformType transformType =
@@ -295,7 +296,7 @@ public enum ModelSpecXMLReader {
                 (((Element) bindingNode).hasAttribute("slot")) ?
                         EntityEquipmentSlot.fromString(((Element) bindingNode).getAttribute("slot").toLowerCase()) : null,
                 (((Element) bindingNode).hasAttribute("itemState")) ?
-                        ((Element) bindingNode).getAttribute("itemState"): "all"
+                        ((Element) bindingNode).getAttribute("itemState") : "all"
         );
     }
 

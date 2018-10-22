@@ -5,13 +5,13 @@ import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import java.util.List;
 
 public interface IClickable {
-	void draw();
+    void draw();
 
-	void move(double x, double y);
+    void move(double x, double y);
 
-	MusePoint2D getPosition();
+    MusePoint2D getPosition();
 
-	boolean hitBox(double x, double y);
+    boolean hitBox(double x, double y);
 
-	List getToolTip();
+    List getToolTip();
 }

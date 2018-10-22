@@ -21,20 +21,8 @@ import java.util.Map;
 import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
 
 public class ItemComponent extends Item {
-    private volatile static ItemComponent INSTANCE;
-
-    public static ItemComponent getInstance() {
-        if (INSTANCE == null) {
-            synchronized (ItemComponent.class) {
-                if (INSTANCE == null) INSTANCE = new ItemComponent();
-            }
-        }
-        return INSTANCE;
-    }
-
     public static Map<Integer, String> descriptions = new HashMap<>();
     public static Map<Integer, String> names = new HashMap<>();
-
     public static ItemStack wiring;
     public static ItemStack solenoid;
     public static ItemStack servoMotor;
@@ -57,7 +45,7 @@ public class ItemComponent extends Item {
     public static ItemStack solarPanel;
     public static ItemStack computerChip;
     public static ItemStack rubberHose;
-
+    private volatile static ItemComponent INSTANCE;
     private ItemComponent() {
         this.maxStackSize = 64;
         String name = "powerArmorComponent";
@@ -67,6 +55,15 @@ public class ItemComponent extends Item {
         this.setMaxDamage(0);
         this.setCreativeTab(MPSConfig.INSTANCE.mpsCreativeTab);
         this.populate();
+    }
+
+    public static ItemComponent getInstance() {
+        if (INSTANCE == null) {
+            synchronized (ItemComponent.class) {
+                if (INSTANCE == null) INSTANCE = new ItemComponent();
+            }
+        }
+        return INSTANCE;
     }
 
     public ItemStack addComponent(int meta, String oredictName) {
@@ -84,10 +81,10 @@ public class ItemComponent extends Item {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> currentTipList, ITooltipFlag flagIn) {
         if (MPSConfig.INSTANCE.doAdditionalInfo()) {
-            String message =  I18n.format("tooltip.powersuits.componentTooltip");
+            String message = I18n.format("tooltip.powersuits.componentTooltip");
             message = MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic);
             currentTipList.add(message);
-            String description = I18n.format(getUnlocalizedName(stack)+ ".desc");
+            String description = I18n.format(getUnlocalizedName(stack) + ".desc");
             currentTipList.addAll(MuseStringUtils.wrapStringToLength(description, 30));
         } else {
             currentTipList.add(MuseCommonStrings.additionalInfoInstructions());
@@ -111,26 +108,26 @@ public class ItemComponent extends Item {
         diamonddPlating = addComponent(11, "componentPlatingDiamond");
         fieldEmitter = addComponent(12, "componentFieldEmitter");
         laserHologram = addComponent(13, "componentLaserEmitter");
-        carbonMyofiber = addComponent(14,"componentCarbonMyofiber");
+        carbonMyofiber = addComponent(14, "componentCarbonMyofiber");
         controlCircuit = addComponent(15, "componentControlCircuit");
         myofiberGel = addComponent(16, "componentMyofiberGel");
         artificialMuscle = addComponent(17, "componentArtificialMuscle");
         solarPanel = addComponent(18, "componentSolarPanel");
         magnet = addComponent(19, "componentMagnet");
         computerChip = addComponent(20, "componentComputerChip");
-        rubberHose = addComponent(21,"componentRubberHose");
+        rubberHose = addComponent(21, "componentRubberHose");
     }
 
     @Override
     public String getUnlocalizedName(ItemStack itemStack) {
         String unlocalizedName = names.get(itemStack.getMetadata());
-        if (unlocalizedName != null){
+        if (unlocalizedName != null) {
             unlocalizedName = unlocalizedName.replaceAll("\\s", "");
         } else
             unlocalizedName = "";
 
         return this.getUnlocalizedName() + "." + unlocalizedName;
-   }
+    }
 
     /**
      * returns a list of items with the same ID, but different meta (eg: dye

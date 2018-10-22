@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 2:17 PM, 9/6/13
- *
+ * <p>
  * Ported to Java by lehjr on 10/25/16.
  */
 public class RenderGameOverlayEventHandler {
@@ -64,7 +64,8 @@ public class RenderGameOverlayEventHandler {
 //            case TEXT: break;
 //            case HEALTHMOUNT: break;
 //            case JUMPBAR: break;
-            default: break;
+            default:
+                break;
         }
     }
 
@@ -75,7 +76,7 @@ public class RenderGameOverlayEventHandler {
         ItemStack stack = player.inventory.getCurrentItem();
         if (!stack.isEmpty() && stack.getItem() instanceof IModeChangingItem) {
 
-            IModeChangingItem item = (IModeChangingItem)(stack.getItem());
+            IModeChangingItem item = (IModeChangingItem) (stack.getItem());
             ScaledResolution screen = new ScaledResolution(mc);
             MuseTextureUtils.pushTexture(MuseTextureUtils.TEXTURE_QUILT);
             RenderState.blendingOn();
@@ -104,7 +105,7 @@ public class RenderGameOverlayEventHandler {
     }
 
     public void drawIcon(double x, double y, TextureAtlasSprite icon, double alpha) {
-        if (icon !=null)
+        if (icon != null)
             MuseIconUtils.drawIconAt(x, y, icon, Colour.WHITE.withAlpha(alpha));
     }
 }

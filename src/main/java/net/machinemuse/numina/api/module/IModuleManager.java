@@ -31,7 +31,7 @@ public interface IModuleManager {
     default NonNullList<IPowerModule> getModulesOfType(Class<? extends IPowerModule> type) {
         NonNullList<IPowerModule> retList = NonNullList.create();
         for (IPowerModule module : getModuleMap().values()) {
-            if (type.isAssignableFrom(module.getClass())){
+            if (type.isAssignableFrom(module.getClass())) {
                 retList.add(module);
             }
         }
@@ -41,7 +41,7 @@ public interface IModuleManager {
     /**
      * Call this whenever the getValue changes, such as changing a setting or installing a module
      */
-    default double computeModularPropertyDouble (@Nonnull ItemStack stack, String propertyName) {
+    default double computeModularPropertyDouble(@Nonnull ItemStack stack, String propertyName) {
         return (double) computeModularProperty(stack, propertyName);
     }
 
@@ -52,7 +52,7 @@ public interface IModuleManager {
         if (!valuesTag.hasKey(propertyName, Constants.NBT.TAG_DOUBLE)) {
             propertyValue = computeModularPropertyDouble(stack, propertyName);
             if (propertyValue > 0)
-            valuesTag.setDouble(propertyName, propertyValue);
+                valuesTag.setDouble(propertyName, propertyValue);
         } else {
             propertyValue = valuesTag.getDouble(propertyName);
             if (propertyValue == 0)

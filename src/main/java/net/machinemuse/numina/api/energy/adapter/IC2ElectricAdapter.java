@@ -14,7 +14,7 @@ public class IC2ElectricAdapter extends ElectricAdapter {
 
     public IC2ElectricAdapter(final ItemStack stack) {
         this.stack = stack;
-        this.item = (IElectricItem)stack.getItem();
+        this.item = (IElectricItem) stack.getItem();
     }
 
     public ItemStack stack() {

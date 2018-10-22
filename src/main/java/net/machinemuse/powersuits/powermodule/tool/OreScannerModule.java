@@ -41,16 +41,81 @@ import java.util.List;
 import java.util.Map;
 
 public class OreScannerModule extends PowerModuleBase implements IRightClickModule, IPlayerTickModule {
-    private static Map<Map<ResourceLocation, Integer>, Integer> oreValuemap = new HashMap<>();
-    ItemStack scanner = ItemStack.EMPTY;
     static final ResourceLocation scannerCharge = new ResourceLocation("scannable", "scanner_charge");
     static final ResourceLocation scanner_activate = new ResourceLocation("scannable", "scanner_activate");
+    private static Map<Map<ResourceLocation, Integer>, Integer> oreValuemap = new HashMap<>();
+    ItemStack scanner = ItemStack.EMPTY;
 
     public OreScannerModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         scanner = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("scannable", "scanner")));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), scanner);
+    }
+
+    /**
+     * If check if the player is in creative mode or if the player's energy is high enough to do a scan with the installed modules
+     */
+    private static boolean tryConsumeEnergy(final EntityPlayer player, final List<ItemStack> modules, final boolean simulate) {
+        if (player.capabilities.isCreativeMode)
+            return true;
+
+        int playerEnergy = ElectricItemUtils.getPlayerEnergy(player);
+        if (playerEnergy == 0)
+            return false;
+
+        int totalCost = 0;
+        for (final ItemStack module : modules) {
+            totalCost += getModuleEnergyCost(player, module);
+        }
+
+        if (playerEnergy > totalCost) {
+            if (!simulate)
+                ElectricItemUtils.drainPlayerEnergy(player, totalCost);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Calculates the energy cost of a given module using Scannable's values
+     */
+    static int getModuleEnergyCost(final EntityPlayer player, final ItemStack module) {
+        final ScanResultProvider provider = module.getCapability(CapabilityScanResultProvider.SCAN_RESULT_PROVIDER_CAPABILITY, null);
+        if (provider != null) {
+            return provider.getEnergyCost(player, module);
+        }
+
+        if (Items.isModuleRange(module)) {
+            return Settings.getEnergyCostModuleRange();
+        }
+
+        return 0;
+    }
+
+    /**
+     * Aside from returning the boolean, this also populates the module list.
+     * The boolean value indicates whether or not there is any module installed into the scanner that returns a scan result.
+     * Some modules, like the range extender, do not return a scan result, but are still valid modules. So this is probably
+     * the simplest way of doing this.
+     */
+    private static boolean collectModules(final ItemStack stack, final List<ItemStack> modules) {
+        boolean hasProvider = false;
+        final IItemHandler itemHandler = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+        assert itemHandler instanceof ItemHandlerPowerFist;
+        final IItemHandler activeModules = ((ItemHandlerPowerFist) itemHandler).getActiveModules();
+        for (int slot = 0; slot < activeModules.getSlots(); slot++) {
+            final ItemStack module = activeModules.getStackInSlot(slot);
+            if (module.isEmpty()) {
+                continue;
+            }
+
+            modules.add(module);
+            if (module.hasCapability(CapabilityScanResultProvider.SCAN_RESULT_PROVIDER_CAPABILITY, null)) {
+                hasProvider = true;
+            }
+        }
+        return hasProvider;
     }
 
     @Override
@@ -83,7 +148,9 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
         return EnumActionResult.PASS;
     }
 
-    /** Everything below this line ported/copied from li/cil/scannable/common/item/ItemScanner -------------------------------------------------------------------------- */
+    /**
+     * Everything below this line ported/copied from li/cil/scannable/common/item/ItemScanner --------------------------------------------------------------------------
+     */
     @Override
     public ActionResult onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         if (playerIn.isSneaking()) {
@@ -170,70 +237,5 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
 
-    }
-
-    /**
-     * If check if the player is in creative mode or if the player's energy is high enough to do a scan with the installed modules
-     */
-    private static boolean tryConsumeEnergy(final EntityPlayer player, final List<ItemStack> modules, final boolean simulate) {
-        if (player.capabilities.isCreativeMode)
-            return true;
-
-        int playerEnergy = ElectricItemUtils.getPlayerEnergy(player);
-        if (playerEnergy == 0)
-            return false;
-
-        int totalCost = 0;
-        for (final ItemStack module : modules) {
-            totalCost += getModuleEnergyCost(player, module);
-        }
-
-        if (playerEnergy > totalCost) {
-            if (!simulate)
-                ElectricItemUtils.drainPlayerEnergy(player, totalCost);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Calculates the energy cost of a given module using Scannable's values
-     */
-    static int getModuleEnergyCost(final EntityPlayer player, final ItemStack module) {
-        final ScanResultProvider provider = module.getCapability(CapabilityScanResultProvider.SCAN_RESULT_PROVIDER_CAPABILITY, null);
-        if (provider != null) {
-            return provider.getEnergyCost(player, module);
-        }
-
-        if (Items.isModuleRange(module)) {
-            return Settings.getEnergyCostModuleRange();
-        }
-
-        return 0;
-    }
-
-    /**
-     * Aside from returning the boolean, this also populates the module list.
-     * The boolean value indicates whether or not there is any module installed into the scanner that returns a scan result.
-     * Some modules, like the range extender, do not return a scan result, but are still valid modules. So this is probably
-     * the simplest way of doing this.
-     */
-    private static boolean collectModules(final ItemStack stack, final List<ItemStack> modules) {
-        boolean hasProvider = false;
-        final IItemHandler itemHandler = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-        assert itemHandler instanceof ItemHandlerPowerFist;
-        final IItemHandler activeModules = ((ItemHandlerPowerFist) itemHandler).getActiveModules();
-        for (int slot = 0; slot < activeModules.getSlots(); slot++) {
-            final ItemStack module = activeModules.getStackInSlot(slot);
-            if (module.isEmpty()) {
-                continue;
-            }
-
-            modules.add(module);
-            if (module.hasCapability(CapabilityScanResultProvider.SCAN_RESULT_PROVIDER_CAPABILITY, null)) {
-                hasProvider = true;
-            }
-        }
-        return hasProvider;
     }
 }

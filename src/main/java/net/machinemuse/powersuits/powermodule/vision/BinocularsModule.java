@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 1:08 AM, 4/24/13
- *
+ * <p>
  * Ported to Java by lehjr on 10/11/16.
  */
 public class BinocularsModule extends PowerModuleBase implements IToggleableModule {

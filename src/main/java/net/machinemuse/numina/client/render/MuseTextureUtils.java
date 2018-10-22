@@ -8,14 +8,13 @@ import java.util.Stack;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 2:38 PM, 9/6/13
- *
+ * <p>
  * Ported to Java by lehjr on 10/25/16.
  */
 public final class MuseTextureUtils {
-    private static String TEXTURE_MAP = "textures/atlas/blocks.png";
-
-    private static final Stack<String> texturestack = new Stack<>();
     public static final String TEXTURE_QUILT = "textures/atlas/blocks.png";
+    private static final Stack<String> texturestack = new Stack<>();
+    private static String TEXTURE_MAP = "textures/atlas/blocks.png";
 
     static {
         new MuseTextureUtils();

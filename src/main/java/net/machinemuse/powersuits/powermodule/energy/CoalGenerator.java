@@ -53,19 +53,12 @@ public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule,
                     }
 
 
-
-
-
-
-
                     if (ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.MAX_COAL_STORAGE) - CoalGenHelper.getCoalLevel(item) < 1) {
                         i = inv.getSizeInventory() + 1;
                     }
                 }
             }
         }
-
-
 
 
     }

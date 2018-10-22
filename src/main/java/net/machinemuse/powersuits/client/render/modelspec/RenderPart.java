@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 4:16 AM, 29/04/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/6/16.
  */
 @SideOnly(Side.CLIENT)
@@ -34,21 +34,22 @@ public class RenderPart extends ModelRenderer {
     ModelRenderer parent;
 
     public RenderPart(ModelBase base, ModelRenderer parent) {
-        super (base);
+        super(base);
         this.parent = parent;
     }
+
     @Override
     public void render(float scale) {
-        NBTTagCompound renderSpec = ((IArmorModel)(ArmorModelInstance.getInstance())).getRenderSpec();
+        NBTTagCompound renderSpec = ((IArmorModel) (ArmorModelInstance.getInstance())).getRenderSpec();
         int[] colours = renderSpec.getIntArray(NuminaNBTConstants.TAG_COLOURS);
 
         int partColor;
         for (NBTTagCompound nbt : NBTTagAccessor.getValues(renderSpec)) {
             PartSpecBase part = ModelRegistry.getInstance().getPart(nbt);
-            if (part !=null && part instanceof ModelPartSpec) {
-                if (part.binding.getSlot() == ((IArmorModel)(ArmorModelInstance.getInstance())).getVisibleSection()
+            if (part != null && part instanceof ModelPartSpec) {
+                if (part.binding.getSlot() == ((IArmorModel) (ArmorModelInstance.getInstance())).getVisibleSection()
                         && part.binding.getTarget().apply(ArmorModelInstance.getInstance()) == parent) {
-                    List<BakedQuad> quadList = ((ModelPartSpec)part).getQuads();
+                    List<BakedQuad> quadList = ((ModelPartSpec) part).getQuads();
                     if (!quadList.isEmpty()) {
                         int ix = part.getColourIndex(nbt);
 
@@ -57,7 +58,7 @@ public class RenderPart extends ModelRenderer {
                         else partColor = Colour.WHITE.getInt();
 
                         // GLOW stuff on
-                        if (((ModelPartSpec)part).getGlow(nbt))
+                        if (((ModelPartSpec) part).getGlow(nbt))
                             RenderState.glowOn();
 
                         GlStateManager.pushMatrix();
@@ -68,7 +69,7 @@ public class RenderPart extends ModelRenderer {
                         BufferBuilder buffer = tess.getBuffer();
                         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.ITEM);
 
-                        for (BakedQuad quad : ((ModelPartSpec)part).getQuads()) {
+                        for (BakedQuad quad : ((ModelPartSpec) part).getQuads()) {
                             buffer.addVertexData(quad.getVertexData());
                             ForgeHooksClient.putQuadColor(buffer, quad, partColor);
                         }
@@ -77,7 +78,7 @@ public class RenderPart extends ModelRenderer {
                         GlStateManager.popMatrix();
 
                         //Glow stuff off
-                        if (((ModelPartSpec)part).getGlow(nbt))
+                        if (((ModelPartSpec) part).getGlow(nbt))
                             RenderState.glowOff();
                     }
                 }

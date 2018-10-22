@@ -38,7 +38,6 @@ public final class MPSCapProvider implements ICapabilityProvider {
         // todo: fluid handler for the personal shrinking module
 
 
-
         if (container.getItem() instanceof ItemPowerArmorChestplate)
             chestPlateFluidHandler = new MPSChestPlateFluidHandler(container, ModuleManager.INSTANCE);
 
@@ -46,11 +45,7 @@ public final class MPSCapProvider implements ICapabilityProvider {
         // todo: fluid handlers for cooling system modules
 
 
-
-
-
     }
-
 
 
     @Override
@@ -68,7 +63,6 @@ public final class MPSCapProvider implements ICapabilityProvider {
 
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
             return chestPlateFluidHandler != null;
-
 
 
         return false;

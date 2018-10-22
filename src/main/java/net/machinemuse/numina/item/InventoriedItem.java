@@ -12,9 +12,9 @@ import java.util.List;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 8:00 PM, 9/3/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/1/16.
- *
+ * <p>
  * This will only slightly break Anima!
  */
 public class InventoriedItem implements IInventoriedItem {
@@ -24,13 +24,12 @@ public class InventoriedItem implements IInventoriedItem {
     }
 
     @Override
-    public int getSelectedSlot( ItemStack stack) {
+    public int getSelectedSlot(ItemStack stack) {
         NBTTagCompound tag = MuseNBTUtils.getNBTTag(stack);
         int integer;
         if (tag.hasKey("selected")) {
             integer = tag.getInteger("selected");
-        }
-        else {
+        } else {
             tag.setInteger("selected", 0);
             integer = 0;
         }
@@ -49,10 +48,9 @@ public class InventoriedItem implements IInventoriedItem {
         NBTTagList tagList;
         if (tag.hasKey("contents")) {
             tagList = tag.getTagList("contents", 10);
-        }
-        else {
+        } else {
             NBTTagList list = new NBTTagList();
-            tag.setTag("contents", (NBTBase)list);
+            tag.setTag("contents", (NBTBase) list);
             tagList = list;
         }
         return tagList;

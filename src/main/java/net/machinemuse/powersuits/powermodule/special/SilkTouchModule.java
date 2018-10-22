@@ -19,6 +19,7 @@ import net.minecraft.item.ItemStack;
 
 public class SilkTouchModule extends PowerModuleBase implements IEnchantmentModule, IToggleableModule {
     final ItemStack book;
+
     public SilkTouchModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         book = new ItemStack(Items.ENCHANTED_BOOK);

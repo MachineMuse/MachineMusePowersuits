@@ -58,7 +58,7 @@ import java.util.List;
  * Describes the modular power tool.
  *
  * @author MachineMuse
- *
+ * <p>
  * Ported to Java by lehjr on 10/26/16.
  */
 
@@ -139,7 +139,7 @@ public class ItemPowerFist extends MPSItemElectricTool
             int playerEnergy = ElectricItemUtils.getPlayerEnergy((EntityPlayer) entityLiving);
             for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IBlockBreakingModule.class)) {
                 if (ModuleManager.INSTANCE.itemHasActiveModule(stack, module.getDataName())) {
-                    if (((IBlockBreakingModule)module).onBlockDestroyed(stack, worldIn, state, pos, entityLiving, playerEnergy)) {
+                    if (((IBlockBreakingModule) module).onBlockDestroyed(stack, worldIn, state, pos, entityLiving, playerEnergy)) {
                         return true;
                     }
                 }
@@ -173,7 +173,9 @@ public class ItemPowerFist extends MPSItemElectricTool
         return true;
     }
 
-    /** Enchantments ----------------------------------------------------------------------- */
+    /**
+     * Enchantments -----------------------------------------------------------------------
+     */
     // TODO: for enchantment modules
     @Override
     public boolean hasEffect(ItemStack stack) {
@@ -266,7 +268,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         String mode = this.getActiveMode(itemStack);
         IPowerModule module = ModuleManager.INSTANCE.getModule(mode);
         if (module != null)
-            ((IRightClickModule)module).onPlayerStoppedUsing(itemStack, worldIn, entityLiving, timeLeft);
+            ((IRightClickModule) module).onPlayerStoppedUsing(itemStack, worldIn, entityLiving, timeLeft);
     }
 
     @Override
@@ -280,7 +282,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         String mode = this.getActiveMode(itemStack);
         IPowerModule module = ModuleManager.INSTANCE.getModule(mode);
         if (module instanceof IRightClickModule)
-            return ((IRightClickModule)module).onItemUseFirst(itemStack, player, world, pos, side, hitX, hitY, hitZ, hand);
+            return ((IRightClickModule) module).onItemUseFirst(itemStack, player, world, pos, side, hitX, hitY, hitZ, hand);
         return EnumActionResult.PASS;
     }
 
@@ -290,7 +292,7 @@ public class ItemPowerFist extends MPSItemElectricTool
         String mode = this.getActiveMode(itemStack);
         IPowerModule module = ModuleManager.INSTANCE.getModule(mode);
         if (module instanceof IRightClickModule) {
-            return ((IRightClickModule)module).onItemUse(itemStack, player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+            return ((IRightClickModule) module).onItemUse(itemStack, player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
         }
         return EnumActionResult.PASS;
     }
@@ -307,10 +309,10 @@ public class ItemPowerFist extends MPSItemElectricTool
 
     // The Item/ItemTool version doesn't give us the player, so we can't override that.
     public boolean canHarvestBlock(ItemStack stack, IBlockState state, EntityPlayer player, BlockPos pos, int playerEnergy) {
-        if(state.getMaterial().isToolNotRequired())
+        if (state.getMaterial().isToolNotRequired())
             return true;
         for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IBlockBreakingModule.class)) {
-            if (ModuleManager.INSTANCE.itemHasActiveModule(stack, module.getDataName()) && ((IBlockBreakingModule)module).canHarvestBlock(stack, state, player, pos, playerEnergy)  ) {
+            if (ModuleManager.INSTANCE.itemHasActiveModule(stack, module.getDataName()) && ((IBlockBreakingModule) module).canHarvestBlock(stack, state, player, pos, playerEnergy)) {
                 return true;
             }
         }
@@ -322,6 +324,7 @@ public class ItemPowerFist extends MPSItemElectricTool
     public boolean isUsable(ItemStack itemStack, EntityLivingBase entityLivingBase, Entity entity) {
         return entityLivingBase instanceof EntityPlayer && this.getActiveMode(itemStack).equals(MPSModuleConstants.MODULE_OMNI_WRENCH__DATANAME);
     }
+
     /* TE Crescent Hammer */
     @Override
     public boolean isUsable(ItemStack itemStack, EntityLivingBase entityLivingBase, BlockPos blockPos) {
@@ -459,7 +462,7 @@ public class ItemPowerFist extends MPSItemElectricTool
     @Override
     public boolean showDurabilityBar(final ItemStack stack) {
         int capacity = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
-        if (capacity> 0)
+        if (capacity > 0)
             return true;
         return false;
     }
@@ -467,8 +470,8 @@ public class ItemPowerFist extends MPSItemElectricTool
     @Override
     public double getDurabilityForDisplay(final ItemStack stack) {
         int capacity = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
-        int energy =  Math.min(capacity, (int) Math.round(MuseItemUtils.getDoubleOrZero(stack, NuminaNBTConstants.CURRENT_ENERGY)));
-        return 1 - energy/(float) capacity;
+        int energy = Math.min(capacity, (int) Math.round(MuseItemUtils.getDoubleOrZero(stack, NuminaNBTConstants.CURRENT_ENERGY)));
+        return 1 - energy / (float) capacity;
     }
 
     @Override

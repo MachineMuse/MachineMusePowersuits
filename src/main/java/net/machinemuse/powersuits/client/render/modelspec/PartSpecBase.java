@@ -22,7 +22,7 @@ public abstract class PartSpecBase {
         this.partName = partName;
         this.binding = binding;
         if (defaultcolourindex != null && defaultcolourindex >= 0)
-            this.defaultcolourindex =  defaultcolourindex;
+            this.defaultcolourindex = defaultcolourindex;
         else
             this.defaultcolourindex = 0;
     }

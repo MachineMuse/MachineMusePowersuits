@@ -31,10 +31,10 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
         addBasePropertyDouble(MPSModuleConstants.RAILGUN_TOTAL_IMPULSE, 500, "Ns");
         addBasePropertyDouble(MPSModuleConstants.RAILGUN_ENERGY_COST, 5000, "RF");
-        addBasePropertyDouble(MPSModuleConstants.RAILGUN_HEAT_EMISSION , 2, "");
+        addBasePropertyDouble(MPSModuleConstants.RAILGUN_HEAT_EMISSION, 2, "");
         addTradeoffPropertyDouble("Voltage", MPSModuleConstants.RAILGUN_TOTAL_IMPULSE, 2500);
         addTradeoffPropertyDouble("Voltage", MPSModuleConstants.RAILGUN_ENERGY_COST, 25000);
-        addTradeoffPropertyDouble("Voltage", MPSModuleConstants.RAILGUN_HEAT_EMISSION , 10);
+        addTradeoffPropertyDouble("Voltage", MPSModuleConstants.RAILGUN_HEAT_EMISSION, 10);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
 
     @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        if ( hand == EnumHand.MAIN_HAND ) {
+        if (hand == EnumHand.MAIN_HAND) {
             double range = 64;
             double timer = MuseItemUtils.getDoubleOrZero(itemStackIn, MPSModuleConstants.TIMER);
             double energyConsumption = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.RAILGUN_ENERGY_COST);

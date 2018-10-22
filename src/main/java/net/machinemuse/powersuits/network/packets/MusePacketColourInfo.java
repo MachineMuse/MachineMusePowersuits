@@ -14,7 +14,7 @@ import net.minecraft.nbt.NBTTagCompound;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 12:28 PM, 5/6/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/14/16.
  */
 public class MusePacketColourInfo extends MusePacket {
@@ -26,6 +26,10 @@ public class MusePacketColourInfo extends MusePacket {
         this.player = player;
         this.itemSlot = itemSlot;
         this.tagData = tagData;
+    }
+
+    public static MusePacketColourInfoPackager getPackagerInstance() {
+        return MusePacketColourInfoPackager.INSTANCE;
     }
 
     @Override
@@ -46,10 +50,6 @@ public class MusePacketColourInfo extends MusePacket {
             NBTTagCompound renderTag = MPSNBTUtils.getMuseRenderTag(stack);
             renderTag.setIntArray(NuminaNBTConstants.TAG_COLOURS, tagData);
         }
-    }
-
-    public static MusePacketColourInfoPackager getPackagerInstance() {
-        return MusePacketColourInfoPackager.INSTANCE;
     }
 
     public enum MusePacketColourInfoPackager implements IMusePackager {

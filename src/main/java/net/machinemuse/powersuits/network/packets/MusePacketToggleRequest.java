@@ -10,17 +10,22 @@ import net.minecraft.entity.player.EntityPlayerMP;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 12:28 PM, 5/6/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/14/16.
  */
-public class MusePacketToggleRequest extends MusePacket{
+public class MusePacketToggleRequest extends MusePacket {
     EntityPlayer player;
     String module;
     Boolean active;
+
     public MusePacketToggleRequest(EntityPlayer player, String module, Boolean active) {
-        this.player= player;
+        this.player = player;
         this.module = module;
         this.active = active;
+    }
+
+    public static MusePacketToggleRequestPackager getPackagerInstance() {
+        return MusePacketToggleRequestPackager.INSTANCE;
     }
 
     @Override
@@ -39,12 +44,9 @@ public class MusePacketToggleRequest extends MusePacket{
         ModuleManager.INSTANCE.toggleModuleForPlayer(player, module, active);
     }
 
-    public static MusePacketToggleRequestPackager getPackagerInstance() {
-        return MusePacketToggleRequestPackager.INSTANCE;
-    }
-
     public enum MusePacketToggleRequestPackager implements IMusePackager {
         INSTANCE;
+
         @Override
         public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
             String module = readString(datain);

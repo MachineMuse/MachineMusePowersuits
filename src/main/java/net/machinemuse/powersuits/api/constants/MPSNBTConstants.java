@@ -5,5 +5,4 @@ public class MPSNBTConstants {
     public static final String NBT_SPECLIST_TAG = "specList";
 
 
-
 }

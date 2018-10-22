@@ -43,7 +43,7 @@ public class MPSNBTUtils {
         try {
             TexturePartSpec partSpec = (TexturePartSpec) ModelRegistry.getInstance().getPart(renderTag.getCompoundTag(MPSNBTConstants.NBT_TEXTURESPEC_TAG));
             return partSpec.getTextureLocation();
-        } catch (Exception ignored ) {
+        } catch (Exception ignored) {
             return MPSResourceConstants.BLANK_ARMOR_MODEL_PATH;
         }
     }

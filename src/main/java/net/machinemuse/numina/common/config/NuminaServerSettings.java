@@ -29,8 +29,8 @@ public class NuminaServerSettings {
 
     public NuminaServerSettings(final ByteBufInputStream datain) {
         mekRatio = MusePackager.INSTANCE.readDouble(datain);
-        ic2Ratio= MusePackager.INSTANCE.readDouble(datain);
-        rsRatio= MusePackager.INSTANCE.readDouble(datain);
+        ic2Ratio = MusePackager.INSTANCE.readDouble(datain);
+        rsRatio = MusePackager.INSTANCE.readDouble(datain);
         ae2Ratio = MusePackager.INSTANCE.readDouble(datain);
 
         maxTier1 = MusePackager.INSTANCE.readInt(datain);

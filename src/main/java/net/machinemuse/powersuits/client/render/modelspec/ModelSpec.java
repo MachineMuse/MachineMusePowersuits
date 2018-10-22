@@ -12,7 +12,7 @@ import java.util.Optional;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 7:44 AM, 4/28/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/8/16.
  */
 public class ModelSpec extends SpecBase {
@@ -40,8 +40,8 @@ public class ModelSpec extends SpecBase {
 
     @Override
     public String getOwnName() {
-            String name = ModelRegistry.getInstance().getName(this);
-            return (name != null) ? name : "";
+        String name = ModelRegistry.getInstance().getName(this);
+        return (name != null) ? name : "";
     }
 
     public OBJModelPlus.OBJBakedModelPus getModel() {

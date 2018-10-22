@@ -17,8 +17,8 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class EntityPlasmaBolt extends EntityThrowable implements IEntityAdditionalSpawnData {
-    public double size;
     public static final int SIZE = 24;
+    public double size;
     public double damagingness;
     public double explosiveness;
     public Entity shootingEntity;

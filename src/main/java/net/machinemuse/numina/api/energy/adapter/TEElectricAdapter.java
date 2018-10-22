@@ -12,7 +12,7 @@ public class TEElectricAdapter extends ElectricAdapter {
 
     public TEElectricAdapter(final ItemStack stack) {
         this.stack = stack;
-        this.item = (IEnergyContainerItem)stack.getItem();
+        this.item = (IEnergyContainerItem) stack.getItem();
     }
 
     public ItemStack stack() {

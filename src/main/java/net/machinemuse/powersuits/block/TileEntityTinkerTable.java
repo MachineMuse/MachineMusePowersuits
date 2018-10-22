@@ -7,7 +7,7 @@ import net.minecraft.util.EnumFacing;
 
 /**
  * @author MachineMuse
- *
+ * <p>
  * Ported to Java by lehjr on 10/21/16.
  */
 public class TileEntityTinkerTable extends MuseTileEntity {
@@ -25,6 +25,10 @@ public class TileEntityTinkerTable extends MuseTileEntity {
         return (this.facing != null) ? this.facing : EnumFacing.NORTH;
     }
 
+    public void setFacing(EnumFacing facing) {
+        this.facing = facing;
+    }
+
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
@@ -40,9 +44,5 @@ public class TileEntityTinkerTable extends MuseTileEntity {
         } else {
             MuseLogger.logDebug("No NBT found! D:");
         }
-    }
-
-    public void setFacing(EnumFacing facing) {
-        this.facing = facing;
     }
 }

@@ -7,6 +7,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
  */
 public class ItemPowerArmorLeggings extends ItemPowerArmor {
     public final EntityEquipmentSlot armorType;
+
     public ItemPowerArmorLeggings() {
         super(0, EntityEquipmentSlot.LEGS);
         this.setUnlocalizedName("powerArmorLeggings");

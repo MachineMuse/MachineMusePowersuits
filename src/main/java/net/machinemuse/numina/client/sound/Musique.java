@@ -19,7 +19,7 @@ import java.util.HashMap;
 
 /**
  * Created by Claire on 8/27/2015.
- *
+ * <p>
  * Ported to Java by lehjr on 10/22/16.
  */
 @SideOnly(Side.CLIENT)
@@ -30,10 +30,6 @@ public class Musique {
     @SideOnly(value = Side.CLIENT)
     public static SoundHandler mcsound() {
         return Minecraft.getMinecraft().getSoundHandler();
-    }
-
-    public GameSettings options() {
-        return Minecraft.getMinecraft().gameSettings;
     }
 
     public static void playClientSound(SoundEvent soundEvt, SoundCategory categoryIn, float volumeIn, BlockPos posIn) {
@@ -110,5 +106,9 @@ public class Musique {
             }
             soundMap.remove(soundEvt);
         }
+    }
+
+    public GameSettings options() {
+        return Minecraft.getMinecraft().gameSettings;
     }
 }

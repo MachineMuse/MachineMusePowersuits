@@ -50,7 +50,7 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
         playerIn.setActiveHand(hand);
         if (!worldIn.isRemote) {
             double energyConsumption = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.LUX_CAPACITOR_ENERGY_CONSUMPTION);
-             MuseHeatUtils.heatPlayer(playerIn, energyConsumption / 500);
+            MuseHeatUtils.heatPlayer(playerIn, energyConsumption / 500);
             if (ElectricItemUtils.getPlayerEnergy(playerIn) > energyConsumption) {
                 ElectricItemUtils.drainPlayerEnergy(playerIn, (int) energyConsumption);
 

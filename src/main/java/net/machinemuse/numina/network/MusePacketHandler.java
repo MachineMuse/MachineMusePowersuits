@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * @author MachineMuse
- *
+ * <p>
  * Ported to Java by lehjr on 10/23/16.
  */
 @ChannelHandler.Sharable
@@ -35,6 +35,12 @@ public final class MusePacketHandler extends MessageToMessageCodec<FMLProxyPacke
     public static BiMap<Integer, IMusePackager> packagers;
     public static EnumMap<Side, FMLEmbeddedChannel> channels;
     private volatile static MusePacketHandler INSTANCE;
+
+    private MusePacketHandler() {
+        this.networkChannelName = "Numina";
+        this.packagers = Maps.synchronizedBiMap(HashBiMap.create());
+        this.channels = NetworkRegistry.INSTANCE.newChannel(this.networkChannelName, this);
+    }
 
     public static MusePacketHandler getInstance() {
         if (INSTANCE == null) {
@@ -47,17 +53,11 @@ public final class MusePacketHandler extends MessageToMessageCodec<FMLProxyPacke
         return INSTANCE;
     }
 
-    private MusePacketHandler() {
-        this.networkChannelName = "Numina";
-        this.packagers = Maps.synchronizedBiMap(HashBiMap.create());
-        this.channels = NetworkRegistry.INSTANCE.newChannel(this.networkChannelName, this);
-    }
-
     public void addPackager(IMusePackager packagerIn) {
         // checks the map to see if the packager is already listed
         if (!packagers.inverse().containsKey(packagerIn)) {
             packagers.put(packagers.size(), packagerIn);
-            }
+        }
     }
 
     public void encode(ChannelHandlerContext ctx, MusePacket msg, List<Object> out) {
@@ -93,7 +93,7 @@ public final class MusePacketHandler extends MessageToMessageCodec<FMLProxyPacke
                 MusePacket packetClient = packagerClient.read(data, player);
                 packetClient.handleClient(player);
             }
-        }catch (Exception exception) {
+        } catch (Exception exception) {
             MuseLogger.logException("PROBLEM READING PACKET IN DECODE STEP D:", exception);
         }
     }

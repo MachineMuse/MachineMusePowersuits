@@ -27,16 +27,31 @@ import java.util.TreeMap;
 public enum MPSConfig {
     INSTANCE;
 
-    /** Config folder ----------------------------------------------------------------------------- */
+    /**
+     * Creative tab ------------------------------------------------------------------------------
+     */
+    public static CreativeTabs mpsCreativeTab = new MPSCreativeTab();
+    /**
+     * Server side settings setup ----------------------------------------------------------------
+     */
+    private static MPSServerSettings serverSettings;
+    /**
+     * The annotation based config system lacks the ability to handle entries not set at runtime.
+     * Writes the missing values to a file
+     */
+    Map<String, Double> missingModuleDoubles = new HashMap<>();
+    /**
+     * The annotation based config system lacks the ability to handle entries not set at runtime.
+     * Writes the missing values to a file
+     */
+    Map<String, Integer> missingModuleIntegers = new HashMap<>();
+
+    /**
+     * Config folder -----------------------------------------------------------------------------
+     */
     @Nullable
     public static File getConfigFolder() {
         return Numina.INSTANCE.configDir;
-    }
-
-    /** Server side settings setup ---------------------------------------------------------------- */
-    private static MPSServerSettings serverSettings;
-    public static void setServerSettings(@Nullable final MPSServerSettings serverSettingsIn) {
-        serverSettings = serverSettingsIn;
     }
 
     @Nullable
@@ -44,11 +59,56 @@ public enum MPSConfig {
         return serverSettings;
     }
 
+    public static void setServerSettings(@Nullable final MPSServerSettings serverSettingsIn) {
+        serverSettings = serverSettingsIn;
+    }
 
-    /** Creative tab ------------------------------------------------------------------------------ */
-    public static CreativeTabs mpsCreativeTab = new MPSCreativeTab();
+    // Server side settings
+    public static double getMaximumFlyingSpeedmps() {
+        return getServerSettings() != null ? getServerSettings().maximumFlyingSpeedmps : MPSSettings.general.getMaximumFlyingSpeedmps;
+    }
 
-    /** HUD Settings ------------------------------------------------------------------------------ */
+    public static boolean useOldAutoFeeder() {
+        return getServerSettings() != null ? getServerSettings().useOldAutoFeeder : MPSSettings.general.useOldAutoFeeder;
+    }
+
+    public static double getMaximumArmorPerPiece() {
+        return getServerSettings() != null ? getServerSettings().maximumArmorPerPiece : MPSSettings.general.getMaximumArmorPerPiece;
+    }
+
+    public static int rfValueOfComponent(@Nonnull ItemStack stackInCost) {
+        if (!stackInCost.isEmpty() && stackInCost.getItem() instanceof ItemComponent) {
+            switch (stackInCost.getItemDamage() - ItemComponent.lvcapacitor.getItemDamage()) {
+                case 0:
+                    return 200000 * stackInCost.getCount();
+                case 1:
+                    return 1000000 * stackInCost.getCount();
+                case 2:
+                    return 7500000 * stackInCost.getCount();
+                case 3:
+                    return 10000000 * stackInCost.getCount();
+                default:
+                    return 0;
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * Models ------------------------------------------------------------------------------------
+     */
+    public static boolean allowHighPollyArmorModels() {
+//        return getServerSettings() != null ? getServerSettings().allowHighPollyArmorModels : MPSSettings.modelconfig.allowHighPollyArmorModels;
+        return true;
+    }
+
+    public static boolean doAdditionalInfo() {
+        return FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT && Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
+    }
+
+    /**
+     * HUD Settings ------------------------------------------------------------------------------
+     */
     public boolean useHUDStuff() {
         return MPSSettings.hud.useHUDStuff;
     }
@@ -73,7 +133,9 @@ public enum MPSConfig {
         return MPSSettings.hud.useGraphicalMeters;
     }
 
-    /** General ----------------------------------------------------------------------------------- */
+    /**
+     * General -----------------------------------------------------------------------------------
+     */
     // Client side settings
     public boolean use24hClock() {
         return MPSSettings.general.use24hClock;
@@ -83,19 +145,6 @@ public enum MPSConfig {
         return MPSSettings.general.allowConflictingKeybinds;
     }
 
-    // Server side settings
-    public static double getMaximumFlyingSpeedmps() {
-        return getServerSettings() != null ? getServerSettings().maximumFlyingSpeedmps : MPSSettings.general.getMaximumFlyingSpeedmps;
-    }
-
-    public static boolean useOldAutoFeeder() {
-        return getServerSettings() != null ? getServerSettings().useOldAutoFeeder : MPSSettings.general.useOldAutoFeeder;
-    }
-
-    public static double getMaximumArmorPerPiece() {
-        return getServerSettings() != null ? getServerSettings().maximumArmorPerPiece : MPSSettings.general.getMaximumArmorPerPiece;
-    }
-
     // TODO: 100%
     public double getSalvageChance() {
         return getServerSettings() != null ? getServerSettings().getSalvageChance : MPSSettings.general.getSalvageChance;
@@ -103,7 +152,7 @@ public enum MPSConfig {
 
     public double getBaseMaxHeat(@Nonnull ItemStack itemStack) {
         if (itemStack.getItem() instanceof ItemPowerFist) {
-           return getServerSettings() != null ? getServerSettings().baseMaxHeatPowerFist : MPSSettings.general.baseMaxHeatPowerFist;
+            return getServerSettings() != null ? getServerSettings().baseMaxHeatPowerFist : MPSSettings.general.baseMaxHeatPowerFist;
         }
 
         if (itemStack.getItem() instanceof ItemPowerArmorHelmet) {
@@ -124,10 +173,36 @@ public enum MPSConfig {
             return getServerSettings() != null ? getServerSettings().baseMaxHeatFeet : MPSSettings.general.baseMaxHeatFeet;
         }
 
-       return 0;
+        return 0;
     }
 
-    /** Modules ----------------------------------------------------------------------------------- */
+    public double getMaxModules(@Nonnull ItemStack itemStack) {
+        if (itemStack.getItem() instanceof ItemPowerFist) {
+            return getServerSettings() != null ? getServerSettings().maxModulesPowerFist: MPSSettings.general.maxModulesPowerFist;
+        }
+
+        if (itemStack.getItem() instanceof ItemPowerArmorHelmet) {
+            return getServerSettings() != null ? getServerSettings().maxModulesHelmet: MPSSettings.general.maxModulesHelmet;
+        }
+
+        if (itemStack.getItem() instanceof ItemPowerArmorChestplate) {
+            return getServerSettings() != null ? getServerSettings().maxModulesChestplate : MPSSettings.general.maxModulesChestplate;
+        }
+
+        if (itemStack.getItem() instanceof ItemPowerArmorLeggings) {
+            return getServerSettings() != null ? getServerSettings().maxModulesLeggings : MPSSettings.general.maxModulesLeggings ;
+        }
+
+        if (itemStack.getItem() instanceof ItemPowerArmorBoots) {
+            return getServerSettings() != null ? getServerSettings().maxModulesFeet : MPSSettings.general.maxModulesFeet;
+        }
+
+        return 0;
+    }
+
+    /**
+     * Modules -----------------------------------------------------------------------------------
+     */
     public boolean getModuleAllowedorDefault(String name, boolean allowed) {
         return getServerSettings() != null ? getServerSettings().allowedModules.getOrDefault(name, allowed) : MPSSettings.modules.allowedModules.getOrDefault(name, allowed);
     }
@@ -181,38 +256,6 @@ public enum MPSConfig {
         }
     }
 
-
-    public static int rfValueOfComponent(@Nonnull ItemStack stackInCost) {
-        if (!stackInCost.isEmpty() && stackInCost.getItem() instanceof ItemComponent) {
-            switch(stackInCost.getItemDamage() - ItemComponent.lvcapacitor.getItemDamage()) {
-                case 0:
-                    return 200000 * stackInCost.getCount();
-                case 1:
-                    return 1000000 * stackInCost.getCount();
-                case 2:
-                    return 7500000 * stackInCost.getCount();
-                case 3:
-                    return 10000000 * stackInCost.getCount();
-                default:
-                    return 0;
-            }
-        }
-        return 0;
-    }
-
-
-
-    /** Models ------------------------------------------------------------------------------------ */
-    public static boolean allowHighPollyArmorModels() {
-//        return getServerSettings() != null ? getServerSettings().allowHighPollyArmorModels : MPSSettings.modelconfig.allowHighPollyArmorModels;
-        return true;
-    }
-
-    /**
-     * The annotation based config system lacks the ability to handle entries not set at runtime.
-     * Writes the missing values to a file
-     */
-    Map<String, Double> missingModuleDoubles = new HashMap<>();
     public void configDoubleKVGen() {
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -222,17 +265,12 @@ public enum MPSConfig {
 
         try {
             FileUtils.writeStringToFile(new File(getConfigFolder(), "missingConfigDoubles.txt"), stringBuilder.toString(), Charset.defaultCharset(), false);
-            } catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return;
     }
 
-    /**
-     * The annotation based config system lacks the ability to handle entries not set at runtime.
-     * Writes the missing values to a file
-     */
-    Map<String, Integer> missingModuleIntegers = new HashMap<>();
     public void configIntegerKVGen() {
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -246,10 +284,5 @@ public enum MPSConfig {
             e.printStackTrace();
         }
         return;
-    }
-
-
-    public static boolean doAdditionalInfo() {
-        return FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT && Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
     }
 }

@@ -15,16 +15,16 @@ import java.io.File;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 6:06 AM, 6/18/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/15/16.
  */
 @Mod(modid = NuminaConstants.MODID, version = NuminaConstants.VERSION, name = NuminaConstants.NAME)
 public enum Numina {
     INSTANCE;
 
+    public static File configDir = null;
     @SidedProxy(clientSide = "net.machinemuse.numina.common.proxy.ClientProxy", serverSide = "net.machinemuse.numina.common.proxy.ServerProxy")
     static CommonProxy proxy;
-    public static File configDir = null;
 
     @Nonnull
     @Mod.InstanceFactory

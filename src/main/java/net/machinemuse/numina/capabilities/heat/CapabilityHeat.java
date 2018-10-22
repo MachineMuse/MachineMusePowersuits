@@ -23,8 +23,8 @@ public class CapabilityHeat {
                     public NBTBase writeNBT(Capability<IHeatStorage> capability, IHeatStorage instance, EnumFacing side) {
                         NBTTagCompound nbtOut = new NBTTagCompound();
                         if (instance.getHeatStored() > 0)
-                            nbtOut.setDouble(NuminaNBTConstants.CURRENT_HEAT, ((HeatStorage)instance).heat);
-                        nbtOut.setDouble(NuminaNBTConstants.MAXIMUM_HEAT, ((HeatStorage)instance).capacity);
+                            nbtOut.setDouble(NuminaNBTConstants.CURRENT_HEAT, ((HeatStorage) instance).heat);
+                        nbtOut.setDouble(NuminaNBTConstants.MAXIMUM_HEAT, ((HeatStorage) instance).capacity);
                         return nbtOut;
                     }
 
@@ -33,11 +33,11 @@ public class CapabilityHeat {
                         if (!(instance instanceof HeatStorage))
                             throw new IllegalArgumentException("Can not deserialize to an instance that isn't the default implementation");
 
-                        if (((NBTTagCompound)nbt).hasKey(NuminaNBTConstants.CURRENT_HEAT, Constants.NBT.TAG_DOUBLE))
-                            ((HeatStorage)instance).heat = ((NBTTagCompound)nbt).getDouble(NuminaNBTConstants.CURRENT_HEAT);
+                        if (((NBTTagCompound) nbt).hasKey(NuminaNBTConstants.CURRENT_HEAT, Constants.NBT.TAG_DOUBLE))
+                            ((HeatStorage) instance).heat = ((NBTTagCompound) nbt).getDouble(NuminaNBTConstants.CURRENT_HEAT);
                         else
-                            ((HeatStorage)instance).heat = 0;
-                        ((HeatStorage)instance).capacity = ((NBTTagCompound)nbt).getDouble(NuminaNBTConstants.MAXIMUM_HEAT);
+                            ((HeatStorage) instance).heat = 0;
+                        ((HeatStorage) instance).capacity = ((NBTTagCompound) nbt).getDouble(NuminaNBTConstants.MAXIMUM_HEAT);
                     }
                 },
                 () -> new HeatStorage(1000));

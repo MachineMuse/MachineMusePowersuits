@@ -30,7 +30,8 @@ import net.minecraft.world.World;
     TODO: the mechanics have changed a bit. This module will req
  */
 public class PersonalShrinkingModule extends PowerModuleBase implements IRightClickModule, IPlayerTickModule {
-    private final ItemStack cpmPSD = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("cm2", "psd")), 1);
+    private final ItemStack cpmPSD = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("cm2", "psd")), 1);
+
     public PersonalShrinkingModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         NBTTagCompound nbt = new NBTTagCompound();

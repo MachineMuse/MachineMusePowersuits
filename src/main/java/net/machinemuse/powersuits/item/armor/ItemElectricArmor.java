@@ -30,7 +30,7 @@ public abstract class ItemElectricArmor extends ItemArmor implements IModularIte
 
     @Override
     public boolean hasColor(@Nonnull ItemStack stack) {
-        return true ;
+        return true;
     }
 
     @Override

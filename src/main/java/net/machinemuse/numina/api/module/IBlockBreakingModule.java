@@ -12,7 +12,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import javax.annotation.Nonnull;
 
 public interface IBlockBreakingModule extends IPowerModule {
-    default boolean canHarvestBlock(@Nonnull ItemStack stack, IBlockState state, EntityPlayer player, BlockPos pos, int playerEnergy){
+    default boolean canHarvestBlock(@Nonnull ItemStack stack, IBlockState state, EntityPlayer player, BlockPos pos, int playerEnergy) {
         if (playerEnergy >= this.getEnergyUsage(stack) && ToolHelpers.isToolEffective(player.getEntityWorld(), pos, getEmulatedTool()))
             return true;
         return false;

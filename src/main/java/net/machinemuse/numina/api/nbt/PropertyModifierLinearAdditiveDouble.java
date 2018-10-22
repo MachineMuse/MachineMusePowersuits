@@ -4,8 +4,8 @@ import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class PropertyModifierLinearAdditiveDouble implements IPropertyModifierDouble {
-    public double multiplier;
     public final String tradeoffName;
+    public double multiplier;
 
     public PropertyModifierLinearAdditiveDouble(String tradeoffName, double multiplier) {
         this.multiplier = multiplier;

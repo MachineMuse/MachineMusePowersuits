@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 2:52 PM, 9/6/13
- *
+ * <p>
  * Ported to Java by lehjr on 10/10/16.
  */
 public class GradientAndArcCalculator {
@@ -29,7 +29,7 @@ public class GradientAndArcCalculator {
         // roughly 8 vertices per Minecraft 'pixel' - should result in at least
         // 2 vertices per real pixel on the screen.
 //        int numVertices = (int) Math.ceil(Math.abs((endangle - startangle) * 16 * Math.PI)); // getValue from wayyyyy back early on
-        int numVertices =  (int) Math.ceil(Math.abs((endangle - startangle) * 2 * Math.PI));
+        int numVertices = (int) Math.ceil(Math.abs((endangle - startangle) * 2 * Math.PI));
         double theta = (endangle - startangle) / numVertices;
         DoubleBuffer buffer = BufferUtils.createDoubleBuffer(numVertices * 3);
 
@@ -64,9 +64,9 @@ public class GradientAndArcCalculator {
      *
      * @return A list of num points
      */
-    public static List<MusePoint2D> pointsInLine(int num, MusePoint2D a, MusePoint2D b){
+    public static List<MusePoint2D> pointsInLine(int num, MusePoint2D a, MusePoint2D b) {
         List<MusePoint2D> points = new ArrayList<>();
-        switch(num) {
+        switch (num) {
             case -1:
                 break;
             case 0:
@@ -76,7 +76,7 @@ public class GradientAndArcCalculator {
                 break;
             default:
                 MusePoint2D step = b.minus(a).times(1.0F / (num + 1));
-                for (int i=0; i < num; i++) {
+                for (int i = 0; i < num; i++) {
                     points.add(a.plus(step.times(i + 1)));
                 }
         }

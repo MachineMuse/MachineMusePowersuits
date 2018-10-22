@@ -4,10 +4,10 @@ import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.text.WordUtils;
-import scala.actors.threadpool.Arrays;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class MuseStringUtils {
@@ -69,7 +69,7 @@ public abstract class MuseStringUtils {
             int index;
             if (exponent > 0) {
                 index = exponent / 3 - 1;
-                if (index > bigSuffixes.length -1)
+                if (index > bigSuffixes.length - 1)
                     retval = "Infinite M";
                 else
                     retval += bigSuffixes[index];
@@ -180,20 +180,20 @@ public abstract class MuseStringUtils {
      * @param str
      * @param length
      * @return a list of strings which are no longer than
-     *         <p/>
-     *         <pre>
+     * <p/>
+     * <pre>
      *                         length
      *                         </pre>
+     * <p>
+     * unless there is a sequence of non-space characters longer than
      *
-     *         unless there is a sequence of non-space characters longer than
-     *
-     *         <pre>
+     * <pre>
      *                         length
      *                         </pre>
      */
     public static List<String> wrapStringToLength(String str, int length) {
-        String wrapped = WordUtils.wrap(str,  length);
-        String[] stringArray =  wrapped.split(SystemUtils.LINE_SEPARATOR);
+        String wrapped = WordUtils.wrap(str, length);
+        String[] stringArray = wrapped.split(SystemUtils.LINE_SEPARATOR);
         List<String> strlist = Arrays.asList(stringArray);
 
 
@@ -207,16 +207,9 @@ public abstract class MuseStringUtils {
 //                if (j == -1) {
 //                    break;
 //                }
-//
-//                System.out.println("i: " + i);
-//                System.out.println("j: " + j);
-//
 //                strlist.add(str.substring(i, j));
 //                i = j + 1;
 //            }
-//
-//
-//
 //            strlist.add(str.substring(i));
 //        }
         return strlist;
@@ -228,14 +221,14 @@ public abstract class MuseStringUtils {
      * @param str
      * @param length
      * @return a list of strings which are no longer than
-     *         <p/>
-     *         <pre>
+     * <p/>
+     * <pre>
      *                         length
      *                         </pre>
+     * <p>
+     * unless there is a sequence of non-space characters longer than
      *
-     *         unless there is a sequence of non-space characters longer than
-     *
-     *         <pre>
+     * <pre>
      *                         length
      *                         </pre>
      */
@@ -243,7 +236,7 @@ public abstract class MuseStringUtils {
         List<String> strlist = new ArrayList<>();
 
         String[] words = str.split(" ");
-        if(words.length == 0) {
+        if (words.length == 0) {
             return null;
         }
 
@@ -251,9 +244,9 @@ public abstract class MuseStringUtils {
 
         String currLine = words[0];
 
-        for(int i=1; i<words.length;i++) {
+        for (int i = 1; i < words.length; i++) {
             String approxLine = currLine + " " + words[i];
-            if(MuseRenderer.getStringWidth(approxLine) > length) {
+            if (MuseRenderer.getStringWidth(approxLine) > length) {
                 strlist.add(currLine);
                 currLine = " " + words[i];
             } else {
@@ -264,6 +257,7 @@ public abstract class MuseStringUtils {
 
         return strlist;
     }
+
     public static String extractName(ResourceLocation resource) {
         String filename = resource.toString();
         int ix = Math.max(filename.lastIndexOf('/'), Math.max(filename.lastIndexOf('\\'), filename.lastIndexOf(':'))) + 1;

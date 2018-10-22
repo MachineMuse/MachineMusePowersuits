@@ -25,11 +25,11 @@ public class MuseItemUtils {
      *
      * @param player Entity player that has the equipment slots to scan.
      * @return A List of ItemStacks in the equipment slots which implement
-     *         IModularItem
+     * IModularItem
      */
     public static NonNullList<ItemStack> getModularItemsEquipped(EntityPlayer player) {
         NonNullList<ItemStack> modulars = NonNullList.create();
-        for (EntityEquipmentSlot slot: EntityEquipmentSlot.values()) {
+        for (EntityEquipmentSlot slot : EntityEquipmentSlot.values()) {
 
             ItemStack itemStack = player.getItemStackFromSlot(slot);
             if (!itemStack.isEmpty() && itemStack.getItem() instanceof IModularItem) {
@@ -48,7 +48,7 @@ public class MuseItemUtils {
      *
      * @param player Entity player that has the inventory to scan.
      * @return A List of ItemStacks in the playuer's inventory which implement
-     *         IModularItem
+     * IModularItem
      */
     public static NonNullList<ItemStack> getModularItemsInInventory(EntityPlayer player) {
         return getModularItemsInInventory(player.inventory);
@@ -59,7 +59,7 @@ public class MuseItemUtils {
      *
      * @param inv IInventory to scan.
      * @return A List of ItemStacks in the inventory which implement
-     *         IModularItem
+     * IModularItem
      */
     public static NonNullList<ItemStack> getModularItemsInInventory(IInventory inv) {
         NonNullList<ItemStack> stacks = NonNullList.create();
@@ -89,7 +89,7 @@ public class MuseItemUtils {
 
         ArrayList<Integer> slots = new ArrayList<>();
         ItemStack stack = player.getHeldItemMainhand();
-        if(!stack.isEmpty() && stack.getItem() instanceof IModularItem)
+        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem)
             slots.add(player.inventory.currentItem);
 
         for (int i = 36; i < player.inventory.getSizeInventory(); i++) {
@@ -118,8 +118,6 @@ public class MuseItemUtils {
         }
         return slots;
     }
-
-
 
 
     /**
@@ -173,10 +171,10 @@ public class MuseItemUtils {
 //        }
 
         int maxSize = destinationStack.getMaxStackSize();
-        while (itemsToGive.getCount() > 0 && destinationStack.getCount()< maxSize) {
+        while (itemsToGive.getCount() > 0 && destinationStack.getCount() < maxSize) {
             itemsToGive.setCount(itemsToGive.getCount() - 1);
             if (MuseMathUtils.nextDouble() < chanceOfSuccess) {
-                destinationStack.setCount(destinationStack.getCount() +1);
+                destinationStack.setCount(destinationStack.getCount() + 1);
             }
         }
     }

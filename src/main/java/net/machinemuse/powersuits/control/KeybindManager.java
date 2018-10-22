@@ -4,8 +4,8 @@ import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.powersuits.api.module.ModuleManager;
-import net.machinemuse.powersuits.common.gui.tinker.clickable.ClickableKeybinding;
-import net.machinemuse.powersuits.common.gui.tinker.clickable.ClickableModule;
+import net.machinemuse.powersuits.gui.tinker.clickable.ClickableKeybinding;
+import net.machinemuse.powersuits.gui.tinker.clickable.ClickableModule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.common.Loader;
@@ -18,10 +18,9 @@ import java.util.Set;
 
 public enum KeybindManager {
     INSTANCE;
+    private static KeyBindingHelper keyBindingHelper = new KeyBindingHelper();
     // only stores keybindings relevant to us!!
     protected final Set<ClickableKeybinding> keybindings = new HashSet();
-
-    private static KeyBindingHelper keyBindingHelper = new KeyBindingHelper();
 
     public static Set<ClickableKeybinding> getKeybindings() {
         return INSTANCE.keybindings;
@@ -88,10 +87,10 @@ public enum KeybindManager {
                         boolean free = !keyBindingHelper.keyBindingHasKey(id);
                         boolean displayOnHUD = false;
                         boolean toggleval = false;
-                        if(exploded.length > 3) {
+                        if (exploded.length > 3) {
                             displayOnHUD = Boolean.parseBoolean(exploded[3]);
                         }
-                        if(exploded.length > 4) {
+                        if (exploded.length > 4) {
                             toggleval = Boolean.parseBoolean(exploded[4]);
                         }
                         workingKeybinding = new ClickableKeybinding(new KeyBinding(Keyboard.getKeyName(id), id, KeybindKeyHandler.mps), position, free, displayOnHUD);

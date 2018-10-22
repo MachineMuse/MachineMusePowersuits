@@ -29,7 +29,7 @@ import net.minecraftforge.fml.common.Loader;
 /**
  * Created by User: Korynkai
  * 6:30 PM 2014-11-17
- *
+ * <p>
  * TODO: Fix ProjectRed (may require PR to ProjectRed)
  */
 public class OmniProbeModule extends PowerModuleBase implements IRightClickModule, IPlayerTickModule {
@@ -46,12 +46,12 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
         ItemStack tHighest = new ItemStack(Items.COMPARATOR);
 
         if (ModCompatibility.isMFRLoaded()) {
-            rednetMeter = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("MineFactoryReloaded", "rednet.meter")), 1);
+            rednetMeter = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("MineFactoryReloaded", "rednet.meter")), 1);
             tHighest = rednetMeter;
         }
 
         if (ModCompatibility.isRailcraftLoaded()) {
-            rcMeter = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("Railcraft", "tool.electric.meter")), 1);
+            rcMeter = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("Railcraft", "tool.electric.meter")), 1);
             tHighest = rcMeter;
         }
 
@@ -62,7 +62,7 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
         // }
 
         if (ModCompatibility.isEnderIOLoaded()) {
-            conduitProbe = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("EnderIO", "itemConduitProbe")), 1);
+            conduitProbe = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("EnderIO", "itemConduitProbe")), 1);
             tHighest = conduitProbe;
         }
         ModuleManager.INSTANCE.addInstallCost(getDataName(), tHighest);
@@ -113,6 +113,7 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
         }
         return EnumActionResult.PASS;
     }
+
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         if (!OmniProbeHelper.getEIOFacadeTransparency(item)) {

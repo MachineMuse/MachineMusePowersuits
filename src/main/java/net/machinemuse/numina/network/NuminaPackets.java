@@ -3,7 +3,7 @@ package net.machinemuse.numina.network;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 9:20 PM, 9/6/13
- *
+ * <p>
  * Ported to Java by lehjr on 10/22/16.
  */
 public class NuminaPackets {

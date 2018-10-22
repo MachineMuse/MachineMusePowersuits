@@ -15,6 +15,15 @@ import org.lwjgl.opengl.GL11;
 @SideOnly(Side.CLIENT)
 public class GuiGameOverPlus extends GuiScreen {
     /**
+     * The cooldown timer for the buttons, increases every tick and enables all buttons when reaching 20.
+     */
+    private int cooldownTimer = 0;
+
+//    public void addButton(GuiButton b) {
+//        this.buttonList.add(b);
+//    }
+
+    /**
      * Adds the buttons (and other controls) to the screen in question.
      */
     @Override
@@ -31,17 +40,13 @@ public class GuiGameOverPlus extends GuiScreen {
             addButton(new GuiButton(2, this.width / 2 - 100, this.height / 4 + 96, I18n.format("deathScreen.titleScreen")));
             addButton(new GuiButton(3, this.width / 2 - 100, this.height / 4 + 120, "Revive"));
             if (this.mc.getSession() == null) {
-                ((GuiButton)this.buttonList.get(1)).enabled = false;
+                ((GuiButton) this.buttonList.get(1)).enabled = false;
             }
         }
         for (GuiButton aButtonList : (Iterable<GuiButton>) this.buttonList) {
             aButtonList.enabled = false;
         }
     }
-
-//    public void addButton(GuiButton b) {
-//        this.buttonList.add(b);
-//    }
 
     /**
      * Fired when a key is typed. This is the equivalent of KeyListener.keyTyped(KeyEvent e).
@@ -55,7 +60,7 @@ public class GuiGameOverPlus extends GuiScreen {
      */
     @Override
     protected void actionPerformed(GuiButton par1GuiButton) {
-        switch(par1GuiButton.id) {
+        switch (par1GuiButton.id) {
             case 1:
                 this.mc.player.respawnPlayer();
                 this.mc.displayGuiScreen(null);
@@ -109,9 +114,4 @@ public class GuiGameOverPlus extends GuiScreen {
             }
         }
     }
-
-    /**
-     * The cooldown timer for the buttons, increases every tick and enables all buttons when reaching 20.
-     */
-    private int cooldownTimer = 0;
 }

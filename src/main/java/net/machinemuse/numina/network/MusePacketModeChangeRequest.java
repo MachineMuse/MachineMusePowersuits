@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 12:28 PM, 5/6/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/14/16.
  */
 public final class MusePacketModeChangeRequest extends MusePacket {
@@ -22,6 +22,10 @@ public final class MusePacketModeChangeRequest extends MusePacket {
     public MusePacketModeChangeRequest(EntityPlayer player, String mode, int slot) {
         this.slot = slot;
         this.mode = mode;
+    }
+
+    public static MusePacketModeChangeRequestPackager getPackagerInstance() {
+        return MusePacketModeChangeRequestPackager.INSTANCE;
     }
 
     @Override
@@ -49,10 +53,6 @@ public final class MusePacketModeChangeRequest extends MusePacket {
                 }
             }
         }
-    }
-
-    public static MusePacketModeChangeRequestPackager getPackagerInstance() {
-        return MusePacketModeChangeRequestPackager.INSTANCE;
     }
 
     public enum MusePacketModeChangeRequestPackager implements IMusePackager {

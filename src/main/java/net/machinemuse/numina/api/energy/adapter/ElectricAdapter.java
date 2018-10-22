@@ -30,10 +30,10 @@ public abstract class ElectricAdapter {
         } else if (ModCompatibility.isTeslaLoaded() &&
                 itemStack.hasCapability(TeslaCapabilities.CAPABILITY_HOLDER, null) &&
                 itemStack.hasCapability(TeslaCapabilities.CAPABILITY_CONSUMER, null) &&
-                itemStack.hasCapability(TeslaCapabilities.CAPABILITY_PRODUCER, null)){
+                itemStack.hasCapability(TeslaCapabilities.CAPABILITY_PRODUCER, null)) {
 
 //            System.out.println("Tesla energy");
-                return new TeslaEnergyAdapter(itemStack);
+            return new TeslaEnergyAdapter(itemStack);
 
 
             // RF API

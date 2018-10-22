@@ -24,7 +24,7 @@ import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
 
 /**
  * Created by Claire Semple on 9/9/2014.
- *
+ * <p>
  * Ported to Java by lehjr on 10/22/16.
  */
 @Mod.EventBusSubscriber(modid = MODID)
@@ -54,11 +54,10 @@ public enum MPSItems {
     public static BlockFluidLiquidNitrogen blockLiquidNitrogen = new BlockFluidLiquidNitrogen();
 
 
-
     @SubscribeEvent
     public static void regigisterItems(RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(
-                powerArmorHead ,
+                powerArmorHead,
                 powerArmorTorso,
                 powerArmorLegs,
                 powerArmorFeet,
@@ -68,11 +67,11 @@ public enum MPSItems {
 
                 itemTinkerTable,
                 itemLuxCapacitor
-                );
+        );
 
 
-        ((ItemComponent)components).populate();
-        ((ItemComponent)components).registerOres();
+        ((ItemComponent) components).populate();
+        ((ItemComponent) components).registerOres();
     }
 
     private static Item initItem(Item item, String regName, String unlocalizedName) {
@@ -95,4 +94,4 @@ public enum MPSItems {
         FluidRegistry.registerFluid(liquidNitrogen);
         FluidRegistry.addBucketForFluid(liquidNitrogen);
     }
- }
+}

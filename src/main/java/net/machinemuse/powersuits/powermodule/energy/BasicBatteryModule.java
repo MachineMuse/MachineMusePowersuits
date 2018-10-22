@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
 public class BasicBatteryModule extends PowerModuleBase {
     public BasicBatteryModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.lvcapacitor, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.lvcapacitor, 1));
 
         addBasePropertyDouble(NuminaNBTConstants.MAXIMUM_ENERGY, 1000000, "RF");
     }

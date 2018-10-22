@@ -14,10 +14,10 @@ import net.minecraft.nbt.NBTTagCompound;
  * Packet for requesting to purchase an upgrade. Player-to-server. Server
  * decides whether it is a valid upgrade or not and <strike>replies with an associated
  * inventoryrefresh packet</strike>.
- *
+ * <p>
  * Author: MachineMuse (Claire Semple)
  * Created: 12:28 PM, 5/6/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/14/16.
  */
 public class MusePacketTweakRequestDouble extends MusePacket {
@@ -33,6 +33,10 @@ public class MusePacketTweakRequestDouble extends MusePacket {
         this.moduleName = moduleName;
         this.tweakName = tweakName;
         this.tweakValue = tweakValue;
+    }
+
+    public static MusePacketTweakRequestPackager getPackagerInstance() {
+        return MusePacketTweakRequestPackager.INSTANCE;
     }
 
     @Override
@@ -60,10 +64,6 @@ public class MusePacketTweakRequestDouble extends MusePacket {
                 moduleTag.setDouble(tweakName, tweakValue);
             }
         }
-    }
-
-    public static MusePacketTweakRequestPackager getPackagerInstance() {
-        return MusePacketTweakRequestPackager.INSTANCE;
     }
 
     public enum MusePacketTweakRequestPackager implements IMusePackager {

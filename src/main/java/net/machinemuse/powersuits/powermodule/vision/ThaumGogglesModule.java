@@ -20,7 +20,7 @@ public class ThaumGogglesModule extends PowerModuleBase implements IToggleableMo
     public ThaumGogglesModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         if (ModCompatibility.isThaumCraftLoaded()) {
-            gogglesStack = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("thaumcraft", "goggles")));
+            gogglesStack = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("thaumcraft", "goggles")));
 
             ModuleManager.INSTANCE.addInstallCost(getDataName(), ItemComponent.laserHologram.copy());
             ModuleManager.INSTANCE.addInstallCost(getDataName(), gogglesStack);

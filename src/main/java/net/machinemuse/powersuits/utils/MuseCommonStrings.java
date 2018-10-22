@@ -39,7 +39,7 @@ public abstract class MuseCommonStrings {
      *                         their settings.
      */
     public static void addInformation(@Nonnull ItemStack stack, World worldIn, List currentTipList, ITooltipFlag advancedToolTips) {
-        EntityPlayer player  = Minecraft.getMinecraft().player;
+        EntityPlayer player = Minecraft.getMinecraft().player;
 
         if (currentTipList.contains(I18n.format("silkTouch")))
             currentTipList.remove(I18n.format("silkTouch"));
@@ -97,12 +97,6 @@ public abstract class MuseCommonStrings {
     }
 
 
-
-
-
-
-
-
     @SideOnly(Side.CLIENT)
     public static String additionalInfoInstructions() {
         String message = I18n.format("tooltip.powersuits.pressShift");
@@ -124,7 +118,7 @@ public abstract class MuseCommonStrings {
         List<String> modules = new LinkedList();
         for (IPowerModule module : ModuleManager.INSTANCE.getValidModulesForItem(stack)) {
             if (ModuleManager.INSTANCE.tagHasModule(itemTag, module.getDataName())) {
-                modules.add(I18n.format(module.getUnlocalizedName()+ ".name"));
+                modules.add(I18n.format(module.getUnlocalizedName() + ".name"));
             }
         }
         return modules;

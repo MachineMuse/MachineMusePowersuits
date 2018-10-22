@@ -15,7 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 10:16 AM, 01/05/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/14/16.
  */
 public class MusePacketCosmeticInfo extends MusePacket {
@@ -29,6 +29,10 @@ public class MusePacketCosmeticInfo extends MusePacket {
         this.itemSlot = itemSlot;
         this.tagName = tagName;
         this.tagData = tagData;
+    }
+
+    public static MusePacketCosmeticInfoPackager getPackagerInstance() {
+        return MusePacketCosmeticInfoPackager.INSTANCE;
     }
 
     @Override
@@ -63,10 +67,6 @@ public class MusePacketCosmeticInfo extends MusePacket {
                 renderTag.setTag(tagName, tagData);
             }
         }
-    }
-
-    public static MusePacketCosmeticInfoPackager getPackagerInstance() {
-        return MusePacketCosmeticInfoPackager.INSTANCE;
     }
 
     public enum MusePacketCosmeticInfoPackager implements IMusePackager {

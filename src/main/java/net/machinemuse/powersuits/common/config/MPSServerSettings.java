@@ -11,25 +11,39 @@ import java.util.TreeMap;
  * Caution: make sure the order of the packets matches between Read and Write.
  */
 public class MPSServerSettings {
-    /** General ----------------------------------------------------------------------------------- */
+    /**
+     * General -----------------------------------------------------------------------------------
+     */
     public final boolean useOldAutoFeeder;
     public final double maximumFlyingSpeedmps;
     public final double getWeightCapacity;
     public final double maximumArmorPerPiece;
     public final double getSalvageChance;
+
+    // Heat
     public final double baseMaxHeatPowerFist;
     public final double baseMaxHeatHelmet;
     public final double baseMaxHeatChest;
     public final double baseMaxHeatLegs;
     public final double baseMaxHeatFeet;
 
+    // Max Modules
+    public final int maxModulesPowerFist;
+    public final int maxModulesHelmet;
+    public final int maxModulesChestplate;
+    public final int maxModulesLeggings;
+    public final int maxModulesFeet;
 
-    /** Modules ----------------------------------------------------------------------------------- */
+    /**
+     * Modules -----------------------------------------------------------------------------------
+     */
     public final Map<String, Boolean> allowedModules;
     public final Map<String, Double> propertyDouble;
     public final Map<String, Integer> propertyInteger;
 
-    /** Energy ------------------------------------------------------------------------------------ */
+    /**
+     * Energy ------------------------------------------------------------------------------------
+     */
     public final double mekRatio;
     public final double ic2Ratio;
     public final double refinedStorageRatio;
@@ -49,16 +63,26 @@ public class MPSServerSettings {
         getWeightCapacity = MPSSettings.general.getWeightCapacity;
         maximumArmorPerPiece = MPSSettings.general.getMaximumArmorPerPiece;
         getSalvageChance = MPSSettings.general.getSalvageChance;
+
+        // Max base heat
         baseMaxHeatPowerFist = MPSSettings.general.baseMaxHeatPowerFist;
         baseMaxHeatHelmet = MPSSettings.general.baseMaxHeatHelmet;
         baseMaxHeatChest = MPSSettings.general.baseMaxHeatChest;
         baseMaxHeatLegs = MPSSettings.general.baseMaxHeatLegs;
         baseMaxHeatFeet = MPSSettings.general.baseMaxHeatFeet;
 
+        // Max Modules
+        maxModulesPowerFist = MPSSettings.general.maxModulesPowerFist;
+        maxModulesHelmet = MPSSettings.general.maxModulesHelmet;
+        maxModulesChestplate = MPSSettings.general.maxModulesChestplate;
+        maxModulesLeggings = MPSSettings.general.maxModulesLeggings;
+        maxModulesFeet = MPSSettings.general.maxModulesFeet;
+
+
         /** Modules ------------------------------------------------------------------------------- */
         allowedModules = new TreeMap<>(MPSSettings.modules.allowedModules);
         propertyDouble = new TreeMap<>(MPSSettings.modules.propertyDouble);
-        propertyInteger = new TreeMap<>(MPSSettings.modules.propertyInteger);       
+        propertyInteger = new TreeMap<>(MPSSettings.modules.propertyInteger);
 
 
         /** Energy -------------------------------------------------------------------------------- */
@@ -87,6 +111,12 @@ public class MPSServerSettings {
         baseMaxHeatChest = MusePackager.INSTANCE.readDouble(datain);
         baseMaxHeatLegs = MusePackager.INSTANCE.readDouble(datain);
         baseMaxHeatFeet = MusePackager.INSTANCE.readDouble(datain);
+        // Max Modules
+        maxModulesPowerFist = MusePackager.INSTANCE.readInt(datain);
+        maxModulesHelmet = MusePackager.INSTANCE.readInt(datain);
+        maxModulesChestplate = MusePackager.INSTANCE.readInt(datain);
+        maxModulesLeggings = MusePackager.INSTANCE.readInt(datain);
+        maxModulesFeet = MusePackager.INSTANCE.readInt(datain);
 
 
         /** Modules ------------------------------------------------------------------------------- */
@@ -98,7 +128,6 @@ public class MPSServerSettings {
         propertyInteger = MusePackager.INSTANCE.readMap(datain, String.class, Integer.class);
 
 
-
         /** Energy -------------------------------------------------------------------------------- */
         mekRatio = MusePackager.INSTANCE.readDouble(datain);
         ic2Ratio = MusePackager.INSTANCE.readDouble(datain);
@@ -108,11 +137,7 @@ public class MPSServerSettings {
         maxTier2 = MusePackager.INSTANCE.readInt(datain);
         maxTier3 = MusePackager.INSTANCE.readInt(datain);
         maxTier4 = MusePackager.INSTANCE.readInt(datain);
-
-
-
     }
-
 
 
     /**
@@ -133,12 +158,20 @@ public class MPSServerSettings {
         packet.writeDouble(baseMaxHeatLegs);
         packet.writeDouble(baseMaxHeatFeet);
 
+        // Max Modules
+        packet.writeInt(maxModulesPowerFist);
+        packet.writeInt(maxModulesHelmet);
+        packet.writeInt(maxModulesChestplate);
+        packet.writeInt(maxModulesLeggings);
+        packet.writeInt(maxModulesFeet);
+
+
 
         /** Modules ------------------------------------------------------------------------------- */
         packet.writeMap(allowedModules, true);
         packet.writeMap(propertyDouble, true);
         packet.writeMap(propertyInteger, true);
-        
+
 
         /** Energy -------------------------------------------------------------------------------- */
         packet.writeDouble(mekRatio);

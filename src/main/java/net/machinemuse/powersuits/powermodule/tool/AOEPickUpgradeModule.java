@@ -27,6 +27,7 @@ import javax.annotation.Nonnull;
 public class AOEPickUpgradeModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
     //public static final ItemStack ironPickaxe = new ItemStack(Item.pickaxeIron);
     public static final String ENERGY_CONSUMPTION = "Energy Consumption";
+
     public AOEPickUpgradeModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));

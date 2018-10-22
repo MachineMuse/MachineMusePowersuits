@@ -11,6 +11,7 @@ import java.util.Map;
 public interface IPowerModule {
     /**
      * Returns the enum corresponding to the EntityEquipment slot that the parent item (Head, Chest... ALL.. )
+     *
      * @return
      */
     EnumModuleTarget getTarget();

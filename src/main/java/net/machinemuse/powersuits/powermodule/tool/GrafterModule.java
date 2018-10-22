@@ -17,7 +17,8 @@ import net.minecraft.util.ResourceLocation;
  * Time: 2:02 PM
  */
 public class GrafterModule extends PowerModuleBase {
-    private static ItemStack grafter = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("forestry", "grafter")), 1);
+    private static ItemStack grafter = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("forestry", "grafter")), 1);
+
     public GrafterModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), grafter);

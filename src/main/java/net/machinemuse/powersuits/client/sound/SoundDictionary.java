@@ -11,10 +11,6 @@ import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
 
 @Mod.EventBusSubscriber(modid = MODID, value = Side.CLIENT)
 public class SoundDictionary {
-    static {
-        new SoundDictionary();
-    }
-
     private static final String SOUND_PREFIX = "powersuits:";
     public static SoundEvent SOUND_EVENT_GLIDER = registerSound("glider");
     public static SoundEvent SOUND_EVENT_GUI_INSTALL = registerSound("gui_install");
@@ -25,6 +21,10 @@ public class SoundDictionary {
     public static SoundEvent SOUND_EVENT_MPS_BOOP = registerSound("mmmps_boop");
     public static SoundEvent SOUND_EVENT_SWIM_ASSIST = registerSound("swim_assist");
     public static SoundEvent SOUND_EVENT_ELECTROLYZER = registerSound("water_electrolyzer");
+
+    static {
+        new SoundDictionary();
+    }
 
     @SubscribeEvent
     public static void registerSoundEvent(RegistryEvent.Register<SoundEvent> event) {

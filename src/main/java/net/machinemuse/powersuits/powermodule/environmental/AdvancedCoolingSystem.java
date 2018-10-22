@@ -10,6 +10,8 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.UniversalBucket;
 
 import javax.annotation.Nonnull;
@@ -21,7 +23,7 @@ public class AdvancedCoolingSystem extends CoolingSystemBase {
     public AdvancedCoolingSystem(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(
-                UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, MPSItems.INSTANCE.liquidNitrogen), 1));
+                FluidUtil.getFilledBucket(new FluidStack(MPSItems.INSTANCE.liquidNitrogen, 1000)), 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.rubberHose, 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.computerChip, 2));

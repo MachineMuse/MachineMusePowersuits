@@ -72,9 +72,8 @@ import java.util.stream.Collectors;
 /**
  * This is a tweaked version of the OBJModel class from Forge.
  * This provides a simpler means of getting quads for a specific group without "re-baking"
- *
+ * <p>
  * Modular Powersuits treats "Groups" (IModelPart) as flexible parts that can be toggled, recolored, and lighting toggled.
- *
  */
 @SideOnly(Side.CLIENT)
 public class OBJModelPlus implements IModel {
@@ -182,7 +181,7 @@ public class OBJModelPlus implements IModel {
 
         public void process(ImmutableMap<String, String> customData) {
             for (Map.Entry<String, String> e : customData.entrySet()) {
-                switch(e.getKey().toLowerCase()) {
+                switch (e.getKey().toLowerCase()) {
                     case "ambient":
                         this.ambientOcclusion = Boolean.valueOf(e.getValue());
                         break;
@@ -1055,19 +1054,18 @@ public class OBJModelPlus implements IModel {
     public class OBJBakedModelPus implements IBakedModel {
         private final OBJModelPlus model;
         private final VertexFormat format;
+        ModelTransformCalibration calibration;
         private IModelState state;
         private ImmutableList<BakedQuad> quads;
         private Map<String, List<BakedQuad>> partQuadMap;
         private ImmutableMap<String, TextureAtlasSprite> textures;
-        private IBlockState cachedBlockstate;
-        ModelTransformCalibration calibration;
-
         private final LoadingCache<IModelState, OBJBakedModelPus> cache = CacheBuilder.newBuilder().maximumSize(20).build(new CacheLoader<IModelState, OBJBakedModelPus>() {
             @Override
             public OBJBakedModelPus load(IModelState state) throws Exception {
                 return new OBJBakedModelPus(model, state, format, textures);
             }
         });
+        private IBlockState cachedBlockstate;
         private TextureAtlasSprite sprite = ModelLoader.White.INSTANCE;
 
         public OBJBakedModelPus(OBJModelPlus model, IModelState state, VertexFormat format, ImmutableMap<String, TextureAtlasSprite> textures) {
@@ -1092,7 +1090,7 @@ public class OBJModelPlus implements IModel {
 
         public List<BakedQuad> getRetexturedQuadsforPart(String partName, TextureAtlasSprite texture) {
             ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
-            for (BakedQuad quad: getQuadsforPart(partName))
+            for (BakedQuad quad : getQuadsforPart(partName))
                 builder.add(new BakedQuadRetextured(quad, texture));
             return builder.build();
         }
@@ -1138,7 +1136,7 @@ public class OBJModelPlus implements IModel {
             //Fixed: moved all the visibility code out of the group loop
             if (state != null) {
                 updateStateVisibilityMap(state);
-                visibleParts = state.visibilityMap.keySet().stream().filter(key-> state.visibilityMap.get(key)).collect(Collectors.toList());
+                visibleParts = state.visibilityMap.keySet().stream().filter(key -> state.visibilityMap.get(key)).collect(Collectors.toList());
             } else
                 visibleParts = this.model.getMatLib().getGroups().keySet().stream().filter(name ->
                         !(modelState.apply(Optional.of(Models.getHiddenModelPart(ImmutableList.of(
@@ -1154,12 +1152,12 @@ public class OBJModelPlus implements IModel {
                 facesMap.put(g.name, g.applyTransform(transform));
             }
 
-            for (String group: facesMap.keySet())
+            for (String group : facesMap.keySet())
                 partQuadMap.put(group, getQuadsFromFaces(facesMap.get(group)));
 
             return ImmutableList.copyOf(partQuadMap.entrySet()
                     .stream()
-                    .filter( entry -> visibleParts.contains(entry.getKey()))
+                    .filter(entry -> visibleParts.contains(entry.getKey()))
                     .map(Map.Entry::getValue).collect(Collectors.toList())
                     .stream()
                     .flatMap(x -> x.stream()).collect(Collectors.toList()));

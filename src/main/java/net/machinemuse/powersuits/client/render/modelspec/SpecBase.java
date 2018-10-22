@@ -10,7 +10,7 @@ import java.util.Objects;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 7:44 AM, 4/28/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/8/16.
  */
 public abstract class SpecBase extends MuseRegistry<PartSpecBase> {
@@ -18,7 +18,7 @@ public abstract class SpecBase extends MuseRegistry<PartSpecBase> {
     private final boolean isDefault;
     private final EnumSpecType specType;
     private List<Integer> colours = new ArrayList() {{
-       add(Colour.WHITE.getInt());
+        add(Colour.WHITE.getInt());
     }};
 
     public SpecBase(final String name, final boolean isDefault, final EnumSpecType specType) {
@@ -35,6 +35,7 @@ public abstract class SpecBase extends MuseRegistry<PartSpecBase> {
 
     /**
      * returns the parent spec name
+     *
      * @return
      */
     public String getName() {
@@ -61,9 +62,9 @@ public abstract class SpecBase extends MuseRegistry<PartSpecBase> {
      */
     public int addColourIfNotExist(Colour colour) {
         int colourInt = colour.getInt();
-        if (!colours.contains(colourInt)){
+        if (!colours.contains(colourInt)) {
             colours.add(colourInt);
-            return colours.size() -1; // index of last entry
+            return colours.size() - 1; // index of last entry
         } else
             return colours.indexOf(colourInt);
     }
@@ -71,6 +72,7 @@ public abstract class SpecBase extends MuseRegistry<PartSpecBase> {
     /**
      * returns the short name of the model. Used for NBT tags
      * Implement on top level classes due to equals and hash checks will make this fail here
+     *
      * @return
      */
     public abstract String getOwnName();

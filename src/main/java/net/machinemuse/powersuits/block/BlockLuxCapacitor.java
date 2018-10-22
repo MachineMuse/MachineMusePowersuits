@@ -11,7 +11,6 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -26,13 +25,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import java.util.Random;
 
 public class BlockLuxCapacitor extends BlockDirectional {
-    protected static final AxisAlignedBB LUXCAPACITOR_EAST_AABB = new AxisAlignedBB(0.75, 0.0625, 0.0625, 1.0, 0.9375, 0.9375);
-    protected static final AxisAlignedBB LUXCAPACITOR_WEST_AABB = new AxisAlignedBB(0.0, 0.0625, 0.0625, 0.25, 0.9375, 0.9375);
-    protected static final AxisAlignedBB LUXCAPACITOR_SOUTH_AABB = new AxisAlignedBB(0.0625, 0.0625, 0.75, 0.9375, 0.9375, 1.0);
-    protected static final AxisAlignedBB LUXCAPACITOR_NORTH_AABB = new AxisAlignedBB(0.0625, 0.0625, 0.0, 0.9375, 0.9375, 0.25);
-    protected static final AxisAlignedBB LUXCAPACITOR_UP_AABB = new AxisAlignedBB(0.0625, 0.75, 0.0625, 0.9375, 1.0, 0.9375);
-    protected static final AxisAlignedBB LUXCAPACITOR_DOWN_AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.25, 0.9375);
-
     public static final Colour defaultColor = new Colour(0.4D, 0.2D, 0.9D);
     public static final IUnlistedProperty<Colour> COLOR = new IUnlistedProperty<Colour>() {
         @Override
@@ -55,8 +47,13 @@ public class BlockLuxCapacitor extends BlockDirectional {
             return (value != null) ? value.hexColour() : defaultColor.hexColour();
         }
     };
-
     public static final String name = "luxCapacitor";
+    protected static final AxisAlignedBB LUXCAPACITOR_EAST_AABB = new AxisAlignedBB(0.75, 0.0625, 0.0625, 1.0, 0.9375, 0.9375);
+    protected static final AxisAlignedBB LUXCAPACITOR_WEST_AABB = new AxisAlignedBB(0.0, 0.0625, 0.0625, 0.25, 0.9375, 0.9375);
+    protected static final AxisAlignedBB LUXCAPACITOR_SOUTH_AABB = new AxisAlignedBB(0.0625, 0.0625, 0.75, 0.9375, 0.9375, 1.0);
+    protected static final AxisAlignedBB LUXCAPACITOR_NORTH_AABB = new AxisAlignedBB(0.0625, 0.0625, 0.0, 0.9375, 0.9375, 0.25);
+    protected static final AxisAlignedBB LUXCAPACITOR_UP_AABB = new AxisAlignedBB(0.0625, 0.75, 0.0625, 0.9375, 1.0, 0.9375);
+    protected static final AxisAlignedBB LUXCAPACITOR_DOWN_AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.25, 0.9375);
 
     public BlockLuxCapacitor() {
         super(Material.CIRCUITS);
@@ -102,16 +99,16 @@ public class BlockLuxCapacitor extends BlockDirectional {
     @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         if (this.canPlaceAt(worldIn, pos, facing)) {
-            return((IExtendedBlockState)this.getDefaultState().withProperty(FACING, facing)).withProperty(COLOR, defaultColor);
+            return ((IExtendedBlockState) this.getDefaultState().withProperty(FACING, facing)).withProperty(COLOR, defaultColor);
         } else {
             for (EnumFacing enumfacing : EnumFacing.VALUES) {
                 if (enumfacing == facing)
                     continue;
                 if (this.canPlaceAt(worldIn, pos, enumfacing)) {
-                    return((IExtendedBlockState)this.getDefaultState().withProperty(FACING, enumfacing)).withProperty(COLOR, defaultColor);
+                    return ((IExtendedBlockState) this.getDefaultState().withProperty(FACING, enumfacing)).withProperty(COLOR, defaultColor);
                 }
             }
-            return((IExtendedBlockState)this.getDefaultState()).withProperty(COLOR, defaultColor);
+            return ((IExtendedBlockState) this.getDefaultState()).withProperty(COLOR, defaultColor);
         }
     }
 

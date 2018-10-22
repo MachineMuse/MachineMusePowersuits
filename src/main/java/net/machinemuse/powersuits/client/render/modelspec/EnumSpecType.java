@@ -8,16 +8,17 @@ public enum EnumSpecType {
     POWER_FIST("POWERFIST");
 
     String name;
+
     EnumSpecType(String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return this.name;
+    public static EnumSpecType getTypeFromName(String nameIn) {
+        String finalNameIn = nameIn.toUpperCase().replaceAll("\\s", "");
+        return Arrays.stream(values()).filter(spec -> spec.getName().equals(finalNameIn)).findAny().orElse(null);
     }
 
-    public static EnumSpecType getTypeFromName(String nameIn) {
-        String finalNameIn = nameIn.toUpperCase().replaceAll("\\s","");
-        return Arrays.stream(values()).filter(spec -> spec.getName().equals(finalNameIn)).findAny().orElse(null);
+    public String getName() {
+        return this.name;
     }
 }

@@ -26,7 +26,7 @@ public enum ModuleManager implements IModuleManager {
     @Override
     public NonNullList<IPowerModule> getAllModules() {
         NonNullList<IPowerModule> retList = NonNullList.create();
-        for (IPowerModule module: moduleMap.values()) {
+        for (IPowerModule module : moduleMap.values()) {
             retList.add(module);
         }
         return retList;
@@ -45,7 +45,7 @@ public enum ModuleManager implements IModuleManager {
 
     @Override
     public NonNullList<ItemStack> getInstallCost(String dataName) {
-        return installCosts.getOrDefault(dataName,  NonNullList.create());
+        return installCosts.getOrDefault(dataName, NonNullList.create());
     }
 
     @Override
@@ -69,7 +69,7 @@ public enum ModuleManager implements IModuleManager {
 
     @Override
     public NonNullList<ItemStack> getCustomInstallCost(String dataName) {
-        return customInstallCosts.getOrDefault(dataName,  NonNullList.create());
+        return customInstallCosts.getOrDefault(dataName, NonNullList.create());
     }
 
     @Override

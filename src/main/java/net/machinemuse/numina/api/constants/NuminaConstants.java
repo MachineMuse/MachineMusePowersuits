@@ -13,7 +13,7 @@ public class NuminaConstants {
 
     // Config
     public static final String CONFIG_FOLDER = "/machinemuse/";
-    public static final String CONFIG_FILE = CONFIG_FOLDER +  MODID;
+    public static final String CONFIG_FILE = CONFIG_FOLDER + MODID;
     public static final String CONFIG_PREFIX = "config." + MODID + ".";
     public static final String CONFIG_USE_FOV_FIX = CONFIG_PREFIX + "useFOVFix";
     public static final String CONFIG_FOV_FIX_DEAULT_STATE = CONFIG_PREFIX + "FOVFixDefaultState";
@@ -23,7 +23,7 @@ public class NuminaConstants {
 
     public static final String CONFIG_MEK_J_TO_RF_RATIO = CONFIG_PREFIX + "mekanismJToRFRatio";
     public static final String CONFIG_IC2_EU_TO_RF_RATIO = CONFIG_PREFIX + "industrialCraft2ToRFRatio";
-    public static final String CONFIG_RS_TO_RF_RATIO = CONFIG_PREFIX +"refinedStorageToRFRatio";
+    public static final String CONFIG_RS_TO_RF_RATIO = CONFIG_PREFIX + "refinedStorageToRFRatio";
     public static final String CONFIG_AE_TO_RF_RATIO = CONFIG_PREFIX + "appledEnergisticsToRFRatio";
 
     public static final String CONFIG_TIER_1_ENERGY_LVL = CONFIG_PREFIX + "tier1EnergyLevel";

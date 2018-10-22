@@ -12,7 +12,7 @@ import java.util.function.BooleanSupplier;
 public class MPSRecipeConditionFactory implements IConditionFactory {
     @Override
     public BooleanSupplier parse(JsonContext context, JsonObject json) {
-        if(JsonUtils.hasField(json, "type")) {
+        if (JsonUtils.hasField(json, "type")) {
             String key = JsonUtils.getString(json, "type");
             switch (key) {
                 // Thermal Expansion
@@ -28,7 +28,7 @@ public class MPSRecipeConditionFactory implements IConditionFactory {
                 case "powersuits:tech_reborn_recipes_enabled":
                     return () -> ModCompatibility.isTechRebornLoaded();
 
-                    // FIXME: Gregtech recipe loading is broken due to ores being registered during recipe loading.
+                // FIXME: Gregtech recipe loading is broken due to ores being registered during recipe loading.
 //                // GregTech
 //                case "powersuits:gregtech_recipes_enabled":
 //                    return () -> (ModCompatibility.isGregTechLoaded() && !ModCompatibility.isTechRebornLoaded());

@@ -8,6 +8,7 @@ import net.minecraft.client.resources.I18n;
  */
 public class TexturePartSpec extends PartSpecBase {
     final String textureLocation;
+
     public TexturePartSpec(final SpecBase spec,
                            final SpecBinding binding,
                            final Integer enumColourIndex,

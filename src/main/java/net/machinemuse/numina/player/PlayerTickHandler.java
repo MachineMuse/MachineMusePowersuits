@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 1:30 PM, 9/19/13
- *
+ * <p>
  * Ported to Java by lehjr on 10/24/16.
  */
 public final class PlayerTickHandler {

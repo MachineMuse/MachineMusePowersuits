@@ -18,7 +18,7 @@ public enum EnumModuleCategory {
 
 
     private final String name;
-    
+
     //TODO: add translation stuff
     EnumModuleCategory(String name) {
         this.name = name;

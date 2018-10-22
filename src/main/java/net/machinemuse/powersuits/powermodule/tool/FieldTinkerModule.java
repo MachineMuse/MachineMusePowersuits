@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 3:14 PM, 4/30/13
- *
+ * <p>
  * Ported to Java by lehjr on 10/11/16.
  */
 public class FieldTinkerModule extends PowerModuleBase implements IRightClickModule {
@@ -61,7 +61,7 @@ public class FieldTinkerModule extends PowerModuleBase implements IRightClickMod
 
     @Override
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        playerIn.openGui(ModularPowersuits.getInstance(), 2, worldIn, (int)playerIn.posX, (int)playerIn.posY, (int)playerIn.posZ);
+        playerIn.openGui(ModularPowersuits.getInstance(), 2, worldIn, (int) playerIn.posX, (int) playerIn.posY, (int) playerIn.posZ);
         return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
     }
 

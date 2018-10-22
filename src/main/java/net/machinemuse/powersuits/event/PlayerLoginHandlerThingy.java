@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 8:01 PM, 12/05/13
- *
+ * <p>
  * Ported to Java by lehjr on 10/24/16.
  */
 public final class PlayerLoginHandlerThingy {

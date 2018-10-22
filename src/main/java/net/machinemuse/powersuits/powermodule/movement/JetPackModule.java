@@ -62,10 +62,10 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
             if (hasFlightControl && thrust > 0) {
                 thrust = MusePlayerUtils.thrust(player, thrust, true);
                 if (player.world.isRemote && NuminaConfig.useSounds()) {
-                        Musique.playerSound(player, SoundDictionary.SOUND_EVENT_JETPACK, SoundCategory.PLAYERS, (float) (thrust * 6.25), 1.0f, true);
+                    Musique.playerSound(player, SoundDictionary.SOUND_EVENT_JETPACK, SoundCategory.PLAYERS, (float) (thrust * 6.25), 1.0f, true);
                 }
                 ElectricItemUtils.drainPlayerEnergy(player, (int) (thrust * jetEnergy));
-            } else if (jumpkey ){//&& player.motionY < 0.5) {
+            } else if (jumpkey) {//&& player.motionY < 0.5) {
                 thrust = MusePlayerUtils.thrust(player, thrust, false);
                 if (player.world.isRemote && NuminaConfig.useSounds()) {
 

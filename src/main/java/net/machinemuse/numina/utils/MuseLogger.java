@@ -8,8 +8,8 @@ import org.apache.logging.log4j.Logger;
  * Logger access class. May become more fleshed out in the future.
  *
  * @author MachineMuse
- *
- *
+ * <p>
+ * <p>
  * Ported to Java by lehjr on 10/23/16.
  */
 public final class MuseLogger {
@@ -20,7 +20,7 @@ public final class MuseLogger {
         try {
             if (!NuminaConfig.isDebugging())
                 debugging = false;
-        } catch (Exception ignored){
+        } catch (Exception ignored) {
         }
         if (debugging) logger.info(string);
     }

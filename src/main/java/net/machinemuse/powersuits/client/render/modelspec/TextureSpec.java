@@ -4,7 +4,6 @@ import net.minecraft.client.resources.I18n;
 
 /**
  * This is just a way of mapping a possible texture combinations for a piece of PowerArmor using the default vanilla model
- *
  */
 public class TextureSpec extends SpecBase {
     public TextureSpec(final String name, final boolean isDefault) {

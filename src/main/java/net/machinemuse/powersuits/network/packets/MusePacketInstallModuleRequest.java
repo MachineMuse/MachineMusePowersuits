@@ -19,10 +19,10 @@ import net.minecraft.util.text.TextComponentString;
 /**
  * Packet for requesting to purchase an upgrade. Player-to-server. Server decides whether it is a valid upgrade or not and replies with an associated
  * inventoryrefresh packet.
- *
+ * <p>
  * Author: MachineMuse (Claire Semple)
  * Created: 10:16 AM, 01/05/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/14/16.
  */
 public class MusePacketInstallModuleRequest extends MusePacket {
@@ -34,6 +34,10 @@ public class MusePacketInstallModuleRequest extends MusePacket {
         this.player = player;
         this.itemSlot = itemSlot;
         this.moduleName = moduleName;
+    }
+
+    public static MusePacketInstallModuleRequestPackager getPackagerInstance() {
+        return MusePacketInstallModuleRequestPackager.INSTANCE;
     }
 
     @Override
@@ -73,10 +77,6 @@ public class MusePacketInstallModuleRequest extends MusePacket {
                 player.inventoryContainer.detectAndSendChanges();
             }
         }
-    }
-
-    public static MusePacketInstallModuleRequestPackager getPackagerInstance() {
-        return MusePacketInstallModuleRequestPackager.INSTANCE;
     }
 
     public enum MusePacketInstallModuleRequestPackager implements IMusePackager {

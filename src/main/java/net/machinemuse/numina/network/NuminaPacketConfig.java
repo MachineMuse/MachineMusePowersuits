@@ -15,6 +15,10 @@ public class NuminaPacketConfig extends MusePacket {
         player = playerIn;
     }
 
+    public static MusePacketConfigPackager getPackagerInstance() {
+        return MusePacketConfigPackager.INSTANCE;
+    }
+
     @Override
     public IMusePackager packager() {
         return MusePacketConfigPackager.INSTANCE;
@@ -28,17 +32,14 @@ public class NuminaPacketConfig extends MusePacket {
         NuminaConfig.INSTANCE.getServerSettings().writeToBuffer(this);
     }
 
-    public static MusePacketConfigPackager getPackagerInstance() {
-        return MusePacketConfigPackager.INSTANCE;
-    }
-
     public enum MusePacketConfigPackager implements IMusePackager {
         INSTANCE;
 
         NuminaServerSettings settings;
+
         @Override
         public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
-             settings = new NuminaServerSettings(datain);
+            settings = new NuminaServerSettings(datain);
             NuminaConfig.INSTANCE.setServerSettings(settings);
             return new NuminaPacketConfig(player);
         }

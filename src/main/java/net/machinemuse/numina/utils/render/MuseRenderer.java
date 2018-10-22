@@ -34,6 +34,7 @@ public abstract class MuseRenderer {
     protected static RenderItem renderItem;
 
     protected static SwirlyMuseCircle selectionCircle;
+    static boolean messagedAboutSlick = false;
 
     /**
      * Does the rotating green circle around the selection, e.g. in GUI.
@@ -48,18 +49,15 @@ public abstract class MuseRenderer {
         selectionCircle.draw(radius, xoffset, yoffset);
     }
 
-
     /**
      * Makes the appropriate openGL calls and draws an item and overlay using the default icon
      */
     public static void drawItemAt(double x, double y, ItemStack item) {
         RenderState.on2D();
         Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(item, (int) x, (int) y);
-        Minecraft.getMinecraft().getRenderItem().renderItemOverlayIntoGUI(getFontRenderer(), item, (int) x, (int) y,(String)null);
+        Minecraft.getMinecraft().getRenderItem().renderItemOverlayIntoGUI(getFontRenderer(), item, (int) x, (int) y, (String) null);
         RenderState.off2D();
     }
-
-    static boolean messagedAboutSlick = false;
 
     public static void drawString(String s, double x, double y) {
         drawString(s, x, y, Colour.WHITE);

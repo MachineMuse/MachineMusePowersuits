@@ -41,10 +41,11 @@ import java.util.Random;
 
 public class ShearsModule extends PowerModuleBase implements IBlockBreakingModule, IRightClickModule {
     private static final ItemStack emulatedTool = new ItemStack(Items.SHEARS);
+
     public ShearsModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        ModuleManager.INSTANCE.addInstallCost(getDataName(),new ItemStack(Items.IRON_INGOT, 2));
-        ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Items.IRON_INGOT, 2));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBasePropertyDouble(MPSModuleConstants.SHEARING_ENERGY_CONSUMPTION, 1000, "RF");
         addBasePropertyDouble(MPSModuleConstants.SHEARING_HARVEST_SPEED, 8, "x");
     }
@@ -139,7 +140,7 @@ public class ShearsModule extends PowerModuleBase implements IBlockBreakingModul
 //        // TODO: MAKE NOT STUPID ?
         float defaultEffectiveness = 8;
         double ourEffectiveness = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(event.getEntityPlayer().inventory.getCurrentItem(), MPSModuleConstants.SHEARING_HARVEST_SPEED);
-        event.setNewSpeed((float) (event.getNewSpeed() *Math.max(defaultEffectiveness, ourEffectiveness)));
+        event.setNewSpeed((float) (event.getNewSpeed() * Math.max(defaultEffectiveness, ourEffectiveness)));
     }
 
     @Override

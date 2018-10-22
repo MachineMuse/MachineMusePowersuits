@@ -53,7 +53,7 @@ public class MuseNBTUtils {
     }
 
     public static NBTTagCompound getNBTTag(@Nonnull ItemStack itemStack) {
-        if(!itemStack.isEmpty() && itemStack.hasTagCompound())    {
+        if (!itemStack.isEmpty() && itemStack.hasTagCompound()) {
             return itemStack.getTagCompound();
         } else {
             NBTTagCompound tag = new NBTTagCompound();

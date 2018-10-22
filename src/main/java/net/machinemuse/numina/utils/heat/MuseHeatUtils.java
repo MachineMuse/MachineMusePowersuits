@@ -12,6 +12,8 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class MuseHeatUtils {
+    public static final DamageSource overheatDamage = new OverheatDamage();
+
     public static double getPlayerHeat(EntityPlayer player) {
         double heat = 0;
         for (ItemStack stack : MuseItemUtils.getModularItemsEquipped(player)) {
@@ -113,7 +115,6 @@ public class MuseHeatUtils {
         return 0;
     }
 
-    public static final DamageSource overheatDamage = new OverheatDamage();
     protected static final class OverheatDamage extends DamageSource {
         public OverheatDamage() {
             super(NuminaConstants.OVERHEAT_DAMAGE);

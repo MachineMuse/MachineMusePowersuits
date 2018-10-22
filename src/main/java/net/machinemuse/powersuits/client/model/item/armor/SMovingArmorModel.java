@@ -25,7 +25,7 @@ public class SMovingArmorModel extends ModelPlayerBase implements IArmorModel {
 //        if(this.modelPlayerArmor != null)
 //            this.INSTANCE = this.modelPlayerArmor;
 //        else
-        if(this.modelPlayer != null)
+        if (this.modelPlayer != null)
             this.INSTANCE = this.modelPlayer;
         else
             this.INSTANCE = this.modelBiped;

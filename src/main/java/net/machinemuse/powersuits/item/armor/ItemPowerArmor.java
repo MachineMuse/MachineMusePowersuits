@@ -1,8 +1,6 @@
 package net.machinemuse.powersuits.item.armor;
 
-import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.google.common.collect.TreeMultimap;
 import net.machinemuse.numina.api.item.IArmorTraits;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
@@ -34,15 +32,14 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
 import java.util.UUID;
 
 /**
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.
  *
  * @author MachineMuse
- *         <p>
- *         Ported to Java by lehjr on 11/4/16.
+ * <p>
+ * Ported to Java by lehjr on 11/4/16.
  */
 public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpecialArmor, IArmorTraits {
     public static final UUID[] ARMOR_MODIFIERS = new UUID[]{
@@ -51,11 +48,6 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
             UUID.randomUUID(),
             UUID.randomUUID()};
 
-    @Override
-    public boolean isDamageable() {
-        return false;
-    }
-
     public ItemPowerArmor(int renderIndex, EntityEquipmentSlot entityEquipmentSlot) {
         super(ItemArmor.ArmorMaterial.IRON, renderIndex, entityEquipmentSlot);
         this.setMaxStackSize(1);
@@ -63,9 +55,14 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         this.setMaxDamage(0);
     }
 
+    @Override
+    public boolean isDamageable() {
+        return false;
+    }
+
     /**
      * This just a method that determines whether or not otherwise unhandled damage sources are handled by the armor
-     *
+     * <p>
      * Note, slot is equivilant to the EntityEquipmentSlot index (not slotIndex)
      */
     @Override
@@ -74,7 +71,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
             return false;
 
         if (source.damageType.equals("electricity") || source.damageType.equals("radiation") || source.damageType.equals("sulphuric_acid"))
-            return  ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.MODULE_HAZMAT__DATANAME);
+            return ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.MODULE_HAZMAT__DATANAME);
 
         // Galacticraft
         if (slot == 3 && source.getDamageType().equals("oxygen_suffocation"))
@@ -103,7 +100,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         }
 
         if (source.getDamageType().equals("cryotheum"))
-            return  MuseHeatUtils.getPlayerHeat((EntityPlayer) entity) > 0;
+            return MuseHeatUtils.getPlayerHeat((EntityPlayer) entity) > 0;
 
 
         // TODO: Galacticraft "thermal", "sulphuric_acid", "pressure"
@@ -250,7 +247,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         if (energyStorage != null)
             capacity = energyStorage.getMaxEnergyStored();
 
-        if (capacity> 0)
+        if (capacity > 0)
             return true;
         return false;
     }

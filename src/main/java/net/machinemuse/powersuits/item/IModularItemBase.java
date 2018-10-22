@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 7:49 PM, 4/23/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/4/16.
  */
 public interface IModularItemBase extends IModularItem, IMuseElectricItem {
@@ -39,7 +39,7 @@ public interface IModularItemBase extends IModularItem, IMuseElectricItem {
                 int[] colours = renderTag.getIntArray(NuminaNBTConstants.TAG_COLOURS);
                 return new Colour(colours[index]);
             }
-        } catch (Exception e ) {
+        } catch (Exception e) {
             MuseLogger.logException("something failed here: ", e);
         }
         return Colour.WHITE;

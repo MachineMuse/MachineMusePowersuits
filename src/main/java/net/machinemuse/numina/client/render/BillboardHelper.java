@@ -8,16 +8,17 @@ import java.nio.FloatBuffer;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 4:21 AM, 11/13/13
- *
+ * <p>
  * Ported to Java by lehjr on 10/25/16.
  */
 public final class BillboardHelper {
     private static final FloatBuffer matrix = BufferUtils.createFloatBuffer(16);
-    private BillboardHelper() {
-    }
 
     static {
         new BillboardHelper();
+    }
+
+    private BillboardHelper() {
     }
 
     public static void unRotate() {
@@ -26,7 +27,7 @@ public final class BillboardHelper {
         float scalex = pythag(matrix.get(0), matrix.get(1), matrix.get(2));
         float scaley = pythag(matrix.get(4), matrix.get(5), matrix.get(6));
         float scalez = pythag(matrix.get(8), matrix.get(9), matrix.get(10));
-        for (int i = 0; i< 12; i++) {
+        for (int i = 0; i < 12; i++) {
             matrix.put(i, 0);
         }
         matrix.put(0, scalex);
@@ -36,6 +37,6 @@ public final class BillboardHelper {
     }
 
     private static float pythag(final float x, final float y, final float z) {
-        return (float)Math.sqrt(x * x + y * y + z * z);
+        return (float) Math.sqrt(x * x + y * y + z * z);
     }
 }

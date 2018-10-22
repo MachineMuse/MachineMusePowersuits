@@ -32,7 +32,7 @@ import javax.annotation.Nonnull;
  * Created by leon on 4/26/17.
  */
 public class RefinedStorageWirelessModule extends PowerModuleBase implements IRightClickModule {
-//    public static ItemStack emulatedTool;
+    //    public static ItemStack emulatedTool;
     public static final ResourceLocation wirelessGridRegName = new ResourceLocation("refinedstorage", "wireless_grid");
     public static final ResourceLocation wirelessCraftingGridRegName = new ResourceLocation("refinedstorage", "wireless_crafting_grid");
 
@@ -44,6 +44,28 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
 //            emulatedTool = new ItemStack( Item.REGISTRY.getObject(wirelessGridRegName), 1, 0);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), getEmulatedTool());
+    }
+
+    public static NBTTagCompound getModululeTag(ItemStack itemStackIn) {
+        return itemStackIn.getTagCompound().getCompoundTag("mmmpsmod").getCompoundTag("Refined Storage Wireless Grid");
+    }
+
+    @Nonnull
+    public static INetworkItem provide(INetworkItemHandler handler, EntityPlayer player, ItemStack itemStackIn) {
+        ItemStack emulatedTool = getEmulatedTool();
+        NBTTagCompound tag = getModululeTag(itemStackIn);
+        emulatedTool.setTagCompound(tag);
+        //FIXME: no longer exists, probably the least of the problems
+//        if (ModCompatibility.isWirelessCraftingGridLoaded())
+//            return new NetworkItemWirelessCraftingGrid(handler, player, emulatedTool);
+        return new NetworkItemWirelessGrid(handler, player, emulatedTool);
+    }
+
+    static ItemStack getEmulatedTool() {
+        if (ModCompatibility.isWirelessCraftingGridLoaded())
+            return new ItemStack(Item.REGISTRY.getObject(wirelessCraftingGridRegName), 1, 0);
+        else
+            return new ItemStack(Item.REGISTRY.getObject(wirelessGridRegName), 1, 0);
     }
 
     @Override
@@ -70,17 +92,16 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
                 return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
             }
 
-            int energy = (int)MuseMathUtils.clampDouble(ElectricItemUtils.getPlayerEnergy(playerIn) * NuminaConfig.INSTANCE.getRSRatio(), 0, 3500);
+            int energy = (int) MuseMathUtils.clampDouble(ElectricItemUtils.getPlayerEnergy(playerIn) * NuminaConfig.INSTANCE.getRSRatio(), 0, 3500);
             tag.setInteger("Energy", energy);
             emulatedTool.setTagCompound(tag);
             ActionResult result = emulatedTool.getItem().onItemRightClick(worldIn, playerIn, hand);
-            double energyUsed = ((energy - emulatedTool.getTagCompound().getInteger("Energy")) * NuminaConfig.INSTANCE.getRSRatio()) ;
+            double energyUsed = ((energy - emulatedTool.getTagCompound().getInteger("Energy")) * NuminaConfig.INSTANCE.getRSRatio());
             ElectricItemUtils.drainPlayerEnergy(playerIn, (int) energyUsed);
             return ActionResult.newResult(result.getType(), itemStackIn);
         }
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
-
 
     /*
      * sets up the nbt tags needed to use the device and stores them in the power fists's tags to be passed back during right click.
@@ -160,10 +181,6 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
         return nbt;
     }
 
-    public static NBTTagCompound getModululeTag(ItemStack itemStackIn) {
-        return itemStackIn.getTagCompound().getCompoundTag("mmmpsmod").getCompoundTag("Refined Storage Wireless Grid");
-    }
-
     public boolean isModuleTagSet(NBTTagCompound nbt) {
         if (nbt == null)
             return false;
@@ -182,23 +199,5 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
                 && nbt.hasKey("SortingDirection")
                 && nbt.hasKey("SortingType")
                 && nbt.hasKey("SearchBoxMode");
-    }
-
-    @Nonnull
-    public static INetworkItem provide(INetworkItemHandler handler, EntityPlayer player, ItemStack itemStackIn) {
-        ItemStack emulatedTool = getEmulatedTool();
-        NBTTagCompound tag = getModululeTag(itemStackIn);
-        emulatedTool.setTagCompound(tag);
-        //FIXME: no longer exists, probably the least of the problems
-//        if (ModCompatibility.isWirelessCraftingGridLoaded())
-//            return new NetworkItemWirelessCraftingGrid(handler, player, emulatedTool);
-        return new NetworkItemWirelessGrid(handler, player, emulatedTool);
-    }
-
-    static ItemStack getEmulatedTool() {
-        if (ModCompatibility.isWirelessCraftingGridLoaded())
-            return new ItemStack( Item.REGISTRY.getObject(wirelessCraftingGridRegName), 1, 0);
-        else
-            return new ItemStack( Item.REGISTRY.getObject(wirelessGridRegName), 1, 0);
     }
 }

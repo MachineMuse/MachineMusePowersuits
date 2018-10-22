@@ -14,13 +14,13 @@ import javax.annotation.Nonnull;
 /**
  * Note that this class does not update any NBT tag data itself, but rather is just part of a wrapper for
  * power storage devices in the item's inventory
- *
  */
 public class ForgeEnergyItemWrapper extends EnergyStorage implements INBTSerializable<NBTTagCompound> {
     ItemStack container;
     IModuleManager moduleManager;
 
-    /** TODO: need to set an NNBT tag for the max getValue instead of recalculating over and over.
+    /**
+     * TODO: need to set an NNBT tag for the max getValue instead of recalculating over and over.
      *
      * @param container
      * @param moduleManagerIn
@@ -75,7 +75,7 @@ public class ForgeEnergyItemWrapper extends EnergyStorage implements INBTSeriali
     @Override
     public NBTTagCompound serializeNBT() {
         NBTTagCompound nbt = new NBTTagCompound();
-        if (energy> 0)
+        if (energy > 0)
             nbt.setInteger(NuminaNBTConstants.CURRENT_ENERGY, energy);
         nbt.setInteger(NuminaNBTConstants.MAXIMUM_ENERGY, capacity);
         return nbt;

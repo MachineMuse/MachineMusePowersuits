@@ -7,10 +7,8 @@ public interface IHeatStorage {
     /**
      * Adds heat to the storage. Returns quantity of heat that was accepted.
      *
-     * @param maxReceive
-     *            Maximum amount of heat to be inserted.
-     * @param simulate
-     *            If TRUE, the insertion will only be simulated.
+     * @param maxReceive Maximum amount of heat to be inserted.
+     * @param simulate   If TRUE, the insertion will only be simulated.
      * @return Amount of heat that was (or would have been, if simulated) accepted by the storage.
      */
     double receiveHeat(double maxReceive, boolean simulate);
@@ -18,10 +16,8 @@ public interface IHeatStorage {
     /**
      * Removes heat from the storage. Returns quantity of heat that was removed.
      *
-     * @param maxExtract
-     *            Maximum amount of heat to be extracted.
-     * @param simulate
-     *            If TRUE, the extraction will only be simulated.
+     * @param maxExtract Maximum amount of heat to be extracted.
+     * @param simulate   If TRUE, the extraction will only be simulated.
      * @return Amount of heat that was (or would have been, if simulated) extracted from the storage.
      */
     double extractHeat(double maxExtract, boolean simulate);

@@ -6,7 +6,7 @@ import static net.machinemuse.powersuits.api.constants.MPSModConstants.MODID;
  * All the unlocalized strings for the config file
  */
 public class MPSConfigConstants {
-    public static final String CONFIG_FILE = "machinemuse/" +  MODID;
+    public static final String CONFIG_FILE = "machinemuse/" + MODID;
     public static final String CONFIG_PREFIX = "config." + MODID + ".";
 
     // HUD
@@ -33,11 +33,15 @@ public class MPSConfigConstants {
     public static final String CONFIG_GENERAL_BASE_MAX_HEAT_LEGS = CONFIG_PREFIX_GENERAL + "baseMaxHeatLegs";
     public static final String CONFIG_GENERAL_BASE_MAX_HEAT_FEET = CONFIG_PREFIX_GENERAL + "baseMaxHeatFeet";
 
+    public static final String CONFIG_GENERAL_BASE_MAX_MODULES_HELMET = CONFIG_PREFIX_GENERAL + "maxModulesHelmet";
+    public static final String CONFIG_GENERAL_BASE_MAX_MODULES_CHESTPLATE = CONFIG_PREFIX_GENERAL + "maxModulesChestplate";
+    public static final String CONFIG_GENERAL_BASE_MAX_MODULES_LEGGINGS = CONFIG_PREFIX_GENERAL +  "maxModulesLeggings";
+    public static final String CONFIG_GENERAL_BASE_MAX_MODULES_FEET = CONFIG_PREFIX_GENERAL +  "maxModulesFeet";
+    public static final String CONFIG_GENERAL_BASE_MAX_MODULES_POWERFIST = CONFIG_PREFIX_GENERAL +  "maxModulesPowerFist";
+
 
     // Modules
     public static final String CONFIG_MODULES = CONFIG_PREFIX + "module";
     public static final String CONFIG_MODULE_PROPERTY_DOUBLES = CONFIG_PREFIX + "modulePropertyDoubles";
     public static final String CONFIG_MODULE_PROPERTY_INTEGERS = CONFIG_PREFIX + "modulePropertyIntegers";
-
-
 }

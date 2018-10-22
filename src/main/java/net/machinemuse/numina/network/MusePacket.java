@@ -139,8 +139,7 @@ public abstract class MusePacket {
             if (nbt == null || nbt.hasNoTags()) {
 //                System.out.println("NBT is null or has no tags");
                 this.bytesOut.writeInt(-1);
-            }
-            else {
+            } else {
                 byte[] compressednbt = compressGZip(nbt);
                 this.bytesOut.writeShort(compressednbt.length); // needed for LZ4 decompression
                 this.bytesOut.write(compressednbt);
@@ -205,7 +204,6 @@ public abstract class MusePacket {
     }
 
     /**
-     *
      * Note, the only reason to write the map to ByteArrayOutputStream is for getting the data size to write out.
      *
      * @param map

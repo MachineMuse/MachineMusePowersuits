@@ -33,9 +33,9 @@ import net.minecraft.world.World;
 public class LightningModule extends PowerModuleBase implements IRightClickModule {
     public LightningModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
-        ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.solenoid, 2));
-        ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 2));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
 
         addBasePropertyDouble(MPSModuleConstants.LIGHTNING_ENERGY_CONSUMPTION, 4900000, "RF");
         addBasePropertyDouble(MPSModuleConstants.HEAT_EMISSION, 100, "");

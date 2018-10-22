@@ -23,10 +23,9 @@ import java.io.IOException;
 public enum ModelBakeEventHandler {
     INSTANCE;
 
-    private static IRegistry<ModelResourceLocation, IBakedModel> modelRegistry;
     public static final ModelResourceLocation powerFistIconLocation = new ModelResourceLocation(MPSItems.INSTANCE.powerFist.getRegistryName().toString(), "inventory");
-
     public static IBakedModel powerFistIconModel;
+    private static IRegistry<ModelResourceLocation, IBakedModel> modelRegistry;
 //
 //    // Armor icons
 //    public static final ModelResourceLocation powerArmorHeadModelLocation = new ModelResourceLocation(MPSItems.INSTANCE.powerArmorHead.getRegistryName(), "inventory");
@@ -65,6 +64,6 @@ public enum ModelBakeEventHandler {
 //        modelRegistry.putObject(powerArmorLegsModelLocation, powerArmorIconModel);
 //        modelRegistry.putObject(powerArmorFeetModelLocation, powerArmorIconModel);
 
-            ModelHelper.loadArmorModels(null);
+        ModelHelper.loadArmorModels(null);
     }
 }

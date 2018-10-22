@@ -43,8 +43,8 @@ public class KeybindKeyHandler {
             return;
         }
         if (pressed) {
-            if (player.inventory.getCurrentItem().getItem() instanceof IModeChangingItem ) {
-                IModeChangingItem mci = (IModeChangingItem)player.inventory.getCurrentItem().getItem();
+            if (player.inventory.getCurrentItem().getItem() instanceof IModeChangingItem) {
+                IModeChangingItem mci = (IModeChangingItem) player.inventory.getCurrentItem().getItem();
 
                 /* cycleToolBackward/cycleToolForward only seem to be used if actual keys are assigned instead of mouse-wheel */
                 if (key == cycleToolBackward.getKeyCode()) {

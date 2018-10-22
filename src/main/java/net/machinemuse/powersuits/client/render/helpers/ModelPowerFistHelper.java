@@ -35,13 +35,50 @@ public enum ModelPowerFistHelper {
     public static final ResourceLocation powerFistLeftLocation = new ResourceLocation(MPSResourceConstants.RESOURCE_DOMAIN, "models/item/powerFist/powerfist_left.obj");
     public static final ResourceLocation powerFistFingersLeftNormalLocation = new ResourceLocation(MPSResourceConstants.RESOURCE_DOMAIN, "models/item/powerfist/powerfist_fingers_normal_left.obj");
     public static final ResourceLocation powerFistFingersLeftFiringLocation = new ResourceLocation(MPSResourceConstants.RESOURCE_DOMAIN, "models/item/powerfist/powerfist_fingers_firing_left.obj");
-
+    public static final IModelState powerfistState = getPowerfistState();
     public static IBakedModel powerFist;
     public static IBakedModel powerFistFingers;
     public static IBakedModel powerFistFingersFiring;
     public static IBakedModel powerFistLeft;
     public static IBakedModel powerFistFingersLeft;
     public static IBakedModel powerFistFingersLeftFiring;
+    public static LoadingCache<PowerFistQuadMapKey, List<BakedQuad>> colouredPowerFistQuadMap = CacheBuilder.newBuilder()
+            .maximumSize(40)
+            .build(new CacheLoader<PowerFistQuadMapKey, List<BakedQuad>>() {
+                @Override
+                public List<BakedQuad> load(PowerFistQuadMapKey key) throws Exception {
+                    ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
+                    switch (key.transformType) {
+                        case THIRD_PERSON_LEFT_HAND:
+                        case FIRST_PERSON_LEFT_HAND:
+                            powerFistLeft.getQuads(null, null, 0).forEach(quad -> builder.add(
+                                    ModelHelper.colorQuad(key.getColour(), quad, quad.shouldApplyDiffuseLighting())));
+                            if (key.isFiring())
+                                powerFistFingersLeftFiring.getQuads(null, null, 0).forEach(quad -> builder.add(
+                                        ModelHelper.colorQuad(key.getColour(), quad, quad.shouldApplyDiffuseLighting())));
+                            else
+                                powerFistFingersLeft.getQuads(null, null, 0).forEach(quad -> builder.add(
+                                        ModelHelper.colorQuad(key.getColour(), quad, quad.shouldApplyDiffuseLighting())));
+                            return builder.build();
+
+                        case THIRD_PERSON_RIGHT_HAND:
+                        case FIRST_PERSON_RIGHT_HAND:
+                        case GROUND:
+                            powerFist.getQuads(null, null, 0).forEach(quad -> builder.add(
+                                    ModelHelper.colorQuad(key.getColour(), quad, quad.shouldApplyDiffuseLighting())));
+                            if (key.isFiring())
+                                powerFistFingersFiring.getQuads(null, null, 0).forEach(quad -> builder.add(
+                                        ModelHelper.colorQuad(key.getColour(), quad, quad.shouldApplyDiffuseLighting())));
+                            else
+                                powerFistFingers.getQuads(null, null, 0).forEach(quad -> builder.add(
+                                        ModelHelper.colorQuad(key.getColour(), quad, quad.shouldApplyDiffuseLighting())));
+                            return builder.build();
+
+                        default:
+                            return ModelHelper.getColoredQuads(ModelBakeEventHandler.powerFistIconModel.getQuads(null, null, 0), key.getColour());
+                    }
+                }
+            });
 
     public static void loadPowerFistModels(TextureStitchEvent event) {
         if (event != null) {
@@ -67,7 +104,6 @@ public enum ModelPowerFistHelper {
         }
     }
 
-    public static final IModelState powerfistState = getPowerfistState();
     static IModelState getPowerfistState() {
         ImmutableMap.Builder<IModelPart, TRSRTransformation> builder = ImmutableMap.builder();
 
@@ -87,45 +123,6 @@ public enum ModelPowerFistHelper {
                 ModelHelper.get(0, 5, 0, 0, 0, 0, 0.630f));
         return new SimpleModelState(builder.build());
     }
-
-
-    public static LoadingCache<PowerFistQuadMapKey, List<BakedQuad>> colouredPowerFistQuadMap = CacheBuilder.newBuilder()
-            .maximumSize(40)
-            .build(new CacheLoader<PowerFistQuadMapKey, List<BakedQuad>>() {
-                @Override
-                public List<BakedQuad> load(PowerFistQuadMapKey key) throws Exception {
-                    ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
-                    switch(key.transformType) {
-                        case THIRD_PERSON_LEFT_HAND:
-                        case FIRST_PERSON_LEFT_HAND:
-                            powerFistLeft.getQuads(null, null,0).forEach(quad-> builder.add(
-                                    ModelHelper.colorQuad(key.getColour(), quad, quad.shouldApplyDiffuseLighting())));
-                            if (key.isFiring())
-                                powerFistFingersLeftFiring.getQuads(null, null,0).forEach(quad-> builder.add(
-                                        ModelHelper.colorQuad(key.getColour(), quad, quad.shouldApplyDiffuseLighting())));
-                            else
-                                powerFistFingersLeft.getQuads(null, null,0).forEach(quad-> builder.add(
-                                        ModelHelper.colorQuad(key.getColour(), quad, quad.shouldApplyDiffuseLighting())));
-                            return builder.build();
-
-                        case THIRD_PERSON_RIGHT_HAND:
-                        case FIRST_PERSON_RIGHT_HAND:
-                        case GROUND:
-                            powerFist.getQuads(null, null,0).forEach(quad-> builder.add(
-                                    ModelHelper.colorQuad(key.getColour(), quad, quad.shouldApplyDiffuseLighting())));
-                            if (key.isFiring())
-                                powerFistFingersFiring.getQuads(null, null,0).forEach(quad-> builder.add(
-                                        ModelHelper.colorQuad(key.getColour(), quad, quad.shouldApplyDiffuseLighting())));
-                            else
-                                powerFistFingers.getQuads(null, null,0).forEach(quad-> builder.add(
-                                        ModelHelper.colorQuad(key.getColour(), quad, quad.shouldApplyDiffuseLighting())));
-                            return builder.build();
-
-                        default:
-                            return ModelHelper.getColoredQuads(ModelBakeEventHandler.powerFistIconModel.getQuads(null, null,0), key.getColour());
-                    }
-                }
-            });
 
     public static class PowerFistQuadMapKey {
         private final Colour colour;

@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.Optional;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 10:12 PM, 4/20/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/3/16.
  */
 @Optional.InterfaceList({
@@ -45,7 +45,7 @@ public interface IMuseElectricItem
     }
 
     @Override
-    default double charge(ItemStack itemStack, double amount, int tier, boolean ignoreTransferLimit, boolean simulate){
+    default double charge(ItemStack itemStack, double amount, int tier, boolean ignoreTransferLimit, boolean simulate) {
         // some machines use "Inifinity" and it converts to "-1" This negates their weird effect.
         if (amount == Double.POSITIVE_INFINITY || amount == Double.NEGATIVE_INFINITY)
             amount = Integer.MAX_VALUE * 0.25D;

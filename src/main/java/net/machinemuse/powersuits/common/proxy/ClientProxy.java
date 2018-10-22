@@ -27,7 +27,7 @@ import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
  * Client side of the proxy.
  *
  * @author MachineMuse
- *
+ * <p>
  * Ported to Java by lehjr on 11/14/16.
  */
 @SideOnly(Side.CLIENT)

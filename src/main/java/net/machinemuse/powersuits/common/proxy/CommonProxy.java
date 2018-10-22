@@ -28,7 +28,7 @@ import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
  * server, and keeps some common behaviour.
  *
  * @author MachineMuse
- *
+ * <p>
  * Ported to Java by lehjr on 11/14/16.
  */
 public class CommonProxy {
@@ -51,10 +51,11 @@ public class CommonProxy {
 //        Config.addCustomInstallCosts(); // Fixme: replace with similar function in MPSConfig
     }
 
-    public void registerEvents(){
+    public void registerEvents() {
         MinecraftForge.EVENT_BUS.register(new HarvestEventHandler());
         MinecraftForge.EVENT_BUS.register(new MovementManager());
     }
 
-    public void registerRenderers() {}
+    public void registerRenderers() {
+    }
 }

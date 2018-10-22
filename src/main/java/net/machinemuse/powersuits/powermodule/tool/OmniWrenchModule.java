@@ -24,7 +24,7 @@ import net.minecraft.world.World;
  * Created by User: Andrew2448
  * 4:39 PM 4/21/13
  * updated by MachineMuse, adapted from OpenComputers srench
- *
+ * <p>
  * Ported to Java by lehjr on 10/11/16.
  */
 public class OmniWrenchModule extends PowerModuleBase implements IRightClickModule {

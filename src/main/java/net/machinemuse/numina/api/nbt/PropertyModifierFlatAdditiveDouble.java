@@ -4,7 +4,6 @@ import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Used for Base properties such as MAXIMUM_ENERGY.
- *
  */
 public class PropertyModifierFlatAdditiveDouble implements IPropertyModifierDouble {
     public double valueAdded;
@@ -14,7 +13,6 @@ public class PropertyModifierFlatAdditiveDouble implements IPropertyModifierDoub
     }
 
     /**
-     *
      * @param moduleTag unused
      * @param value
      * @return getValue + this.valueAdded

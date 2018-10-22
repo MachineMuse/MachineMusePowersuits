@@ -5,36 +5,23 @@ public class MPSModuleConstants {
      * String literals as constants to eliminate case sensitivity issues etc.
      */
     public static final String SLOT_POINTS = "Slot Points";
-
-
-
-    public static String POWER = "Power";
-
-
-
     /**
      * Module UnlocalizedNames
      */
     // Debug --------------------------------------------------------------------------------------
     public static final String MODULE_DEBUG = "debugModule";
-
     // Armor --------------------------------------------------------------------------------------
     public static final String ARMOR_VALUE_PHYSICAL = "Armor (Physical)";
     public static final String ARMOR_VALUE_ENERGY = "Armor (Energy)";
     public static final String ARMOR_ENERGY_CONSUMPTION = "Energy Per Damage";
     public static final String ARMOR_PLATING_THICKNESS = "Plating Thickness";
     public static final String MODULE_FIELD_STRENGTH = "Field Strength";
-
     public static final String MODULE_LEATHER_PLATING__DATANAME = "leatherPlating";
     public static final String MODULE_IRON_PLATING__DATANAME = "ironPlating";
     public static final String MODULE_DIAMOND_PLATING__DATANAME = "diamondPlating";
     public static final String MODULE_ENERGY_SHIELD__DATANAME = "energyShield";
-
-
     // Cosmetic -----------------------------------------------------------------------------------
     public static final String MODULE_TRANSPARENT_ARMOR__DATANAME = "transparentArmor";
-
-
     // Energy -------------------------------------------------------------------------------------
     public static final String BATTERY_SIZE = "Battery Size";
     public static final String COAL_ENERGY_GEN = "Energy per coal";
@@ -43,48 +30,29 @@ public class MPSModuleConstants {
     public static final String KINETIC_ENERGY_GENERATION = "Energy Per 5 Blocks";
     public static final String KINETIC_ENERGY_MOVEMENT_RESISTANCE = "Movement Resistance";
     public static final String KINETIC_ENERGY_GENERATED = "Energy Generated";
-
-
-
     public static final String KINETIC_HEAT_GENERATION = "Heat Generation";
     public static final String SOLAR_HEAT_GENERATION_DAY = "Daytime Heat Generation";
     public static final String SOLAR_HEAT_GENERATION_NIGHT = "Nighttime Heat Generation";
     public static final String SOLAR_ENERGY_GENERATION_DAY = "Daytime Energy Generation";
     public static final String SOLAR_ENERGY_GENERATION_NIGHT = "Nighttime Energy Generation";
     public static final String THERMAL_ENERGY_GENERATION = "Energy Generation";
-
-
     public static final String MODULE_BATTERY_BASIC__DATANAME = "basicBattery";
     public static final String MODULE_BATTERY_ADVANCED__DATANAME = "advancedBattery";
     public static final String MODULE_BATTERY_ELITE__DATANAME = "eliteBattery";
     public static final String MODULE_BATTERY_ULTIMATE__DATANAME = "ultimateBattery";
-
     public static final String MODULE_SOLAR_GENERATOR__DATANAME = "solarGenerator";
     public static final String MODULE_ADVANCED_SOLAR_GENERATOR__DATANAME = "advSolarGenerator";
-
     public static final String MODULE_COAL_GEN__DATANAME = "coalGenerator";
     public static final String MODULE_KINETIC_GENERATOR__DATANAME = "kineticGenerator";
     public static final String MODULE_THERMAL_GENERATOR__DATANAME = "thermalGenerator";
-
-
     // Environmental ------------------------------------------------------------------------------
     public static final String APIARIST_ARMOR_ENERGY_CONSUMPTION = "Apiarist Armor Energy Consumption";
     public static final String EATING_ENERGY_CONSUMPTION = "Eating Energy Consumption";
     public static final String EATING_EFFICIENCY = "Auto-Feeder Efficiency";
     public static final String BASIC_COOLING_POWER = "Water Cooling Power";
-
-
-
     // TODO: -------
     public static final String BASIC_COOLING_SYSTEM__DATANAME = "basicCoolingSystem";
-
-
-
-
     public static final String ADVANCED_COOLING_SYSTEM__DATANAME = "advancedCoolingSystem";
-
-
-
     public static final String COOLING_BONUS = "Cooling Bonus";
     public static final String BASIC_COOLING_SYSTEM_ENERGY_CONSUMPTION = "Cooling System Energy Consumption";
     public static final String MOB_REPULSOR_ENERGY_CONSUMPTION = "Repulsor Energy Consumption";
@@ -92,7 +60,6 @@ public class MPSModuleConstants {
     public static final String WATER_TANK_SIZE = "Tank Size";
     public static final String ACTIVATION_PERCENT = "Heat Activation Percent";
     public static final String WATERBREATHING_ENERGY_CONSUMPTION = "Jolt Energy";
-
     public static final String AIRTIGHT_SEAL_MODULE__DATANAME = "airtightSeal";
     public static final String MODULE_APIARIST_ARMOR__DATANAME = "apiaristArmor";
     public static final String MODULE_HAZMAT__DATANAME = "hazmat";
@@ -101,11 +68,9 @@ public class MPSModuleConstants {
     public static final String MODULE_NITROGEN_COOLING_SYSTEM__DATANAME = "advancedCoolingSystem";
     public static final String MODULE_MOB_REPULSOR__DATANAME = "mobRepulsor";
     public static final String MODULE_WATER_ELECTROLYZER__DATANAME = "waterElectrolyzer";
-//    public static final String MODULE_WATER_TANK__DATANAME = "waterTank";
-
-
     // Movement -----------------------------------------------------------------------------------
     public static final String TAG_SPRINT_ASSIST_VALUE = "someArbitraryTag";
+//    public static final String MODULE_WATER_TANK__DATANAME = "waterTank";
     public static final String BLINK_DRIVE_ENERGY_CONSUMPTION = "Blink Drive Energy Consuption";
     public static final String BLINK_DRIVE_RANGE = "Blink Drive Range";
     public static final String FLIGHT_VERTICALITY = "Y-look ratio";
@@ -125,8 +90,6 @@ public class MPSModuleConstants {
     public static final String WALKING_SPEED_MULTIPLIER = "Walking Speed Multiplier";
     public static final String SWIM_BOOST_AMOUNT = "Underwater Movement Boost";
     public static final String SWIM_BOOST_ENERGY_CONSUMPTION = "Swim Boost Energy Consumption";
-
-
     public static final String MODULE_BLINK_DRIVE__DATANAME = "blinkDrive";
     public static final String MODULE_CLIMB_ASSIST__DATANAME = "climbAssist";
     public static final String MODULE_FLIGHT_CONTROL__DATANAME = "flightControl";
@@ -138,25 +101,19 @@ public class MPSModuleConstants {
     public static final String MODULE_SHOCK_ABSORBER__DATANAME = "shockAbsorber";
     public static final String MODULE_SPRINT_ASSIST__DATANAME = "sprintAssist";
     public static final String MODULE_SWIM_BOOST__DATANAME = "swimAssist";
-
     // Special ------------------------------------------------------------------------------------
     public static final String MAGNET_ENERGY_CONSUMPTION = "Energy Consumption";
     public static final String MAGNET_RADIUS = "Magnet Radius";
-
     public static final String MODULE_CLOCK__DATANAME = "clock";
     public static final String MODULE_COMPASS__DATANAME = "compass";
     public static final String MODULE_ACTIVE_CAMOUFLAGE__DATANAME = "invisibility";
     public static final String MODULE_MAGNET__DATANAME = "magnet";
     public static final String MODULE_SILK_TOUCH__DATANAME = "silk_touch";
-
     // Vision -------------------------------------------------------------------------------------
     public static final String FOV_MULTIPLIER = "Field of View";
-
-
     public static final String BINOCULARS_MODULE__DATANAME = "binoculars";
     public static final String MODULE_NIGHT_VISION__DATANAME = "nightVision";
     public static final String MODULE_THAUM_GOGGLES__DATANAME = "aurameter";
-
     // Tools --------------------------------------------------------------------------------------
     public static final String AQUA_AFFINITY_ENERGY_CONSUMPTION = "Underwater Energy Consumption";
     public static final String UNDERWATER_HARVEST_SPEED = "Underwater Harvest Speed";
@@ -175,7 +132,7 @@ public class MPSModuleConstants {
     public static final String LEAF_BLOWER_ENERGY_CONSUMPTION = "Energy Consumption";
     public static final String LEAF_BLOWER_RADIUS = "Radius";
     public static final String LUX_CAPACITOR_ENERGY_CONSUMPTION = "Lux Capacitor Energy Consumption";
-    public static final String LUX_CAPACITOR_RED_HUE =  "Lux Capacitor Red Hue";
+    public static final String LUX_CAPACITOR_RED_HUE = "Lux Capacitor Red Hue";
     public static final String LUX_CAPACITOR_GREEN_HUE = "Lux Capacitor Green Hue";
     public static final String LUX_CAPACITOR_BLUE_HUE = "Lux Capacitor Blue Hue";
     public static final String PICKAXE_HARVEST_SPEED = "Pickaxe Harvest Speed";
@@ -188,7 +145,6 @@ public class MPSModuleConstants {
     public static final String SHOVEL_HARVEST_SPEED = "Shovel Harvest Speed";
     public static final String SHOVEL_ENERGY_CONSUMPTION = "Shovel Energy Consumption";
     public static final String TREETAP_ENERGY_CONSUMPTION = "Energy Consumption";
-
     public static final String MODULE_AOE_PICK_UPGRADE__DATANAME = "aoePickUpgrade";
     public static final String MODULE_APPENG_EC_WIRELESS_FLUID__DATANAME = "appengECWirelessFluid";
     public static final String MODULE_APPENG_WIRELESS__DATANAME = "appengWireless";
@@ -217,8 +173,6 @@ public class MPSModuleConstants {
     public static final String MODULE_SHEARS__DATANAME = "shears";
     public static final String MODULE_SHOVEL__DATANAME = "shovel";
     public static final String MODULE_TREETAP__DATANAME = "treetap";
-
-
     // Weapons ------------------------------------------------------------------------------------
     public static final String BLADE_ENERGY = "Spinning Blade Energy Consumption";
     public static final String BLADE_DAMAGE = "Spinning Blade Damage";
@@ -234,10 +188,10 @@ public class MPSModuleConstants {
     public static final String RAILGUN_ENERGY_COST = "Railgun Energy Cost";
     public static final String RAILGUN_HEAT_EMISSION = "Railgun Heat Emission";
     public static final String TIMER = "Cooldown";
-
     public static final String MODULE_BLADE_LAUNCHER__DATANAME = "bladeLauncher";
     public static final String MODULE_LIGHTNING__DATANAME = "lightningSummoner";
     public static final String MODULE_MELEE_ASSIST__DATANAME = "meleeAssist";
     public static final String MODULE_PLASMA_CANNON__DATANAME = "plasmaCannon";
     public static final String MODULE_RAILGUN__DATANAME = "railgun";
+    public static String POWER = "Power";
 }

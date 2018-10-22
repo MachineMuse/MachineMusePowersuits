@@ -6,14 +6,15 @@ import net.minecraft.item.ItemStack;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 4:51 AM, 4/28/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/4/16.
  */
 public class ElectricConversions {
-    static NuminaConfig config = NuminaConfig.INSTANCE;
-
-    /** Industrialcraft 2 -------------------------------------------------------------------------- */
+    /**
+     * Industrialcraft 2 --------------------------------------------------------------------------
+     */
     public static final String IC2_TIER = "IC2 Tier";
+    static NuminaConfig config = NuminaConfig.INSTANCE;
 
     public static int getTier(final ItemStack stack) {
         return NuminaConfig.INSTANCE.getTierForItem(stack);
@@ -27,7 +28,9 @@ public class ElectricConversions {
         return (int) Math.round(eu * config.getIC2Ratio());
     }
 
-    /** Mekanism ------------------------------------------------------------------------------------ */
+    /**
+     * Mekanism ------------------------------------------------------------------------------------
+     */
     public static double museEnergyToMek(final double museEnergy) { // no current conversion rate
         return Math.ceil(museEnergy / config.getMekRatio());
     }
@@ -36,7 +39,9 @@ public class ElectricConversions {
         return (int) Math.round(mj * config.getMekRatio());
     }
 
-    /** Applied Energistics 2 ---------------------------------------------------------------------- */
+    /**
+     * Applied Energistics 2 ----------------------------------------------------------------------
+     */
     public static double museEnergyFromAE(final double ae) {
         return ae * config.getAE2Ratio();
     }

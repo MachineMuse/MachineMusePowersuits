@@ -24,7 +24,7 @@ import java.util.Set;
  * Ported to Java by lehjr on 11/4/16.
  */
 public class MPSItemElectricTool extends ItemTool implements IModularItemBase, IMuseElectricItem {
-    public static final Set<Block> blocksEffectiveOn = Sets.newHashSet(new Block[] {
+    public static final Set<Block> blocksEffectiveOn = Sets.newHashSet(new Block[]{
             Blocks.COBBLESTONE, Blocks.DOUBLE_STONE_SLAB, Blocks.STONE_SLAB, Blocks.STONE_SLAB2, Blocks.STONE, Blocks.SANDSTONE,
             Blocks.MOSSY_COBBLESTONE, Blocks.IRON_ORE, Blocks.IRON_BLOCK, Blocks.COAL_ORE, Blocks.GOLD_BLOCK, Blocks.GOLD_ORE,
             Blocks.DIAMOND_ORE, Blocks.DIAMOND_BLOCK, Blocks.ICE, Blocks.NETHERRACK, Blocks.LAPIS_ORE, Blocks.LAPIS_BLOCK, Blocks.REDSTONE_ORE,

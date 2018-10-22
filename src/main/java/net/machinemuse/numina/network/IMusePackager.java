@@ -18,7 +18,7 @@ import java.util.zip.GZIPInputStream;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 12:58 AM, 09/05/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/4/16.
  */
 public interface IMusePackager {
@@ -188,11 +188,11 @@ public interface IMusePackager {
             GZIPInputStream zippy = new GZIPInputStream(new ByteArrayInputStream(compressed));
             int buffRead;
             // once reading is finished, -1 is returned
-            while((buffRead = zippy.read(decomp)) != -1) {
+            while ((buffRead = zippy.read(decomp)) != -1) {
                 bos.write(decomp, 0, buffRead);
             }
             zippy.close();
-            return  bos.toByteArray();
+            return bos.toByteArray();
         } catch (IOException e) {
             e.printStackTrace();
         }

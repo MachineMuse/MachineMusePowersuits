@@ -45,7 +45,7 @@ public class EntitySpinningBlade extends EntityThrowable {
         double speed = 1.0;
         double scale = 1;
         this.motionX = direction.x * speed;
-        this.motionY = direction.y* speed;
+        this.motionY = direction.y * speed;
         this.motionZ = direction.z * speed;
         double r = 1;
         double xoffset = 1.3f + r - direction.y * shootingEntity.getEyeHeight();
@@ -67,7 +67,6 @@ public class EntitySpinningBlade extends EntityThrowable {
     protected float getGravityVelocity() {
         return 0;
     }
-
 
 
     public int getMaxLifetime() {
@@ -120,7 +119,7 @@ public class EntitySpinningBlade extends EntityThrowable {
                 Entity entity = hitResult.entityHit;
                 if (target.isShearable(this.shootingItem, entity.world, entity.getPosition())) {
                     List<ItemStack> drops = target.onSheared(this.shootingItem, entity.world,
-                            entity.getPosition (),
+                            entity.getPosition(),
                             EnchantmentHelper.getEnchantmentLevel(Enchantment.getEnchantmentByLocation("fortune"), this.shootingItem));
 
                     Random rand = new Random();

@@ -12,11 +12,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * Server side of the proxy.
  *
  * @author MachineMuse
- *
+ * <p>
  * Ported to Java by lehjr on 11/14/16.
  */
 @SideOnly(Side.SERVER)
-public class ServerProxy extends CommonProxy{
+public class ServerProxy extends CommonProxy {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);

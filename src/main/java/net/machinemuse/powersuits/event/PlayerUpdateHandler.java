@@ -7,26 +7,26 @@ import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
-import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.List;
 
 /**
  * Created by Claire Semple on 9/8/2014.
- *
+ * <p>
  * Ported to Java by lehjr on 10/24/16.
  */
 public class PlayerUpdateHandler {
-    @SubscribeEvent
+    @SuppressWarnings("unchecked")
+    @SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
     public void onPlayerUpdate(LivingEvent.LivingUpdateEvent e) {
         if (e.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) e.getEntity();
@@ -64,9 +64,9 @@ public class PlayerUpdateHandler {
                 for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IPlayerTickModule.class)) {
                     if (module.isValidForItem(itemStack) && ModuleManager.INSTANCE.itemHasModule(itemStack, module.getDataName())) {
                         if (ModuleManager.INSTANCE.isModuleOnline(itemStack, module.getDataName()))
-                            ((IPlayerTickModule)module).onPlayerTickActive(player, itemStack);
+                            ((IPlayerTickModule) module).onPlayerTickActive(player, itemStack);
                         else
-                            ((IPlayerTickModule)module).onPlayerTickInactive(player, itemStack);
+                            ((IPlayerTickModule) module).onPlayerTickInactive(player, itemStack);
                     }
                 }
             }
@@ -91,12 +91,12 @@ public class PlayerUpdateHandler {
             if (modularItemsInInventory.size() > 0) {
                 // Heat update
                 double currHeat = MuseHeatUtils.getPlayerHeat(player);
-                if (currHeat >=0 && !player.world.isRemote) { // only apply serverside so change is not applied twice
-                    double coolPlayerAmount =  MusePlayerUtils.getPlayerCoolingBasedOnMaterial(player) * 0.55;  // cooling value adjustment. Too much or too little cooling makes the heat system useless.
+                if (currHeat >= 0 && !player.world.isRemote) { // only apply serverside so change is not applied twice
+                    double coolPlayerAmount = MusePlayerUtils.getPlayerCoolingBasedOnMaterial(player) * 0.55;  // cooling value adjustment. Too much or too little cooling makes the heat system useless.
 
                     // cooling value adjustment. Too much or too little cooling makes the heat system useless.
 
-                    if (coolPlayerAmount > 0 )
+                    if (coolPlayerAmount > 0)
                         MuseHeatUtils.coolPlayer(player, coolPlayerAmount);
 
                     double maxHeat = MuseHeatUtils.getPlayerMaxHeat(player);

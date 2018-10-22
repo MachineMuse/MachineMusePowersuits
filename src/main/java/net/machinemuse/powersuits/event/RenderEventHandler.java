@@ -11,9 +11,9 @@ import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.client.helper.ModelHelper;
 import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.machinemuse.powersuits.common.gui.tinker.clickable.ClickableKeybinding;
-import net.machinemuse.powersuits.common.gui.tinker.clickable.ClickableModule;
 import net.machinemuse.powersuits.control.KeybindManager;
+import net.machinemuse.powersuits.gui.tinker.clickable.ClickableKeybinding;
+import net.machinemuse.powersuits.gui.tinker.clickable.ClickableModule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
@@ -29,10 +29,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * Ported to Java by lehjr on 10/24/16.
  */
 public class RenderEventHandler {
-    private static boolean ownFly;
     private static final MPSConfig config = MPSConfig.INSTANCE;
-
-    private final DrawableMuseRect frame = new DrawableMuseRect(config.keybindHUDx(), config.keybindHUDy(), config.keybindHUDx() + (double)16, config.keybindHUDy() + (double)16, true, Colour.DARKGREEN.withAlpha(0.2), Colour.GREEN.withAlpha(0.2));
+    private static boolean ownFly;
+    private final DrawableMuseRect frame = new DrawableMuseRect(config.keybindHUDx(), config.keybindHUDy(), config.keybindHUDx() + (double) 16, config.keybindHUDy() + (double) 16, true, Colour.DARKGREEN.withAlpha(0.2), Colour.GREEN.withAlpha(0.2));
 
     public RenderEventHandler() {
         this.ownFly = false;
@@ -62,7 +61,7 @@ public class RenderEventHandler {
     public void onPreRenderPlayer(RenderPlayerEvent.Pre event) {
         if (!event.getEntityPlayer().capabilities.isFlying && !event.getEntityPlayer().onGround && this.playerHasFlightOn(event.getEntityPlayer())) {
             event.getEntityPlayer().capabilities.isFlying = true;
-            RenderEventHandler.ownFly =true;
+            RenderEventHandler.ownFly = true;
         }
     }
 
@@ -85,7 +84,7 @@ public class RenderEventHandler {
     public void onFOVUpdate(FOVUpdateEvent e) {
         ItemStack helmet = e.getEntity().getItemStackFromSlot(EntityEquipmentSlot.HEAD);
         if (ModuleManager.INSTANCE.itemHasActiveModule(helmet, MPSModuleConstants.BINOCULARS_MODULE__DATANAME)) {
-            e.setNewfov(e.getNewfov() / (float)ModuleManager.INSTANCE.getOrSetModularPropertyDouble(helmet, MPSModuleConstants.FOV_MULTIPLIER));
+            e.setNewfov(e.getNewfov() / (float) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(helmet, MPSModuleConstants.FOV_MULTIPLIER));
         }
     }
 
@@ -97,6 +96,7 @@ public class RenderEventHandler {
             this.drawKeybindToggles();
         }
     }
+
     @SideOnly(Side.CLIENT)
     public void drawKeybindToggles() {
         if (config.keybindHUDon()) {
@@ -106,14 +106,14 @@ public class RenderEventHandler {
             frame.setLeft(config.keybindHUDx());
             frame.setTop(config.keybindHUDy());
             frame.setBottom(frame.top() + 16);
-            for (ClickableKeybinding kb:   KeybindManager.getKeybindings()) {
+            for (ClickableKeybinding kb : KeybindManager.getKeybindings()) {
                 if (kb.displayOnHUD) {
                     double stringwidth = MuseRenderer.getStringWidth(kb.getLabel());
                     frame.setWidth(stringwidth + kb.getBoundModules().size() * 16);
                     frame.draw();
                     MuseRenderer.drawString(kb.getLabel(), frame.left() + 1, frame.top() + 3, (kb.toggleval) ? Colour.RED : Colour.GREEN);
                     double x = frame.left() + stringwidth;
-                    for (ClickableModule module:  kb.getBoundModules()) {
+                    for (ClickableModule module : kb.getBoundModules()) {
                         MuseTextureUtils.pushTexture(MuseTextureUtils.TEXTURE_QUILT);
                         boolean active = false;
                         for (ItemStack stack : MuseItemUtils.getModularItemsEquipped(player)) {

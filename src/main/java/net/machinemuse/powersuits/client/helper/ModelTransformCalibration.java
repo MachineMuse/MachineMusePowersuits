@@ -17,7 +17,7 @@ public class ModelTransformCalibration {
     public static boolean tap;
 
 
-    public ModelTransformCalibration(){
+    public ModelTransformCalibration() {
         this.xtap = 0;
         this.ytap = 0;
         this.ztap = 0;
@@ -27,12 +27,6 @@ public class ModelTransformCalibration {
         this.scalemodifier = 0.625f;
         this.tap = false;
     }
-
-    public TRSRTransformation getTransform() {
-        transformCalibration();
-        return ModelHelper.get(xOffest, yOffest, zOffest, xtap, ytap, ztap, scalemodifier);
-    }
-
 
     //----------------------------------
     /*
@@ -135,5 +129,10 @@ public class ModelTransformCalibration {
                 tap = false;
             }
         }
+    }
+
+    public TRSRTransformation getTransform() {
+        transformCalibration();
+        return ModelHelper.get(xOffest, yOffest, zOffest, xtap, ytap, ztap, scalemodifier);
     }
 }

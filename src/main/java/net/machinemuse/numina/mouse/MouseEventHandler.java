@@ -3,7 +3,7 @@ package net.machinemuse.numina.mouse;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 12:40 PM, 9/5/13
- *
+ * <p>
  * Ported to Java by lehjr on 10/22/16.
  */
 public final class MouseEventHandler {

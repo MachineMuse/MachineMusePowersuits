@@ -25,10 +25,11 @@ import javax.annotation.Nonnull;
 
 public class ShovelModule extends PowerModuleBase implements IBlockBreakingModule, IToggleableModule {
     private static final ItemStack emulatedTool = new ItemStack(Items.IRON_SHOVEL);
+
     public ShovelModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        ModuleManager.INSTANCE.addInstallCost(getDataName(),new ItemStack(Items.IRON_INGOT, 3));
-        ModuleManager.INSTANCE.addInstallCost(getDataName(),MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Items.IRON_INGOT, 3));
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBasePropertyDouble(MPSModuleConstants.SHOVEL_ENERGY_CONSUMPTION, 500, "RF");
         addBasePropertyDouble(MPSModuleConstants.SHOVEL_HARVEST_SPEED, 8, "x");
         addTradeoffPropertyDouble("Overclock", MPSModuleConstants.SHOVEL_ENERGY_CONSUMPTION, 9500);
@@ -52,7 +53,7 @@ public class ShovelModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public boolean onBlockDestroyed(ItemStack itemStack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving, int playerEnergy) {
-        if (this.canHarvestBlock(itemStack, state, (EntityPlayer)entityLiving, pos, playerEnergy)) {
+        if (this.canHarvestBlock(itemStack, state, (EntityPlayer) entityLiving, pos, playerEnergy)) {
             ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, getEnergyUsage(itemStack));
             return true;
         }

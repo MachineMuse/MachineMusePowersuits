@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 2:46 AM, 11/13/13
- *
+ * <p>
  * Ported to Java lehjr on 10/10/16.
  */
 public class MuseTileEntity extends TileEntity {

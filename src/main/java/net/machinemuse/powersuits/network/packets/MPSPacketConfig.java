@@ -17,6 +17,10 @@ public class MPSPacketConfig extends MusePacket {
         player = playerIn;
     }
 
+    public static MPSPacketConfigPackager getPackagerInstance() {
+        return MPSPacketConfigPackager.INSTANCE;
+    }
+
     @Override
     public IMusePackager packager() {
         return MPSPacketConfigPackager.INSTANCE;
@@ -30,15 +34,12 @@ public class MPSPacketConfig extends MusePacket {
         MPSConfig.INSTANCE.getServerSettings().writeToBuffer(this);
     }
 
-    public static MPSPacketConfigPackager getPackagerInstance() {
-        return MPSPacketConfigPackager.INSTANCE;
-    }
-
     public enum MPSPacketConfigPackager implements IMusePackager {
         INSTANCE;
 
         // The packet is read on the client side to copy the settings from the server to the client
         MPSServerSettings settings;
+
         @Override
         public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
             settings = new MPSServerSettings(datain);

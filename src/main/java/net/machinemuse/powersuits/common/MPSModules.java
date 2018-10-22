@@ -119,11 +119,11 @@ public class MPSModules {
             addModule(new ThaumGogglesModule(EnumModuleTarget.HEADONLY));
 
         // CoFHCore
-        if(ModCompatibility.isCOFHCoreLoaded())
+        if (ModCompatibility.isCOFHCoreLoaded())
             addModule(new OmniWrenchModule(EnumModuleTarget.TOOLONLY));
 
         // Mekanism
-        if(ModCompatibility.isMekanismLoaded())
+        if (ModCompatibility.isMekanismLoaded())
             addModule(new MADModule(EnumModuleTarget.TOOLONLY));
 
         // Industrialcraft
@@ -137,7 +137,7 @@ public class MPSModules {
             addModule(new AirtightSealModule(EnumModuleTarget.HEADONLY));
 
         // Forestry
-        if(ModCompatibility.isForestryLoaded()) {
+        if (ModCompatibility.isForestryLoaded()) {
             addModule(new GrafterModule(EnumModuleTarget.TOOLONLY));
             addModule(new ScoopModule(EnumModuleTarget.TOOLONLY));
             addModule(new ApiaristArmorModule(EnumModuleTarget.ARMORONLY));
@@ -147,21 +147,21 @@ public class MPSModules {
         if (ModCompatibility.isChiselLoaded())
             try {
                 addModule(new ChiselModule(EnumModuleTarget.TOOLONLY));
-            } catch(Exception e) {
+            } catch (Exception e) {
                 MuseLogger.logException("Couldn't add Chisel module", e);
             }
 
         // Applied Energistics
-        if(ModCompatibility.isAppengLoaded()) {
+        if (ModCompatibility.isAppengLoaded()) {
             addModule(new AppEngWirelessModule(EnumModuleTarget.TOOLONLY));
 
             // Extra Cells 2
-            if(ModCompatibility.isExtraCellsLoaded())
+            if (ModCompatibility.isExtraCellsLoaded())
                 addModule(new AppEngWirelessFluidModule(EnumModuleTarget.TOOLONLY));
         }
 
         // Multi-Mod Compatible OmniProbe
-        if(ModCompatibility.isEnderIOLoaded() || ModCompatibility.isMFRLoaded() || ModCompatibility.isRailcraftLoaded())
+        if (ModCompatibility.isEnderIOLoaded() || ModCompatibility.isMFRLoaded() || ModCompatibility.isRailcraftLoaded())
             addModule(new OmniProbeModule(EnumModuleTarget.TOOLONLY));
 
 // TODO: on hold for now. Needs a conditional fiuld tank and handler. May not be worth it.

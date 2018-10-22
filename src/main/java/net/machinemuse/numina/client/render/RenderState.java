@@ -9,10 +9,16 @@ import org.lwjgl.opengl.GL11;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 2:41 PM, 9/6/13
- *
+ * <p>
  * Ported to Java by lehjr on 10/23/16.
  */
 public final class RenderState {
+    /**
+     * Used primarily for model rendering to make a surface "glow"
+     */
+    private static float lightmapLastX = .0f;
+    private static float lightmapLastY = .0f;
+
     /**
      * 2D rendering mode on/off
      */
@@ -86,13 +92,13 @@ public final class RenderState {
         Minecraft mc = Minecraft.getMinecraft();
         int dw = mc.displayWidth;
         int dh = mc.displayHeight;
-        ScaledResolution res  = new ScaledResolution(mc);
+        ScaledResolution res = new ScaledResolution(mc);
         double newx = x * res.getScaleFactor();
         double newy = dh - h * res.getScaleFactor() - y * res.getScaleFactor();
         double neww = w * res.getScaleFactor();
         double newh = h * res.getScaleFactor();
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
-        GL11.glScissor((int)newx, (int)newy, (int)neww, (int)newh);
+        GL11.glScissor((int) newx, (int) newy, (int) neww, (int) newh);
     }
 
     public static void scissorsOff() {
@@ -100,11 +106,6 @@ public final class RenderState {
         GL11.glPopAttrib();
     }
 
-    /**
-     * Used primarily for model rendering to make a surface "glow"
-     */
-    private static float lightmapLastX = .0f;
-    private static float lightmapLastY = .0f;
     public static void glowOn() {
         GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
         lightmapLastX = OpenGlHelper.lastBrightnessX;

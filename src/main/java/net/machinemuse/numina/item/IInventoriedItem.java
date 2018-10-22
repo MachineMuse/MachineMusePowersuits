@@ -8,13 +8,12 @@ import java.util.List;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 8:00 PM, 9/3/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/1/16.
- *
+ * <p>
  * This will only slightly break Anima!
  */
-public interface IInventoriedItem
-{
+public interface IInventoriedItem {
     boolean canStoreItem(ItemStack p0);
 
     int getSelectedSlot(ItemStack p0);

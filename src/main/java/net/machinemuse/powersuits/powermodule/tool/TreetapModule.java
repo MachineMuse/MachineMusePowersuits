@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Created by User: Andrew2448
  * 7:45 PM 4/23/13
- *
+ * <p>
  * Updated by leon on 6/14/16.
  */
 
@@ -34,10 +34,9 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
     public static ItemStack resin;
     public static Block rubber_wood;
     public static ItemStack emulatedTool;
+    public static ItemStack treetap;
     private Method attemptExtract;
     private boolean isIC2Classic;
-
-    public static ItemStack treetap;
 
     public TreetapModule(EnumModuleTarget moduleTarget) {
         // TODO: add support for tree taps from other mods?
@@ -45,9 +44,9 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
         super(moduleTarget);
         if (ModCompatibility.isIndustrialCraftClassicLoaded()) {
             emulatedTool = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("ic2", "itemTreetapElectric")), 1);
-            treetap = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("ic2", "itemTreetap")), 1);
-            resin = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("ic2", "misc_resource")), 1, 4);
-            rubber_wood =  Block.REGISTRY.getObject(new ResourceLocation("ic2", "blockRubWood"));
+            treetap = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("ic2", "itemTreetap")), 1);
+            resin = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("ic2", "misc_resource")), 1, 4);
+            rubber_wood = Block.REGISTRY.getObject(new ResourceLocation("ic2", "blockRubWood"));
             try {
                 attemptExtract = treetap.getItem().getClass().
                         getDeclaredMethod("attemptExtract", ItemStack.class, EntityPlayer.class, World.class, BlockPos.class, EnumFacing.class, List.class);
@@ -56,19 +55,19 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
             }
             isIC2Classic = true;
         } else {
-            emulatedTool = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("ic2", "electric_treetap")), 1);
-            treetap = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("ic2", "treetap")), 1);
-            resin = new ItemStack( Item.REGISTRY.getObject(new ResourceLocation("ic2", "misc_resource")), 1, 4);
-            rubber_wood =  Block.REGISTRY.getObject(new ResourceLocation("ic2", "rubber_wood"));
+            emulatedTool = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("ic2", "electric_treetap")), 1);
+            treetap = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("ic2", "treetap")), 1);
+            resin = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("ic2", "misc_resource")), 1, 4);
+            rubber_wood = Block.REGISTRY.getObject(new ResourceLocation("ic2", "rubber_wood"));
             try {
                 attemptExtract = treetap.getItem().getClass().
-                                getDeclaredMethod("attemptExtract", EntityPlayer.class, World.class, BlockPos.class, EnumFacing.class, IBlockState.class, List.class);
+                        getDeclaredMethod("attemptExtract", EntityPlayer.class, World.class, BlockPos.class, EnumFacing.class, IBlockState.class, List.class);
             } catch (Exception ignored) {
 
             }
             isIC2Classic = false;
         }
-        ModuleManager.INSTANCE.addInstallCost(getDataName(),emulatedTool);
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), emulatedTool);
 
         addBasePropertyDouble(MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION, 1000, "RF");
     }
@@ -87,7 +86,7 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
             // IC2 Classic
             if (isIC2Classic) {
                 if (block == rubber_wood && ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION) < ElectricItemUtils.getPlayerEnergy(player)) {
-                    if (attemptExtract.invoke( "attemptExtract", null, player, world, pos, facing, null).equals(true)) {
+                    if (attemptExtract.invoke("attemptExtract", null, player, world, pos, facing, null).equals(true)) {
                         ElectricItemUtils.drainPlayerEnergy(player, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION));
                         return EnumActionResult.SUCCESS;
                     }
@@ -96,7 +95,7 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
             // IC2 Experimental
             else {
                 if (block == rubber_wood && ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION) < ElectricItemUtils.getPlayerEnergy(player)) {
-                    if (attemptExtract.invoke( "attemptExtract", player, world, pos, facing, state, null).equals(true)) {
+                    if (attemptExtract.invoke("attemptExtract", player, world, pos, facing, state, null).equals(true)) {
                         ElectricItemUtils.drainPlayerEnergy(player, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION));
                         return EnumActionResult.SUCCESS;
                     }

@@ -16,8 +16,8 @@ public class ElectricItemUtils {
     public static List<ElectricAdapter> electricItemsEquipped(EntityPlayer player) {
         List<ElectricAdapter> electrics = new ArrayList<>();
         // Only check the entity equipment slots for items. This is all armor slots and both hand slots.
-        for (EntityEquipmentSlot slot: EntityEquipmentSlot.values()) {
-            ElectricAdapter adapter  = ElectricAdapter.wrap(player.getItemStackFromSlot(slot));
+        for (EntityEquipmentSlot slot : EntityEquipmentSlot.values()) {
+            ElectricAdapter adapter = ElectricAdapter.wrap(player.getItemStackFromSlot(slot));
             if (adapter != null) {
                 electrics.add(adapter);
             }
@@ -59,7 +59,7 @@ public class ElectricItemUtils {
      */
     public static int getPlayerEnergy(EntityPlayer player) {
         int avail = 0;
-        for (ElectricAdapter adapter: electricItemsEquipped(player))
+        for (ElectricAdapter adapter : electricItemsEquipped(player))
             avail += adapter.getEnergyStored();
         return avail;
     }
@@ -69,7 +69,7 @@ public class ElectricItemUtils {
      */
     public static int getMaxPlayerEnergy(EntityPlayer player) {
         int avail = 0;
-        for (ElectricAdapter adapter: electricItemsEquipped(player))
+        for (ElectricAdapter adapter : electricItemsEquipped(player))
             avail += adapter.getMaxEnergyStored();
         return avail;
     }
@@ -82,7 +82,7 @@ public class ElectricItemUtils {
             return 0;
 
         int drainleft = drainAmount;
-        for (ElectricAdapter adapter: electricItemsEquipped(player)) {
+        for (ElectricAdapter adapter : electricItemsEquipped(player)) {
             if (drainleft > 0)
                 drainleft = drainleft - adapter.extractEnergy(drainleft, false);
             else
@@ -96,7 +96,7 @@ public class ElectricItemUtils {
      */
     public static int givePlayerEnergy(EntityPlayer player, int rfToGive) {
         int rfLeft = rfToGive;
-        for (ElectricAdapter adapter: electricItemsEquipped(player)) {
+        for (ElectricAdapter adapter : electricItemsEquipped(player)) {
             if (rfLeft > 0) {
                 rfLeft = rfLeft - adapter.receiveEnergy(rfLeft, false);
             } else
@@ -124,13 +124,6 @@ public class ElectricItemUtils {
             return adapter.getEnergyStored();
         return 0;
     }
-
-
-
-
-
-
-
 
 
 }

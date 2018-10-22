@@ -8,6 +8,7 @@ import net.minecraftforge.common.property.IExtendedBlockState;
 
 public class TileEntityLuxCapacitor extends MuseTileEntity {
     private Colour color;
+
     public TileEntityLuxCapacitor() {
         this.color = BlockLuxCapacitor.defaultColor;
     }
@@ -20,7 +21,7 @@ public class TileEntityLuxCapacitor extends MuseTileEntity {
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         if (color == null)
-            color = ((IExtendedBlockState)this.getWorld().getBlockState(this.getPos())).getValue(BlockLuxCapacitor.COLOR);
+            color = ((IExtendedBlockState) this.getWorld().getBlockState(this.getPos())).getValue(BlockLuxCapacitor.COLOR);
         if (color == null)
             color = BlockLuxCapacitor.defaultColor;
         nbt.setInteger("c", color.getInt());
@@ -37,7 +38,7 @@ public class TileEntityLuxCapacitor extends MuseTileEntity {
         }
     }
 
-    public Colour getColor(){
+    public Colour getColor() {
         return color != null ? color : BlockLuxCapacitor.defaultColor;
     }
 }

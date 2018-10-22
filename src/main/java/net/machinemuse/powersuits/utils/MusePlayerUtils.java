@@ -27,6 +27,7 @@ import java.util.List;
 
 public class MusePlayerUtils {
     static final double root2 = Math.sqrt(2);
+    protected static Field movementfactorfieldinstance;
 
     public static RayTraceResult raytraceEntities(World world, EntityPlayer player, boolean collisionFlag, double reachDistance) {
         RayTraceResult pickedEntity = null;
@@ -166,7 +167,8 @@ public class MusePlayerUtils {
             double strafeX = desiredDirection.z;
             double strafeZ = -desiredDirection.x;
             double flightVerticality = 0;
-            ItemStack helm = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);;
+            ItemStack helm = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+            ;
             if (!helm.isEmpty() && helm.getItem() instanceof IModularItem) {
                 flightVerticality = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(helm, MPSModuleConstants.FLIGHT_VERTICALITY);
             }
@@ -248,7 +250,7 @@ public class MusePlayerUtils {
 
         } else {
             Vec3d playerHorzFacing = player.getLookVec();
-            playerHorzFacing = new Vec3d(playerHorzFacing.x, 0,  playerHorzFacing.z);
+            playerHorzFacing = new Vec3d(playerHorzFacing.x, 0, playerHorzFacing.z);
             playerHorzFacing.normalize();
             if (forwardkey == 0) {
                 player.motionY += thrust;
@@ -291,13 +293,13 @@ public class MusePlayerUtils {
         if (player.isInLava())
             return 0;
 
-        double cool = ((2.0 - getBiome(player).getTemperature(new BlockPos((int)player.posX, (int)player.posY, (int)player.posZ))/2)); // Algorithm that returns a getValue from 0.0 -> 1.0. Biome temperature is from 0.0 -> 2.0
+        double cool = ((2.0 - getBiome(player).getTemperature(new BlockPos((int) player.posX, (int) player.posY, (int) player.posZ)) / 2)); // Algorithm that returns a getValue from 0.0 -> 1.0. Biome temperature is from 0.0 -> 2.0
 
         if (player.isInWater())
             cool += 0.5;
 
         // If high in the air, increase cooling
-        if ((int)player.posY > 128)
+        if ((int) player.posY > 128)
             cool += 0.5;
 
         // If nighttime and in the desert, increase cooling
@@ -311,7 +313,7 @@ public class MusePlayerUtils {
                 // check if raining in the world
                 && player.world.isRaining()
                 // check if the player can see the sky
-                && player.world.canBlockSeeSky(player.getPosition().add(0,1,0))) {
+                && player.world.canBlockSeeSky(player.getPosition().add(0, 1, 0))) {
             cool += 0.2;
         }
 
@@ -331,8 +333,6 @@ public class MusePlayerUtils {
             MuseLogger.logDebug("illegalAccessException");
         }
     }
-
-    protected static Field movementfactorfieldinstance;
 
     public static Field getMovementFactorField() {
         if (movementfactorfieldinstance == null) {

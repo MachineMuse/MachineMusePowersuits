@@ -19,8 +19,8 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
 public class NightVisionModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
-    private static final Potion nightvision = MobEffects.NIGHT_VISION;
     static final int powerDrain = 50;
+    private static final Potion nightvision = MobEffects.NIGHT_VISION;
 
     public NightVisionModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
@@ -65,7 +65,7 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
         if (player.isPotionActive(nightvision)) {
             nightVisionEffect = player.getActivePotionEffect(nightvision);
             if (nightVisionEffect.getAmplifier() == -3) {
-                    player.removePotionEffect(nightvision);
+                player.removePotionEffect(nightvision);
             }
         }
     }

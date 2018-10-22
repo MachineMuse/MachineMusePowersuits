@@ -3,7 +3,7 @@ package net.machinemuse.numina.utils.map;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 4:30 AM, 29/04/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/8/16.
  */
 public class MuseRegistry<T> extends MuseBiMap<String, T> {

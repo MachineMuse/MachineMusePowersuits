@@ -9,15 +9,16 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
  * Created by leon on 7/4/16.
  */
 public class KeyBindingHelper {
+    static KeyBindingMap hash;
+
     static {
         new KeyBindingHelper();
     }
 
-    static KeyBindingMap hash;
     static KeyBindingMap getKeyBindingMap() {
         try {
             if (hash == null) {
-                if ((Boolean)Launch.blackboard.get("fml.deobfuscatedEnvironment"))
+                if ((Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment"))
                     hash = ReflectionHelper.getPrivateValue(KeyBinding.class, null, "HASH", "b", "HASH");
                 else
                     hash = ReflectionHelper.getPrivateValue(KeyBinding.class, null, "HASH", "b", "field_74514_b");
@@ -30,9 +31,8 @@ public class KeyBindingHelper {
 
     public boolean keyBindingHasKey(int key) {
         try {
-            return (getKeyBindingMap() != null) ? (getKeyBindingMap().lookupActive(key)!=null) : false;
-        }
-        catch (Exception ignored) {
+            return (getKeyBindingMap() != null) ? (getKeyBindingMap().lookupActive(key) != null) : false;
+        } catch (Exception ignored) {
 
         }
         return false;
@@ -42,8 +42,7 @@ public class KeyBindingHelper {
         try {
             if (getKeyBindingMap() != null)
                 hash.removeKey(hash.lookupActive(key));
-        }
-        catch (Exception ignored) {
+        } catch (Exception ignored) {
 
         }
     }
@@ -52,8 +51,7 @@ public class KeyBindingHelper {
         try {
             if (getKeyBindingMap() != null)
                 hash.removeKey(key);
-        }
-        catch (Exception ignored) {
+        } catch (Exception ignored) {
 
         }
     }

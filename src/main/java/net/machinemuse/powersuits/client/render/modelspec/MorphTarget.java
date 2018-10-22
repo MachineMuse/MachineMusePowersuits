@@ -9,7 +9,7 @@ import java.util.Arrays;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 2:09 AM, 29/04/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/8/16.
  */
 public enum MorphTarget {
@@ -37,8 +37,12 @@ public enum MorphTarget {
         this.slot = slot;
     }
 
+    public static MorphTarget getMorph(final String name) {
+        return Arrays.stream(values()).filter(morph -> name.toUpperCase().equals(morph.name)).findAny().orElseGet(null);
+    }
+
     public ModelRenderer apply(ModelBiped m) {
-        switch(this) {
+        switch (this) {
             case Head:
                 return m.bipedHead;
 
@@ -64,9 +68,5 @@ public enum MorphTarget {
             default:
                 return null;
         }
-    }
-
-    public static MorphTarget getMorph(final String name) {
-        return Arrays.stream(values()).filter(morph -> name.toUpperCase().equals(morph.name)).findAny().orElseGet(null);
     }
 }

@@ -77,8 +77,6 @@ public class ModelHelper {
     }
 
 
-
-
     //-------------------------------------
     public static TRSRTransformation get(float transformX, float transformY, float transformZ, float angleX, float angleY, float angleZ, float scaleX, float scaleY, float scaleZ) {
         return new TRSRTransformation(
@@ -96,20 +94,13 @@ public class ModelHelper {
     }
 
 
-
-
-
-
-
-
-
     //-----------------------------------
 //
 //
 //
 //
 //
-    public static IModel getModel(ResourceLocation resource){
+    public static IModel getModel(ResourceLocation resource) {
         IModel model = null;
         try {
             model = (OBJModelPlus) OBJPlusLoader.INSTANCE.loadModel(resource);
@@ -325,7 +316,7 @@ public class ModelHelper {
      */
     public static List<BakedQuad> getColouredQuadsWithGlowAndTransform(List<BakedQuad> quadList, Colour colour, final TRSRTransformation transform, boolean glow) {
         ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
-        quadList.forEach(quad-> builder.add(colouredQuadWithGlowAndTransform(colour, quad, !glow, transform)));
+        quadList.forEach(quad -> builder.add(colouredQuadWithGlowAndTransform(colour, quad, !glow, transform)));
         return builder.build();
     }
 
@@ -337,7 +328,7 @@ public class ModelHelper {
 
     public static List<BakedQuad> getColoredQuadsWithGlow(List<BakedQuad> quadList, Colour color, boolean glow) {
         ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
-        quadList.forEach(quad-> builder.add(colorQuad(color, quad, !glow)));
+        quadList.forEach(quad -> builder.add(colorQuad(color, quad, !glow)));
         return builder.build();
     }
 
@@ -379,7 +370,7 @@ public class ModelHelper {
 //            System.out.println("element: " + element);
 //            System.out.println("usage: " + usage.getDisplayName());
             // change color
-            if(colour != null &&
+            if (colour != null &&
                     usage == VertexFormatElement.EnumUsage.COLOR &&
                     data.length >= 4) {
                 data[0] = (float) colour.r;

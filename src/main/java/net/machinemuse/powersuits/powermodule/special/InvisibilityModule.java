@@ -19,6 +19,7 @@ import net.minecraft.potion.PotionEffect;
 
 public class InvisibilityModule extends PowerModuleBase implements IPlayerTickModule, IToggleableModule {
     private final Potion invisibility = Potion.getPotionFromResourceLocation("invisibility");
+
     public InvisibilityModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.laserHologram, 4));

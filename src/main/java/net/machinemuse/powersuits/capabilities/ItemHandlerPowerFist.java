@@ -12,13 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemHandlerPowerFist extends ItemStackHandler {
-    private final ItemStack container;
-    private static final String TAG_ITEMS = "items";
-
     // Scannable
     public static final int SCANNER_ACTIVE_MODULE_COUNT = 3;
     public static final int SCANNER_TOTAL_MODULE_COUNT = 9;
     public static final int TOTAL_SIZE = SCANNER_TOTAL_MODULE_COUNT + 10;
+    private static final String TAG_ITEMS = "items";
+    private final ItemStack container;
 
 
     public ItemHandlerPowerFist(final ItemStack container) {

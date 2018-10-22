@@ -16,9 +16,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 @SideOnly(Side.CLIENT)
 public class MuseIcon {
-    protected MuseIcon() {
-    }
-
     /* Armor -------------------------------------------------------------------------------------- */
     public static TextureAtlasSprite apiaristArmor;
     public static TextureAtlasSprite basicPlating;
@@ -28,14 +25,12 @@ public class MuseIcon {
     public static TextureAtlasSprite heatSink;
     public static TextureAtlasSprite mechAssistance;
     public static TextureAtlasSprite advancedCoolingSystem;
-    /* Water tank module uses vanilla bucket of water icon */
-
     /* Cosmetic ----------------------------------------------------------------------------------- */
     public static TextureAtlasSprite citizenJoe;
+    /* Water tank module uses vanilla bucket of water icon */
     public static TextureAtlasSprite cosmeticGlow;
     public static TextureAtlasSprite highPoly;
     public static TextureAtlasSprite tint;
-
     /* Energy ------------------------------------------------------------------------------------- */
     public static TextureAtlasSprite advancedBattery;
     public static TextureAtlasSprite advSolarGenerator;
@@ -46,16 +41,13 @@ public class MuseIcon {
     public static TextureAtlasSprite solarGenerator;
     public static TextureAtlasSprite thermalGenerator;
     public static TextureAtlasSprite ultimateBattery;
-
     /* Misc --------------------------------------------------------------------------------------- */
     public static TextureAtlasSprite airtightSeal;
     public static TextureAtlasSprite autoFeeder;
     public static TextureAtlasSprite binoculars;
-
     // clock uses vanilla icon
     // compass uses vanilla icon
     public static TextureAtlasSprite basicCoolingSystem;
-
     public static TextureAtlasSprite portableCraftingTable;
     public static TextureAtlasSprite invisibility;
     public static TextureAtlasSprite magnet;
@@ -64,7 +56,6 @@ public class MuseIcon {
     public static TextureAtlasSprite aurameter;
     public static TextureAtlasSprite transparentArmor;
     public static TextureAtlasSprite waterElectrolyzer;
-
     /* Movement ----------------------------------------------------------------------------------- */
     public static TextureAtlasSprite blinkDrive;
     public static TextureAtlasSprite climbAssist;
@@ -77,7 +68,6 @@ public class MuseIcon {
     public static TextureAtlasSprite shockAbsorber;
     public static TextureAtlasSprite sprintAssist;
     public static TextureAtlasSprite swimAssist;
-
     /* Tools -------------------------------------------------------------------------------------- */
     public static TextureAtlasSprite aoePickUpgrade;
     public static TextureAtlasSprite appengECWirelessFluid;
@@ -105,7 +95,6 @@ public class MuseIcon {
     // emulatedTool using external mod texture
     // shears using vanilla texture
     public static TextureAtlasSprite shovel;
-
     /* Weapons ------------------------------------------------------------------------------------ */
     public static TextureAtlasSprite bladeLauncher;
     public static TextureAtlasSprite lightning;
@@ -113,16 +102,16 @@ public class MuseIcon {
     public static TextureAtlasSprite plasmaCannon;
     public static TextureAtlasSprite railgun;
     public static TextureAtlasSprite sonicWeapon;
-    
     /* Things other than module icons ------------------------------------------------------------- */
     public static TextureAtlasSprite luxCapacitorTexture;
     public static TextureAtlasSprite powerFistTexture;
-
+    protected MuseIcon() {
+    }
 
     public static void registerIcons(TextureStitchEvent.Pre event) {
         /* Armor -------------------------------------------------------------------------------------- */
         apiaristArmor = register(event, "modules/silkWisp");
-        basicPlating = register(event,"modules/basicplating2");
+        basicPlating = register(event, "modules/basicplating2");
         diamondPlating = register(event, "modules/advancedplating2");
         energyShield = register(event, "modules/energyshield");
         hazmat = register(event, "modules/greenstar");
@@ -200,12 +189,12 @@ public class MuseIcon {
         shovel = register(event, "modules/toolshovel");
 
         /* Weapons ------------------------------------------------------------------------------------ */
-        bladeLauncher = register(event,"modules/spinningblade");
-        lightning = register(event,"modules/bluestar");
-        meleeAssist = register(event,"modules/toolfist");
+        bladeLauncher = register(event, "modules/spinningblade");
+        lightning = register(event, "modules/bluestar");
+        meleeAssist = register(event, "modules/toolfist");
         plasmaCannon = register(event, "modules/gravityweapon");
-        railgun = register(event,"modules/electricweapon");
-        sonicWeapon = register(event,"modules/soundweapon");
+        railgun = register(event, "modules/electricweapon");
+        sonicWeapon = register(event, "modules/soundweapon");
 
         /* Things other than module icons ------------------------------------------------------------- */
         luxCapacitorTexture = register(event, "models/luxcapacitor");

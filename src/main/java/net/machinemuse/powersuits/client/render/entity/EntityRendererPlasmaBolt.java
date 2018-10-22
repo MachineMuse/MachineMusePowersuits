@@ -16,6 +16,7 @@ import static net.minecraft.client.renderer.block.model.ItemCameraTransforms.Tra
 import static net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND;
 
 public class EntityRendererPlasmaBolt extends MuseEntityRenderer<EntityPlasmaBolt> {
+    public static DoubleBuffer unrotatebuffer;
     protected static DrawableMuseCircle circle1;
     protected static DrawableMuseCircle circle2;
     protected static DrawableMuseCircle circle3;
@@ -31,28 +32,6 @@ public class EntityRendererPlasmaBolt extends MuseEntityRenderer<EntityPlasmaBol
         circle3 = new DrawableMuseCircle(c1, c1);
         circle4 = new DrawableMuseCircle(c1, new Colour(1, 1, 1, 1));
     }
-
-    /**
-     * Actually renders the given argument. This is a synthetic bridge method,
-     * always casting down its argument and then handing it off to a worker
-     * function which does the actual work. In all probabilty, the class Render
-     * is generic (Render<T extends Entity) and this method has signature public
-     * void doRender(T entity, double d, double d1, double d2, float f, float
-     * f1). But JAD is pre 1.5 so doesn't do that.
-     */
-    @Override
-    public void doRender(EntityPlasmaBolt entity, double x, double y, double z, float entityYaw, float partialTicks) {
-        double size = (entity.size) / 10.0;
-        GL11.glPushMatrix();
-        GL11.glTranslated(x, y, z);
-        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        GL11.glScalef(0.5F, 0.5F, 0.5F);
-        doRender(size);
-        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-        GL11.glPopMatrix();
-    }
-
-    public static DoubleBuffer unrotatebuffer;
 
     public static void doRender(double size) {
         GL11.glPushMatrix();
@@ -100,5 +79,25 @@ public class EntityRendererPlasmaBolt extends MuseEntityRenderer<EntityPlasmaBol
             // ---
             GL11.glPopMatrix();
         }
+    }
+
+    /**
+     * Actually renders the given argument. This is a synthetic bridge method,
+     * always casting down its argument and then handing it off to a worker
+     * function which does the actual work. In all probabilty, the class Render
+     * is generic (Render<T extends Entity) and this method has signature public
+     * void doRender(T entity, double d, double d1, double d2, float f, float
+     * f1). But JAD is pre 1.5 so doesn't do that.
+     */
+    @Override
+    public void doRender(EntityPlasmaBolt entity, double x, double y, double z, float entityYaw, float partialTicks) {
+        double size = (entity.size) / 10.0;
+        GL11.glPushMatrix();
+        GL11.glTranslated(x, y, z);
+        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+        GL11.glScalef(0.5F, 0.5F, 0.5F);
+        doRender(size);
+        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+        GL11.glPopMatrix();
     }
 }

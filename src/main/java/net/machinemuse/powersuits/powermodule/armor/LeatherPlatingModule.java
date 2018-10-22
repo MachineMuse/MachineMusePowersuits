@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 
 public class LeatherPlatingModule extends PowerModuleBase {
     protected final ItemStack leather = new ItemStack(Items.LEATHER);
+
     public LeatherPlatingModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(this.getDataName(), MuseItemUtils.copyAndResize(new ItemStack(Items.LEATHER), 2));

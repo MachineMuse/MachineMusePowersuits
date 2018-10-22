@@ -39,16 +39,20 @@ import static net.minecraft.block.BlockDirectional.FACING;
 @SideOnly(Side.CLIENT)
 public class ModelLuxCapacitor implements IBakedModel {
     public static final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(MPSItems.INSTANCE.luxCapacitor.getRegistryName().toString());
+    final IModelState modelState;
     public IBakedModel wrapper;
     protected Function<ResourceLocation, TextureAtlasSprite> textureGetter;
     Colour colour;
     private LuxCapacitorItemOverrideList overrides;
-    final IModelState modelState;
 
     public ModelLuxCapacitor() {
         this.overrides = new LuxCapacitorItemOverrideList();
         this.wrapper = this;
         this.modelState = getModelState();
+    }
+
+    public static ModelResourceLocation getModelResourceLocation(EnumFacing facing) {
+        return new ModelResourceLocation(MPSItems.INSTANCE.luxCapacitor.getRegistryName().toString(), "facing=" + facing.getName());
     }
 
     IModelState getModelState() {
@@ -74,10 +78,6 @@ public class ModelLuxCapacitor implements IBakedModel {
         builder.put(ItemCameraTransforms.TransformType.FIXED,
                 ModelHelper.get(0F, 0F, -7.5F, 0F, 180F, 0F, 1F));
         return new SimpleModelState(builder.build());
-    }
-
-    public static ModelResourceLocation getModelResourceLocation(EnumFacing facing) {
-        return new ModelResourceLocation(MPSItems.INSTANCE.luxCapacitor.getRegistryName().toString(), "facing=" + facing.getName());
     }
 
     @Override
@@ -134,7 +134,7 @@ public class ModelLuxCapacitor implements IBakedModel {
     @Override
     public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
         TRSRTransformation transform = modelState.apply(Optional.of(cameraTransformType)).orElse(TRSRTransformation.identity());
-        if(transform != TRSRTransformation.identity())
+        if (transform != TRSRTransformation.identity())
             return Pair.of(this, transform.getMatrix());
 
         return Pair.of(this, transform.getMatrix());

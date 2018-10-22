@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 6:31 PM, 10/15/13
- *
+ * <p>
  * Ported to java by lehjr on 10/10/16.
  */
 public class DeathEventHandler {
@@ -21,7 +21,7 @@ public class DeathEventHandler {
     public void onLivingDeath(LivingDeathEvent e) {
         EntityPlayer player = (EntityPlayer) e.getEntityLiving();
         e.setCanceled(true);
-        player.openGui(Numina.getInstance(), 0, player.world, (int)player.posX, (int)player.posY, (int)player.posZ);
+        player.openGui(Numina.getInstance(), 0, player.world, (int) player.posX, (int) player.posY, (int) player.posZ);
         MuseLogger.logDebug("Death");
 //        player.setHealth(10f)
     }
@@ -31,7 +31,7 @@ public class DeathEventHandler {
         if (e.getGui() instanceof GuiGameOver) {
             e.setCanceled(true);
             EntityPlayerSP player = Minecraft.getMinecraft().player;
-            player.openGui(Numina.getInstance(), 0, player.world, (int)player.posX, (int)player.posY, (int)player.posZ);
+            player.openGui(Numina.getInstance(), 0, player.world, (int) player.posX, (int) player.posY, (int) player.posZ);
         }
     }
 }

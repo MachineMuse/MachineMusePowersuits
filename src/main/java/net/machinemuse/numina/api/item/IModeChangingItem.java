@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 7:11 PM, 9/3/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/1/16.
  */
 public interface IModeChangingItem {
@@ -30,9 +30,8 @@ public interface IModeChangingItem {
         String modeFromNBT = MuseNBTUtils.getMuseItemTag(stack).getString(NuminaNBTConstants.TAG_MODE);
         if (modeFromNBT.isEmpty()) {
             List<String> validModes = getValidModes(stack);
-            return (validModes!=null && (validModes.size() > 0) ? validModes.get(0) : "");
-        }
-        else
+            return (validModes != null && (validModes.size() > 0) ? validModes.get(0) : "");
+        } else
             return modeFromNBT;
     }
 
@@ -44,7 +43,7 @@ public interface IModeChangingItem {
         List<String> modes = this.getValidModes(stack);
         if (modes.size() > 0) {
             int newindex = clampMode(modes.indexOf(this.getActiveMode(stack)) + dMode, modes.size());
-            String newmode = (String)modes.get(newindex);
+            String newmode = (String) modes.get(newindex);
             this.setActiveMode(stack, newmode);
             PacketSender.sendToServer(new MusePacketModeChangeRequest(player, newmode, player.inventory.currentItem));
         }
@@ -55,18 +54,16 @@ public interface IModeChangingItem {
         List<String> modes = getValidModes(stack);
         if (modes.size() > 0) {
             int newindex = clampMode(modes.indexOf(getActiveMode(stack)) + 1, modes.size());
-            return (String)modes.get(newindex);
-        }
-        else return "";
+            return (String) modes.get(newindex);
+        } else return "";
     }
 
     default String prevMode(ItemStack stack, EntityPlayer player) {
         List<String> modes = this.getValidModes(stack);
         if (modes.size() > 0) {
             int newindex = clampMode(modes.indexOf(getActiveMode(stack)) - 1, modes.size());
-            return (String)modes.get(newindex);
-        }
-        else return "";
+            return (String) modes.get(newindex);
+        } else return "";
     }
 
     default int clampMode(int selection, int modesSize) {

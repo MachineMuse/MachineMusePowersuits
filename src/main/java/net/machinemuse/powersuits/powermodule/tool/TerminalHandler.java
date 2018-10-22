@@ -33,6 +33,33 @@ import java.util.Set;
 public class TerminalHandler implements
         IWirelessTermHandler, IWirelessFluidTermHandler {
 
+    public static void registerHandler() {
+        if (ModCompatibility.isAppengLoaded()) {
+            TerminalHandler handler = new TerminalHandler();
+            registerAEHandler(handler);
+            if (ModCompatibility.isExtraCellsLoaded()) {
+                registerECHandler(handler);
+            }
+        }
+    }
+
+    @Optional.Method(modid = "appliedenergistics2")
+    private static void registerAEHandler(TerminalHandler handler) {
+        AEApi.instance().registries().wireless().registerWirelessHandler(handler);
+    }
+
+    @Optional.Method(modid = "extracells")
+    private static void registerECHandler(TerminalHandler handler) {
+        ECApi.instance().registerWirelessTermHandler(handler);
+    }
+
+    public static NBTTagCompound openNbtData(@Nonnull ItemStack item) {
+        NBTTagCompound compound = item.getTagCompound();
+        if (compound == null)
+            item.setTagCompound(compound = new NBTTagCompound());
+        return compound;
+    }
+
     @Optional.Method(modid = "appliedenergistics2")
     @Override
     public boolean canHandle(@Nonnull ItemStack is) {
@@ -98,38 +125,10 @@ public class TerminalHandler implements
         }
     }
 
-    public static void registerHandler() {
-        if (ModCompatibility.isAppengLoaded()) {
-            TerminalHandler handler = new TerminalHandler();
-            registerAEHandler(handler);
-            if (ModCompatibility.isExtraCellsLoaded()) {
-                registerECHandler(handler);
-            }
-        }
-    }
-
-    @Optional.Method(modid = "appliedenergistics2")
-    private static void registerAEHandler(TerminalHandler handler) {
-        AEApi.instance().registries().wireless().registerWirelessHandler(handler);
-    }
-
-    @Optional.Method(modid = "extracells")
-    private static void registerECHandler(TerminalHandler handler) {
-        ECApi.instance().registerWirelessTermHandler(handler);
-    }
-
-    public static NBTTagCompound openNbtData(@Nonnull ItemStack item) {
-        NBTTagCompound compound = item.getTagCompound();
-        if (compound == null)
-            item.setTagCompound(compound = new NBTTagCompound());
-        return compound;
-    }
-
     @Optional.Interface(iface = "appeng.api.util.IConfigManager", modid = "appliedenergistics2", striprefs = true)
     class WirelessConfig implements IConfigManager {
-        private final Map<Settings, Enum<?>> enums = new EnumMap<>(Settings.class);
-
         final ItemStack stack;
+        private final Map<Settings, Enum<?>> enums = new EnumMap<>(Settings.class);
 
         public WirelessConfig(@Nonnull ItemStack itemStack) {
             this.stack = itemStack;
@@ -161,7 +160,7 @@ public class TerminalHandler implements
         @Optional.Method(modid = "appliedenergistics2")
         @Override
         public Enum<?> putSetting(Settings settings, Enum<?> anEnum) {
-                        enums.put(settings, anEnum);
+            enums.put(settings, anEnum);
             writeToNBT(stack.getTagCompound());
             return anEnum;
         }

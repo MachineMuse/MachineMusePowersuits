@@ -25,7 +25,7 @@ public class ForgeEnergyAdapter extends ElectricAdapter {
 
     @Override
     public int extractEnergy(int requested, boolean simulate) {
-        if(requested == 0)
+        if (requested == 0)
             return 0;
         return energyStorage != null ? energyStorage.extractEnergy(requested, simulate) : 0;
     }

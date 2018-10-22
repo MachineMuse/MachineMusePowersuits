@@ -22,16 +22,17 @@ import javax.annotation.Nullable;
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 7:44 AM, 4/28/13
- *
+ * <p>
  * Ported to Java by lehjr on 11/8/16.
- *
+ * <p>
  * Note: make sure to have null checks in place.
  */
 @SideOnly(Side.CLIENT)
 public class ModelRegistry extends MuseRegistry<SpecBase> {
-    private ModelRegistry(){
-    }
     private static volatile ModelRegistry INSTANCE;
+
+    private ModelRegistry() {
+    }
 
     public static ModelRegistry getInstance() {
         if (INSTANCE == null) {
@@ -65,17 +66,6 @@ public class ModelRegistry extends MuseRegistry<SpecBase> {
         return (OBJModelPlus) model;
     }
 
-    /**
-     * TextureSpec does not have an IModelState so this is relatively safe
-     */
-    public OBJModelPlus.OBJBakedModelPus loadBakedModel(ResourceLocation resource, IModelState modelState) {
-        String name = MuseStringUtils.extractName(resource);
-        SpecBase spec = get(name);
-        if (spec == null)
-            return wrap(resource, modelState);
-        return ((ModelSpec)(spec)).getModel();
-    }
-
     @Nullable
     public static OBJModelPlus.OBJBakedModelPus wrap(ResourceLocation modellocation, IModelState modelState) {
         OBJModelPlus model = getIModel(modellocation, 0);
@@ -87,6 +77,17 @@ public class ModelRegistry extends MuseRegistry<SpecBase> {
             MuseLogger.logError("Failed to bake model. " + e);
         }
         return null;
+    }
+
+    /**
+     * TextureSpec does not have an IModelState so this is relatively safe
+     */
+    public OBJModelPlus.OBJBakedModelPus loadBakedModel(ResourceLocation resource, IModelState modelState) {
+        String name = MuseStringUtils.extractName(resource);
+        SpecBase spec = get(name);
+        if (spec == null)
+            return wrap(resource, modelState);
+        return ((ModelSpec) (spec)).getModel();
     }
 
     public Iterable<SpecBase> getSpecs() {

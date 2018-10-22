@@ -50,8 +50,8 @@ public class ModelPowerFist implements IBakedModel {
     static World world;
     static EntityLivingBase entity;
     static boolean isFiring = false;
-    NBTTagCompound renderTag = new NBTTagCompound();
     static IBakedModel iconModel;
+    NBTTagCompound renderTag = new NBTTagCompound();
     ModelTransformCalibration calibration;
     NBTTagCompound renderSpec;
 
@@ -67,7 +67,7 @@ public class ModelPowerFist implements IBakedModel {
     @Override
     public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
         modelcameraTransformType = cameraTransformType;
-        switch(cameraTransformType) {
+        switch (cameraTransformType) {
             case FIRST_PERSON_LEFT_HAND:
             case THIRD_PERSON_LEFT_HAND:
             case FIRST_PERSON_RIGHT_HAND:
@@ -99,11 +99,6 @@ public class ModelPowerFist implements IBakedModel {
             iconModel = ModelBakeEventHandler.INSTANCE.powerFistIconModel;
         return iconModel.isGui3d();
     }
-
-
-
-
-
 
 
 //    @Override
@@ -199,7 +194,7 @@ public class ModelPowerFist implements IBakedModel {
                                 modelcameraTransformType.equals(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND) ?
                                 "LEFTHAND" : "RIGHTHAND")) {
 
-                    transform = ((ModelSpec)partSpec.spec).getTransform(modelcameraTransformType);
+                    transform = ((ModelSpec) partSpec.spec).getTransform(modelcameraTransformType);
                     String itemState = partSpec.getBinding().getItemState();
 
                     int ix = partSpec.getColourIndex(nbt);
@@ -223,7 +218,7 @@ public class ModelPowerFist implements IBakedModel {
         return new PowerFistItemOverrideList();
     }
 
-    public class PowerFistItemOverrideList  extends ItemOverrideList {
+    public class PowerFistItemOverrideList extends ItemOverrideList {
         public PowerFistItemOverrideList() {
             super(Collections.EMPTY_LIST);
         }
@@ -231,7 +226,7 @@ public class ModelPowerFist implements IBakedModel {
         @Override
         public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stackIn, World worldIn, EntityLivingBase entityIn) {
             itemStack = stackIn;
-            renderSpec =  MPSNBTUtils.getMuseRenderTag(stackIn);
+            renderSpec = MPSNBTUtils.getMuseRenderTag(stackIn);
             world = worldIn;
             entity = entityIn;
             item = itemStack.getItem();
@@ -242,11 +237,9 @@ public class ModelPowerFist implements IBakedModel {
                 if (!itemStack.isEmpty() && itemStack == entityIn.getHeldItemMainhand() && entityIn.isHandActive()
                         && ModuleManager.INSTANCE.itemHasActiveModule(itemStack, MPSModuleConstants.MODULE_PLASMA_CANNON__DATANAME)) {
                     isFiring = true;
-                }
-                else
+                } else
                     isFiring = false;
-            }
-            else isFiring = false;
+            } else isFiring = false;
 
             return originalModel;
         }

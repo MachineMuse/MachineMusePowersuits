@@ -50,9 +50,9 @@ public class EventRegisterRenderers {
         // Components
         Item components = mpsItems.components;
         if (components != null) {
-            for (Integer  meta : ((ItemComponent)components).names.keySet()) {
-                String oredictName = ((ItemComponent)components).names.get(meta);
-                ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation(MPSResourceConstants.COMPONENTS_PREFIX  + oredictName, "inventory");
+            for (Integer meta : ((ItemComponent) components).names.keySet()) {
+                String oredictName = ((ItemComponent) components).names.get(meta);
+                ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation(MPSResourceConstants.COMPONENTS_PREFIX + oredictName, "inventory");
                 ModelLoader.setCustomModelResourceLocation(components, meta, itemModelResourceLocation);
                 OreDictionary.registerOre(oredictName, new ItemStack(components, 1, meta));
             }
@@ -71,12 +71,12 @@ public class EventRegisterRenderers {
 
         ModelBakery.registerItemVariants(fluid);
         ModelLoader.setCustomMeshDefinition(fluid, stack -> liquid_nitrogen_location);
-            ModelLoader.setCustomStateMapper(MPSItems.INSTANCE.blockLiquidNitrogen, new StateMapperBase() {
-        @Override
-        protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-            return liquid_nitrogen_location;
-        }
-    });
+        ModelLoader.setCustomStateMapper(MPSItems.INSTANCE.blockLiquidNitrogen, new StateMapperBase() {
+            @Override
+            protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+                return liquid_nitrogen_location;
+            }
+        });
 
     }
 
@@ -97,9 +97,8 @@ public class EventRegisterRenderers {
 //    });
 
 
-
     private void regRenderer(Item item) {
-        ModelResourceLocation location =  new ModelResourceLocation(item.getRegistryName(), "inventory");
-        ModelLoader.setCustomModelResourceLocation(item, 0,location);
+        ModelResourceLocation location = new ModelResourceLocation(item.getRegistryName(), "inventory");
+        ModelLoader.setCustomModelResourceLocation(item, 0, location);
     }
 }

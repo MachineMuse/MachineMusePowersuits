@@ -4,10 +4,6 @@ package net.machinemuse.numina.client.render;
  * Ported to Java by lehjr on 10/25/16.
  */
 public class ParticleDictionary {
-    static {
-        new ParticleDictionary();
-    }
-
     public static final String hugeexplosion = "hugeexplosion";
     public static final String largeexplode = "largeexplode";
     public static final String fireworksSpark = "fireworksSpark";
@@ -42,6 +38,10 @@ public class ParticleDictionary {
     public static final String heart = "heart";
     public static final String angryVillager = "angryVillager";
     public static final String happyVillager = "happyVillager";
+
+    static {
+        new ParticleDictionary();
+    }
 
     public String iconcrack_(int itemID) {
         return "iconcrack_" + itemID;

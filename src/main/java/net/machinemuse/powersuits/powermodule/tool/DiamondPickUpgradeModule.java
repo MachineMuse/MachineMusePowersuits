@@ -51,13 +51,13 @@ public class DiamondPickUpgradeModule extends PowerModuleBase implements IBlockB
             return false;
 
         IPowerModule pickaxeModule = ModuleManager.INSTANCE.getModule(MPSModuleConstants.MODULE_PICKAXE__DATANAME);
-        return !((PickaxeModule)pickaxeModule).canHarvestBlock(stack, state, player, pos, playerEnergy) &&
+        return !((PickaxeModule) pickaxeModule).canHarvestBlock(stack, state, player, pos, playerEnergy) &&
                 playerEnergy >= this.getEnergyUsage(stack) && ToolHelpers.isToolEffective(player.getEntityWorld(), pos, getEmulatedTool());
     }
 
     @Override
     public boolean onBlockDestroyed(ItemStack itemStack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving, int playerEnergy) {
-        if (this.canHarvestBlock(itemStack, state, (EntityPlayer)entityLiving, pos, playerEnergy)) {
+        if (this.canHarvestBlock(itemStack, state, (EntityPlayer) entityLiving, pos, playerEnergy)) {
             ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, getEnergyUsage(itemStack));
             return true;
         }

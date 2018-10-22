@@ -31,6 +31,7 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
     // TODO Fixme put actual item.
     private static final ItemStack emulatedTool = new ItemStack(
             Item.REGISTRY.getObject(new ResourceLocation("chisel", "chisel_iron")), 1);
+
     public ChiselModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Item.getItemFromBlock(Blocks.OBSIDIAN), 2));
@@ -58,7 +59,7 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public boolean onBlockDestroyed(ItemStack itemStack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving, int playerEnergy) {
-        if (this.canHarvestBlock(itemStack, state, (EntityPlayer)entityLiving, pos, playerEnergy)) {
+        if (this.canHarvestBlock(itemStack, state, (EntityPlayer) entityLiving, pos, playerEnergy)) {
             ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, getEnergyUsage(itemStack));
             return true;
         }

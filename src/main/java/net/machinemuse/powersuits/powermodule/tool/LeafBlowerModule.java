@@ -65,7 +65,7 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
     private boolean useBlower(int radius, ItemStack itemStack, EntityPlayer player, World world, BlockPos pos) {
         int totalEnergyDrain = 0;
         BlockPos newPos;
-        for (int i = pos.getX() - radius; i < pos.getX() + radius ; i++) {
+        for (int i = pos.getX() - radius; i < pos.getX() + radius; i++) {
             for (int j = pos.getY() - radius; j < pos.getY() + radius; j++) {
                 for (int k = pos.getZ() - radius; k < pos.getZ() + radius; k++) {
                     newPos = new BlockPos(i, j, k);
