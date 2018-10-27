@@ -26,7 +26,7 @@ public class BasicCoolingSystemModule extends CoolingSystemBase {
 
     @Override
     public String getDataName() {
-        return MPSModuleConstants.BASIC_COOLING_SYSTEM__DATANAME;
+        return MPSModuleConstants.MODULE_BASIC_COOLING_SYSTEM__DATANAME;
     }
 
     @Override

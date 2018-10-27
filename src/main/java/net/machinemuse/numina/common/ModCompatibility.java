@@ -24,6 +24,10 @@ public class ModCompatibility {
         return Loader.isModLoaded("thermalexpansion") && Loader.isModLoaded("thermalfoundation");
     }
 
+    public static boolean isEnderCoreLoaded() {
+        return Loader.isModLoaded("endercore");
+    }
+
     public static boolean isEnderIOLoaded() {
         return Loader.isModLoaded("enderio");
     }

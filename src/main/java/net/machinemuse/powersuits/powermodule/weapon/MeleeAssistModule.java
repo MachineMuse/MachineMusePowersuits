@@ -19,10 +19,10 @@ public class MeleeAssistModule extends PowerModuleBase {
 
         addBasePropertyDouble(MPSModuleConstants.PUNCH_ENERGY, 10, "RF");
         addBasePropertyDouble(MPSModuleConstants.PUNCH_DAMAGE, 2, "pt");
-        addTradeoffPropertyDouble("Impact", MPSModuleConstants.PUNCH_ENERGY, 1000, "RF");
-        addTradeoffPropertyDouble("Impact", MPSModuleConstants.PUNCH_DAMAGE, 8, "pt");
-        addTradeoffPropertyDouble("Carry-through", MPSModuleConstants.PUNCH_ENERGY, 200, "RF");
-        addTradeoffPropertyDouble("Carry-through", MPSModuleConstants.PUNCH_KNOCKBACK, 1, "P");
+        addTradeoffPropertyDouble(MPSModuleConstants.IMPACT, MPSModuleConstants.PUNCH_ENERGY, 1000, "RF");
+        addTradeoffPropertyDouble(MPSModuleConstants.IMPACT, MPSModuleConstants.PUNCH_DAMAGE, 8, "pt");
+        addTradeoffPropertyDouble(MPSModuleConstants.CARRY_THROUGH, MPSModuleConstants.PUNCH_ENERGY, 200, "RF");
+        addTradeoffPropertyDouble(MPSModuleConstants.CARRY_THROUGH, MPSModuleConstants.PUNCH_KNOCKBACK, 1, "P");
     }
 
     @Override

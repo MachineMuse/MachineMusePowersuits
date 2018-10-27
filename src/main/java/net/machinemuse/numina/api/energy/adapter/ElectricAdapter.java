@@ -10,11 +10,17 @@ import net.minecraftforge.energy.CapabilityEnergy;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Ported to Java by lehjr on 11/4/16.
  */
 public abstract class ElectricAdapter {
+
+
+
+
     @Nullable
     public static ElectricAdapter wrap(@Nonnull ItemStack itemStack) {
         //TODO: add a configurable blacklist
@@ -22,6 +28,19 @@ public abstract class ElectricAdapter {
         if (itemStack.isEmpty())
             return null;
         Item i = itemStack.getItem();
+
+        String itemMod = itemStack.getItem().getRegistryName().getResourceDomain();
+
+        if (BlackList.blacklistModIds.contains(itemMod))
+            return null;
+
+
+
+
+
+
+
+
         // Forge Energy
         if (itemStack.hasCapability(CapabilityEnergy.ENERGY, null)) {
             return new ForgeEnergyAdapter(itemStack);
@@ -31,15 +50,10 @@ public abstract class ElectricAdapter {
                 itemStack.hasCapability(TeslaCapabilities.CAPABILITY_HOLDER, null) &&
                 itemStack.hasCapability(TeslaCapabilities.CAPABILITY_CONSUMER, null) &&
                 itemStack.hasCapability(TeslaCapabilities.CAPABILITY_PRODUCER, null)) {
-
-//            System.out.println("Tesla energy");
             return new TeslaEnergyAdapter(itemStack);
-
 
             // RF API
         } else if (ModCompatibility.isRFAPILoaded() && i instanceof IEnergyContainerItem) {
-
-//            System.out.println("RF API");
             return new TEElectricAdapter(itemStack);
 
             // Industrialcraft

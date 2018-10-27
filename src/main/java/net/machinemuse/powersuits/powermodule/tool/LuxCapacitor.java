@@ -29,9 +29,9 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
         ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Items.GLOWSTONE_DUST, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Items.IRON_INGOT, 2));
         addBasePropertyDouble(MPSModuleConstants.LUX_CAPACITOR_ENERGY_CONSUMPTION, 1000, "RF");
-        addTradeoffPropertyDouble("Red", MPSModuleConstants.LUX_CAPACITOR_RED_HUE, 1, "%");
-        addTradeoffPropertyDouble("Green", MPSModuleConstants.LUX_CAPACITOR_GREEN_HUE, 1, "%");
-        addTradeoffPropertyDouble("Blue", MPSModuleConstants.LUX_CAPACITOR_BLUE_HUE, 1, "%");
+        addTradeoffPropertyDouble(MPSModuleConstants.RED, MPSModuleConstants.LUX_CAPACITOR_RED_HUE, 1, "%");
+        addTradeoffPropertyDouble(MPSModuleConstants.GREEN, MPSModuleConstants.LUX_CAPACITOR_GREEN_HUE, 1, "%");
+        addTradeoffPropertyDouble(MPSModuleConstants.BLUE, MPSModuleConstants.LUX_CAPACITOR_BLUE_HUE, 1, "%");
 //        addTradeoffPropertyDouble("alpha", )// TODO: add alpha for the lense
     }
 

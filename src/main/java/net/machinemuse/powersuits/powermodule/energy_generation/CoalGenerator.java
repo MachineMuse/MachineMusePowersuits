@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.powermodule.energy;
+package net.machinemuse.powersuits.powermodule.energy_generation;
 
 import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
@@ -28,8 +28,8 @@ public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule,
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
 
         addBasePropertyDouble(MPSModuleConstants.MAX_COAL_STORAGE, 128);
-        addBasePropertyDouble(MPSModuleConstants.COAL_HEAT_GEN, 2.5);
-        addBasePropertyDouble(MPSModuleConstants.COAL_ENERGY_GEN, 300);
+        addBasePropertyDouble(MPSModuleConstants.HEAT_GENERATION, 2.5);
+        addBasePropertyDouble(MPSModuleConstants.ENERGY_PER_COAL, 300);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class CoalGenerator extends PowerModuleBase implements IPlayerTickModule,
 
     @Override
     public EnumModuleCategory getCategory() {
-        return EnumModuleCategory.CATEGORY_ENERGY;
+        return EnumModuleCategory.CATEGORY_ENERGY_GENERATION;
     }
 
     @Override

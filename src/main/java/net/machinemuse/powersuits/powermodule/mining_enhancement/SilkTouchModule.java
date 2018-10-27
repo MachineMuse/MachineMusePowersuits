@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.powermodule.special;
+package net.machinemuse.powersuits.powermodule.mining_enhancement;
 
 import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
@@ -20,6 +20,8 @@ import net.minecraft.item.ItemStack;
 public class SilkTouchModule extends PowerModuleBase implements IEnchantmentModule, IToggleableModule {
     final ItemStack book;
 
+    // TODO: add trade off and/or power consumption
+
     public SilkTouchModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         book = new ItemStack(Items.ENCHANTED_BOOK);
@@ -37,7 +39,7 @@ public class SilkTouchModule extends PowerModuleBase implements IEnchantmentModu
 
     @Override
     public EnumModuleCategory getCategory() {
-        return EnumModuleCategory.CATEGORY_SPECIAL;
+        return EnumModuleCategory.CATEGORY_MINING_ENHANCEMENT;
     }
 
     @Override

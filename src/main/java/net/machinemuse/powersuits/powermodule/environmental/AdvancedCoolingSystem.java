@@ -9,10 +9,8 @@ import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.UniversalBucket;
 
 import javax.annotation.Nonnull;
 
@@ -28,8 +26,8 @@ public class AdvancedCoolingSystem extends CoolingSystemBase {
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.computerChip, 2));
 
-        addTradeoffPropertyDouble("Advanced Cooling Power", MPSModuleConstants.COOLING_BONUS, 7, "%");
-        addTradeoffPropertyDouble("Advanced Cooling Power", MPSModuleConstants.ADVANCED_COOLING_SYSTEM_ENERGY_CONSUMPTION, 160, "RF/t");
+        addTradeoffPropertyDouble(MPSModuleConstants.ADVANCED_COOLING_POWER, MPSModuleConstants.COOLING_BONUS, 7, "%");
+        addTradeoffPropertyDouble(MPSModuleConstants.ADVANCED_COOLING_POWER, MPSModuleConstants.ADVANCED_COOLING_SYSTEM_ENERGY_CONSUMPTION, 160, "RF/t");
     }
 
     @Override
@@ -49,7 +47,7 @@ public class AdvancedCoolingSystem extends CoolingSystemBase {
 
     @Override
     public String getDataName() {
-        return MPSModuleConstants.ADVANCED_COOLING_SYSTEM__DATANAME;
+        return MPSModuleConstants.MODULE_ADVANCED_COOLING_SYSTEM__DATANAME;
     }
 
     @Override

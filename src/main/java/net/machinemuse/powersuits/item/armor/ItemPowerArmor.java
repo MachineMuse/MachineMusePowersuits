@@ -75,12 +75,12 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 
         // Galacticraft
         if (slot == 3 && source.getDamageType().equals("oxygen_suffocation"))
-            return ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.AIRTIGHT_SEAL_MODULE__DATANAME);
+            return ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.MODULE_AIRTIGHT_SEAL__DATANAME);
 
         // this still needs tweaking (extra planets)
         if (source.getDamageType().equals("pressure")) {
             if (slot == 3)
-                return ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.AIRTIGHT_SEAL_MODULE__DATANAME) && ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.MODULE_HAZMAT__DATANAME);
+                return ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.MODULE_AIRTIGHT_SEAL__DATANAME) && ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.MODULE_HAZMAT__DATANAME);
             else
                 return ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.MODULE_HAZMAT__DATANAME);
 
@@ -91,7 +91,7 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
 //
 //
 //
-////                if (ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.AIRTIGHT_SEAL_MODULE__DATANAME))
+////                if (ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.MODULE_AIRTIGHT_SEAL__DATANAME))
 //
 //
 //

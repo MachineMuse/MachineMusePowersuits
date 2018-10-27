@@ -5,6 +5,8 @@ import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.DrawableMuseRect;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.minecraft.client.resources.I18n;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -36,7 +38,7 @@ public class ClickableSlider extends Clickable {
 
     @Override
     public void draw() {
-        MuseRenderer.drawCenteredString(name, position.getX(), position.getY());
+        MuseRenderer.drawCenteredString(I18n.format(MPSModuleConstants.MODULE_TRADEOFF_PREFIX + name), position.getX(), position.getY());
         this.insideRect.setRight(position.getX() + width * (getValue() - 0.5) + cornersize);
         this.outsideRect.draw();
         this.insideRect.draw();

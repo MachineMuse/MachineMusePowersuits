@@ -8,7 +8,6 @@ import net.minecraft.nbt.NBTTagCompound;
  */
 public class ClickableTinkerSlider extends ClickableSlider {
     NBTTagCompound moduleTag;
-    boolean isDouble;
 
     public ClickableTinkerSlider(MusePoint2D topmiddle, double width, NBTTagCompound moduleTag, String name) {
         super(topmiddle, width, name);

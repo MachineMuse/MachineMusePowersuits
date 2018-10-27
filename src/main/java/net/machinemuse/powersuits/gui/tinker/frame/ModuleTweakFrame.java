@@ -9,6 +9,7 @@ import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableTinkerSlider;
@@ -16,6 +17,7 @@ import net.machinemuse.powersuits.network.packets.MusePacketTweakRequestDouble;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import org.lwjgl.opengl.GL11;
@@ -83,7 +85,9 @@ public class ModuleTweakFrame extends ScrollableFrame {
                 String name = property.getKey();
                 double valueWidth = MuseRenderer.getStringWidth(formattedValue);
                 double allowedNameWidth = border.width() - valueWidth - margin * 2;
-                List<String> namesList = MuseStringUtils.wrapStringToVisualLength(name, allowedNameWidth);
+
+                List<String> namesList = MuseStringUtils.wrapStringToVisualLength(
+                        I18n.format(MPSModuleConstants.MODULE_TRADEOFF_PREFIX + name), allowedNameWidth);
                 for (int i = 0; i < namesList.size(); i++) {
                     MuseRenderer.drawString(namesList.get(i), border.left() + margin, nexty + 9 * i);
                 }

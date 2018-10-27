@@ -28,6 +28,9 @@ public class ToolHelpers {
         IBlockState state = world.getBlockState(pos);
         state = state.getBlock().getActualState(state, world, pos);
 
+        if (state.getBlock().getBlockHardness(state, (World) world, pos) == -1.0F) // unbreakable
+            return false;
+
         if (emulatedTool.getItem().canHarvestBlock(state))
             return true;
 
@@ -55,7 +58,7 @@ public class ToolHelpers {
         IBlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
 
-        if (block == null || block == Blocks.AIR)
+        if (block == null || block == Blocks.AIR || block == Blocks.BEDROCK)
             return false;
         if ((block instanceof IShearable || block instanceof BlockFlower || block instanceof BlockBush || block instanceof BlockLeaves)
                 && block.canHarvestBlock(world, pos, player) || block == Blocks.SNOW || block == Blocks.SNOW_LAYER) {

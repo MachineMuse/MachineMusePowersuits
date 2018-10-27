@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.powermodule.energy;
+package net.machinemuse.powersuits.powermodule.energy_generation;
 
 import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
@@ -35,7 +35,7 @@ public class AdvancedSolarGenerator extends PowerModuleBase implements IPlayerTi
 
     @Override
     public EnumModuleCategory getCategory() {
-        return EnumModuleCategory.CATEGORY_ENERGY;
+        return EnumModuleCategory.CATEGORY_ENERGY_GENERATION;
     }
 
     @Override

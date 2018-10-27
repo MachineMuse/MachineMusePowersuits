@@ -31,8 +31,8 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
 
         addBasePropertyDouble(MPSModuleConstants.EATING_ENERGY_CONSUMPTION, 100);
         addBasePropertyDouble(MPSModuleConstants.EATING_EFFICIENCY, 50);
-        addTradeoffPropertyDouble("Efficiency", MPSModuleConstants.EATING_ENERGY_CONSUMPTION, 1000, "RF");
-        addTradeoffPropertyDouble("Efficiency", MPSModuleConstants.EATING_EFFICIENCY, 50);
+        addTradeoffPropertyDouble(MPSModuleConstants.EFFICIENCY, MPSModuleConstants.EATING_ENERGY_CONSUMPTION, 1000, "RF");
+        addTradeoffPropertyDouble(MPSModuleConstants.EFFICIENCY, MPSModuleConstants.EATING_EFFICIENCY, 50);
     }
 
     @Override

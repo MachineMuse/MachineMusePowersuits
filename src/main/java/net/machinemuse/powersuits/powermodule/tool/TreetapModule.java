@@ -69,7 +69,7 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
         }
         ModuleManager.INSTANCE.addInstallCost(getDataName(), emulatedTool);
 
-        addBasePropertyDouble(MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION, 1000, "RF");
+        addBasePropertyDouble(MPSModuleConstants.ENERGY_CONSUMPTION, 1000, "RF");
     }
 
     @Override
@@ -85,18 +85,18 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
         try {
             // IC2 Classic
             if (isIC2Classic) {
-                if (block == rubber_wood && ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION) < ElectricItemUtils.getPlayerEnergy(player)) {
+                if (block == rubber_wood && ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.ENERGY_CONSUMPTION) < ElectricItemUtils.getPlayerEnergy(player)) {
                     if (attemptExtract.invoke("attemptExtract", null, player, world, pos, facing, null).equals(true)) {
-                        ElectricItemUtils.drainPlayerEnergy(player, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION));
+                        ElectricItemUtils.drainPlayerEnergy(player, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.ENERGY_CONSUMPTION));
                         return EnumActionResult.SUCCESS;
                     }
                 }
             }
             // IC2 Experimental
             else {
-                if (block == rubber_wood && ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION) < ElectricItemUtils.getPlayerEnergy(player)) {
+                if (block == rubber_wood && ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.ENERGY_CONSUMPTION) < ElectricItemUtils.getPlayerEnergy(player)) {
                     if (attemptExtract.invoke("attemptExtract", player, world, pos, facing, state, null).equals(true)) {
-                        ElectricItemUtils.drainPlayerEnergy(player, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.TREETAP_ENERGY_CONSUMPTION));
+                        ElectricItemUtils.drainPlayerEnergy(player, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.ENERGY_CONSUMPTION));
                         return EnumActionResult.SUCCESS;
                     }
                 }

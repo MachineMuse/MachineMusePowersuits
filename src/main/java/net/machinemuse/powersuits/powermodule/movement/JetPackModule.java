@@ -29,8 +29,8 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.ionThruster, 4));
         addBasePropertyDouble(MPSModuleConstants.JETPACK_ENERGY_CONSUMPTION, 0, "RF/t");
         addBasePropertyDouble(MPSModuleConstants.JETPACK_THRUST, 0, "N");
-        addTradeoffPropertyDouble("Thrust", MPSModuleConstants.JETPACK_ENERGY_CONSUMPTION, 1500);
-        addTradeoffPropertyDouble("Thrust", MPSModuleConstants.JETPACK_THRUST, 0.16);
+        addTradeoffPropertyDouble(MPSModuleConstants.THRUST, MPSModuleConstants.JETPACK_ENERGY_CONSUMPTION, 1500);
+        addTradeoffPropertyDouble(MPSModuleConstants.THRUST, MPSModuleConstants.JETPACK_THRUST, 0.16);
     }
 
     @Override

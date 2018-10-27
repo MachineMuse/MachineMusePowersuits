@@ -157,15 +157,14 @@ public class MPSSettings {
             put(MPSModuleConstants.MODULE_THERMAL_GENERATOR__DATANAME, true);
 
             // Environmental --------------------------------------------------------------
-            put(MPSModuleConstants.AIRTIGHT_SEAL_MODULE__DATANAME, true);
+            put(MPSModuleConstants.MODULE_AIRTIGHT_SEAL__DATANAME, true);
             put(MPSModuleConstants.MODULE_APIARIST_ARMOR__DATANAME, true);
             put(MPSModuleConstants.MODULE_AUTO_FEEDER__DATANAME, true);
-            put(MPSModuleConstants.MODULE_COOLING_SYSTEM__DATANAME, true);
+            put(MPSModuleConstants.MODULE_BASIC_COOLING_SYSTEM__DATANAME, true);
             put(MPSModuleConstants.MODULE_HAZMAT__DATANAME, true);
             put(MPSModuleConstants.MODULE_MOB_REPULSOR__DATANAME, true);
-            put(MPSModuleConstants.MODULE_NITROGEN_COOLING_SYSTEM__DATANAME, true);
+            put(MPSModuleConstants.MODULE_ADVANCED_COOLING_SYSTEM__DATANAME, true);
             put(MPSModuleConstants.MODULE_WATER_ELECTROLYZER__DATANAME, true);
-//            put(MPSModuleConstants.MODULE_WATER_TANK__DATANAME, true);
 
             // Movement -------------------------------------------------------------------
             put(MPSModuleConstants.MODULE_BLINK_DRIVE__DATANAME, true);
@@ -192,10 +191,9 @@ public class MPSSettings {
             put(MPSModuleConstants.MODULE_THAUM_GOGGLES__DATANAME, true);// done via mod compat
 
             // Tools --------------------------------------------------------------------------------------
-            put(MPSModuleConstants.MODULE_AOE_PICK_UPGRADE__DATANAME, true);
             put(MPSModuleConstants.MODULE_APPENG_EC_WIRELESS_FLUID__DATANAME, true);
             put(MPSModuleConstants.MODULE_APPENG_WIRELESS__DATANAME, true);
-            put(MPSModuleConstants.MODULE_AQUA_AFFINITY__DATANAME, true);
+
             put(MPSModuleConstants.MODULE_AXE__DATANAME, true);
             put(MPSModuleConstants.MODULE_CHISEL__DATANAME, true);
             put(MPSModuleConstants.MODULE_DIAMOND_PICK_UPGRADE__DATANAME, true);
@@ -220,6 +218,11 @@ public class MPSSettings {
             put(MPSModuleConstants.MODULE_SHEARS__DATANAME, true);
             put(MPSModuleConstants.MODULE_SHOVEL__DATANAME, true);
             put(MPSModuleConstants.MODULE_TREETAP__DATANAME, true);
+
+            // Mining Enhancements ------------------------------------------------------------------------
+            put(MPSModuleConstants.MODULE_AOE_PICK_UPGRADE__DATANAME, true);
+            put(MPSModuleConstants.MODULE_AQUA_AFFINITY__DATANAME, true);
+
 
             // Weapons ------------------------------------------------------------------------------------
             put(MPSModuleConstants.MODULE_BLADE_LAUNCHER__DATANAME, true);

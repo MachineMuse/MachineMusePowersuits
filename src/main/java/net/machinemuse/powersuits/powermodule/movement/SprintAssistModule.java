@@ -33,19 +33,19 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 4));
 
         addBasePropertyDouble(MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 0, "RF");
-        addTradeoffPropertyDouble("Sprint Assist", MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 100);
+        addTradeoffPropertyDouble(MPSModuleConstants.SPRINT_ASSIST, MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 100);
         addBasePropertyDouble(MPSModuleConstants.SPRINT_SPEED_MULTIPLIER, .01, "%");
-        addTradeoffPropertyDouble("Sprint Assist", MPSModuleConstants.SPRINT_SPEED_MULTIPLIER, 2.49);
+        addTradeoffPropertyDouble(MPSModuleConstants.SPRINT_ASSIST, MPSModuleConstants.SPRINT_SPEED_MULTIPLIER, 2.49);
 
         addBasePropertyDouble(MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 0, "RF");
-        addTradeoffPropertyDouble("Compensation", MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 20);
+        addTradeoffPropertyDouble(MPSModuleConstants.COMPENSATION, MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 20);
         addBasePropertyDouble(MPSModuleConstants.SPRINT_FOOD_COMPENSATION, 0, "%");
-        addTradeoffPropertyDouble("Compensation", MPSModuleConstants.SPRINT_FOOD_COMPENSATION, 1);
+        addTradeoffPropertyDouble(MPSModuleConstants.COMPENSATION, MPSModuleConstants.SPRINT_FOOD_COMPENSATION, 1);
 
         addBasePropertyDouble(MPSModuleConstants.WALKING_ENERGY_CONSUMPTION, 0, "RF");
-        addTradeoffPropertyDouble("Walking Assist", MPSModuleConstants.WALKING_ENERGY_CONSUMPTION, 100);
+        addTradeoffPropertyDouble(MPSModuleConstants.WALKING_ASSISTANCE, MPSModuleConstants.WALKING_ENERGY_CONSUMPTION, 100);
         addBasePropertyDouble(MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 0.01, "%");
-        addTradeoffPropertyDouble("Walking Assist", MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 1.99);
+        addTradeoffPropertyDouble(MPSModuleConstants.WALKING_ASSISTANCE, MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 1.99);
     }
 
     @Override

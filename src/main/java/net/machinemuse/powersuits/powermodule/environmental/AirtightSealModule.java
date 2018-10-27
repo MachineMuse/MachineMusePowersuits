@@ -23,7 +23,7 @@ public class AirtightSealModule extends PowerModuleBase {
 
     @Override
     public String getDataName() {
-        return MPSModuleConstants.AIRTIGHT_SEAL_MODULE__DATANAME;
+        return MPSModuleConstants.MODULE_AIRTIGHT_SEAL__DATANAME;
     }
 
     @Override

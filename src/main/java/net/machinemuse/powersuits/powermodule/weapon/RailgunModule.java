@@ -32,9 +32,9 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
         addBasePropertyDouble(MPSModuleConstants.RAILGUN_TOTAL_IMPULSE, 500, "Ns");
         addBasePropertyDouble(MPSModuleConstants.RAILGUN_ENERGY_COST, 5000, "RF");
         addBasePropertyDouble(MPSModuleConstants.RAILGUN_HEAT_EMISSION, 2, "");
-        addTradeoffPropertyDouble("Voltage", MPSModuleConstants.RAILGUN_TOTAL_IMPULSE, 2500);
-        addTradeoffPropertyDouble("Voltage", MPSModuleConstants.RAILGUN_ENERGY_COST, 25000);
-        addTradeoffPropertyDouble("Voltage", MPSModuleConstants.RAILGUN_HEAT_EMISSION, 10);
+        addTradeoffPropertyDouble(MPSModuleConstants.VOLTAGE, MPSModuleConstants.RAILGUN_TOTAL_IMPULSE, 2500);
+        addTradeoffPropertyDouble(MPSModuleConstants.VOLTAGE, MPSModuleConstants.RAILGUN_ENERGY_COST, 25000);
+        addTradeoffPropertyDouble(MPSModuleConstants.VOLTAGE, MPSModuleConstants.RAILGUN_HEAT_EMISSION, 10);
     }
 
     @Override

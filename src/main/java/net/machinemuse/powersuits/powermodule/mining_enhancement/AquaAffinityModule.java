@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.powermodule.tool;
+package net.machinemuse.powersuits.powermodule.mining_enhancement;
 
 import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
@@ -35,7 +35,7 @@ public class AquaAffinityModule extends PowerModuleBase implements IBlockBreakin
 
     @Override
     public EnumModuleCategory getCategory() {
-        return EnumModuleCategory.CATEGORY_SPECIAL;
+        return EnumModuleCategory.CATEGORY_MINING_ENHANCEMENT;
     }
 
     @Override

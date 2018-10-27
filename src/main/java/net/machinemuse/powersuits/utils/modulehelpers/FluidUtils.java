@@ -195,7 +195,7 @@ public class FluidUtils {
 
 
     public void fillWaterFromEnvironment() {
-        if (this.dataName != MPSModuleConstants.BASIC_COOLING_SYSTEM__DATANAME || fluidTank == null)
+        if (this.dataName != MPSModuleConstants.MODULE_BASIC_COOLING_SYSTEM__DATANAME || fluidTank == null)
             return;
 
         // Fill with water block and remove that block from the world

@@ -14,6 +14,7 @@ import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.item.IModeChangingItem;
 import net.machinemuse.numina.api.item.IModularItem;
 import net.machinemuse.numina.api.module.IBlockBreakingModule;
+import net.machinemuse.numina.api.module.IMiningEnhancementModule;
 import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
@@ -23,7 +24,7 @@ import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.capabilities.MPSCapProvider;
 import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.machinemuse.powersuits.powermodule.tool.MADModule;
+import net.machinemuse.powersuits.powermodule.mining_enhancement.MADModule;
 import net.machinemuse.powersuits.powermodule.tool.RefinedStorageWirelessModule;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -151,12 +152,22 @@ public class ItemPowerFist extends MPSItemElectricTool
     @Override
     public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
         super.onBlockStartBreak(itemstack, pos, player);
-        IPowerModule module = ModuleManager.INSTANCE.getModule(MPSModuleConstants.MODULE_MAD_MODULE__DATANAME);
-        if (ModuleManager.INSTANCE.itemHasActiveModule(itemstack, MPSModuleConstants.MODULE_MAD_MODULE__DATANAME)) {
-            return (((MADModule) module).onBlockStartBreak(itemstack, pos, player));
+
+        for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IMiningEnhancementModule.class)) {
+            if (ModuleManager.INSTANCE.itemHasActiveModule(itemstack, module.getDataName())) {
+                return (((IMiningEnhancementModule) module).onBlockStartBreak(itemstack, pos, player));
+            }
         }
         return false;
     }
+
+
+
+
+
+
+
+
 
     @Override
     public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack itemStack) {

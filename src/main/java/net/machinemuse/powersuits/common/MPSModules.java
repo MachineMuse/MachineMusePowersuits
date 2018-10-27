@@ -11,8 +11,19 @@ import net.machinemuse.powersuits.powermodule.armor.EnergyShieldModule;
 import net.machinemuse.powersuits.powermodule.armor.IronPlatingModule;
 import net.machinemuse.powersuits.powermodule.armor.LeatherPlatingModule;
 import net.machinemuse.powersuits.powermodule.cosmetic.TransparentArmorModule;
-import net.machinemuse.powersuits.powermodule.energy.*;
+import net.machinemuse.powersuits.powermodule.energy_generation.AdvancedSolarGenerator;
+import net.machinemuse.powersuits.powermodule.energy_generation.KineticGeneratorModule;
+import net.machinemuse.powersuits.powermodule.energy_generation.SolarGeneratorModule;
+import net.machinemuse.powersuits.powermodule.energy_generation.ThermalGeneratorModule;
+import net.machinemuse.powersuits.powermodule.energy_storage.AdvancedBatteryModule;
+import net.machinemuse.powersuits.powermodule.energy_storage.BasicBatteryModule;
+import net.machinemuse.powersuits.powermodule.energy_storage.EliteBatteryModule;
+import net.machinemuse.powersuits.powermodule.energy_storage.UltimateBatteryModule;
 import net.machinemuse.powersuits.powermodule.environmental.*;
+import net.machinemuse.powersuits.powermodule.mining_enhancement.AOEPickUpgradeModule;
+import net.machinemuse.powersuits.powermodule.mining_enhancement.AquaAffinityModule;
+import net.machinemuse.powersuits.powermodule.mining_enhancement.MADModule;
+import net.machinemuse.powersuits.powermodule.mining_enhancement.SilkTouchModule;
 import net.machinemuse.powersuits.powermodule.movement.*;
 import net.machinemuse.powersuits.powermodule.special.*;
 import net.machinemuse.powersuits.powermodule.tool.*;
@@ -66,13 +77,16 @@ public class MPSModules {
         addModule(new RailgunModule(TOOLONLY));
         addModule(new BladeLauncherModule(TOOLONLY));
         addModule(new BlinkDriveModule(TOOLONLY));
-        addModule(new AquaAffinityModule(TOOLONLY));
         addModule(new InPlaceAssemblerModule(TOOLONLY));
         addModule(new LeafBlowerModule(TOOLONLY));
         addModule(new FlintAndSteelModule(TOOLONLY));
         addModule(new LightningModule(TOOLONLY));
         addModule(new DimensionalRiftModule(TOOLONLY));
+
+        // Mining Enhancements
         addModule(new SilkTouchModule(TOOLONLY));
+        addModule(new AOEPickUpgradeModule(TOOLONLY));
+        addModule(new AquaAffinityModule(TOOLONLY));
 
 
         /* Helmet ------------------------------- */

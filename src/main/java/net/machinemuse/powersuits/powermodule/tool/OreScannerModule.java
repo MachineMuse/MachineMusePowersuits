@@ -43,8 +43,7 @@ import java.util.Map;
 public class OreScannerModule extends PowerModuleBase implements IRightClickModule, IPlayerTickModule {
     static final ResourceLocation scannerCharge = new ResourceLocation("scannable", "scanner_charge");
     static final ResourceLocation scanner_activate = new ResourceLocation("scannable", "scanner_activate");
-    private static Map<Map<ResourceLocation, Integer>, Integer> oreValuemap = new HashMap<>();
-    ItemStack scanner = ItemStack.EMPTY;
+    ItemStack scanner;// = ItemStack.EMPTY;
 
     public OreScannerModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);

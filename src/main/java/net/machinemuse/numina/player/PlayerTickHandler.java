@@ -1,21 +1,21 @@
-package net.machinemuse.numina.player;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-/**
- * Author: MachineMuse (Claire Semple)
- * Created: 1:30 PM, 9/19/13
- * <p>
- * Ported to Java by lehjr on 10/24/16.
- */
-public final class PlayerTickHandler {
-    @SubscribeEvent
-    public static void onPlayerTick(LivingEvent.LivingUpdateEvent livingUpdateEvent) {
-        if (livingUpdateEvent.getEntityLiving() instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) livingUpdateEvent.getEntityLiving();
-            player.refreshDisplayName();
-        }
-    }
-}
+//package net.machinemuse.numina.player;
+//
+//import net.minecraft.entity.player.EntityPlayer;
+//import net.minecraftforge.event.entity.living.LivingEvent;
+//import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+//
+///**
+// * Author: MachineMuse (Claire Semple)
+// * Created: 1:30 PM, 9/19/13
+// * <p>
+// * Ported to Java by lehjr on 10/24/16.
+// */
+//public final class PlayerTickHandler {
+//    @SubscribeEvent
+//    public static void onPlayerTick(LivingEvent.LivingUpdateEvent livingUpdateEvent) {
+//        if (livingUpdateEvent.getEntityLiving() instanceof EntityPlayer) {
+//            EntityPlayer player = (EntityPlayer) livingUpdateEvent.getEntityLiving();
+//            player.refreshDisplayName();
+//        }
+//    }
+//}

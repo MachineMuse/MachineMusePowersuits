@@ -32,8 +32,8 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Items.IRON_INGOT, 3));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
-        addBasePropertyDouble(MPSModuleConstants.LEAF_BLOWER_ENERGY_CONSUMPTION, 500, "RF");
-        addTradeoffPropertyDouble(MPSModuleConstants.LEAF_BLOWER_RADIUS, MPSModuleConstants.LEAF_BLOWER_ENERGY_CONSUMPTION, 9500);
+        addBasePropertyDouble(MPSModuleConstants.ENERGY_CONSUMPTION, 500, "RF");
+        addTradeoffPropertyDouble(MPSModuleConstants.LEAF_BLOWER_RADIUS, MPSModuleConstants.ENERGY_CONSUMPTION, 9500);
         addBasePropertyDouble(MPSModuleConstants.LEAF_BLOWER_RADIUS, 1, "m");
         addTradeoffPropertyDouble(MPSModuleConstants.LEAF_BLOWER_RADIUS, MPSModuleConstants.LEAF_BLOWER_RADIUS, 15);
     }
@@ -70,7 +70,7 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
                 for (int k = pos.getZ() - radius; k < pos.getZ() + radius; k++) {
                     newPos = new BlockPos(i, j, k);
                     if (ToolHelpers.blockCheckAndHarvest(player, world, newPos)) {
-                        totalEnergyDrain += ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.LEAF_BLOWER_ENERGY_CONSUMPTION);
+                        totalEnergyDrain += ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.ENERGY_CONSUMPTION);
                     }
                 }
             }

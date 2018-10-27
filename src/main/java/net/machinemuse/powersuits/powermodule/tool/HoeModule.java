@@ -33,8 +33,8 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         addBasePropertyDouble(MPSModuleConstants.HOE_ENERGY_CONSUMPTION, 500, "RF");
-        addTradeoffPropertyDouble("Search Radius", MPSModuleConstants.HOE_ENERGY_CONSUMPTION, 9500);
-        addTradeoffPropertyDouble("Search Radius", MPSModuleConstants.HOE_SEARCH_RADIUS, 8, "m");
+        addTradeoffPropertyDouble(MPSModuleConstants.RADIUS, MPSModuleConstants.HOE_ENERGY_CONSUMPTION, 9500);
+        addTradeoffPropertyDouble(MPSModuleConstants.RADIUS, MPSModuleConstants.HOE_SEARCH_RADIUS, 8, "m");
     }
 
     @Override

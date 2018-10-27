@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.powermodule.energy;
+package net.machinemuse.powersuits.powermodule.energy_generation;
 
 
 import net.machinemuse.numina.api.module.EnumModuleCategory;
@@ -35,12 +35,12 @@ public class ThermalGeneratorModule extends PowerModuleBase implements IPlayerTi
 //        }
 
         addBasePropertyDouble(MPSModuleConstants.THERMAL_ENERGY_GENERATION, 250);
-        addTradeoffPropertyDouble("Energy Generated", MPSModuleConstants.THERMAL_ENERGY_GENERATION, 250, "RF");
+        addTradeoffPropertyDouble(MPSModuleConstants.ENERGY_GENERATED, MPSModuleConstants.THERMAL_ENERGY_GENERATION, 250, "RF");
     }
 
     @Override
     public EnumModuleCategory getCategory() {
-        return EnumModuleCategory.CATEGORY_ENERGY;
+        return EnumModuleCategory.CATEGORY_ENERGY_GENERATION;
     }
 
     @Override

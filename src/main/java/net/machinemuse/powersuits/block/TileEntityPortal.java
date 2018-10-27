@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.entity;
+package net.machinemuse.powersuits.block;
 
 import net.minecraft.tileentity.TileEntity;
 

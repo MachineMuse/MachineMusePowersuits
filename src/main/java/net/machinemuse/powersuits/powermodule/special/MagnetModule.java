@@ -31,8 +31,8 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.magnet, 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
 
-        addBasePropertyDouble(MPSModuleConstants.MAGNET_ENERGY_CONSUMPTION, 0, "RF");
-        addTradeoffPropertyDouble(MPSModuleConstants.POWER, MPSModuleConstants.MAGNET_ENERGY_CONSUMPTION, 2000);
+        addBasePropertyDouble(MPSModuleConstants.ENERGY_CONSUMPTION, 0, "RF");
+        addTradeoffPropertyDouble(MPSModuleConstants.POWER, MPSModuleConstants.ENERGY_CONSUMPTION, 2000);
         addBasePropertyDouble(MPSModuleConstants.MAGNET_RADIUS, 5);
         addTradeoffPropertyDouble(MPSModuleConstants.POWER, MPSModuleConstants.MAGNET_RADIUS, 10);
     }
@@ -49,11 +49,11 @@ public class MagnetModule extends PowerModuleBase implements IPlayerTickModule, 
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack stack) {
-        if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.MAGNET_ENERGY_CONSUMPTION)) {
+        if (ElectricItemUtils.getPlayerEnergy(player) > ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ENERGY_CONSUMPTION)) {
             boolean isServerSide = !player.world.isRemote;
 
             if ((player.world.getTotalWorldTime() % 20) == 0 && isServerSide) {
-                ElectricItemUtils.drainPlayerEnergy(player, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.MAGNET_ENERGY_CONSUMPTION));
+                ElectricItemUtils.drainPlayerEnergy(player, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ENERGY_CONSUMPTION));
             }
             int range = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.MAGNET_RADIUS);
             World world = player.world;

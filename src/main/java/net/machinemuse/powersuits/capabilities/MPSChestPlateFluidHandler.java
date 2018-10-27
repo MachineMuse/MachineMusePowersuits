@@ -229,17 +229,17 @@ public class MPSChestPlateFluidHandler implements IFluidHandler, IFluidHandlerIt
         @Override
         public boolean canFillFluidType(FluidStack fluid) {
             if (fluid != null) {
-                if (fluid.getFluid() == FluidRegistry.WATER && moduleDataName == MPSModuleConstants.BASIC_COOLING_SYSTEM__DATANAME) {
+                if (fluid.getFluid() == FluidRegistry.WATER && moduleDataName == MPSModuleConstants.MODULE_BASIC_COOLING_SYSTEM__DATANAME) {
                     return true;
                 }
 
-                if (fluid.getFluid() != FluidRegistry.WATER && moduleDataName == MPSModuleConstants.ADVANCED_COOLING_SYSTEM__DATANAME) {
+                if (fluid.getFluid() != FluidRegistry.WATER && moduleDataName == MPSModuleConstants.MODULE_ADVANCED_COOLING_SYSTEM__DATANAME) {
                     return true;
                 }
             }
 
             // This should cover both cases above... but
-            return (fluid != null && fluid.getFluid() == FluidRegistry.WATER && moduleDataName == MPSModuleConstants.BASIC_COOLING_SYSTEM__DATANAME);
+            return (fluid != null && fluid.getFluid() == FluidRegistry.WATER && moduleDataName == MPSModuleConstants.MODULE_BASIC_COOLING_SYSTEM__DATANAME);
         }
 
         @Nullable
@@ -310,13 +310,13 @@ public class MPSChestPlateFluidHandler implements IFluidHandler, IFluidHandlerIt
 
     public class BasicCoolingTank extends ArmorTank {
         public BasicCoolingTank() {
-            super(MPSModuleConstants.BASIC_COOLING_SYSTEM__DATANAME);
+            super(MPSModuleConstants.MODULE_BASIC_COOLING_SYSTEM__DATANAME);
         }
     }
 
     public class AdvancedCoolingTank extends ArmorTank {
         public AdvancedCoolingTank() {
-            super(MPSModuleConstants.ADVANCED_COOLING_SYSTEM__DATANAME);
+            super(MPSModuleConstants.MODULE_ADVANCED_COOLING_SYSTEM__DATANAME);
         }
     }
 }

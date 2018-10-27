@@ -103,12 +103,12 @@ public class ClientTickHandler {
             if (!chest.isEmpty() && chest.getItem() instanceof ItemPowerArmorChestplate) {
 
                 // FIXME: do these really need to be here?
-                if (ModuleManager.INSTANCE.itemHasActiveModule(chest, MPSModuleConstants.BASIC_COOLING_SYSTEM__DATANAME)) {
-                    modules.add(MPSModuleConstants.BASIC_COOLING_SYSTEM__DATANAME);
+                if (ModuleManager.INSTANCE.itemHasActiveModule(chest, MPSModuleConstants.MODULE_BASIC_COOLING_SYSTEM__DATANAME)) {
+                    modules.add(MPSModuleConstants.MODULE_BASIC_COOLING_SYSTEM__DATANAME);
                 }
 
-                if (ModuleManager.INSTANCE.itemHasActiveModule(chest, MPSModuleConstants.ADVANCED_COOLING_SYSTEM__DATANAME)) {
-                    modules.add(MPSModuleConstants.ADVANCED_COOLING_SYSTEM__DATANAME);
+                if (ModuleManager.INSTANCE.itemHasActiveModule(chest, MPSModuleConstants.MODULE_ADVANCED_COOLING_SYSTEM__DATANAME)) {
+                    modules.add(MPSModuleConstants.MODULE_ADVANCED_COOLING_SYSTEM__DATANAME);
                 }
             }
 
@@ -200,10 +200,10 @@ public class ClientTickHandler {
                         } else {
                             MuseRenderer.drawItemAt(-1.0, yBaseIcon + (yOffsetIcon * i), compass);
                         }
-                    } else if (Objects.equals(modules.get(i), MPSModuleConstants.BASIC_COOLING_SYSTEM__DATANAME)) {
-                        waterUtils = new FluidUtils(player, player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), MPSModuleConstants.BASIC_COOLING_SYSTEM__DATANAME);
-                    } else if (Objects.equals(modules.get(i), MPSModuleConstants.ADVANCED_COOLING_SYSTEM__DATANAME)) {
-                        fluidUtils = new FluidUtils(player, player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), MPSModuleConstants.ADVANCED_COOLING_SYSTEM__DATANAME);
+                    } else if (Objects.equals(modules.get(i), MPSModuleConstants.MODULE_BASIC_COOLING_SYSTEM__DATANAME)) {
+                        waterUtils = new FluidUtils(player, player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), MPSModuleConstants.MODULE_BASIC_COOLING_SYSTEM__DATANAME);
+                    } else if (Objects.equals(modules.get(i), MPSModuleConstants.MODULE_ADVANCED_COOLING_SYSTEM__DATANAME)) {
+                        fluidUtils = new FluidUtils(player, player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), MPSModuleConstants.MODULE_ADVANCED_COOLING_SYSTEM__DATANAME);
                     }
                 }
                 drawMeters(player, screen);
@@ -247,8 +247,8 @@ public class ClientTickHandler {
         String currFluidStr = "";
         String maxFluidStr = "";
 
-        if (ModuleManager.INSTANCE.itemHasModule(player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), MPSModuleConstants.ADVANCED_COOLING_SYSTEM__DATANAME)) {
-            fluidUtils = new FluidUtils(player, player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), MPSModuleConstants.ADVANCED_COOLING_SYSTEM__DATANAME);
+        if (ModuleManager.INSTANCE.itemHasModule(player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), MPSModuleConstants.MODULE_ADVANCED_COOLING_SYSTEM__DATANAME)) {
+            fluidUtils = new FluidUtils(player, player.getItemStackFromSlot(EntityEquipmentSlot.CHEST), MPSModuleConstants.MODULE_ADVANCED_COOLING_SYSTEM__DATANAME);
             maxFluid = fluidUtils.getMaxFluidLevel();
             currFluid = fluidUtils.getFluidLevel();
             currFluidStr = MuseStringUtils.formatNumberShort(currWater);

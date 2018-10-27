@@ -1,6 +1,8 @@
 package net.machinemuse.powersuits.utils;
 
+import com.enderio.core.common.transform.EnderCoreMethods;
 import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.common.ModCompatibility;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.numina.utils.MuseLogger;
@@ -22,6 +24,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeDesert;
 import net.minecraft.world.chunk.Chunk;
 
+import javax.annotation.Nonnull;
 import java.lang.reflect.Field;
 import java.util.List;
 
@@ -289,9 +292,15 @@ public class MusePlayerUtils {
         return player;
     }
 
-    public static double getPlayerCoolingBasedOnMaterial(EntityPlayer player) {
-        if (player.isInLava())
-            return 0;
+    public static double getPlayerCoolingBasedOnMaterial(@Nonnull EntityPlayer player) {
+        // cheaper method of checking if player is in lava. Described as "non-chunkloading copy of Entity.isInLava()"
+        if (ModCompatibility.isEnderCoreLoaded()) {
+            if (EnderCoreMethods.isInLavaSafe(player))
+                return 0;
+        } else {
+            if (player.isInLava()) // not a cheap
+                return 0;
+        }
 
         double cool = ((2.0 - getBiome(player).getTemperature(new BlockPos((int) player.posX, (int) player.posY, (int) player.posZ)) / 2)); // Algorithm that returns a getValue from 0.0 -> 1.0. Biome temperature is from 0.0 -> 2.0
 

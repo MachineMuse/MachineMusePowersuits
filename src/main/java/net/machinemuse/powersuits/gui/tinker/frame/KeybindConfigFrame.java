@@ -23,10 +23,7 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.input.Keyboard;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class KeybindConfigFrame implements IGuiFrame {
     private static KeyBindingHelper keyBindingHelper = new KeyBindingHelper();
@@ -258,11 +255,12 @@ public class KeybindConfigFrame implements IGuiFrame {
 
     @Override
     public List<String> getToolTip(int x, int y) {
-        if (MPSConfig.INSTANCE.doAdditionalInfo()) {
-            for (ClickableModule module : modules) {
-                if (module.hitBox(x, y)) {
+        for (ClickableModule module : modules) {
+            if (module.hitBox(x, y)) {
+                if (MPSConfig.INSTANCE.doAdditionalInfo()) {
                     return module.getToolTip();
                 }
+                return Collections.singletonList(module.getLocalizedName(module.getModule()));
             }
         }
         return null;

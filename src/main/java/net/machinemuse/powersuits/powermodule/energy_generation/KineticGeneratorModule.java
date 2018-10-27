@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.powermodule.energy;
+package net.machinemuse.powersuits.powermodule.energy_generation;
 
 
 import net.machinemuse.numina.api.module.EnumModuleCategory;
@@ -23,14 +23,14 @@ public class KineticGeneratorModule extends PowerModuleBase implements IPlayerTi
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
 
         addBasePropertyDouble(MPSModuleConstants.KINETIC_ENERGY_GENERATION, 2000);
-        addTradeoffPropertyDouble(MPSModuleConstants.KINETIC_ENERGY_GENERATED, MPSModuleConstants.KINETIC_ENERGY_GENERATION, 6000, "RF");
+        addTradeoffPropertyDouble(MPSModuleConstants.ENERGY_GENERATED, MPSModuleConstants.KINETIC_ENERGY_GENERATION, 6000, "RF");
         addBasePropertyDouble(MPSModuleConstants.KINETIC_ENERGY_MOVEMENT_RESISTANCE, 0);
-        addTradeoffPropertyDouble(MPSModuleConstants.KINETIC_ENERGY_GENERATED, MPSModuleConstants.KINETIC_ENERGY_MOVEMENT_RESISTANCE, 0.5, "%");
+        addTradeoffPropertyDouble(MPSModuleConstants.ENERGY_GENERATED, MPSModuleConstants.KINETIC_ENERGY_MOVEMENT_RESISTANCE, 0.5, "%");
     }
 
     @Override
     public EnumModuleCategory getCategory() {
-        return EnumModuleCategory.CATEGORY_ENERGY;
+        return EnumModuleCategory.CATEGORY_ENERGY_GENERATION;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class KineticGeneratorModule extends PowerModuleBase implements IPlayerTi
         // really hate running this check on every tick but needed for player speed adjustments
         if (ElectricItemUtils.getPlayerEnergy(player) < ElectricItemUtils.getMaxPlayerEnergy(player)) {
             // reduce player speed according to Kinetic Energy Generator setting
-            double movementResistance = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, "Movement Resistance");
+            double movementResistance = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.KINETIC_ENERGY_MOVEMENT_RESISTANCE);
             if (movementResistance > 0) {
                 player.motionX *= movementResistance;
                 player.motionZ *= movementResistance;
@@ -58,7 +58,7 @@ public class KineticGeneratorModule extends PowerModuleBase implements IPlayerTi
                     // player not swimming or w/e
                     !player.isInWater()) {
                 double distance = player.distanceWalkedModified - player.prevDistanceWalkedModified;
-                ElectricItemUtils.givePlayerEnergy(player, (int) (distance * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.KINETIC_ENERGY_GENERATION)));
+                ElectricItemUtils.givePlayerEnergy(player, (int) (distance * 10 *  ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.KINETIC_ENERGY_GENERATION)));
             }
         }
     }

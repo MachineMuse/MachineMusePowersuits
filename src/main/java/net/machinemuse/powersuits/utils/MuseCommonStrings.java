@@ -68,13 +68,13 @@ public abstract class MuseCommonStrings {
                 // TODO: tooltip label for fluids if fluids found
 
                 // Water tank info
-                FluidUtils fluidUtils = new FluidUtils(player, stack, MPSModuleConstants.BASIC_COOLING_SYSTEM__DATANAME);
+                FluidUtils fluidUtils = new FluidUtils(player, stack, MPSModuleConstants.MODULE_BASIC_COOLING_SYSTEM__DATANAME);
                 List<String> fluidInfo = fluidUtils.getFluidDisplayString();
                 if (!fluidInfo.isEmpty())
                     currentTipList.addAll(fluidInfo);
 
                 // advanced fluid tank info
-                fluidUtils = new FluidUtils(player, stack, MPSModuleConstants.ADVANCED_COOLING_SYSTEM__DATANAME);
+                fluidUtils = new FluidUtils(player, stack, MPSModuleConstants.MODULE_ADVANCED_COOLING_SYSTEM__DATANAME);
                 fluidInfo = fluidUtils.getFluidDisplayString();
                 if (!fluidInfo.isEmpty())
                     currentTipList.addAll(fluidInfo);

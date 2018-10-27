@@ -37,7 +37,7 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
 
-        addBasePropertyDouble(MPSModuleConstants.LIGHTNING_ENERGY_CONSUMPTION, 4900000, "RF");
+        addBasePropertyDouble(MPSModuleConstants.ENERGY_CONSUMPTION, 4900000, "RF");
         addBasePropertyDouble(MPSModuleConstants.HEAT_EMISSION, 100, "");
     }
 
@@ -56,7 +56,7 @@ public class LightningModule extends PowerModuleBase implements IRightClickModul
         if (hand == EnumHand.MAIN_HAND) {
             try {
                 double range = 64;
-                int energyConsumption = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.LIGHTNING_ENERGY_CONSUMPTION);
+                int energyConsumption = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.ENERGY_CONSUMPTION);
                 if (energyConsumption < ElectricItemUtils.getPlayerEnergy(playerIn)) {
                     ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
                     MuseHeatUtils.heatPlayer(playerIn, ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.HEAT_EMISSION));

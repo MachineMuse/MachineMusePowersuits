@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.powermodule.energy;
+package net.machinemuse.powersuits.powermodule.energy_storage;
 
 import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.module.EnumModuleCategory;
@@ -12,29 +12,25 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
 
-/**
- * Created by leon on 7/3/16.
- */
-public class UltimateBatteryModule extends PowerModuleBase {
-    public UltimateBatteryModule(EnumModuleTarget moduleTarget) {
+public class EliteBatteryModule extends PowerModuleBase {
+    public EliteBatteryModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.evcapacitor, 1));
-
-        addBasePropertyDouble(NuminaNBTConstants.MAXIMUM_ENERGY, 75000000, "RF");
+        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 1));
+        addBasePropertyDouble(NuminaNBTConstants.MAXIMUM_ENERGY, 50000000, "RF");
     }
 
     @Override
     public EnumModuleCategory getCategory() {
-        return EnumModuleCategory.CATEGORY_ENERGY;
+        return EnumModuleCategory.CATEGORY_ENERGY_STORAGE;
     }
 
     @Override
     public String getDataName() {
-        return MPSModuleConstants.MODULE_BATTERY_ULTIMATE__DATANAME;
+        return MPSModuleConstants.MODULE_BATTERY_ELITE__DATANAME;
     }
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
-        return MuseIcon.ultimateBattery;
+        return MuseIcon.eliteBattery;
     }
 }

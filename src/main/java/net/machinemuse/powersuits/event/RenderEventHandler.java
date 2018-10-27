@@ -84,7 +84,7 @@ public class RenderEventHandler {
     public void onFOVUpdate(FOVUpdateEvent e) {
         ItemStack helmet = e.getEntity().getItemStackFromSlot(EntityEquipmentSlot.HEAD);
         if (ModuleManager.INSTANCE.itemHasActiveModule(helmet, MPSModuleConstants.BINOCULARS_MODULE__DATANAME)) {
-            e.setNewfov(e.getNewfov() / (float) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(helmet, MPSModuleConstants.FOV_MULTIPLIER));
+            e.setNewfov(e.getNewfov() / (float) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(helmet, MPSModuleConstants.FOV));
         }
     }
 

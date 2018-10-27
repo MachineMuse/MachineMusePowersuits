@@ -16,7 +16,7 @@ public class FlightControlModule extends PowerModuleBase implements IToggleableM
     public FlightControlModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
-        addTradeoffPropertyDouble("Verticality", MPSModuleConstants.FLIGHT_VERTICALITY, 1.0, "%");
+        addTradeoffPropertyDouble(MPSModuleConstants.VERTICALITY, MPSModuleConstants.FLIGHT_VERTICALITY, 1.0, "%");
     }
 
     @Override

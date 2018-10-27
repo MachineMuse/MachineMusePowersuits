@@ -32,13 +32,12 @@ public class PlasmaCannonModule extends PowerModuleBase implements IRightClickMo
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.hvcapacitor, 2));
 
-
         addBasePropertyDouble(MPSModuleConstants.PLASMA_CANNON_ENERGY_PER_TICK, 100, "RF");
         addBasePropertyDouble(MPSModuleConstants.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 2, "pt");
-        addTradeoffPropertyDouble("Amperage", MPSModuleConstants.PLASMA_CANNON_ENERGY_PER_TICK, 1500, "RF");
-        addTradeoffPropertyDouble("Amperage", MPSModuleConstants.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 38, "pt");
-        addTradeoffPropertyDouble("Voltage", MPSModuleConstants.PLASMA_CANNON_ENERGY_PER_TICK, 500, "RF");
-        addTradeoffPropertyDouble("Voltage", MPSModuleConstants.PLASMA_CANNON_EXPLOSIVENESS, 0.5, "Creeper");
+        addTradeoffPropertyDouble(MPSModuleConstants.AMPERAGE, MPSModuleConstants.PLASMA_CANNON_ENERGY_PER_TICK, 1500, "RF");
+        addTradeoffPropertyDouble(MPSModuleConstants.AMPERAGE, MPSModuleConstants.PLASMA_CANNON_DAMAGE_AT_FULL_CHARGE, 38, "pt");
+        addTradeoffPropertyDouble(MPSModuleConstants.VOLTAGE, MPSModuleConstants.PLASMA_CANNON_ENERGY_PER_TICK, 500, "RF");
+        addTradeoffPropertyDouble(MPSModuleConstants.VOLTAGE, MPSModuleConstants.PLASMA_CANNON_EXPLOSIVENESS, 0.5, MPSModuleConstants.CREEPER);
     }
 
     @Override

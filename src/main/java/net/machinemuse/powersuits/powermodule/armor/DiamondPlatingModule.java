@@ -10,6 +10,7 @@ import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 
 public class DiamondPlatingModule extends PowerModuleBase {
@@ -17,7 +18,8 @@ public class DiamondPlatingModule extends PowerModuleBase {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(this.getDataName(), MuseItemUtils.copyAndResize(ItemComponent.diamonddPlating, 1));
 
-        addBasePropertyDouble(MPSModuleConstants.ARMOR_VALUE_PHYSICAL, 5, " Points");
+        addBasePropertyDouble(MPSModuleConstants.ARMOR_VALUE_PHYSICAL, 5, " " +
+                I18n.format(MPSModuleConstants.MODULE_TRADEOFF_PREFIX + MPSModuleConstants.ARMOR_POINTS));
         addBasePropertyDouble(NuminaNBTConstants.MAXIMUM_HEAT, 400);
     }
 

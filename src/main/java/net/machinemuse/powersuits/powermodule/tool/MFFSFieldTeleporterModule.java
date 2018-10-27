@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.powermodule.tool;
 import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -15,14 +16,11 @@ import net.minecraft.item.ItemStack;
  * 7:21 PM 4/25/13
  */
 public class MFFSFieldTeleporterModule extends PowerModuleBase {
-    public static final String MODULE_FIELD_TELEPORTER = "MFFS Field Teleporter";
-    public static final String FIELD_TELEPORTER_ENERGY_CONSUMPTION = "Field Teleporter Energy Consumption";
-
     public MFFSFieldTeleporterModule(EnumModuleTarget moduleTarget) throws IllegalAccessException, NoSuchFieldException, ClassNotFoundException {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
 
-        addBasePropertyDouble(FIELD_TELEPORTER_ENERGY_CONSUMPTION, 200000, "RF");
+        addBasePropertyDouble(MPSModuleConstants.FIELD_TELEPORTER_ENERGY_CONSUMPTION, 200000, "RF");
     }
 
     @Override
@@ -32,7 +30,7 @@ public class MFFSFieldTeleporterModule extends PowerModuleBase {
 
     @Override
     public String getDataName() {
-        return MODULE_FIELD_TELEPORTER;
+        return MPSModuleConstants.MODULE_FIELD_TELEPORTER__DATANAME;
     }
 
     @Override

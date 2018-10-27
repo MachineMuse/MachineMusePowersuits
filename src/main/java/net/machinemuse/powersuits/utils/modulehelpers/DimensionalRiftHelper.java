@@ -4,7 +4,7 @@ package net.machinemuse.powersuits.utils.modulehelpers;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectIterator;
-import net.machinemuse.powersuits.entity.TileEntityPortal;
+import net.machinemuse.powersuits.block.TileEntityPortal;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;

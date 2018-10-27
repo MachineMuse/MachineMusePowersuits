@@ -12,28 +12,17 @@ public class NuminaNBTConstants {
     public static final String TAG_MODEL = "model";
     public static final String TAG_PART = "part";
     public static final String TAG_VALUES = "commonValues"; // commonly used values that would normally be recalculated several times a minute.
-    public static final String FLUID_NBT_KEY = "Fluid";
+    public static final String FLUID_NBT_KEY = "fluid";
 
 
     // ModularItemHandler tag
     public static final String TAG_MODULES = "modules";
 
+    // energy
+    public static final String MAXIMUM_ENERGY = "maxEnergy";
+    public static final String CURRENT_ENERGY = "currEnergy";
 
-    // heat parent tag
-    public static final String TAG_HEAT = "Heat"; // parent tag
-
-
-    // used in various places where parent tag is unique
-    public static final String TAG_CURRENT_VALUE = "CurrVal";
-    public static final String TAG_CAPACITY = "Capacity";
-    public static final String TAG_MAX_TRANSFER = "MaxTransfer";
-
-
-    // legacy energy
-    public static final String MAXIMUM_ENERGY = "Maximum Energy";
-    public static final String CURRENT_ENERGY = "Current Energy";
-
-    // legacy heat
-    public static final String MAXIMUM_HEAT = "Maximum Heat";
-    public static final String CURRENT_HEAT = "Current Heat";
+    // heat
+    public static final String CURRENT_HEAT = "curHeat";
+    public static final String MAXIMUM_HEAT = "maxHeat";
 }
