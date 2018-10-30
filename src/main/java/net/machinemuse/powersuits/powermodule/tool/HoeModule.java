@@ -8,7 +8,7 @@ import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.helper.ToolHelpers;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.block.Block;
@@ -28,6 +28,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 public class HoeModule extends PowerModuleBase implements IPowerModule, IRightClickModule {
     public HoeModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
@@ -44,7 +46,7 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
 
     @Override
     public EnumActionResult onItemUse(ItemStack itemStack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        double energyConsumed = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.HOE_ENERGY_CONSUMPTION);
+        double energyConsumed = getEnergyUsage(itemStack);
         if (!playerIn.canPlayerEdit(pos, facing, itemStack) || ElectricItemUtils.getPlayerEnergy(playerIn) < energyConsumed) {
             return EnumActionResult.FAIL;
         } else {
@@ -99,6 +101,11 @@ public class HoeModule extends PowerModuleBase implements IPowerModule, IRightCl
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
 
+    }
+
+    @Override
+    public int getEnergyUsage(@Nonnull ItemStack itemStack) {
+        return (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.HOE_ENERGY_CONSUMPTION);
     }
 
     @Override

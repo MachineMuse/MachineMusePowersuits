@@ -7,7 +7,7 @@ import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.utils.modulehelpers.FluidUtils;
@@ -41,16 +41,18 @@ public abstract class MuseCommonStrings {
     public static void addInformation(@Nonnull ItemStack stack, World worldIn, List currentTipList, ITooltipFlag advancedToolTips) {
         EntityPlayer player = Minecraft.getMinecraft().player;
 
+        // TODO: remove enchantment labels.
+
         if (currentTipList.contains(I18n.format("silkTouch")))
             currentTipList.remove(I18n.format("silkTouch"));
 
-
         // Mode changing item such as power fist
         if (stack.getItem() instanceof IModeChangingItem) {
-            String mode = MuseItemUtils.getStringOrNull(stack, NuminaNBTConstants.TAG_MODE);
-            if (mode != null)
-                currentTipList.add(I18n.format("tooltip.powersuits.mode") + " " + MuseStringUtils.wrapFormatTags(mode, MuseStringUtils.FormatCodes.Red));
-            else
+            String moduleDataName = MuseItemUtils.getStringOrNull(stack, NuminaNBTConstants.TAG_MODE);
+            if (moduleDataName != null) {
+                String localizedName = I18n.format("module.powersuits." + moduleDataName + ".name");
+                currentTipList.add(I18n.format("tooltip.powersuits.mode") + " " + MuseStringUtils.wrapFormatTags(localizedName, MuseStringUtils.FormatCodes.Red));
+            } else
                 currentTipList.add(I18n.format("tooltip.powersuits.changeModes"));
         }
 

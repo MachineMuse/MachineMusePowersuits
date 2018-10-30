@@ -7,7 +7,7 @@ import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRect;
 import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
 import net.machinemuse.numina.utils.render.MuseRenderer;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableModule;

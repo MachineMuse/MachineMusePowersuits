@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.gui.tinker;
 
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.powersuits.gui.MuseGui;
-import net.machinemuse.powersuits.gui.RadialSelectionFrame;
+import net.machinemuse.powersuits.gui.RadialModeSelectionFrame;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,13 +12,10 @@ import java.io.IOException;
 
 public class GuiModeSelector extends MuseGui {
     EntityPlayer player;
-    RadialSelectionFrame radialSelect;
+    RadialModeSelectionFrame radialSelect;
 
     public GuiModeSelector(EntityPlayer player) {
         this.player = player;
-//        this.xSize = 256;
-//        this.ySize = 200;
-// todo?
         ScaledResolution screen = new ScaledResolution(Minecraft.getMinecraft());
         this.xSize = Math.min(screen.getScaledWidth() - 50, 500);
         this.ySize = Math.min(screen.getScaledHeight() - 50, 300);
@@ -30,7 +27,7 @@ public class GuiModeSelector extends MuseGui {
     @Override
     public void initGui() {
         super.initGui();
-        radialSelect = new RadialSelectionFrame(
+        radialSelect = new RadialModeSelectionFrame(
                 new MusePoint2D(absX(-0.5F), absY(-0.5F)),
                 new MusePoint2D(absX(0.5F), absY(0.5F)),
                 player);

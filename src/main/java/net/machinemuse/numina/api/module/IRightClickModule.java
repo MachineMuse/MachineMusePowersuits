@@ -10,6 +10,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public interface IRightClickModule extends IPowerModule {
     ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand);
 
@@ -21,4 +23,6 @@ public interface IRightClickModule extends IPowerModule {
                                     BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand);
 
     void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft);
+
+    int getEnergyUsage(@Nonnull ItemStack itemStack);
 }

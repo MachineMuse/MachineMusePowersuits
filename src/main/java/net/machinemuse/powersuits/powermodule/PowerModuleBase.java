@@ -60,29 +60,7 @@ public abstract class PowerModuleBase implements IPowerModule {
     @Override
     public abstract TextureAtlasSprite getIcon(ItemStack item);
 
-    @Override
-    public boolean isValidForItem(@Nonnull ItemStack stack) {
-        if (stack.isEmpty() || !(stack.getItem() instanceof IModularItem))
-            return false;
-        Item item = stack.getItem();
-        switch (getTarget()) {
-            case ALLITEMS:
-                return true;
-            case TOOLONLY:
-                return item instanceof ItemPowerFist;
-            case ARMORONLY:
-                return item instanceof ItemPowerArmor;
-            case HEADONLY:
-                return item instanceof ItemPowerArmorHelmet;
-            case TORSOONLY:
-                return item instanceof ItemPowerArmorChestplate;
-            case LEGSONLY:
-                return item instanceof ItemPowerArmorLeggings;
-            case FEETONLY:
-                return item instanceof ItemPowerArmorBoots;
-        }
-        return false;
-    }
+
 
     @Override
     public Map<String, List<IPropertyModifier>> getPropertyModifiers() {

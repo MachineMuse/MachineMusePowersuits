@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 
 public enum MPSConfig {
@@ -204,6 +205,10 @@ public enum MPSConfig {
      * Modules -----------------------------------------------------------------------------------
      */
     public boolean getModuleAllowedorDefault(String name, boolean allowed) {
+        // empty enhancement module
+        if (Objects.equals("emptyEnhancement", name))
+            return true;
+
         return getServerSettings() != null ? getServerSettings().allowedModules.getOrDefault(name, allowed) : MPSSettings.modules.allowedModules.getOrDefault(name, allowed);
     }
 

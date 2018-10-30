@@ -4,7 +4,7 @@ import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.minecraft.entity.player.EntityPlayer;

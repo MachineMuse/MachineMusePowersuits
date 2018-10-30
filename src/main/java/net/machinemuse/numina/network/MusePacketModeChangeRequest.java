@@ -2,6 +2,8 @@ package net.machinemuse.numina.network;
 
 import io.netty.buffer.ByteBufInputStream;
 import net.machinemuse.numina.api.item.IModeChangingItem;
+import net.machinemuse.numina.api.module.IMiningEnhancementModule;
+import net.machinemuse.numina.api.module.IModuleManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
@@ -43,14 +45,11 @@ public final class MusePacketModeChangeRequest extends MusePacket {
     public void handleServer(EntityPlayerMP player) {
         if (slot > -1 && slot < 9) {
             ItemStack stack = player.inventory.mainInventory.get(slot);
-            if (!stack.isEmpty()) {
-                Item item = stack.getItem();
-                if (item instanceof IModeChangingItem) {
-                    List<String> modes = ((IModeChangingItem) item).getValidModes(stack);
-                    if (modes.contains(mode)) {
-                        ((IModeChangingItem) item).setActiveMode(stack, mode);
-                    }
-                }
+            if (!stack.isEmpty() && stack.getItem() instanceof IModeChangingItem) {
+                IModeChangingItem modeChangingItem = ((IModeChangingItem) stack.getItem());
+                IModuleManager moduleManager = modeChangingItem.getModuleManager();
+                if (moduleManager.isValidForItem(stack, mode))
+                    modeChangingItem.setActiveMode(stack, mode);
             }
         }
     }

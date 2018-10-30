@@ -193,7 +193,6 @@ public class MPSSettings {
             // Tools --------------------------------------------------------------------------------------
             put(MPSModuleConstants.MODULE_APPENG_EC_WIRELESS_FLUID__DATANAME, true);
             put(MPSModuleConstants.MODULE_APPENG_WIRELESS__DATANAME, true);
-
             put(MPSModuleConstants.MODULE_AXE__DATANAME, true);
             put(MPSModuleConstants.MODULE_CHISEL__DATANAME, true);
             put(MPSModuleConstants.MODULE_DIAMOND_PICK_UPGRADE__DATANAME, true);
@@ -205,7 +204,6 @@ public class MPSSettings {
             put(MPSModuleConstants.MODULE_LEAF_BLOWER__DATANAME, true);
             put(MPSModuleConstants.MODULE_LUX_CAPACITOR__DATANAME, true);
             put(MPSModuleConstants.MODULE_FIELD_TELEPORTER__DATANAME, true);
-            put(MPSModuleConstants.MODULE_MAD_MODULE__DATANAME, true);
             put(MPSModuleConstants.MODULE_OC_TERMINAL__DATANAME, true);
             put(MPSModuleConstants.MODULE_OMNIPROBE__DATANAME, true);
             put(MPSModuleConstants.MODULE_OMNI_WRENCH__DATANAME, true);
@@ -222,6 +220,9 @@ public class MPSSettings {
             // Mining Enhancements ------------------------------------------------------------------------
             put(MPSModuleConstants.MODULE_AOE_PICK_UPGRADE__DATANAME, true);
             put(MPSModuleConstants.MODULE_AQUA_AFFINITY__DATANAME, true);
+            put(MPSModuleConstants.MODULE_FORTUNE_DATANAME, true);
+            put(MPSModuleConstants.MODULE_MAD__DATANAME, true);
+            put(MPSModuleConstants.MODULE_SILK_TOUCH__DATANAME, true);
 
 
             // Weapons ------------------------------------------------------------------------------------

@@ -8,7 +8,7 @@ import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -23,6 +23,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
 
 public class RailgunModule extends PowerModuleBase implements IRightClickModule, IPlayerTickModule {
     public RailgunModule(EnumModuleTarget moduleTarget) {
@@ -76,7 +78,7 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
         if (hand == EnumHand.MAIN_HAND) {
             double range = 64;
             double timer = MuseItemUtils.getDoubleOrZero(itemStackIn, MPSModuleConstants.TIMER);
-            double energyConsumption = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.RAILGUN_ENERGY_COST);
+            double energyConsumption = getEnergyUsage(itemStackIn);
             if (ElectricItemUtils.getPlayerEnergy(playerIn) > energyConsumption && timer == 0) {
                 ElectricItemUtils.drainPlayerEnergy(playerIn, (int) energyConsumption);
                 MuseItemUtils.setDoubleOrRemove(itemStackIn, MPSModuleConstants.TIMER, 10);
@@ -128,6 +130,11 @@ public class RailgunModule extends PowerModuleBase implements IRightClickModule,
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
 
+    }
+
+    @Override
+    public int getEnergyUsage(@Nonnull ItemStack itemStack) {
+        return (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.RAILGUN_ENERGY_COST);
     }
 
     @Override

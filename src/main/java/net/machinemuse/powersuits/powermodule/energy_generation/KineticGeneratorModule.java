@@ -8,7 +8,7 @@ import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -54,7 +54,7 @@ public class KineticGeneratorModule extends PowerModuleBase implements IPlayerTi
                     // every 20 ticks
                     (player.world.getTotalWorldTime() % 20) == 0 &&
                     // player not jumping
-                    !player.isAirBorne && player.getRidingEntity() == null &&
+                    player.onGround && !player.capabilities.isFlying && !player.isRiding() && !player.isElytraFlying() &&
                     // player not swimming or w/e
                     !player.isInWater()) {
                 double distance = player.distanceWalkedModified - player.prevDistanceWalkedModified;

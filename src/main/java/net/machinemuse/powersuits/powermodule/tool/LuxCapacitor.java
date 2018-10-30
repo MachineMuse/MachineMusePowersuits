@@ -7,7 +7,7 @@ import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -22,6 +22,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
 
 public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
     public LuxCapacitor(EnumModuleTarget moduleTarget) {
@@ -49,7 +51,7 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         playerIn.setActiveHand(hand);
         if (!worldIn.isRemote) {
-            double energyConsumption = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.LUX_CAPACITOR_ENERGY_CONSUMPTION);
+            double energyConsumption = getEnergyUsage(itemStackIn);
             MuseHeatUtils.heatPlayer(playerIn, energyConsumption / 500);
             if (ElectricItemUtils.getPlayerEnergy(playerIn) > energyConsumption) {
                 ElectricItemUtils.drainPlayerEnergy(playerIn, (int) energyConsumption);
@@ -79,6 +81,11 @@ public class LuxCapacitor extends PowerModuleBase implements IRightClickModule {
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
 
+    }
+
+    @Override
+    public int getEnergyUsage(@Nonnull ItemStack itemStack) {
+        return (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.LUX_CAPACITOR_ENERGY_CONSUMPTION);
     }
 
     @Override

@@ -41,7 +41,12 @@ public class RenderPart extends ModelRenderer {
     @Override
     public void render(float scale) {
         NBTTagCompound renderSpec = ((IArmorModel) (ArmorModelInstance.getInstance())).getRenderSpec();
+        if (renderSpec == null)
+            return;
+
         int[] colours = renderSpec.getIntArray(NuminaNBTConstants.TAG_COLOURS);
+        if (colours.length == 0)
+            colours = new int[]{Colour.WHITE.getInt()};
 
         int partColor;
         for (NBTTagCompound nbt : NBTTagAccessor.getValues(renderSpec)) {

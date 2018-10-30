@@ -5,7 +5,7 @@ import net.machinemuse.numina.api.module.*;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -24,16 +24,19 @@ import javax.annotation.Nonnull;
 /**
  * Created by Eximius88 on 1/29/14.
  */
-public class AOEPickUpgradeModule extends PowerModuleBase implements IToggleableModule, IMiningEnhancementModule {
+public class AOEPickUpgradeModule extends PowerModuleBase implements IMiningEnhancementModule {
     public AOEPickUpgradeModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.solenoid, 1));
         //ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Item.diamond, 3));
-        addBasePropertyDouble(MPSModuleConstants.ENERGY_CONSUMPTION, 100, "RF");
+
+        addBasePropertyDouble(MPSModuleConstants.AOE_ENERGY_CONSUMPTION, 500, "RF");
+        addTradeoffPropertyDouble(MPSModuleConstants.DIAMETER, MPSModuleConstants.AOE_ENERGY_CONSUMPTION, 9500);
+        addIntTradeoffProperty(MPSModuleConstants.DIAMETER, MPSModuleConstants.AOE_MINING_RADIUS, 5, "m", 2, 1);
     }
 
     @Override
-    public boolean onBlockStartBreak(ItemStack itemstack, BlockPos posIn, EntityPlayer player) {
+    public boolean onBlockStartBreak(ItemStack itemStack, BlockPos posIn, EntityPlayer player) {
         if (player.world.isRemote)
             return false; // fixme : check?
 
@@ -41,30 +44,33 @@ public class AOEPickUpgradeModule extends PowerModuleBase implements IToggleable
         if (rayTraceResult == null)
             return false;
 
+        int radius =  (int) (ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.AOE_MINING_RADIUS) -1)/2 ;
+
+        if (radius == 0)
+            return false;
+
         EnumFacing side = rayTraceResult.sideHit;
-
         Iterable<BlockPos> posList;
-
         switch(side) {
             case UP:
             case DOWN:
-                posList = BlockPos.getAllInBox(posIn.north().west(), posIn.south().east());
+                posList = BlockPos.getAllInBox(posIn.north(radius).west(radius), posIn.south(radius).east(radius));
                 break;
 
             case EAST:
             case WEST:
-                posList = BlockPos.getAllInBox(posIn.up().north(), posIn.down().south());
+                posList = BlockPos.getAllInBox(posIn.up(radius).north(radius), posIn.down(radius).south(radius));
                 break;
 
             case NORTH:
             case SOUTH:
-                posList = BlockPos.getAllInBox(posIn.up().west(), posIn.down().east());
+                posList = BlockPos.getAllInBox(posIn.up(radius).west(radius), posIn.down(radius).east(radius));
                 break;
 
             default:
                 posList = new HashList<>();
         }
-        int energyUsage = this.getEnergyUsage(itemstack);
+        int energyUsage = this.getEnergyUsage(itemStack);
 
         boolean harvested = false;
         for (BlockPos blockPos : posList) {
@@ -74,7 +80,7 @@ public class AOEPickUpgradeModule extends PowerModuleBase implements IToggleable
             for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IBlockBreakingModule.class)) {
                 int playerEnergy = ElectricItemUtils.getPlayerEnergy(player);
 
-                if (ModuleManager.INSTANCE.itemHasActiveModule(itemstack, module.getDataName()) && ((IBlockBreakingModule) module).canHarvestBlock(itemstack, state, player, blockPos, playerEnergy - energyUsage)) {
+                if (ModuleManager.INSTANCE.itemHasActiveModule(itemStack, module.getDataName()) && ((IBlockBreakingModule) module).canHarvestBlock(itemStack, state, player, blockPos, playerEnergy - energyUsage)) {
                     if (posIn == blockPos) // center block
                         harvested = true;
                     block.onBlockDestroyedByPlayer(player.world, blockPos, state);
@@ -83,7 +89,7 @@ public class AOEPickUpgradeModule extends PowerModuleBase implements IToggleable
                     block.breakBlock(player.world, blockPos, state);
                     block.dropBlockAsItem(player.world, blockPos, state, 0);
 
-                    ElectricItemUtils.drainPlayerEnergy(player, ((IBlockBreakingModule) module).getEnergyUsage(itemstack) + energyUsage);
+                    ElectricItemUtils.drainPlayerEnergy(player, ((IBlockBreakingModule) module).getEnergyUsage(itemStack) + energyUsage);
                     break;
                 }
             }
@@ -93,7 +99,7 @@ public class AOEPickUpgradeModule extends PowerModuleBase implements IToggleable
 
     @Override
     public int getEnergyUsage(@Nonnull ItemStack itemStack) {
-        return (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.ENERGY_CONSUMPTION);
+        return (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.AOE_ENERGY_CONSUMPTION);
     }
 
     @Override

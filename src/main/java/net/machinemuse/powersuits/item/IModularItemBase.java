@@ -3,9 +3,11 @@ package net.machinemuse.powersuits.item;
 import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.api.energy.adapter.IMuseElectricItem;
 import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.api.module.IModuleManager;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.render.modelspec.ModelRegistry;
 import net.machinemuse.powersuits.client.render.modelspec.TexturePartSpec;
 import net.machinemuse.powersuits.common.config.MPSConfig;
@@ -47,6 +49,11 @@ public interface IModularItemBase extends IModularItem, IMuseElectricItem {
 
     default String formatInfo(String string, double value) {
         return string + '\t' + MuseStringUtils.formatNumberShort(value);
+    }
+
+    @Override
+    default IModuleManager getModuleManager() {
+        return ModuleManager.INSTANCE;
     }
 
     default double getArmorDouble(EntityPlayer player, ItemStack stack) {

@@ -7,7 +7,7 @@ import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,12 +26,15 @@ import java.util.List;
  */
 public class PlayerUpdateHandler {
     @SuppressWarnings("unchecked")
-    @SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
+    @SubscribeEvent(priority = EventPriority.NORMAL)
     public void onPlayerUpdate(LivingEvent.LivingUpdateEvent e) {
         if (e.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) e.getEntity();
 
             List<ItemStack> modularItemsEquipped = MuseItemUtils.getModularItemsEquipped(player);
+
+
+
 
 //            // FIXME: is this really nescessary... apparently it is
 //            for (ItemStack stack : modularItemsEquipped) {
@@ -62,7 +65,7 @@ public class PlayerUpdateHandler {
 
             for (ItemStack itemStack : modularItemsEquipped) {
                 for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IPlayerTickModule.class)) {
-                    if (module.isValidForItem(itemStack) && ModuleManager.INSTANCE.itemHasModule(itemStack, module.getDataName())) {
+                    if ( ModuleManager.INSTANCE.isValidForItem(itemStack, module) && ModuleManager.INSTANCE.itemHasModule(itemStack, module.getDataName())) {
                         if (ModuleManager.INSTANCE.isModuleOnline(itemStack, module.getDataName()))
                             ((IPlayerTickModule) module).onPlayerTickActive(player, itemStack);
                         else

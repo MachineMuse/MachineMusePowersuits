@@ -4,7 +4,6 @@ import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.common.ModCompatibility;
 import net.machinemuse.numina.utils.MuseLogger;
-import net.machinemuse.powersuits.api.module.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.powermodule.armor.DiamondPlatingModule;
 import net.machinemuse.powersuits.powermodule.armor.EnergyShieldModule;
@@ -20,10 +19,7 @@ import net.machinemuse.powersuits.powermodule.energy_storage.BasicBatteryModule;
 import net.machinemuse.powersuits.powermodule.energy_storage.EliteBatteryModule;
 import net.machinemuse.powersuits.powermodule.energy_storage.UltimateBatteryModule;
 import net.machinemuse.powersuits.powermodule.environmental.*;
-import net.machinemuse.powersuits.powermodule.mining_enhancement.AOEPickUpgradeModule;
-import net.machinemuse.powersuits.powermodule.mining_enhancement.AquaAffinityModule;
-import net.machinemuse.powersuits.powermodule.mining_enhancement.MADModule;
-import net.machinemuse.powersuits.powermodule.mining_enhancement.SilkTouchModule;
+import net.machinemuse.powersuits.powermodule.mining_enhancement.*;
 import net.machinemuse.powersuits.powermodule.movement.*;
 import net.machinemuse.powersuits.powermodule.special.*;
 import net.machinemuse.powersuits.powermodule.tool.*;
@@ -82,11 +78,11 @@ public class MPSModules {
         addModule(new FlintAndSteelModule(TOOLONLY));
         addModule(new LightningModule(TOOLONLY));
         addModule(new DimensionalRiftModule(TOOLONLY));
-
         // Mining Enhancements
-        addModule(new SilkTouchModule(TOOLONLY));
         addModule(new AOEPickUpgradeModule(TOOLONLY));
         addModule(new AquaAffinityModule(TOOLONLY));
+        addModule(new FortuneModule(TOOLONLY));
+        addModule(new SilkTouchModule(TOOLONLY));
 
 
         /* Helmet ------------------------------- */

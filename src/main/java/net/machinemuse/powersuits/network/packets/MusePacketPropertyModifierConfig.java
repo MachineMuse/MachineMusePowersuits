@@ -5,7 +5,7 @@
 //import net.machinemuse.numina.api.nbt.IPropertyModifier;
 //import net.machinemuse.numina.network.IMusePackager;
 //import net.machinemuse.numina.network.MusePacket;
-//import net.machinemuse.powersuits.api.module.ModuleManager;
+//import net.machinemuse.powersuits.common.ModuleManager;
 //import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 //import net.machinemuse.numina.api.nbt.PropertyModifierFlatAdditiveDouble;
 //import net.machinemuse.numina.api.nbt.PropertyModifierLinearAdditive;

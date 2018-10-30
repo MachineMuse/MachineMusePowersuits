@@ -38,6 +38,10 @@ public interface IModuleManager {
         return retList;
     }
 
+    boolean isValidForItem(@Nonnull ItemStack stack, String moduleDataName);
+
+    boolean isValidForItem(@Nonnull ItemStack stack, IPowerModule module);
+
     /**
      * Call this whenever the getValue changes, such as changing a setting or installing a module
      */
@@ -96,7 +100,7 @@ public interface IModuleManager {
     default List<IPowerModule> getValidModulesForItem(@Nonnull ItemStack stack) {
         List<IPowerModule> validModules = new ArrayList();
         for (IPowerModule module : getAllModules()) {
-            if (module.isValidForItem(stack)) {
+            if (isValidForItem(stack, module.getDataName())) {
                 validModules.add(module);
             }
         }

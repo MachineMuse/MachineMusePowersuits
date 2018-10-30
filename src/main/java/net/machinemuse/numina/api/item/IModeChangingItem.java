@@ -1,6 +1,10 @@
 package net.machinemuse.numina.api.item;
 
 import net.machinemuse.numina.api.constants.NuminaNBTConstants;
+import net.machinemuse.numina.api.module.IMiningEnhancementModule;
+import net.machinemuse.numina.api.module.IModuleManager;
+import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.network.MusePacketModeChangeRequest;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
@@ -10,7 +14,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -19,14 +25,35 @@ import java.util.List;
  * <p>
  * Ported to Java by lehjr on 11/1/16.
  */
-public interface IModeChangingItem {
+public interface IModeChangingItem extends IModularItem {
     @SideOnly(Side.CLIENT)
     @Nullable
-    TextureAtlasSprite getModeIcon(String mode, ItemStack stack, EntityPlayer player);
+    default TextureAtlasSprite getModeIcon(String mode, @Nonnull ItemStack stack, EntityPlayer player) {
+        if (stack.getItem() instanceof IModularItem) {
+            IModuleManager moduleManager = ((IModularItem) stack.getItem()).getModuleManager();
+            IPowerModule module = moduleManager.getModule(mode);
+            if (module != null)
+                return module.getIcon(stack);
+        }
+        return null;
+    }
 
-    List<String> getValidModes(ItemStack stack);
+    // modes are IRightClick modules
+    default List<String> getValidModes(@Nonnull ItemStack stack) {
+        List<String> modes = new LinkedList<>();
+        if (!(stack.getItem() instanceof IModeChangingItem))
+            return modes;
 
-    default String getActiveMode(ItemStack stack) {
+        IModuleManager moduleManager = ((IModularItem)stack.getItem()).getModuleManager();
+        for (Object module : moduleManager.getModulesOfType(IRightClickModule.class)) {
+            if (moduleManager.isValidForItem(stack, (IPowerModule) module))
+                if (moduleManager.itemHasModule(stack, ((IPowerModule) module).getDataName()))
+                    modes.add(((IPowerModule) module).getDataName());
+        }
+        return modes;
+    }
+
+    default String getActiveMode(@Nonnull ItemStack stack) {
         String modeFromNBT = MuseNBTUtils.getMuseItemTag(stack).getString(NuminaNBTConstants.TAG_MODE);
         if (modeFromNBT.isEmpty()) {
             List<String> validModes = getValidModes(stack);
@@ -35,7 +62,7 @@ public interface IModeChangingItem {
             return modeFromNBT;
     }
 
-    default void setActiveMode(ItemStack stack, String newMode) {
+    default void setActiveMode(@Nonnull ItemStack stack, String newMode) {
         MuseNBTUtils.getMuseItemTag(stack).setString(NuminaNBTConstants.TAG_MODE, newMode);
     }
 

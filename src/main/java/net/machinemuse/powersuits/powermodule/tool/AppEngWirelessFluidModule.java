@@ -6,7 +6,7 @@ import net.machinemuse.numina.api.module.EnumModuleTarget;
 import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -21,15 +21,13 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.Optional;
 
 /**
  * Created by User: Korynkai
  * 10:03pm - 2014-11-15
  */
-
-// TODO: revisit if EC2 ever gets ported
-
 public class AppEngWirelessFluidModule extends PowerModuleBase implements IRightClickModule {
     public AppEngWirelessFluidModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
@@ -71,5 +69,10 @@ public class AppEngWirelessFluidModule extends PowerModuleBase implements IRight
 
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
+    }
+
+    @Override
+    public int getEnergyUsage(@Nonnull ItemStack itemStack) {
+        return 0;
     }
 }

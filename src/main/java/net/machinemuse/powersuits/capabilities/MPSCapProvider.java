@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.capabilities;
 
 import net.machinemuse.numina.capabilities.heat.CapabilityHeat;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;

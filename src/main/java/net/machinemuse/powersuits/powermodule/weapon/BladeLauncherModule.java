@@ -6,7 +6,7 @@ import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -21,6 +21,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
 
 public class BladeLauncherModule extends PowerModuleBase implements IRightClickModule {
     public BladeLauncherModule(EnumModuleTarget moduleTarget) {
@@ -66,13 +68,18 @@ public class BladeLauncherModule extends PowerModuleBase implements IRightClickM
     public void onPlayerStoppedUsing(ItemStack itemStack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
         // int chargeTicks = Math.max(itemStack.getMaxItemUseDuration() - par4, 10);
         if (!worldIn.isRemote) {
-            int energyConsumption = (int) Math.round(ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.BLADE_ENERGY));
+            int energyConsumption = getEnergyUsage(itemStack);
             if (ElectricItemUtils.getPlayerEnergy((EntityPlayer) entityLiving) > energyConsumption) {
                 ElectricItemUtils.drainPlayerEnergy((EntityPlayer) entityLiving, energyConsumption);
                 EntitySpinningBlade blade = new EntitySpinningBlade(worldIn, entityLiving);
                 worldIn.spawnEntity(blade);
             }
         }
+    }
+
+    @Override
+    public int getEnergyUsage(@Nonnull ItemStack itemStack) {
+        return (int) Math.round(ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.BLADE_ENERGY));
     }
 
     @Override

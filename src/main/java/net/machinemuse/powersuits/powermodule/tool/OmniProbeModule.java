@@ -7,7 +7,7 @@ import net.machinemuse.numina.api.module.IRightClickModule;
 import net.machinemuse.numina.common.ModCompatibility;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -23,6 +23,8 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Loader;
+
+import javax.annotation.Nonnull;
 
 //import mrtjp.projectred.transmission.bundledwires.TWireCommons;
 
@@ -88,6 +90,7 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
         return EnumActionResult.PASS;
     }
 
+    // FIXME: all of these will fail due to case sensitivity issues.
     @Override
     public EnumActionResult onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
         int block = Block.getIdFromBlock(world.getBlockState(pos).getBlock());
@@ -145,6 +148,11 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
 
+    }
+
+    @Override
+    public int getEnergyUsage(@Nonnull ItemStack itemStack) {
+        return 0;
     }
 
     @Override

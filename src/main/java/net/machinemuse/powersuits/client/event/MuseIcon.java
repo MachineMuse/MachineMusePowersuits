@@ -68,6 +68,11 @@ public class MuseIcon {
     public static TextureAtlasSprite shockAbsorber;
     public static TextureAtlasSprite sprintAssist;
     public static TextureAtlasSprite swimAssist;
+
+    /* Mining Enhancements ------------------------------------------------------------------------ */
+    public static TextureAtlasSprite emptyModule;
+
+
     /* Tools -------------------------------------------------------------------------------------- */
     public static TextureAtlasSprite aoePickUpgrade;
     public static TextureAtlasSprite appengECWirelessFluid;
@@ -164,6 +169,10 @@ public class MuseIcon {
         shockAbsorber = register(event, "modules/shockabsorber");
         sprintAssist = register(event, "modules/sprintassist");
         swimAssist = register(event, "modules/swimboost");
+
+        /* Mining Enhancements ------------------------------------------------------------------------ */
+        emptyModule = register(event, "modules/empty_set");
+
 
         /* Tools -------------------------------------------------------------------------------------- */
         aoePickUpgrade = register(event, "modules/diamondupgrade1");

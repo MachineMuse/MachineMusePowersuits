@@ -7,7 +7,7 @@ import net.machinemuse.numina.api.module.IToggleableModule;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -44,11 +44,7 @@ public class NightVisionModule extends PowerModuleBase implements IPlayerTickMod
             return;
 
         double totalEnergy = ElectricItemUtils.getPlayerEnergy(player);
-        PotionEffect nightVisionEffect = null;
-
-        if (player.isPotionActive(nightvision)) {
-            nightVisionEffect = player.getActivePotionEffect(nightvision);
-        }
+        PotionEffect nightVisionEffect = player.isPotionActive(nightvision) ? player.getActivePotionEffect(nightvision) : null;
 
         if (totalEnergy > powerDrain) {
             if (nightVisionEffect == null || nightVisionEffect.getDuration() < 250 && nightVisionEffect.getAmplifier() == -3) {

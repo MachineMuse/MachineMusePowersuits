@@ -5,7 +5,7 @@
 //import net.machinemuse.numina.network.IMusePackager;
 //import net.machinemuse.numina.network.MusePacket;
 //import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
-//import net.machinemuse.powersuits.api.module.ModuleManager;
+//import net.machinemuse.powersuits.common.ModuleManager;
 //import net.minecraft.entity.player.EntityPlayer;
 //import net.minecraft.entity.player.EntityPlayerMP;
 //import net.minecraft.item.ItemStack;

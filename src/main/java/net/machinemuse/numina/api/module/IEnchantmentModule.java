@@ -14,7 +14,7 @@ public interface IEnchantmentModule extends IPowerModule {
     @Nonnull
     default ItemStack addEnchantment(@Nonnull ItemStack itemStack) {
         Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(itemStack);
-        enchantments.put(getEnchantment(), getLevel());
+        enchantments.put(getEnchantment(), getLevel(itemStack));
         EnchantmentHelper.setEnchantments(enchantments, itemStack);
         return itemStack;
     }
@@ -32,5 +32,5 @@ public interface IEnchantmentModule extends IPowerModule {
 
     Enchantment getEnchantment();
 
-    int getLevel();
+    int getLevel(@Nonnull ItemStack itemStack);
 }

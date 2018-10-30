@@ -20,8 +20,6 @@ public interface IPowerModule {
 
     EnumModuleCategory getCategory();
 
-    boolean isValidForItem(ItemStack stack);
-
     String getDataName();
 
     String getUnlocalizedName();

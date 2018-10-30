@@ -15,7 +15,7 @@ import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.capabilities.ItemHandlerPowerFist;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.ModularPowersuits;
@@ -36,9 +36,7 @@ import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class OreScannerModule extends PowerModuleBase implements IRightClickModule, IPlayerTickModule {
     static final ResourceLocation scannerCharge = new ResourceLocation("scannable", "scanner_charge");
@@ -224,6 +222,12 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
             }
         }
         player.getCooldownTracker().setCooldown(itemStack.getItem(), chargeTicks);
+    }
+
+    // unused here because total energy cost is controlled outsiode of this mod.
+    @Override
+    public int getEnergyUsage(@Nonnull ItemStack itemStack) {
+        return 0;
     }
 
     @Override

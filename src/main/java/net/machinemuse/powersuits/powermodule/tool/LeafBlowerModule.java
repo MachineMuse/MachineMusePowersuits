@@ -7,7 +7,7 @@ import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.helper.ToolHelpers;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -22,6 +22,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
 
 /**
  * Created by User: Andrew2448
@@ -70,7 +72,7 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
                 for (int k = pos.getZ() - radius; k < pos.getZ() + radius; k++) {
                     newPos = new BlockPos(i, j, k);
                     if (ToolHelpers.blockCheckAndHarvest(player, world, newPos)) {
-                        totalEnergyDrain += ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.ENERGY_CONSUMPTION);
+                        totalEnergyDrain += getEnergyUsage(itemStack);
                     }
                 }
             }
@@ -79,6 +81,10 @@ public class LeafBlowerModule extends PowerModuleBase implements IRightClickModu
         return true;
     }
 
+    @Override
+    public int getEnergyUsage(@Nonnull ItemStack itemStack) {
+        return (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.ENERGY_CONSUMPTION);
+    }
 
     @Override
     public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {

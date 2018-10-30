@@ -21,10 +21,9 @@ import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.capabilities.MPSCapProvider;
 import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.machinemuse.powersuits.powermodule.mining_enhancement.MADModule;
 import net.machinemuse.powersuits.powermodule.tool.RefinedStorageWirelessModule;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -49,7 +48,7 @@ import net.minecraftforge.fml.common.Optional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 //import mods.railcraft.api.core.items.IToolCrowbar;
@@ -152,22 +151,14 @@ public class ItemPowerFist extends MPSItemElectricTool
     @Override
     public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
         super.onBlockStartBreak(itemstack, pos, player);
+        String moduleDataName = getActiveMode(itemstack);
+        IPowerModule module = ModuleManager.INSTANCE.getModule(moduleDataName);
 
-        for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IMiningEnhancementModule.class)) {
-            if (ModuleManager.INSTANCE.itemHasActiveModule(itemstack, module.getDataName())) {
-                return (((IMiningEnhancementModule) module).onBlockStartBreak(itemstack, pos, player));
-            }
+        if (module != null && module instanceof IMiningEnhancementModule) {
+            return (((IMiningEnhancementModule) module).onBlockStartBreak(itemstack, pos, player));
         }
         return false;
     }
-
-
-
-
-
-
-
-
 
     @Override
     public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack itemStack) {
@@ -442,27 +433,6 @@ public class ItemPowerFist extends MPSItemElectricTool
     @Optional.Method(modid = "refinedstorage")
     public INetworkItem provide(INetworkItemHandler handler, EntityPlayer player, ItemStack stack) {
         return RefinedStorageWirelessModule.provide(handler, player, stack);
-    }
-
-    /* IModeChangingItem -------------------------------------------------------------------------- */
-    @Nullable
-    @Override
-    public TextureAtlasSprite getModeIcon(String mode, ItemStack stack, EntityPlayer player) {
-        IPowerModule module = ModuleManager.INSTANCE.getModule(mode);
-        if (module != null)
-            return module.getIcon(stack);
-        return null;
-    }
-
-    @Override
-    public List<String> getValidModes(ItemStack stack) {
-        List<String> modes = new ArrayList<>();
-        for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IRightClickModule.class)) {
-            if (module.isValidForItem(stack))
-                if (ModuleManager.INSTANCE.itemHasModule(stack, module.getDataName()))
-                    modes.add(module.getDataName());
-        }
-        return modes;
     }
 
     @Override

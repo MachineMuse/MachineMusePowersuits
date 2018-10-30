@@ -1,7 +1,12 @@
-package net.machinemuse.powersuits.api.module;
+package net.machinemuse.powersuits.common;
 
+import net.machinemuse.numina.api.item.IModularItem;
 import net.machinemuse.numina.api.module.IModuleManager;
 import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.powersuits.common.config.MPSConfig;
+import net.machinemuse.powersuits.item.armor.*;
+import net.machinemuse.powersuits.item.tool.ItemPowerFist;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 
@@ -10,6 +15,8 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import static net.machinemuse.numina.api.module.EnumModuleTarget.*;
 
 public enum ModuleManager implements IModuleManager {
     INSTANCE;
@@ -30,6 +37,40 @@ public enum ModuleManager implements IModuleManager {
             retList.add(module);
         }
         return retList;
+    }
+
+    @Override
+    public boolean isValidForItem(@Nonnull ItemStack stack, IPowerModule module) {
+        if (stack.isEmpty() || !(stack.getItem() instanceof IModularItem))
+            return false;
+        if (module == null || !MPSConfig.INSTANCE.getModuleAllowedorDefault(module.getDataName(), true))
+            return false;
+
+        Item item = stack.getItem();
+        switch (module.getTarget()) {
+            case ALLITEMS:
+                return true;
+            case TOOLONLY:
+                return item instanceof ItemPowerFist;
+            case ARMORONLY:
+                return item instanceof ItemPowerArmor;
+            case HEADONLY:
+                return item instanceof ItemPowerArmorHelmet;
+            case TORSOONLY:
+                return item instanceof ItemPowerArmorChestplate;
+            case LEGSONLY:
+                return item instanceof ItemPowerArmorLeggings;
+            case FEETONLY:
+                return item instanceof ItemPowerArmorBoots;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isValidForItem(@Nonnull ItemStack stack, String moduleDataName) {
+        IPowerModule module = getModule(moduleDataName);
+
+        return isValidForItem(stack, module);
     }
 
     @Override

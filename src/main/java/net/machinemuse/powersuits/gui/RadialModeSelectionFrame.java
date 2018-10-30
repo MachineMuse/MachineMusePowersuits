@@ -8,16 +8,17 @@ import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.SpiralPointToPoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableModule;
 import net.machinemuse.powersuits.gui.tinker.frame.IGuiFrame;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class RadialSelectionFrame implements IGuiFrame {
+public class RadialModeSelectionFrame implements IGuiFrame {
     protected final long spawnTime;
     protected List<ClickableModule> modeButtons = new ArrayList<>();
     protected int selectedModuleOriginal = -1;
@@ -29,7 +30,7 @@ public class RadialSelectionFrame implements IGuiFrame {
     protected double radius;
     protected ItemStack stack;
 
-    public RadialSelectionFrame(MusePoint2D topleft, MusePoint2D bottomright, EntityPlayer player) {
+    public RadialModeSelectionFrame(MusePoint2D topleft, MusePoint2D bottomright, EntityPlayer player) {
         spawnTime = System.currentTimeMillis();
         this.player = player;
         this.center = bottomright.plus(topleft).times(0.5);
@@ -51,7 +52,11 @@ public class RadialSelectionFrame implements IGuiFrame {
         }
     }
 
-    public boolean alreadyAdded(IRightClickModule module) {
+    public RadialModeSelectionFrame() {
+        spawnTime = System.currentTimeMillis();
+    }
+
+    private boolean alreadyAdded(IRightClickModule module) {
         for (ClickableModule clickie : modeButtons) {
             if (clickie.getModule().getDataName().equals(module.getDataName())) {
                 return true;
@@ -64,7 +69,7 @@ public class RadialSelectionFrame implements IGuiFrame {
         if (player != null) {
             List<IRightClickModule> modes = new ArrayList<>();
             for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IRightClickModule.class)) {
-                if (module.isValidForItem(stack))
+                if (ModuleManager.INSTANCE.isValidForItem(stack, module))
                     if (ModuleManager.INSTANCE.itemHasModule(stack, module.getDataName()))
                         modes.add((IRightClickModule) module);
             }
@@ -86,7 +91,6 @@ public class RadialSelectionFrame implements IGuiFrame {
             for (ClickableModule module : modeButtons) {
                 if (module.hitBox(x, y)) {
                     selectedModuleNew = i;
-//                	selectedModuleOriginal = i;
                     break;
                 }
                 i++;
@@ -119,7 +123,7 @@ public class RadialSelectionFrame implements IGuiFrame {
         }
     }
 
-    private void drawSelection() {
+    public void drawSelection() {
         ClickableModule module = getSelectedModule();
         if (module != null) {
             MusePoint2D pos = module.getPosition();
@@ -149,6 +153,11 @@ public class RadialSelectionFrame implements IGuiFrame {
 
     @Override
     public List<String> getToolTip(int x, int y) {
+        ClickableModule module = getSelectedModule();
+        if (module != null) {
+            IPowerModule selectedModule = module.getModule();
+            return Collections.singletonList(module.getLocalizedName(selectedModule));
+        }
         return null;
     }
 }

@@ -109,6 +109,7 @@ public class MPSModuleConstants {
     public static final String THRUST = "thrust";
     public static final String RANGE = "range";
     public static final String RADIUS = "radius";
+    public static final String DIAMETER ="diameter";
     public static final String EFFICIENCY = "efficiency";
     public static final String RED = "red";
     public static final String GREEN = "green";
@@ -117,6 +118,11 @@ public class MPSModuleConstants {
     public static final String COMPENSATION = "compensation";
     public static final String WALKING_ASSISTANCE = "walkingAssist";
     public static final String VERTICALITY = "vertically";
+    public static final String AOE_ENERGY_CONSUMPTION = "aoeEnergyCons";
+    public static final String AOE_MINING_RADIUS = "aoeMiningDiameter";
+    public static final String FORTUNE_ENERGY_CONSUMPTION = "fortuneEnCon";
+    public static final String ENCHANTMENT_LEVEL ="enchLevel";
+    public static final String FORTUNE_ENCHANTMENT_LEVEL ="fortuneLevel";
 
     /**
      * Module UnlocalizedNames
@@ -172,15 +178,19 @@ public class MPSModuleConstants {
     public static final String MODULE_COMPASS__DATANAME = "compass";
     public static final String MODULE_ACTIVE_CAMOUFLAGE__DATANAME = "invisibility";
     public static final String MODULE_MAGNET__DATANAME = "magnet";
-    public static final String MODULE_SILK_TOUCH__DATANAME = "silk_touch";
 
     // Vision -------------------------------------------------------------------------------------
     public static final String BINOCULARS_MODULE__DATANAME = "binoculars";
     public static final String MODULE_NIGHT_VISION__DATANAME = "nightVision";
     public static final String MODULE_THAUM_GOGGLES__DATANAME = "aurameter";
 
-    // Tools --------------------------------------------------------------------------------------
+    // Mining Enhancements ------------------------------------------------------------------------
     public static final String MODULE_AOE_PICK_UPGRADE__DATANAME = "aoePickUpgrade";
+    public static final String MODULE_SILK_TOUCH__DATANAME = "silk_touch";
+    public static final String MODULE_MAD__DATANAME = "madModule";
+    public static final String MODULE_FORTUNE_DATANAME= "fortuneModule";
+
+    // Tools --------------------------------------------------------------------------------------
     public static final String MODULE_APPENG_EC_WIRELESS_FLUID__DATANAME = "appengECWirelessFluid";
     public static final String MODULE_APPENG_WIRELESS__DATANAME = "appengWireless";
     public static final String MODULE_AQUA_AFFINITY__DATANAME = "aquaAffinity";
@@ -195,7 +205,6 @@ public class MPSModuleConstants {
     public static final String MODULE_LEAF_BLOWER__DATANAME = "leafBlower";
     public static final String MODULE_LUX_CAPACITOR__DATANAME = "luxCapacitor";
     public static final String MODULE_FIELD_TELEPORTER__DATANAME = "mffsFieldTeleporter";
-    public static final String MODULE_MAD_MODULE__DATANAME = "madModule";
     public static final String MODULE_OC_TERMINAL__DATANAME = "ocTerminal";
     public static final String MODULE_PORTABLE_CRAFTING__DATANAME = "portableCraftingTable";
     public static final String MODULE_OMNIPROBE__DATANAME = "omniProbe";

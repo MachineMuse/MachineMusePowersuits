@@ -173,6 +173,8 @@ powersuits.tradeoff.walkingAssist=Walking Assist
 powersuits.tradeoff.vertically=Verticality
 powersuits.tradeoff.maxEnergy=Maximum Energy
 powersuits.tradeoff.maxHeat=Maximum Heat
+powersuits.tradeoff.aoeEnergyCon=AoE Energy Consumption
+powersuits.tradeoff.aoeMiningDiameter=AoE Mining Diameter
 
 # Armor
 module.powersuits.leatherPlating.name=Leather Plating

@@ -8,7 +8,7 @@ import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -21,6 +21,8 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
 
 public class BlinkDriveModule extends PowerModuleBase implements IRightClickModule {
     public BlinkDriveModule(EnumModuleTarget moduleTarget) {
@@ -48,7 +50,7 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
     public ActionResult onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         SoundEvent enderman_portal = SoundEvent.REGISTRY.getObject(new ResourceLocation("entity.endermen.teleport"));
         int range = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.BLINK_DRIVE_RANGE);
-        int energyConsumption = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.BLINK_DRIVE_ENERGY_CONSUMPTION);
+        int energyConsumption = getEnergyUsage(itemStackIn);
         if (ElectricItemUtils.getPlayerEnergy(playerIn) > energyConsumption) {
             NuminaPlayerUtils.resetFloatKickTicks(playerIn);
             int amountDrained = ElectricItemUtils.drainPlayerEnergy(playerIn, energyConsumption);
@@ -80,6 +82,11 @@ public class BlinkDriveModule extends PowerModuleBase implements IRightClickModu
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
 
+    }
+
+    @Override
+    public int getEnergyUsage(@Nonnull ItemStack itemStack) {
+        return (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.BLINK_DRIVE_ENERGY_CONSUMPTION);
     }
 
     @Override

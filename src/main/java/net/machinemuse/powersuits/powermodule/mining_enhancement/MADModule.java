@@ -5,7 +5,7 @@ import net.machinemuse.numina.common.ModCompatibility;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -73,6 +73,6 @@ public class MADModule extends PowerModuleBase implements IToggleableModule, IMi
 
     @Override
     public String getDataName() {
-        return MPSModuleConstants.MODULE_MAD_MODULE__DATANAME;
+        return MPSModuleConstants.MODULE_MAD__DATANAME;
     }
 }

@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.event;
 import net.machinemuse.numina.api.module.IBlockBreakingModule;
 import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
-import net.machinemuse.powersuits.api.module.ModuleManager;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.machinemuse.powersuits.utils.MusePlayerUtils;
 import net.minecraft.block.state.IBlockState;
