@@ -3,6 +3,7 @@ package net.machinemuse.numina.utils.energy;
 import net.machinemuse.numina.api.energy.adapter.ElectricAdapter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -125,5 +126,11 @@ public class ElectricItemUtils {
         return 0;
     }
 
+    public static int chargeItem(@Nonnull ItemStack itemStack, int chargeAmount) {
+        ElectricAdapter adapter = ElectricAdapter.wrap(itemStack);
+        if (adapter != null)
+            return adapter.receiveEnergy(chargeAmount, false);
+        return 0;
+    }
 
 }

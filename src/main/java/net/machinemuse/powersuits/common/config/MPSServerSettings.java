@@ -20,19 +20,38 @@ public class MPSServerSettings {
     public final double maximumArmorPerPiece;
     public final double getSalvageChance;
 
-    // Heat
+    /**
+     * Heat ---------------------------------------------------------------------------------------
+     */
     public final double baseMaxHeatPowerFist;
     public final double baseMaxHeatHelmet;
     public final double baseMaxHeatChest;
     public final double baseMaxHeatLegs;
     public final double baseMaxHeatFeet;
 
-    // Max Modules
-    public final int maxModulesPowerFist;
-    public final int maxModulesHelmet;
-    public final int maxModulesChestplate;
-    public final int maxModulesLeggings;
-    public final int maxModulesFeet;
+//    /**
+//     * Max Modules --------------------------------------------------------------------------------
+//     */
+//    public final int maxModulesPowerFist;
+//    public final int maxModulesHelmet;
+//    public final int maxModulesChestplate;
+//    public final int maxModulesLeggings;
+//    public final int maxModulesFeet;
+
+    /**
+     * Max Modules of Type -----------------------------------------------------------------------
+     */
+    public final int maxArmorModules;
+    public final int maxEnergyStorageModules;
+    public final int maxEnergyGenModules;
+    public final int maxToolModules;
+    public final int maxWeaponModules;
+    public final int maxMovementModules;
+    public final int maxCosmeticModules;
+    public final int maxVisionModules;
+    public final int maxEnvironmentalModules;
+    public final int maxSpecialModules;
+    public final int maxMiningEnhancementModules;
 
     /**
      * Modules -----------------------------------------------------------------------------------
@@ -40,18 +59,6 @@ public class MPSServerSettings {
     public final Map<String, Boolean> allowedModules;
     public final Map<String, Double> propertyDouble;
     public final Map<String, Integer> propertyInteger;
-
-    /**
-     * Energy ------------------------------------------------------------------------------------
-     */
-    public final double mekRatio;
-    public final double ic2Ratio;
-    public final double refinedStorageRatio;
-    public final double ae2Ratio;
-    public final int maxTier1;
-    public final int maxTier2;
-    public final int maxTier3;
-    public final int maxTier4;
 
     /**
      * Server side instance.
@@ -64,36 +71,37 @@ public class MPSServerSettings {
         maximumArmorPerPiece = MPSSettings.general.getMaximumArmorPerPiece;
         getSalvageChance = MPSSettings.general.getSalvageChance;
 
-        // Max base heat
+        /** Max Base Heat Heat -------------------------------------------------------------------- */
         baseMaxHeatPowerFist = MPSSettings.general.baseMaxHeatPowerFist;
         baseMaxHeatHelmet = MPSSettings.general.baseMaxHeatHelmet;
         baseMaxHeatChest = MPSSettings.general.baseMaxHeatChest;
         baseMaxHeatLegs = MPSSettings.general.baseMaxHeatLegs;
         baseMaxHeatFeet = MPSSettings.general.baseMaxHeatFeet;
 
-        // Max Modules
-        maxModulesPowerFist = MPSSettings.general.maxModulesPowerFist;
-        maxModulesHelmet = MPSSettings.general.maxModulesHelmet;
-        maxModulesChestplate = MPSSettings.general.maxModulesChestplate;
-        maxModulesLeggings = MPSSettings.general.maxModulesLeggings;
-        maxModulesFeet = MPSSettings.general.maxModulesFeet;
-
+//        /** Max Modules --------------------------------------------------------------------------- */
+//        maxModulesPowerFist = MPSSettings.general.maxModulesPowerFist;
+//        maxModulesHelmet = MPSSettings.general.maxModulesHelmet;
+//        maxModulesChestplate = MPSSettings.general.maxModulesChestplate;
+//        maxModulesLeggings = MPSSettings.general.maxModulesLeggings;
+//        maxModulesFeet = MPSSettings.general.maxModulesFeet;
 
         /** Modules ------------------------------------------------------------------------------- */
         allowedModules = new TreeMap<>(MPSSettings.modules.allowedModules);
         propertyDouble = new TreeMap<>(MPSSettings.modules.propertyDouble);
         propertyInteger = new TreeMap<>(MPSSettings.modules.propertyInteger);
 
-
-        /** Energy -------------------------------------------------------------------------------- */
-        mekRatio = MPSSettings.energy.mekRatio;
-        ic2Ratio = MPSSettings.energy.ic2Ratio;
-        refinedStorageRatio = MPSSettings.energy.refinedStorageRatio;
-        ae2Ratio = MPSSettings.energy.ae2Ratio;
-        maxTier1 = MPSSettings.energy.maxTier1;
-        maxTier2 = MPSSettings.energy.maxTier2;
-        maxTier3 = MPSSettings.energy.maxTier3;
-        maxTier4 = MPSSettings.energy.maxTier4;
+        /** Max Modules of Type ------------------------------------------------------------------- */
+        maxArmorModules = MPSSettings.limits.maxArmorModules;
+        maxEnergyStorageModules = MPSSettings.limits.maxEnergyStorageModules;
+        maxEnergyGenModules = MPSSettings.limits.maxEnergyGenModules;
+        maxToolModules = MPSSettings.limits.maxToolModules;
+        maxWeaponModules = MPSSettings.limits.maxWeaponModules;
+        maxMovementModules = MPSSettings.limits.maxMovementModules;
+        maxCosmeticModules = MPSSettings.limits.maxCosmeticModules;
+        maxVisionModules = MPSSettings.limits.maxVisionModules;
+        maxEnvironmentalModules = MPSSettings.limits.maxEnvironmentalModules;
+        maxSpecialModules = MPSSettings.limits.maxSpecialModules;
+        maxMiningEnhancementModules = MPSSettings.limits.maxMiningEnhancementModules;
     }
 
     /**
@@ -111,13 +119,12 @@ public class MPSServerSettings {
         baseMaxHeatChest = MusePackager.INSTANCE.readDouble(datain);
         baseMaxHeatLegs = MusePackager.INSTANCE.readDouble(datain);
         baseMaxHeatFeet = MusePackager.INSTANCE.readDouble(datain);
-        // Max Modules
-        maxModulesPowerFist = MusePackager.INSTANCE.readInt(datain);
-        maxModulesHelmet = MusePackager.INSTANCE.readInt(datain);
-        maxModulesChestplate = MusePackager.INSTANCE.readInt(datain);
-        maxModulesLeggings = MusePackager.INSTANCE.readInt(datain);
-        maxModulesFeet = MusePackager.INSTANCE.readInt(datain);
-
+//        // Max Modules
+//        maxModulesPowerFist = MusePackager.INSTANCE.readInt(datain);
+//        maxModulesHelmet = MusePackager.INSTANCE.readInt(datain);
+//        maxModulesChestplate = MusePackager.INSTANCE.readInt(datain);
+//        maxModulesLeggings = MusePackager.INSTANCE.readInt(datain);
+//        maxModulesFeet = MusePackager.INSTANCE.readInt(datain);
 
         /** Modules ------------------------------------------------------------------------------- */
 //        allowedModules = MusePackager.INSTANCE.readMap(datain, String.class, Boolean.class);
@@ -127,18 +134,19 @@ public class MPSServerSettings {
         propertyDouble = MusePackager.INSTANCE.readMap(datain, String.class, Double.class);
         propertyInteger = MusePackager.INSTANCE.readMap(datain, String.class, Integer.class);
 
-
-        /** Energy -------------------------------------------------------------------------------- */
-        mekRatio = MusePackager.INSTANCE.readDouble(datain);
-        ic2Ratio = MusePackager.INSTANCE.readDouble(datain);
-        refinedStorageRatio = MusePackager.INSTANCE.readDouble(datain);
-        ae2Ratio = MusePackager.INSTANCE.readDouble(datain);
-        maxTier1 = MusePackager.INSTANCE.readInt(datain);
-        maxTier2 = MusePackager.INSTANCE.readInt(datain);
-        maxTier3 = MusePackager.INSTANCE.readInt(datain);
-        maxTier4 = MusePackager.INSTANCE.readInt(datain);
+        /** Max Modules of Type ------------------------------------------------------------------- */
+        maxArmorModules= MusePackager.INSTANCE.readInt(datain);
+        maxEnergyStorageModules= MusePackager.INSTANCE.readInt(datain);
+        maxEnergyGenModules= MusePackager.INSTANCE.readInt(datain);
+        maxToolModules= MusePackager.INSTANCE.readInt(datain);
+        maxWeaponModules= MusePackager.INSTANCE.readInt(datain);
+        maxMovementModules= MusePackager.INSTANCE.readInt(datain);
+        maxCosmeticModules= MusePackager.INSTANCE.readInt(datain);
+        maxVisionModules= MusePackager.INSTANCE.readInt(datain);
+        maxEnvironmentalModules= MusePackager.INSTANCE.readInt(datain);
+        maxSpecialModules= MusePackager.INSTANCE.readInt(datain);
+        maxMiningEnhancementModules= MusePackager.INSTANCE.readInt(datain);
     }
-
 
     /**
      * This is a server side operation that gets the values and writes them to the packet.
@@ -158,29 +166,29 @@ public class MPSServerSettings {
         packet.writeDouble(baseMaxHeatLegs);
         packet.writeDouble(baseMaxHeatFeet);
 
-        // Max Modules
-        packet.writeInt(maxModulesPowerFist);
-        packet.writeInt(maxModulesHelmet);
-        packet.writeInt(maxModulesChestplate);
-        packet.writeInt(maxModulesLeggings);
-        packet.writeInt(maxModulesFeet);
-
-
+//        /** Max Modules --------------------------------------------------------------------------- */
+//        packet.writeInt(maxModulesPowerFist);
+//        packet.writeInt(maxModulesHelmet);
+//        packet.writeInt(maxModulesChestplate);
+//        packet.writeInt(maxModulesLeggings);
+//        packet.writeInt(maxModulesFeet);
 
         /** Modules ------------------------------------------------------------------------------- */
         packet.writeMap(allowedModules, true);
         packet.writeMap(propertyDouble, true);
         packet.writeMap(propertyInteger, true);
 
-
-        /** Energy -------------------------------------------------------------------------------- */
-        packet.writeDouble(mekRatio);
-        packet.writeDouble(ic2Ratio);
-        packet.writeDouble(refinedStorageRatio);
-        packet.writeDouble(ae2Ratio);
-        packet.writeInt(maxTier1);
-        packet.writeInt(maxTier2);
-        packet.writeInt(maxTier3);
-        packet.writeInt(maxTier4);
+        /** Max Modules of Type ------------------------------------------------------------------- */
+        packet.writeInt(maxArmorModules);
+        packet.writeInt(maxEnergyStorageModules);
+        packet.writeInt(maxEnergyGenModules);
+        packet.writeInt(maxToolModules);
+        packet.writeInt(maxWeaponModules);
+        packet.writeInt(maxMovementModules);
+        packet.writeInt(maxCosmeticModules);
+        packet.writeInt(maxVisionModules);
+        packet.writeInt(maxEnvironmentalModules);
+        packet.writeInt(maxSpecialModules);
+        packet.writeInt(maxMiningEnhancementModules);
     }
 }

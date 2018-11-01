@@ -118,11 +118,12 @@ public class MPSModuleConstants {
     public static final String COMPENSATION = "compensation";
     public static final String WALKING_ASSISTANCE = "walkingAssist";
     public static final String VERTICALITY = "vertically";
-    public static final String AOE_ENERGY_CONSUMPTION = "aoeEnergyCons";
+    public static final String AOE_ENERGY_CONSUMPTION = "aoeEnergyCon";
     public static final String AOE_MINING_RADIUS = "aoeMiningDiameter";
     public static final String FORTUNE_ENERGY_CONSUMPTION = "fortuneEnCon";
     public static final String ENCHANTMENT_LEVEL ="enchLevel";
     public static final String FORTUNE_ENCHANTMENT_LEVEL ="fortuneLevel";
+    public static final String SILK_TOUCH_ENERGY_CONSUMPTION = "silkTouchEnCon";
 
     /**
      * Module UnlocalizedNames

@@ -148,6 +148,16 @@ public class ItemPowerFist extends MPSItemElectricTool
         return true;
     }
 
+    /**
+     * Called before a block is broken.  Return true to prevent default block harvesting.
+     *
+     * Note: In SMP, this is called on both client and server sides!
+     *
+     * @param itemstack The current ItemStack
+     * @param pos Block's position in world
+     * @param player The Player that is wielding the item
+     * @return True to prevent harvesting, false to continue as normal
+     */
     @Override
     public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
         super.onBlockStartBreak(itemstack, pos, player);

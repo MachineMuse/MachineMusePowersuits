@@ -1,11 +1,14 @@
 package net.machinemuse.powersuits.powermodule.mining_enhancement;
 
 import net.machinemuse.numina.api.module.*;
+import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.enchantment.Enchantment;
@@ -31,15 +34,37 @@ public class SilkTouchModule extends PowerModuleBase implements IEnchantmentModu
 //        ModuleManager.INSTANCE.addInstallCost(getDataName(), book);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 4));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 12));
+
+        addBasePropertyDouble(MPSModuleConstants.SILK_TOUCH_ENERGY_CONSUMPTION, 2500, "RF");
     }
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(book).getParticleTexture();
+        return MuseIcon.apiaristArmor;
     }
 
+    /**
+     * Called before a block is broken.  Return true to prevent default block harvesting.
+     *
+     * Note: In SMP, this is called on both client and server sides!
+     *
+     * @param itemstack The current ItemStack
+     * @param pos Block's position in world
+     * @param player The Player that is wielding the item
+     * @return True to prevent harvesting, false to continue as normal
+     */
     @Override
     public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
+        if (!player.world.isRemote) {
+            if (getEnergyUsage(itemstack) > ElectricItemUtils.getPlayerEnergy(player))
+                removeEnchantment(itemstack);
+            else {
+                Block block = player.world.getBlockState(pos).getBlock();
+                if (block.canSilkHarvest(player.world, pos, player.world.getBlockState(pos), player)) {
+                    ElectricItemUtils.drainPlayerEnergy(player, getEnergyUsage(itemstack));
+                }
+            }
+        }
         return false;
     }
 
@@ -50,7 +75,7 @@ public class SilkTouchModule extends PowerModuleBase implements IEnchantmentModu
 
     @Override
     public int getEnergyUsage(@Nonnull ItemStack itemStack) {
-        return 0;
+        return (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.SILK_TOUCH_ENERGY_CONSUMPTION);
     }
 
     @Override

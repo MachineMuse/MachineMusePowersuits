@@ -42,6 +42,16 @@ public class MADModule extends PowerModuleBase implements IToggleableModule, IMi
         addBasePropertyDouble(MPSModuleConstants.ENERGY_CONSUMPTION, 100, "RF");
     }
 
+    /**
+     * Called before a block is broken.  Return true to prevent default block harvesting.
+     *
+     * Note: In SMP, this is called on both client and server sides!
+     *
+     * @param itemstack The current ItemStack
+     * @param pos Block's position in world
+     * @param player The Player that is wielding the item
+     * @return True to prevent harvesting, false to continue as normal
+     */
     @Override
     public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
         // set mode for the device
@@ -54,10 +64,14 @@ public class MADModule extends PowerModuleBase implements IToggleableModule, IMi
             emulatedTool.setTagCompound(nbt);
         }
 
-        // FIXME: just keep it charged and don't worry about actual energy consumption.
+        ElectricItemUtils.chargeItem(emulatedTool, 100000);
 
+        System.out.println("emulated tool: " + emulatedTool.serializeNBT().toString());
+
+
+// Fixme: todo in 1.13 when emulated tools are actually stored
         // charge the device for usage
-        ElectricItemUtils.chargeEmulatedToolFromPlayerEnergy(player, emulatedTool);
+//        ElectricItemUtils.chargeEmulatedToolFromPlayerEnergy(player, emulatedTool);
         return emulatedTool.getItem().onBlockStartBreak(emulatedTool, pos, player);
     }
 

@@ -66,15 +66,11 @@ fluid.liquid_nitrogen=Liquid Nitrogen
 # NBTTags used as labels
 powersuits.tradeoff.slotPoints=Slot Points;
 powersuits.tradeoff.armorPoints=Armor Points
-
-#powersuits.tradeoff.points= Points
 powersuits.tradeoff.armorPhysical=Armor (Physical)
 powersuits.tradeoff.armorEnergy=Armor (Energy)
 powersuits.tradeoff.armorEnergyPerDamage=Energy Per Damage
 powersuits.tradeoff.fieldStrength=Field Strength
-#powersuits.tradeoff.energyPerCoal=Energy per coal
 powersuits.tradeoff.heatGeneration=Heat Generation
-#powersuits.tradeoff.maxStorageAmount=Maximum storage amount
 powersuits.tradeoff.energyPerBlock=Energy Per Block Per Second
 powersuits.tradeoff.movementResistance=Movement Resistance
 powersuits.tradeoff.energyGenerated=Energy Generated
@@ -175,6 +171,12 @@ powersuits.tradeoff.maxEnergy=Maximum Energy
 powersuits.tradeoff.maxHeat=Maximum Heat
 powersuits.tradeoff.aoeEnergyCon=AoE Energy Consumption
 powersuits.tradeoff.aoeMiningDiameter=AoE Mining Diameter
+powersuits.tradeoff.silkTouchEnCon=Silk Touch Energy Consumption
+powersuits.tradeoff.diameter=Diameter
+powersuits.tradeoff.enchLevel=Enchantment Level
+powersuits.tradeoff.fortuneEnCon=Fortune Energy Consumption
+powersuits.tradeoff.fortuneLevel=Fortune Level
+
 
 # Armor
 module.powersuits.leatherPlating.name=Leather Plating
@@ -270,9 +272,17 @@ module.powersuits.nightVision.desc=A pair of augmented vision goggles to help yo
 module.powersuits.aurameter.name=Aurameter
 module.powersuits.aurameter.desc=Connect up some Thaumic goggles to have them embedded in your helmet. (Does not give Vis usage discount)
 
+# Mining Enhancements
+module.powersuits.aoePickUpgrade.name=AoE Module
+module.powersuits.aoePickUpgrade.desc=An updrade that will allow the pickaxe module to mine up to a 5x5 area of blocks
+module.powersuits.madModule.name=Vein Miner
+module.powersuits.madModule.desc=A Vein miner powered by Mekanism's Atomic Disasemmber
+module.powersuits.fortuneModule.name=Fortune Enchantment
+module.powersuits.fortuneModule.desc=A module that provides the fortune enchantment.
+module.powersuits.silk_touch.name=Silk Touch Enchantment
+module.powersuits.silk_touch.desc=A module that provides the Silk Touch enchantment
+
 # Tools
-module.powersuits.aoePickUpgrade.name=Diamond Drill Upgrade
-module.powersuits.aoePickUpgrade.desc=An updrade that will allow the pickaxe module to mine a 3x3 area of blocks
 module.powersuits.appengECWirelessFluid.name=ExtraCells Wireless Fluid Terminal
 module.powersuits.appengECWirelessFluid.desc=An Applied Energistics ExtraCells wireless fluid terminal integrated into your power tool.
 module.powersuits.appengWireless.name=AppEng Wireless Terminal

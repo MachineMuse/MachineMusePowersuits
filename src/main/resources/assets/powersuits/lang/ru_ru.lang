@@ -1,17 +1,14 @@
 
 itemGroup.powersuits=Modular Powersuits
 
-
 tile.powersuits.luxCapacitor.name=Конденсатор света
 tile.powersuits.tinkerTable.name=Верстак для создания силовой брони
-
 
 item.powersuits.powerArmorBoots.name=Силовые ботинки
 item.powersuits.powerArmorLeggings.name=Силовые поножи
 item.powersuits.powerArmorChestplate.name=Силовая кираса
 item.powersuits.powerArmorHelmet.name=Силовой шлем
 item.powersuits.powerFist.name=Силовой кулак
-
 
 item.powersuits.powerArmorComponent.componentWiring.name=Провод
 item.powersuits.powerArmorComponent.componentWiring.desc=специальный тип проводки с высокой вольтовой емкостью и точностью, необходимой для чувствительной электроники в силовой броне.
@@ -58,8 +55,119 @@ item.powersuits.powerArmorComponent.componentComputerChip.desc=Обновлен�
 item.powersuits.powerArmorComponent.componentRubberHose.name=Изолированный резиновый шланг
 item.powersuits.powerArmorComponent.componentRubberHose.desc=сильно изолированный резиновый шланг, способный выдерживать сильную жару или холод
 
-
 fluid.liquid_nitrogen=Жидкий азот
+
+# NBTTags used as labels
+powersuits.tradeoff.slotPoints=точки слота;
+powersuits.tradeoff.armorPoints=Очки брони
+powersuits.tradeoff.armorPhysical=Броня (физическая)
+powersuits.tradeoff.armorEnergy=Броня (Энергия)
+powersuits.tradeoff.armorEnergyPerDamage=Энергия за урон
+powersuits.tradeoff.fieldStrength=Прочность поля
+powersuits.tradeoff.heatGeneration=Теплогенерация
+powersuits.tradeoff.energyPerBlock=Энергия за блок в секунду
+powersuits.tradeoff.movementResistance=Сопротивление движению
+powersuits.tradeoff.energyGenerated=Энергия, сгенерированная
+powersuits.tradeoff.daytimeHeatGen=Дневное теплоснабжение
+powersuits.tradeoff.nightTimeHeatGen=Nighttime Heat Generation
+powersuits.tradeoff.daytimeEnergyGen=Дневное поколение энергии
+powersuits.tradeoff.nightTimeEnergyGen=Генерация энергии в ночное время
+powersuits.tradeoff.thermalEnergyGen=Генерация энергии
+powersuits.tradeoff.apiaristArmorEnergyCon=Расход энергии апионерской брони
+powersuits.tradeoff.eatingEnergyCon=Потребление энергии
+powersuits.tradeoff.autoFeederEfficiency=эффективность автоподатчика
+powersuits.tradeoff.basicCoolingPower=Базовая мощность охлаждения
+powersuits.tradeoff.coolingBonus=Бонус охлаждения
+powersuits.tradeoff.coolingSystemEnergyCon=Система охлаждения Энергопотребление
+powersuits.tradeoff.repulsorEnergyCon=Потребление энергии репульсора
+powersuits.tradeoff.advCoolSysEnergyCon=Продвинутая система охлаждения Энергопотребление
+powersuits.tradeoff.joltEnergy=Jolt Energy
+powersuits.tradeoff.blinkDriveEnergyCon=Потребление энергии при использовании Blink Drive
+powersuits.tradeoff.blinkDriveRange=Мерцание диапазона мигания
+powersuits.tradeoff.yLookRatio=коэффициент Y-look
+powersuits.tradeoff.jetBootsEnergyCon=Jetboots Потребление энергии
+powersuits.tradeoff.jetbootsThrust=Jetboots Thrust
+powersuits.tradeoff.jetpackEnergyCon=расход энергии Jetpack
+powersuits.tradeoff.jetpackThrust=Jetpack Thrust
+powersuits.tradeoff.jumpEnergyCon=Переход на потребление энергии
+powersuits.tradeoff.jumpBoost=Jump Boost
+powersuits.tradeoff.jumpExhaustComp=прыжок Компенсация истощения
+powersuits.tradeoff.distanceRed=уменьшение расстояния
+powersuits.tradeoff.impactEnergyCon=Воздействие Потребление энергии
+powersuits.tradeoff.sprintEnergyCon=потребление энергии Sprint
+powersuits.tradeoff.sprintSpeedMult=Множитель скорости спринта
+powersuits.tradeoff.sprintExComp=Компенсация исчерпания Sprint
+powersuits.tradeoff.walkingEnergyCon=Потребляемая энергия Потребление энергии
+powersuits.tradeoff.walkingSpeedMult=Множитель скорости ходьбы
+powersuits.tradeoff.underwaterMovBoost=Подводное движение
+powersuits.tradeoff.swimBoostEnergyCon=Плавать увеличить потребление энергии
+powersuits.tradeoff.energyCon=Потребление энергии
+powersuits.tradeoff.magnetRadius=Радиус магнита
+powersuits.tradeoff.fieldOfView=Поле обзора
+powersuits.tradeoff.fOVMult=множитель FOV
+powersuits.tradeoff.underWaterEnergyCon=Потребление энергии в подводной воде
+powersuits.tradeoff.underWaterHarvSpeed=Скорость подводного урожая
+powersuits.tradeoff.axeEnergyCon=Ток Потребление энергии
+powersuits.tradeoff.axeHarvSpd=Точная скорость урожая
+powersuits.tradeoff.chiselHarvSpd=Скорость уборки долотом
+powersuits.tradeoff.chiselEnergyCon=Потребление энергии долота
+powersuits.tradeoff.ignitEnergyCon=Потребление энергии зажигания
+powersuits.tradeoff.grafterEnergyCon=Потребление энергии в градациях
+powersuits.tradeoff.grafterHeatGen=Grafter Heat Generation
+powersuits.tradeoff.hoeEnergyCon=Потребление энергии в Hoe
+powersuits.tradeoff.hoeSearchRad=Радиус поиска Hoe
+powersuits.tradeoff.luxCapEnergyCon=потребление энергии конденсатора Lux
+powersuits.tradeoff.luxCapRed=Lux Конденсатор Красный оттенок
+powersuits.tradeoff.luxCapGreen=Lux Конденсатор Зеленый оттенок
+powersuits.tradeoff.luxCapBlue=Lux Конденсатор Blue Hue
+powersuits.tradeoff.pickHarvSpd=Скорость сбора урожая
+powersuits.tradeoff.pickaxeEnergyCon=Потребление энергии в пикаксе
+powersuits.tradeoff.scoopHarSpd=Скорость захвата совок
+powersuits.tradeoff.scoopEnergyCon=Потребление энергии Scoop
+powersuits.tradeoff.shearEnergyCon=Сокращение потребления энергии
+powersuits.tradeoff.shearHarvSpd=Скорость сдвига урожая
+powersuits.tradeoff.shovelHarvSpd=Скорость выпаса лопаты
+powersuits.tradeoff.shovelEnergyCon=Потребление энергии лопатой
+powersuits.tradeoff.spinBladeEnergyCon=Потребление энергии сжимающего лезвия
+powersuits.tradeoff.spinBladeDam=Урон от заклинания заклинания
+powersuits.tradeoff.heatEmission=Тепловая эмиссия
+powersuits.tradeoff.punchEnergyCon=потребление энергии пуансона
+powersuits.tradeoff.meleeDamage=Удар в ближнем бою
+powersuits.tradeoff.meleeKnockback=удары ближнего боя
+powersuits.tradeoff.plasmaEnergyPerTick=энергия плазмы за один тик
+powersuits.tradeoff.plasmaDamage=Ущерб от плазмы при полной зарядке
+powersuits.tradeoff.plasmaExplosiveness=Взрыв плазмы
+powersuits.tradeoff.railgunTotalImpulse=Общий импульс Railgun
+powersuits.tradeoff.railgunEnergyCost=Стоимость энергии Railgun
+powersuits.tradeoff.railgunHeatEm=Тепловая мощность Railgun
+powersuits.tradeoff.power=Мощность
+powersuits.tradeoff.voltage=Напряжение
+powersuits.tradeoff.impact=Impact
+powersuits.tradeoff.carryThrough=Перенос через
+powersuits.tradeoff.amperage=Amperage
+powersuits.tradeoff.creeper=ползун
+powersuits.tradeoff.advancedCoolingPower=Продвинутая мощность охлаждения
+powersuits.tradeoff.overclock=Overclock
+powersuits.tradeoff.thrust=Упорный
+powersuits.tradeoff.range=Диапазон
+powersuits.tradeoff.radius=радиус
+powersuits.tradeoff.efficiency=Эффективность
+powersuits.tradeoff.red=Красный
+powersuits.tradeoff.green=Зеленый
+powersuits.tradeoff.blue=синий
+powersuits.tradeoff.sprintAssist=Sprint Assist
+powersuits.tradeoff.compensation=Компенсация
+powersuits.tradeoff.walkingAssist=Walking Assist
+powersuits.tradeoff.vertically=Вертикальность
+powersuits.tradeoff.maxEnergy=Максимальная энергия
+powersuits.tradeoff.maxHeat=Максимальная температура
+powersuits.tradeoff.aoeEnergyCon=AoE Потребление энергии
+powersuits.tradeoff.aoeMiningDiameter=AoE Mining Diameter
+powersuits.tradeoff.silkTouchEnCon=Потребление энергии Silk Touch
+powersuits.tradeoff.diameter=Диаметр
+powersuits.tradeoff.enchLevel=Уровень зачарования
+powersuits.tradeoff.fortuneEnCon=Потребление энергии в Fortune
+powersuits.tradeoff.fortuneLevel=Уровень удачи
 
 # Armor
 module.powersuits.leatherPlating.name=Кожаная обшивка
@@ -70,11 +178,8 @@ module.powersuits.diamondPlating.name=Алмазная обшивка
 module.powersuits.diamondPlating.desc=Продвинутая обшивка легче, прочнее и защищает ещё лучше основной, но её непросто получить.
 module.powersuits.energyShield.name=Энергетический щит
 module.powersuits.energyShield.desc=Энергетические щиты намного легче обшивок, но потребляют энергию.
-
-
 module.powersuits.transparentArmor.name=Прозрачная броня
 module.powersuits.transparentArmor.desc=Делает броню прозрачной, позволяя другим игрокам увидеть Ваш скин без потери брони.
-
 
 module.powersuits.basicBattery.name=Основной аккумулятор
 module.powersuits.basicBattery.desc=Аккумулятор, позволяющий предмету хранить энергию.
@@ -95,17 +200,12 @@ module.powersuits.kineticGenerator.desc=Сгенерировать мощнос�
 module.powersuits.thermalGenerator.name=Тепловой генератор
 module.powersuits.thermalGenerator.desc=Генерировать мощность от экстремальных количеств тепла.
 
-
-
 module.powersuits.airtightSeal.name=Герметичность
 module.powersuits.airtightSeal.desc=Делает Вашу броню герметичной, позволяет Вам отправиться на другие планеты.
 module.powersuits.apiaristArmor.name=Броня пчеловода
 module.powersuits.apiaristArmor.desc=Интегрирует костюм пчеловода модификации Forestry в Вашу броню.
 module.powersuits.hazmat.name=Защита от радиации
 module.powersuits.hazmat.desc=Защитит Вас от удара электрическим током и радиационного излучения. *Улучшение должно быть на каждой части брони для 100% защиты*
-
-
-
 module.powersuits.autoFeeder.name=Автоподатчик
 module.powersuits.autoFeeder.desc=Всякий раз, когда вы голодны, этот модуль будет захватывать нижний левый элемент питания из вашего инвентаря и подавать его вам, сохраняя остальное на потом.
 module.powersuits.basicCoolingSystem.name=Базовая система охлаждения
@@ -116,8 +216,6 @@ module.powersuits.mobRepulsor.name=Mob Repulsor
 module.powersuits.mobRepulsor.desc=Выталкивает мобов от вас при активации, но постоянно истощает силу. Настоятельно рекомендуется установить этот модуль на клавиатуру из-за высокой энергии.
 module.powersuits.waterElectrolyzer.name=Электролизёр воды
 module.powersuits.waterElectrolyzer.desc=Когда у вас заканчивается воздух, этот модуль будет трясти вокруг вас водой, электролизуя небольшой пузырь, чтобы дышать.
-
-
 
 module.powersuits.blinkDrive.name=Мгновенный телепорт
 module.powersuits.blinkDrive.desc=Доберитесь до точки C из точки A через точку B, при том что точка B спрятана в пространстве-времени.
@@ -142,7 +240,6 @@ module.powersuits.sprintAssist.desc=Набор серводвигателей, �
 module.powersuits.swimAssist.name=Увеличение скорости плавания
 module.powersuits.swimAssist.desc= При установке ионного двигателя для подводного использования вы можете добавить дополнительный упор вперед (или назад) под водой.
 
-
 # Special
 module.powersuits.clock.name=Часы
 module.powersuits.clock.desc=Часы в прогоне, которые показывают вам время, независимо от того, где вы находитесь. Переключение с помощью клавиш.
@@ -152,7 +249,6 @@ module.powersuits.invisibility.name=Активный камуфляж
 module.powersuits.invisibility.desc=Излучает голограмму местности, чтобы сделать Вас почти незаметным.
 module.powersuits.magnet.name=Магнит
 module.powersuits.magnet.desc=Создает магнитное поле, достаточно сильное, чтобы привлекать предметы к игроку. ПРЕДУПРЕЖДЕНИЕ: этот модуль непрерывно истощает мощность. Отключайте его, когда это не нужно. (Keybind menu: k)
-
 
 module.powersuits.binoculars.name=Бинокль
 module.powersuits.binoculars.desc=Из-за многочисленных графических проблем с модификацией Optifine, Вы решили взять способность "Приближения" под свой контроль.
@@ -164,6 +260,13 @@ module.powersuits.aurameter.desc=Встраивает очки Откровен�
 # Tools
 module.powersuits.aoePickUpgrade.name=Обновление алмазного сверла
 module.powersuits.aoePickUpgrade.desc=Обновление, которое позволит модулю pickaxe добыть область 3x3 блоков
+module.powersuits.madModule.name=Vein Miner
+module.powersuits.madModule.desc=A Vein miner powered by Mekanism's Atomic Disasemmber
+module.powersuits.fortuneModule.name=Fortune Enchantment
+module.powersuits.fortuneModule.desc=A module that provides the fortune enchantment.
+module.powersuits.silk_touch.name=Silk Touch Enchantment
+module.powersuits.silk_touch.desc=A module that provides the Silk Touch enchantment
+
 module.powersuits.appengECWirelessFluid.name=Терминал беспроводной связи ExtraCells
 module.powersuits.appengECWirelessFluid.desc=Терминал беспроводной связи Applic Energistics ExtraCells, встроенный в ваш электроинструмент.
 module.powersuits.appengWireless.name=беспроводной терминал AppEng
@@ -219,7 +322,6 @@ module.powersuits.shovel.desc=Лопаты подходят для добычи 
 module.powersuits.treetap.name=Дрель
 module.powersuits.treetap.desc=Интеграл IC2, встроенный в ваш электроинструмент.
 
-
 module.powersuits.bladeLauncher.name=Метатель лезвий
 module.powersuits.bladeLauncher.desc=Запускает крутящееся лезвие смерти (или стригущее).
 module.powersuits.lightningSummoner.name=Призыв молнии
@@ -231,10 +333,10 @@ module.powersuits.plasmaCannon.desc=Используйте электричес�
 module.powersuits.railgun.name=Рельсотрон
 module.powersuits.railgun.desc=Сборка, которая ускоряет снаряд до сверхзвуковой скорости, применяя магнитную силу. Большая отдача.
 
-
 gui.powersuits.noModulesFound.line1=Части модульной силовой брони
 gui.powersuits.noModulesFound.line2=не найдены в инвентаре. Сделайте несколько!
 gui.powersuits.red=красный
+gui.powersuits.green=Зелёный
 gui.powersuits.blue=Синий
 gui.powersuits.install=Установить
 gui.powersuits.salvage=Снять
@@ -253,9 +355,6 @@ gui.powersuits.equippedTotals=Экипировано
 gui.powersuits.energyStorage=Хранилище энергии
 gui.powersuits.armor=Броня
 gui.powersuits.slotpoints=Точки шлица
-gui.powersuits.green=Зелёный
-
-
 
 tooltip.powersuits.pressShift=Нажмите SHIFT для получения дополнительной информации.
 tooltip.powersuits.componentTooltip=Для использования в таблице Tinker.
@@ -265,8 +364,6 @@ tooltip.powersuits.noModules=Нет установленных модулей! �
 tooltip.powersuits.installedModules=Установленные модули:
 tooltip.powersuits.mode=Режим:
 
-
-
 # Default Model Helm
 model.mps_helm.modelName=Шлем MPS
 model.mps_helm.helm_main.partName=Шлем
@@ -274,8 +371,6 @@ model.mps_helm.visor.partName=Козырек
 model.mps_helm.helm_tubes.partName=Трубы
 model.mps_helm.helm_tube_entry2.partName=Ввод правой трубы
 model.mps_helm.helm_tube_entry1.partName=Ввод левой трубы
-
-
 
 # Default Model Chestplate
 model.mps_chest.modelName=Нагрудник MPS
@@ -286,14 +381,11 @@ model.mps_chest.chest_padding.partName=Заполнение грудной кл�
 model.mps_chest.crystal_belt.partName=Кристалл пояса
 model.mps_chest.chest_main.partName=Обрезка грудной клетки
 
-
-
 # Default Model Jetpack
 model.jetpack.modelName=MPS Jetpack
 model.jetpack.default.partName=Главный
 model.jetpack.jetpack5.partName=Вторичный
 model.jetpack.jetpack_glow.partName=Свет
-
 
 # Default Model Arms
 model.mps_arms.modelName=Оружие MPS
@@ -302,18 +394,15 @@ model.mps_arms.arms3.partName=Правая рука
 model.mps_arms.crystal_shoulder_1.partName=Левый Кристалл Плеча
 model.mps_arms.arms2.partName=Левая рука
 
-
 # Default Model Pantaloons
 model.mps_pantaloons.modelName=Панталоны MPS
 model.mps_pantaloons.leg2.partName=Левая нога
 model.mps_pantaloons.leg1.partName=Правая нога
 
-
 # Default Model Boots
 model.mps_boots.modelName=Сапоги MPS
 model.mps_boots.boots1.partName=Правильная загрузка
 model.mps_boots.boots2.partName=Левая загрузка
-
 
 # Armor Model 2
 model.armor2.modelName=Броня 2
@@ -329,9 +418,6 @@ model.armor2.armmain1.partName=Защита рук и плеч
 model.armor2.armgray1.partName=Подлокотник
 model.armor2.armglow.partName=Плечевой свет
 model.armor2.armmain.partName=Защита рук и плеч
-
-
-
 model.armor2.armgray.partName=Подлокотник
 model.armor2.leggray.partName=Левая нога
 model.armor2.legbit.partName=Защита левой ноги
@@ -345,14 +431,11 @@ model.armor2.bootmain.partName=Левая загрузка
 model.armor2.bootglow.partName=Левый ботинок
 
 
-
 textureSpec.default_armorskin.specName=По умолчанию Armor Skin
 textureSpec.head.partName=Голова
 textureSpec.chest.partName=грудная клетка
 textureSpec.legs.partName=Ноги
 textureSpec.feet.partName=Ножки
-
-
 
 textureSpec.citizenjoe_armorskin.specName=Гражданин Джо Броня Кожа
 
@@ -385,8 +468,6 @@ model.powerfist.supportleft3.partName=Поддержка слева 3
 model.powerfist.supportleft4.partName=Поддержка слева 4
 model.powerfist.supportleft5.partName=Поддержка слева 5
 
-
-
 model.powerfist_fingers_normal.modelName=Пальцы власти
 model.powerfist_fingers_normal.index1.partName=Индекс 1
 model.powerfist_fingers_normal.index2.partName= Индекс 2
@@ -399,8 +480,6 @@ model.powerfist_fingers_normal.pinky2.partName=Пинки 2
 model.powerfist_fingers_normal.thumb1.partName=Thumb 1
 model.powerfist_fingers_normal.thumb2.partName=Thumb 2
 
-
-
 model.powerfist_fingers_firing.modelName=Силовая кулак Пальцы стрельбы
 model.powerfist_fingers_firing.index1.partName=Индекс 1
 model.powerfist_fingers_firing.index2.partName= Индекс 2
@@ -412,8 +491,6 @@ model.powerfist_fingers_firing.pinky1.partName=Пинки 1
 model.powerfist_fingers_firing.pinky2.partName=Пинки 2
 model.powerfist_fingers_firing.thumb1.partName=Thumb 1
 model.powerfist_fingers_firing.thumb2.partName=Thumb 2
-
-
 
 model.powerfist_left.modelName=Power Fist Левая рука
 model.powerfist_left.mainarm.partName=Главный рычаг
@@ -442,8 +519,6 @@ model.powerfist_left.supportleft3.partName=Поддержка Left 3
 model.powerfist_left.supportleft4.partName=Поддержка Left 4
 model.powerfist_left.supportleft5.partName=Поддержка Left 5
 
-
-
 model.powerfist_fingers_normal_left.modelName=Силовой кулак Левые пальцы Нормальная поза
 model.powerfist_fingers_normal_left.index1.partName=Индекс 1
 model.powerfist_fingers_normal_left.index2.partName= Индекс 2
@@ -455,8 +530,6 @@ model.powerfist_fingers_normal_left.pinky1.partName=Пинки 1
 model.powerfist_fingers_normal_left.pinky2.partName=Пинки 2
 model.powerfist_fingers_normal_left.thumb1.partName=Thumb 1
 model.powerfist_fingers_normal_left.thumb2.partName=Thumb 2
-
-
 
 model.powerfist_fingers_firing_left.modelName=Power Fist Левая пальца Пожарная стрела
 model.powerfist_fingers_firing_left.index1.partName=Индекс 1

@@ -16,43 +16,37 @@ public class MPSSettings {
      * The are all client side settings
      */
     public static HUD hud = new HUD();
-    /**
-     * A mixture of client and server side settings
-     */
-    public static General general = new General();
-    /**
-     * Currently maps need to be initialized and populated at runtime otherwise the values are not read from the config file
-     * <p>
-     * TODO: move to server config
-     */
-    public static Modules modules = new Modules();
-    //TODO: eleiminate; This whole thing is just temporary, I think :P
-    public static Energy energy = new Energy();
-
     public static class HUD {
-        //FIXME: This doesn't seem to even be used
-        @Config.LangKey(MPSConfigConstants.CONFIG_HUD_USE_HUD)
-        @Config.Comment("Use HUD for certain module (Auto Feeder, Compass, Clock, etc.")
-        public static boolean useHUDStuff = true;
         @Config.LangKey(MPSConfigConstants.CONFIG_HUD_USE_GRAPHICAL_METERS)
         @Config.Comment("Use Graphical Meters")
         public static boolean useGraphicalMeters = true;
+
         @Config.LangKey(MPSConfigConstants.CONFIG_HUD_TOGGLE_MODULE_SPAM)
         @Config.Comment("Chat message when toggling module")
         public boolean toggleModuleSpam = false;
+
         @Config.LangKey(MPSConfigConstants.CONFIG_HUD_DISPLAY_HUD)
         @Config.Comment("Display HUD")
         public boolean keybindHUDon = true;
+
         @Config.LangKey(MPSConfigConstants.CONFIG_HUD_KEYBIND_HUD_X)
         @Config.Comment("x position")
         @Config.RangeDouble(min = 0)
         public double keybindHUDx = 8.0;
+
         @Config.LangKey(MPSConfigConstants.CONFIG_HUD_KEYBIND_HUD_Y)
         @Config.Comment("y position")
         @Config.RangeDouble(min = 0)
         public double keybindHUDy = 32.0;
     }
 
+
+
+
+    /**
+     * A mixture of client and server side settings
+     */
+    public static General general = new General();
     public static class General {
         // Server side settings -----------------------------------------------
         @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_USE_OLD_AUTOFEEDER)
@@ -107,28 +101,34 @@ public class MPSSettings {
         @Config.Comment("ItemModuleBase Heat Cap")
         public double baseMaxHeatFeet = 5.0;
 
-        // Maximum number of modules
-        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_MODULES_HELMET)
-        @Config.Comment("Max number of modules")
-        public int maxModulesHelmet = 20;
-
-        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_MODULES_CHESTPLATE)
-        @Config.Comment("Max number of modules")
-        public int maxModulesChestplate = 20;
-
-        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_MODULES_LEGGINGS)
-        @Config.Comment("Max number of modules")
-        public int maxModulesLeggings = 20;
-
-        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_MODULES_FEET)
-        @Config.Comment("Max number of modules")
-        public int maxModulesFeet = 20;
-
-        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_MODULES_POWERFIST)
-        @Config.Comment("Max number of modules")
-        public int maxModulesPowerFist = 20;
+//        // Maximum number of modules
+//        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_MODULES_HELMET)
+//        @Config.Comment("Max number of modules")
+//        public int maxModulesHelmet = 20;
+//
+//        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_MODULES_CHESTPLATE)
+//        @Config.Comment("Max number of modules")
+//        public int maxModulesChestplate = 20;
+//
+//        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_MODULES_LEGGINGS)
+//        @Config.Comment("Max number of modules")
+//        public int maxModulesLeggings = 20;
+//
+//        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_MODULES_FEET)
+//        @Config.Comment("Max number of modules")
+//        public int maxModulesFeet = 20;
+//
+//        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_MODULES_POWERFIST)
+//        @Config.Comment("Max number of modules")
+//        public int maxModulesPowerFist = 20;
     }
 
+    /**
+     * Currently maps need to be initialized and populated at runtime otherwise the values are not read from the config file
+     * <p>
+     * TODO: move to server config
+     */
+    public static Modules modules = new Modules();
     public static class Modules {
         @Config.LangKey(MPSConfigConstants.CONFIG_MODULES)
         @Config.Comment("Whether or not specified module is allowed")
@@ -194,7 +194,7 @@ public class MPSSettings {
             put(MPSModuleConstants.MODULE_APPENG_EC_WIRELESS_FLUID__DATANAME, true);
             put(MPSModuleConstants.MODULE_APPENG_WIRELESS__DATANAME, true);
             put(MPSModuleConstants.MODULE_AXE__DATANAME, true);
-            put(MPSModuleConstants.MODULE_CHISEL__DATANAME, true);
+            put(MPSModuleConstants.MODULE_CHISEL__DATANAME, false);
             put(MPSModuleConstants.MODULE_DIAMOND_PICK_UPGRADE__DATANAME, true);
             put(MPSModuleConstants.MODULE_DIMENSIONAL_RIFT__DATANAME, true);
             put(MPSModuleConstants.MODULE_FIELD_TINKER__DATANAME, true);
@@ -220,10 +220,9 @@ public class MPSSettings {
             // Mining Enhancements ------------------------------------------------------------------------
             put(MPSModuleConstants.MODULE_AOE_PICK_UPGRADE__DATANAME, true);
             put(MPSModuleConstants.MODULE_AQUA_AFFINITY__DATANAME, true);
-            put(MPSModuleConstants.MODULE_FORTUNE_DATANAME, true);
+            put(MPSModuleConstants.MODULE_FORTUNE_DATANAME, false);
             put(MPSModuleConstants.MODULE_MAD__DATANAME, true);
             put(MPSModuleConstants.MODULE_SILK_TOUCH__DATANAME, true);
-
 
             // Weapons ------------------------------------------------------------------------------------
             put(MPSModuleConstants.MODULE_BLADE_LAUNCHER__DATANAME, true);
@@ -456,42 +455,61 @@ public class MPSSettings {
         }};
     }
 
-    public static class Energy {
-        // (100KJ or 1M-RF)
-        @Config.LangKey(CONFIG_TIER_1_ENERGY_LVL)
-        @Config.Comment("Maximum amount of RF energy for Tier 1.")
-        @Config.RangeInt(min = 0)
-        public static int maxTier1 = (int) (1 * Math.pow(10, 6));
-        // advanced capacitor (500KJ or 5M-RF)
-        @Config.LangKey(CONFIG_TIER_2_ENERGY_LVL)
-        @Config.Comment("Maximum amount of RF energy for Tier 2.")
-        @Config.RangeInt(min = 0)
-        public static int maxTier2 = (int) (5 * Math.pow(10, 6));
-        // elite capacitor (5MJ or 50M-RF)
-        @Config.LangKey(CONFIG_TIER_3_ENERGY_LVL)
-        @Config.Comment("Maximum amount of RF energy for Tier 3.")
-        @Config.RangeInt(min = 0)
-        public static int maxTier3 = (int) (5 * Math.pow(10, 7));
-        // ultimate capacitor (10MJ or 100M-RF)
-        @Config.LangKey(CONFIG_TIER_4_ENERGY_LVL)
-        @Config.Comment("Maximum amount of RF energy for Tier 4.")
-        @Config.RangeInt(min = 0)
-        public static int maxTier4 = (int) (1 * Math.pow(10, 8));
-        // 1 RF = 0.1 MJ
-        @Config.LangKey("mekRatio")
-        @Config.Comment("Energy per Mekanism MJ")
-        public double mekRatio = 0.1D;
-        // 1 RF = 0.25 EU
-        @Config.LangKey("ic2Ratio")
-        @Config.Comment("Energy per IC2 EU")
-        public double ic2Ratio = 0.25D;
-        // 1 RF = 1 RS
-        @Config.LangKey("refinedStorageRatio")
-        @Config.Comment("Energy per RS")
-        public double refinedStorageRatio = 1D;
-        // 1 rf = 0.5 AE
-        @Config.LangKey("ae2Ratio")
-        @Config.Comment("Energy per AE")
-        public double ae2Ratio = 0.5D;
+    public static Limits limits = new Limits();
+    public static class Limits {
+        @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_MAX_ARMOR_MODULES)
+        @Config.Comment("Max number of Armor modules per armor item")
+        @Config.RangeDouble(min = 0, max = 99)
+        public int maxArmorModules = 1;
+
+        @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_MAX_ENERGY_STORAGE_MODULES)
+        @Config.Comment("Max number of Energy Storage modules per item")
+        @Config.RangeDouble(min = 0, max = 99)
+        public int maxEnergyStorageModules = 1;
+
+        @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_MAX_ENERGY_GENERATION_MODULES)
+        @Config.Comment("Max number of Energy Storage modules per item")
+        @Config.RangeDouble(min = 0, max = 99)
+        public int maxEnergyGenModules = 1;
+
+        @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_MAX_TOOL_MODULES)
+        @Config.Comment("Max number of Tool modules per Power Fist")
+        @Config.RangeDouble(min = 0, max = 99)
+        public int maxToolModules = 99;
+
+        @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_MAX_WEAPON_MODULES)
+        @Config.Comment("Max number of Weapon modules per Power Fist")
+        @Config.RangeDouble(min = 0, max = 99)
+        public int maxWeaponModules = 99;
+
+        @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_MAX_MOVEMENT_MODULES)
+        @Config.Comment("Max number of Movement modules per item")
+        @Config.RangeDouble(min = 0, max = 99)
+        public int maxMovementModules = 99;
+
+        @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_COSMETIC_MODULES)
+        @Config.Comment("Max number of Cosmetic modules per item")
+        @Config.RangeDouble(min = 0, max = 99)
+        public int maxCosmeticModules = 99;
+
+        @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_MAX_VISION_MODULES)
+        @Config.Comment("Max number of Vision modules per item")
+        @Config.RangeDouble(min = 0, max = 99)
+        public int maxVisionModules = 99;
+
+        @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_MAX_ENVIRONMENTAL_MODULES)
+        @Config.Comment("Max number of Environmental modules per item")
+        @Config.RangeDouble(min = 0, max = 99)
+        public int maxEnvironmentalModules = 99;
+
+        @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_MAX_SPECIAL_MODULES)
+        @Config.Comment("Max number of Special modules per item")
+        @Config.RangeDouble(min = 0, max = 99)
+        public int maxSpecialModules = 99;
+
+        @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_MAX_MINING_ENHANCEMENT_MODULES)
+        @Config.Comment("Max number of Mining Enhancement modules per Power Fist")
+        @Config.RangeDouble(min = 0, max = 99)
+        public int maxMiningEnhancementModules = 99;
     }
 }

@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
+import net.machinemuse.numina.api.module.IModuleManager;
 import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.network.MusePacket;
@@ -10,6 +11,7 @@ import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableButton;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableModule;
@@ -128,17 +130,10 @@ public class InstallSalvageFrame extends ScrollableFrame {
         ItemStack stack = targetItem.getSelectedItem().getItem();
         IPowerModule module = targetModule.getSelectedModule().getModule();
         if (!ModuleManager.INSTANCE.itemHasModule(stack, module.getDataName())) {
-
-
-
-
+            int installedModulesOfType = ModuleManager.INSTANCE.getNumberInstalledModulesOfType(stack, module.getCategory());
             installButton.setEnabled(player.capabilities.isCreativeMode ||
-                    MuseItemUtils.hasInInventory(ModuleManager.INSTANCE.getInstallCost(module.getDataName()), player.inventory));
-
-
-
-
-
+                    (MuseItemUtils.hasInInventory(ModuleManager.INSTANCE.getInstallCost(module.getDataName()), player.inventory) &&
+                    installedModulesOfType < MPSConfig.INSTANCE.getMaxModulesOfType(module.getCategory())));
             installButton.draw();
         } else {
             salvageButton.draw();

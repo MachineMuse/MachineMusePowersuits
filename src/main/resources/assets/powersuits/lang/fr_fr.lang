@@ -55,10 +55,119 @@ item.powersuits.powerArmorComponent.componentComputerChip.desc=Un circuit de con
 item.powersuits.powerArmorComponent.componentRubberHose.name=Tuyau en caoutchouc isolé
 item.powersuits.powerArmorComponent.componentRubberHose.desc=Tuyau en caoutchouc fortement isolé capable de résister à la chaleur ou au froid extrêmes
 
-
 fluid.liquid_nitrogen=Azote liquide
 
-
+# NBTTags used as labels
+powersuits.tradeoff.slotPoints=Points de fente;
+powersuits.tradeoff.armorPoints=Points d'armure
+powersuits.tradeoff.armorPhysical=Armure (physique)
+powersuits.tradeoff.armorEnergy=Armure (Energie)
+powersuits.tradeoff.armorEnergyPerDamage=Énergie par dégât
+powersuits.tradeoff.fieldStrength=Force du champ
+powersuits.tradeoff.heatGeneration=Production de chaleur
+powersuits.tradeoff.energyPerBlock=Energie par bloc par seconde
+powersuits.tradeoff.movementResistance=Résistance au mouvement
+powersuits.tradeoff.energyGenerated=Énergie générée
+powersuits.tradeoff.daytimeHeatGen=Production de chaleur diurne
+powersuits.tradeoff.nightTimeHeatGen=Génération de chaleur nocturne
+powersuits.tradeoff.daytimeEnergyGen=Production d'énergie diurne
+powersuits.tradeoff.nightTimeEnergyGen=Production d'énergie nocturne
+powersuits.tradeoff.thermalEnergyGen=Production d'énergie
+powersuits.tradeoff.apiaristArmorEnergyCon=Consommation d'énergie de l'armure d'apôtre
+powersuits.tradeoff.eatingEnergyCon=Consommation énergétique
+powersuits.tradeoff.autoFeederEfficiency=Efficacité de l'alimentation automatique
+powersuits.tradeoff.basicCoolingPower=Puissance de refroidissement de base
+powersuits.tradeoff.coolingBonus=Bonus de refroidissement
+powersuits.tradeoff.coolingSystemEnergyCon=Consommation d'énergie du système de refroidissement
+powersuits.tradeoff.repulsorEnergyCon=Consommation d'énergie du répulsif
+powersuits.tradeoff.advCoolSysEnergyCon=Consommation énergétique du système de refroidissement avancé
+powersuits.tradeoff.joltEnergy=Energie de choc
+powersuits.tradeoff.blinkDriveEnergyCon=Consommation d'énergie du lecteur clignotant
+powersuits.tradeoff.blinkDriveRange=Plage de clignotement
+powersuits.tradeoff.yLookRatio=rapport Y-look
+powersuits.tradeoff.jetBootsEnergyCon=Consommation d'énergie de Jetboots
+powersuits.tradeoff.jetbootsThrust=Poussée Jetboots
+powersuits.tradeoff.jetpackEnergyCon=Consommation d'énergie de Jetpack
+powersuits.tradeoff.jetpackThrust=Poussée Jetpack
+powersuits.tradeoff.jumpEnergyCon=Sauter la consommation d'énergie
+powersuits.tradeoff.jumpBoost=Accélération du saut
+powersuits.tradeoff.jumpExhaustComp=Compensation de l'épuisement du saut
+powersuits.tradeoff.distanceRed=Réduction de la distance
+powersuits.tradeoff.impactEnergyCon=Consommation d'énergie d'impact
+powersuits.tradeoff.sprintEnergyCon=Consommation d'énergie du sprint
+powersuits.tradeoff.sprintSpeedMult=Multiplicateur de vitesse de sprint
+powersuits.tradeoff.sprintExComp=Compensation d'épuisement de sprint
+powersuits.tradeoff.walkingEnergyCon=Consommation d'énergie à pied
+powersuits.tradeoff.walkingSpeedMult=Multiplicateur de vitesse de marche
+powersuits.tradeoff.underwaterMovBoost=Augmentation du mouvement sous-marin
+powersuits.tradeoff.swimBoostEnergyCon=Consommation d'énergie de stimulation de nage
+powersuits.tradeoff.energyCon=Consommation d'énergie
+powersuits.tradeoff.magnetRadius=Rayon de l'aimant
+powersuits.tradeoff.fieldOfView=Champ de vision
+powersuits.tradeoff.fOVMult=multiplicateur de champ de vision
+powersuits.tradeoff.underWaterEnergyCon=Consommation d'énergie sous-marine
+powersuits.tradeoff.underWaterHarvSpeed=Vitesse de récupération sous l'eau
+powersuits.tradeoff.axeEnergyCon=Consommation d'énergie de l'axe
+powersuits.tradeoff.axeHarvSpd=Vitesse de récolte de la hache
+powersuits.tradeoff.chiselHarvSpd=Vitesse de récolte du burin
+powersuits.tradeoff.chiselEnergyCon=Consommation d'énergie au burin
+powersuits.tradeoff.ignitEnergyCon=Consommation d'énergie d'allumage
+powersuits.tradeoff.grafterEnergyCon=Consommation d'énergie du graveur
+powersuits.tradeoff.grafterHeatGen=Production de chaleur par le grappin
+powersuits.tradeoff.hoeEnergyCon=Hoe consommation d'énergie
+powersuits.tradeoff.hoeSearchRad=Hoe Rayon de recherche
+powersuits.tradeoff.luxCapEnergyCon=Consommation d'énergie du condensateur de Lux
+powersuits.tradeoff.luxCapRed=Lux Capacitor Hue Red
+powersuits.tradeoff.luxCapGreen=Condensateur Lux Hue Green
+powersuits.tradeoff.luxCapBlue=Condensateur Lux Hue Blue
+powersuits.tradeoff.pickHarvSpd=Vitesse de récolte de la pioche
+powersuits.tradeoff.pickaxeEnergyCon=Consommation d'énergie du pioche
+powersuits.tradeoff.scoopHarSpd=Vitesse de récolte
+powersuits.tradeoff.scoopEnergyCon=Consommation d'énergie réduite
+powersuits.tradeoff.shearEnergyCon=Consommation d'énergie de cisaillement
+powersuits.tradeoff.shearHarvSpd=Vitesse de récolte en cisaillement
+powersuits.tradeoff.shovelHarvSpd=Vitesse de récolte de la pelle
+powersuits.tradeoff.shovelEnergyCon=Consommation d'énergie de la pelle
+powersuits.tradeoff.spinBladeEnergyCon=Consommation d'énergie de la lame filante
+powersuits.tradeoff.spinBladeDam=Dégâts de lame rotative
+powersuits.tradeoff.heatEmission=Emission de chaleur
+powersuits.tradeoff.punchEnergyCon=Consommation d'énergie du punch
+powersuits.tradeoff.meleeDamage=Dégâts de mêlée
+powersuits.tradeoff.meleeKnockback=Renversement en mêlée
+powersuits.tradeoff.plasmaEnergyPerTick=Energie plasmatique par tick
+powersuits.tradeoff.plasmaDamage=Dégâts du plasma à pleine charge
+powersuits.tradeoff.plasmaExplosiveness=Explosivité au plasma
+powersuits.tradeoff.railgunTotalImpulse=Impulsion totale du pistolet
+powersuits.tradeoff.railgunEnergyCost=Coût de l'énergie de Railgun
+powersuits.tradeoff.railgunHeatEm=Emission de chaleur par un pistolet
+powersuits.tradeoff.power=Puissance
+powersuits.tradeoff.voltage=Tension
+powersuits.tradeoff.impact=Impact
+powersuits.tradeoff.carryThrough=Carry-through
+powersuits.tradeoff.amperage=Ampérage
+powersuits.tradeoff.creeper=Creeper
+powersuits.tradeoff.advancedCoolingPower=Puissance de refroidissement avancée
+powersuits.tradeoff.overclock=Overclock
+powersuits.tradeoff.thrust=Poussée
+powersuits.tradeoff.range=Plage
+powersuits.tradeoff.radius=Rayon
+powersuits.tradeoff.efficiency=Efficacité
+powersuits.tradeoff.red=Rouge
+powersuits.tradeoff.green=Vert
+powersuits.tradeoff.blue=Bleu
+powersuits.tradeoff.sprintAssist=Assistance de sprint
+powersuits.tradeoff.compensation=Compensation
+powersuits.tradeoff.walkingAssist=Aide à la marche
+powersuits.tradeoff.vertically=verticalité
+powersuits.tradeoff.maxEnergy=Énergie maximale
+powersuits.tradeoff.maxHeat=Chaleur maximale
+powersuits.tradeoff.aoeEnergyCon=AoE Consommation d'énergie
+powersuits.tradeoff.aoeMiningDiameter=Diamètre minier AoE
+powersuits.tradeoff.silkTouchEnCon=Consommation d'énergie du toucher soyeux
+powersuits.tradeoff.diameter=Diamètre
+powersuits.tradeoff.enchLevel=Niveau d'enchantement
+powersuits.tradeoff.fortuneEnCon=Consommation d'énergie Fortune
+powersuits.tradeoff.fortuneLevel=Niveau de fortune
 
 # Armor
 module.powersuits.leatherPlating.name=Revetement en cuir
@@ -94,7 +203,6 @@ module.powersuits.kineticGenerator.desc=Générez de la puissance avec votre mou
 module.powersuits.thermalGenerator.name=Générateur Thermique
 module.powersuits.thermalGenerator.desc=Génère de l'énergie à partir de quantités de chaleur extrêmes.
 
-
 module.powersuits.airtightSeal.name=Etanchéité à l'air
 module.powersuits.airtightSeal.desc=Scellez la poursuite contre les atmosphères hostiles pour vous aventurer sur d'autres planètes.
 module.powersuits.apiaristArmor.name=Armure de l'apiariste
@@ -111,7 +219,6 @@ module.powersuits.mobRepulsor.name=Repousseur de Monstre
 module.powersuits.mobRepulsor.desc=Éloigne les monstres lorsqu'il est activé, mais draine constamment de l'énergie. Il est fortement recommandé de définir ce module sur un raccourci clavier en raison de la forte consommation d'énergie.
 module.powersuits.waterElectrolyzer.name=Electrolyseur d'eau
 module.powersuits.waterElectrolyzer.desc=Quand vous serez à court d'air, ce module électrifiera l'eau autour de vous, créera des bulles d'air par électrolyse pour permettre de respirer.
-
 
 module.powersuits.blinkDrive.name=Pilote de clignotement
 module.powersuits.blinkDrive.desc=Rendez vous d'un point A à un point C en passant par un point B, où le point B est plié dans l'espace-temps.
@@ -136,7 +243,6 @@ module.powersuits.sprintAssist.desc=Une paire de servo moteurs vous permettant d
 module.powersuits.swimAssist.name=Amplificateur de nage
 module.powersuits.swimAssist.desc=En adaptant un propulseur ionique à une utilisation aquatique, vous pouvez ajouter une accélération frontale (ou dorsale) aquatique.
 
-
 module.powersuits.clock.name=Montre
 module.powersuits.clock.desc=Une horloge en marche qui indique l'heure, peu importe où vous vous trouvez. Basculable par les keybinds.
 module.powersuits.compass.name=Boussole
@@ -146,7 +252,6 @@ module.powersuits.invisibility.desc=Emet un hologramme de votre environnement po
 module.powersuits.magnet.name=Aimant
 module.powersuits.magnet.desc=Génère un champ magnétique assez puissant pour attirer des objets vers le joueur. AVERTISSEMENT: Ce module draine l’alimentation en continu. Éteignez-le quand vous n'en avez pas besoin.
 
-
 module.powersuits.binoculars.name=Binoculaires
 module.powersuits.binoculars.desc=Avec les problèmes causés par Optifine récemment,vous avez décidé de prendre les choses en main et d'intégrer le Zoom dans votre armure.
 module.powersuits.nightVision.name=Vision nocturne
@@ -154,10 +259,16 @@ module.powersuits.nightVision.desc=Une paire de lunette de vision augmentée vou
 module.powersuits.aurameter.name=Auramètre
 module.powersuits.aurameter.desc=Connectez des lunettes de protection Thaumic pour les intégrer à votre casque. (Ne donne pas de réduction sur l'utilisation de Vis)
 
-
 # Tools
 module.powersuits.aoePickUpgrade.name=Mise à niveau de forage au diamant
 module.powersuits.aoePickUpgrade.desc=Un programme de mise à jour qui permettra au module de pioche d'exploiter une zone de blocs 3x3
+module.powersuits.madModule.name=Vein Miner
+module.powersuits.madModule.desc=A Vein miner powered by Mekanism's Atomic Disasemmber
+module.powersuits.fortuneModule.name=Fortune Enchantment
+module.powersuits.fortuneModule.desc=A module that provides the fortune enchantment.
+module.powersuits.silk_touch.name=Silk Touch Enchantment
+module.powersuits.silk_touch.desc=A module that provides the Silk Touch enchantment
+
 module.powersuits.appengECWirelessFluid.name=Terminal de fluide sans fil ExtraCells
 module.powersuits.appengECWirelessFluid.desc=Terminal de fluide sans fil Applied Energistics ExtraCells intégré à votre outil électrique.
 module.powersuits.appengWireless.name=Terminal sans fil d'AppEng
@@ -171,9 +282,6 @@ module.powersuits.chisel.desc=Cela ne vous laissera pas ciseler des blocs, mais 
 module.powersuits.diamondPickUpgrade.name=Mise a jour pour diamant
 module.powersuits.diamondPickUpgrade.desc=Ajout des diamants pour permettre à votre module de mineur de l'Obsidienne. (NECESSITE UN MODULE PIOCHE PRESENTE AU PREALABLE POUR FONCTIONNER)
 module.powersuits.dimRiftGen.name=Générateur de larmes dimensionnelles
-
-
-
 module.powersuits.dimRiftGen.desc=Generate a tear in the space-time continuum that will teleport the player to its relative coordinates in the nether or overworld.
 module.powersuits.fieldTinkerer.name=Module de champ ambulant
 module.powersuits.fieldTinkerer.desc=Vous ne pouvez peut-être pas vous souvenir des schémas, mais vous devriez au moins pouvoir ajuster vos modules sans Inspiration™ Inc. LLC.
@@ -216,7 +324,6 @@ module.powersuits.shovel.desc=Les pelles sont efficaces sur les matériaux ducti
 module.powersuits.treetap.name=Sève prise
 module.powersuits.treetap.desc=An IC2 treetap integrated in your power tool.
 
-
 module.powersuits.bladeLauncher.name=Lanceur de lame
 module.powersuits.bladeLauncher.desc=Lance une lame tournoyante mortelle (ou découpante).
 module.powersuits.lightningSummoner.name=Porteur de la Foudre
@@ -228,12 +335,8 @@ module.powersuits.plasmaCannon.desc=Utilise des arcs électriques dans un champ 
 module.powersuits.railgun.name=Railgun
 module.powersuits.railgun.desc=Un assemblage qui accélère un projectile à une vitesse supersonique en utilisant la force magnétique. Recul important.
 
-
-gui.powersuits.slotpoints=Points d'emplacement
 gui.powersuits.noModulesFound.line1=Aucune armure énergétique modulaire
 gui.powersuits.noModulesFound.line2=trouvée dans les alentours.
-
-
 gui.powersuits.red=Rouge
 gui.powersuits.green=Vert
 gui.powersuits.blue=Bleu
@@ -253,7 +356,7 @@ gui.powersuits.tab.visual=Apparence
 gui.powersuits.equippedTotals=Totaux équipés
 gui.powersuits.energyStorage=Stockage d'énergie
 gui.powersuits.armor=Armure
-
+gui.powersuits.slotpoints=Points d'emplacement
 
 tooltip.powersuits.pressShift=Appuyez sur Maj pour plus d'informations.
 tooltip.powersuits.componentTooltip=À utiliser dans la table de bricolage.
@@ -263,7 +366,6 @@ tooltip.powersuits.noModules=Aucun module installé! Cet élément est inutile j
 tooltip.powersuits.installedModules=Modules installés:
 tooltip.powersuits.mode=Mode:
 
-
 # Default Model Helm
 model.mps_helm.modelName=MPS Helm
 model.mps_helm.helm_main.partName=Casque
@@ -271,7 +373,6 @@ model.mps_helm.visor.partName=Visière
 model.mps_helm.helm_tubes.partName=Tubes
 model.mps_helm.helm_tube_entry2.partName=Entrée du tube de droite
 model.mps_helm.helm_tube_entry1.partName=Entrée du tube gauche
-
 
 # Default Model Chestplate
 model.mps_chest.modelName=Plastron MPS
@@ -282,13 +383,11 @@ model.mps_chest.chest_padding.partName=Rembourrage de la poitrine
 model.mps_chest.crystal_belt.partName=Cristal de ceinture
 model.mps_chest.chest_main.partName=Plaquage de la poitrine
 
-
 # Default Model Jetpack
 model.jetpack.modelName=Jetpack MPS
 model.jetpack.default.partName=Principale
 model.jetpack.jetpack5.partName=Secondaire
 model.jetpack.jetpack_glow.partName=Lumières
-
 
 # Default Model Arms
 model.mps_arms.modelName=MPS Bras
@@ -297,18 +396,15 @@ model.mps_arms.arms3.partName=Bras droit
 model.mps_arms.crystal_shoulder_1.partName=Cristal d'épaule gauche
 model.mps_arms.arms2.partName=Bras gauche
 
-
 # Default Model Pantaloons
 model.mps_pantaloons.modelName=Pantalon MPS
 model.mps_pantaloons.leg2.partName=Jambe gauche
 model.mps_pantaloons.leg1.partName=Jambe droite
 
-
 # Default Model Boots
 model.mps_boots.modelName=Bottes MPS
 model.mps_boots.boots1.partName=Amorçage à droite
 model.mps_boots.boots2.partName=Amorçage à gauche
-
 
 # Armor Model 2
 model.armor2.modelName=Armure 2
@@ -343,9 +439,7 @@ textureSpec.chest.partName=Coffre
 textureSpec.legs.partName=Jambes
 textureSpec.feet.partName=Pieds
 
-
 textureSpec.citizenjoe_armorskin.specName=Peau du citoyen Joe
-
 
 
 # PowerFist main model

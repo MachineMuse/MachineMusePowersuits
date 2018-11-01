@@ -61,6 +61,118 @@ item.powersuits.powerArmorComponent.componentRubberHose.desc=Ein stark isolierte
 # Flüssigkeiten
 fluid.liquid_nitrogen=Flüssigstickstoff
 
+# NBTTags used as labels
+powersuits.tradeoff.slotPoints=Steckplatzpunkte;
+powersuits.tradeoff.armorPoints=Rüstungspunkte
+powersuits.tradeoff.armorPhysical=Rüstung (physisch)
+powersuits.tradeoff.armorEnergy=Rüstung (Energie)
+powersuits.tradeoff.armorEnergyPerDamage=Energie pro Schaden
+powersuits.tradeoff.fieldStrength=Feldstärke
+powersuits.tradeoff.heatGeneration=Wärmeerzeugung
+powersuits.tradeoff.energyPerBlock=Energie pro Block pro Sekunde
+powersuits.tradeoff.movementResistance=Bewegungswiderstand
+powersuits.tradeoff.energyGenerated=Erzeugte Energie
+powersuits.tradeoff.daytimeHeatGen=Wärmeerzeugung tagsüber
+powersuits.tradeoff.nightTimeHeatGen=Wärmeerzeugung bei Nacht
+powersuits.tradeoff.daytimeEnergyGen=Energieerzeugung tagsüber
+powersuits.tradeoff.nightTimeEnergyGen=Energieerzeugung bei Nacht
+powersuits.tradeoff.thermalEnergyGen=Energieerzeugung
+powersuits.tradeoff.apiaristArmorEnergyCon=Energieverbrauch der Bienenhausrüstung
+powersuits.tradeoff.eatingEnergyCon=Verzehr von Energie
+powersuits.tradeoff.autoFeederEfficiency=Effizienz der automatischen Zuführung
+powersuits.tradeoff.basicCoolingPower=Grundlegende Kühlleistung
+powersuits.tradeoff.coolingBonus=Kühlbonus
+powersuits.tradeoff.coolingSystemEnergyCon=Energieverbrauch des Kühlsystems
+powersuits.tradeoff.repulsorEnergyCon=Energieverbrauch des Repulsors
+powersuits.tradeoff.advCoolSysEnergyCon=Energieverbrauch des erweiterten Kühlsystems
+powersuits.tradeoff.joltEnergy=Jolt Energy
+powersuits.tradeoff.blinkDriveEnergyCon=Energieverbrauch des Blink-Treibers
+powersuits.tradeoff.blinkDriveRange=Laufwerksbereich blinken
+powersuits.tradeoff.yLookRatio=Y-Look-Verhältnis
+powersuits.tradeoff.jetBootsEnergyCon=Jetboots-Energieverbrauch
+powersuits.tradeoff.jetbootsThrust=Jetboots Thrust
+powersuits.tradeoff.jetpackEnergyCon=Jetpack-Energieverbrauch
+powersuits.tradeoff.jetpackThrust=Jetpack-Schub
+powersuits.tradeoff.jumpEnergyCon=Jump Energieverbrauch
+powersuits.tradeoff.jumpBoost=Jump Boost
+powersuits.tradeoff.jumpExhaustComp=Kompensation der Sprungkraft
+powersuits.tradeoff.distanceRed=Entfernungsreduzierung
+powersuits.tradeoff.impactEnergyCon=Auswirkungen des Energieverbrauchs
+powersuits.tradeoff.sprintEnergyCon=Sprint-Energieverbrauch
+powersuits.tradeoff.sprintSpeedMult=Sprint-Geschwindigkeits-Multiplikator
+powersuits.tradeoff.sprintExComp=Sprint-Ermüdungsausgleich
+powersuits.tradeoff.walkingEnergyCon=Gehender Energieverbrauch
+powersuits.tradeoff.walkingSpeedMult=Multiplikator für Gehgeschwindigkeit
+powersuits.tradeoff.underwaterMovBoost=Unterwasserbewegungsschub
+powersuits.tradeoff.swimBoostEnergyCon=Energieverbrauch beim Schwimmen erhöhen
+powersuits.tradeoff.energyCon=Energieverbrauch
+powersuits.tradeoff.magnetRadius=Magnetradius
+powersuits.tradeoff.fieldOfView=Sichtfeld
+powersuits.tradeoff.fOVMult=FOV-Multiplikator
+powersuits.tradeoff.underWaterEnergyCon=Energieverbrauch unter Wasser
+powersuits.tradeoff.underWaterHarvSpeed=Unterwassererntegeschwindigkeit
+powersuits.tradeoff.axeEnergyCon=Energieverbrauch der Axt
+powersuits.tradeoff.axeHarvSpd=Axt-Erntegeschwindigkeit
+powersuits.tradeoff.chiselHarvSpd=Geschwindigkeit der Meißelernte
+powersuits.tradeoff.chiselEnergyCon=Energieverbrauch der Meißel
+powersuits.tradeoff.ignitEnergyCon=Energieverbrauch der Zündung
+powersuits.tradeoff.grafterEnergyCon=Grafter Energieverbrauch
+powersuits.tradeoff.grafterHeatGen=Grafter Wärmeerzeugung
+powersuits.tradeoff.hoeEnergyCon=Hoe Energieverbrauch
+powersuits.tradeoff.hoeSearchRad=Hoe Search Radius
+powersuits.tradeoff.luxCapEnergyCon=Energieverbrauch von Lux-Kondensatoren
+powersuits.tradeoff.luxCapRed=Lux-Kondensator-Rot-Farbton
+powersuits.tradeoff.luxCapGreen=Lux-Kondensator Grüner Farbton
+powersuits.tradeoff.luxCapBlue=Lux-Kondensator Blue Hue
+powersuits.tradeoff.pickHarvSpd=Spitzhacke Erntegeschwindigkeit
+powersuits.tradeoff.pickaxeEnergyCon=Energieverbrauch der Spitzhacke
+powersuits.tradeoff.scoopHarSpd=Scoop-Erntegeschwindigkeit
+powersuits.tradeoff.scoopEnergyCon=Energieverbrauch der Schaufel
+powersuits.tradeoff.shearEnergyCon=Energieverbrauch beim Scheren
+powersuits.tradeoff.shearHarvSpd=Geschwindigkeit beim Scheren der Ernte
+powersuits.tradeoff.shovelHarvSpd=Geschwindigkeit der Schaufelernte
+powersuits.tradeoff.shovelEnergyCon=Energieverbrauch der Schaufel
+powersuits.tradeoff.spinBladeEnergyCon=Energieverbrauch der sich drehenden Klinge
+powersuits.tradeoff.spinBladeDam=Beschädigung der sich drehenden Klinge
+powersuits.tradeoff.heatEmission=Wärmeabgabe
+powersuits.tradeoff.punchEnergyCon=Punch-Energieverbrauch
+powersuits.tradeoff.meleeDamage=Nahkampfschaden
+powersuits.tradeoff.meleeKnockback=Nahkampf-Rückstoß
+powersuits.tradeoff.plasmaEnergyPerTick=Plasmaenergie pro Tick
+powersuits.tradeoff.plasmaDamage=Plasmaschaden bei voller Ladung
+powersuits.tradeoff.plasmaExplosiveness=Plasma-Explosivität
+powersuits.tradeoff.railgunTotalImpulse=Gesamtimpuls der Schiene
+powersuits.tradeoff.railgunEnergyCost=Railgun-Energiekosten
+powersuits.tradeoff.railgunHeatEm=Railgun-Wärmeabgabe
+powersuits.tradeoff.power=Leistung
+powersuits.tradeoff.voltage=Spannung
+powersuits.tradeoff.impact=Auswirkung
+powersuits.tradeoff.carryThrough=Durchführung
+powersuits.tradeoff.amperage=Stromstärke
+powersuits.tradeoff.creeper=Creeper
+powersuits.tradeoff.advancedCoolingPower=Erweiterte Kühlleistung
+powersuits.tradeoff.overclock=Übertakten
+powersuits.tradeoff.thrust=Schub
+powersuits.tradeoff.range=Bereich
+powersuits.tradeoff.radius=Radius
+powersuits.tradeoff.efficiency=Effizienz
+powersuits.tradeoff.red=Rot
+powersuits.tradeoff.green=Grün
+powersuits.tradeoff.blue=Blau
+powersuits.tradeoff.sprintAssist=Sprint-Assistent
+powersuits.tradeoff.compensation=Entschädigung
+powersuits.tradeoff.walkingAssist=Gehassistent
+powersuits.tradeoff.vertically=Verticality
+powersuits.tradeoff.maxEnergy=Maximale Energie
+powersuits.tradeoff.maxHeat=Maximale Wärme
+powersuits.tradeoff.aoeEnergyCon=AoE-Energieverbrauch
+powersuits.tradeoff.aoeMiningDiameter=AoE-Mining-Durchmesser
+powersuits.tradeoff.silkTouchEnCon=Energieverbrauch von Silk Touch
+powersuits.tradeoff.diameter=Durchmesser
+powersuits.tradeoff.enchLevel=Verzauberungsstufe
+powersuits.tradeoff.fortuneEnCon=Fortune Energy Consumption
+powersuits.tradeoff.fortuneLevel=Fortune Level
+
 # Rüstung
 module.powersuits.leatherPlating.name=Lederüberzug
 module.powersuits.leatherPlating.desc=Die Lederbeschichtung ist leicht, bietet aber wenig Schutz.
@@ -158,6 +270,13 @@ module.powersuits.aurameter.desc=Schließe eine Thaumic-Brille an, um sie in dei
 # Werkzeuge
 module.powersuits.aoePickUpgrade.name=Diamantbohrer-Upgrade
 module.powersuits.aoePickUpgrade.desc=Eine Aufweitung, die es dem Spitzhacken-Modul ermöglicht, eine 3x3 große Fläche von Blöcken abzubauen
+module.powersuits.madModule.name=Vein Miner
+module.powersuits.madModule.desc=A Vein miner powered by Mekanism's Atomic Disasemmber
+module.powersuits.fortuneModule.name=Fortune Enchantment
+module.powersuits.fortuneModule.desc=A module that provides the fortune enchantment.
+module.powersuits.silk_touch.name=Silk Touch Enchantment
+module.powersuits.silk_touch.desc=A module that provides the Silk Touch enchantment
+
 module.powersuits.appengECWirelessFluid.name=ExtraCells Wireless Fluid Terminal
 module.powersuits.appengECWirelessFluid.desc=Ein Wireless-Fluid-Terminal von Applied Energistics ExtraCells, das in Ihr Elektrowerkzeug integriert ist.
 module.powersuits.appengWireless.name=Kabelloses ME-Terminal
@@ -225,7 +344,7 @@ module.powersuits.plasmaCannon.desc=Verwenden Sie elektrische Lichtbögen in ein
 module.powersuits.railgun.name=Elektromagnetische Kanone
 module.powersuits.railgun.desc=Eine Baugruppe, die ein Geschoss mit Magnetkraft auf Überschallgeschwindigkeit beschleunigt. Starker Rückstoß.
 
-#GUI
+# GUI
 gui.powersuits.noModulesFound.line1=Keine Energierüstungs-Items
 gui.powersuits.noModulesFound.line2=im Inventar gefunden. Bastle welche!
 gui.powersuits.red=Rot
@@ -324,6 +443,7 @@ model.armor2.bootglow1.partName=Right Boot Glow
 model.armor2.bootmain.partName=Linker Bootskörper
 model.armor2.bootglow.partName=Linke Boot Glow
 
+
 # Texturspezifikation
 textureSpec.default_armorskin.specName=Standard-Rüstungshaut
 textureSpec.head.partName=Kopf
@@ -331,11 +451,10 @@ textureSpec.chest.partName=Brust
 textureSpec.legs.partName=Beine
 textureSpec.feet.partName=Füße
 
-
 textureSpec.citizenjoe_armorskin.specName=Bürger Joe Rüstung Haut
 
 
-#Power Fist Hauptmodell
+# Power Fist Hauptmodell
 model.powerfist.modelName=Power Faust rechte Hand
 model.powerfist.mainarm.partName=Hauptarm
 model.powerfist.armorright.partName=Rüstung rechtsArmor Left

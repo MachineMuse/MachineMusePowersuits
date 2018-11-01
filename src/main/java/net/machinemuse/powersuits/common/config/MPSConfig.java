@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.common.config;
 
+import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.common.Numina;
 import net.machinemuse.powersuits.common.MPSCreativeTab;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -110,10 +111,6 @@ public enum MPSConfig {
     /**
      * HUD Settings ------------------------------------------------------------------------------
      */
-    public boolean useHUDStuff() {
-        return MPSSettings.hud.useHUDStuff;
-    }
-
     public boolean toggleModuleSpam() {
         return MPSSettings.hud.toggleModuleSpam;
     }
@@ -177,28 +174,71 @@ public enum MPSConfig {
         return 0;
     }
 
-    public double getMaxModules(@Nonnull ItemStack itemStack) {
-        if (itemStack.getItem() instanceof ItemPowerFist) {
-            return getServerSettings() != null ? getServerSettings().maxModulesPowerFist: MPSSettings.general.maxModulesPowerFist;
-        }
+//    public double getMaxModules(@Nonnull ItemStack itemStack) {
+//        if (itemStack.getItem() instanceof ItemPowerFist) {
+//            return getServerSettings() != null ? getServerSettings().maxModulesPowerFist: MPSSettings.general.maxModulesPowerFist;
+//        }
+//
+//        if (itemStack.getItem() instanceof ItemPowerArmorHelmet) {
+//            return getServerSettings() != null ? getServerSettings().maxModulesHelmet: MPSSettings.general.maxModulesHelmet;
+//        }
+//
+//        if (itemStack.getItem() instanceof ItemPowerArmorChestplate) {
+//            return getServerSettings() != null ? getServerSettings().maxModulesChestplate : MPSSettings.general.maxModulesChestplate;
+//        }
+//
+//        if (itemStack.getItem() instanceof ItemPowerArmorLeggings) {
+//            return getServerSettings() != null ? getServerSettings().maxModulesLeggings : MPSSettings.general.maxModulesLeggings ;
+//        }
+//
+//        if (itemStack.getItem() instanceof ItemPowerArmorBoots) {
+//            return getServerSettings() != null ? getServerSettings().maxModulesFeet : MPSSettings.general.maxModulesFeet;
+//        }
+//
+//        return 0;
+//    }
 
-        if (itemStack.getItem() instanceof ItemPowerArmorHelmet) {
-            return getServerSettings() != null ? getServerSettings().maxModulesHelmet: MPSSettings.general.maxModulesHelmet;
-        }
+    /**
+     * Limits -------------------------------------------------------------------------------------
+     */
+    public static int getMaxModulesOfType(EnumModuleCategory category) {
+        switch (category) {
+            case CATEGORY_ARMOR:
+                return getServerSettings() != null ? getServerSettings().maxArmorModules : MPSSettings.limits.maxArmorModules;
 
-        if (itemStack.getItem() instanceof ItemPowerArmorChestplate) {
-            return getServerSettings() != null ? getServerSettings().maxModulesChestplate : MPSSettings.general.maxModulesChestplate;
-        }
+            case CATEGORY_ENERGY_STORAGE:
+                return getServerSettings() != null ? getServerSettings().maxEnergyStorageModules : MPSSettings.limits.maxEnergyStorageModules;
 
-        if (itemStack.getItem() instanceof ItemPowerArmorLeggings) {
-            return getServerSettings() != null ? getServerSettings().maxModulesLeggings : MPSSettings.general.maxModulesLeggings ;
-        }
+            case CATEGORY_ENERGY_GENERATION:
+                return getServerSettings() != null ? getServerSettings().maxEnergyGenModules : MPSSettings.limits.maxEnergyGenModules;
 
-        if (itemStack.getItem() instanceof ItemPowerArmorBoots) {
-            return getServerSettings() != null ? getServerSettings().maxModulesFeet : MPSSettings.general.maxModulesFeet;
-        }
+            case CATEGORY_TOOL:
+                return getServerSettings() != null ? getServerSettings().maxToolModules : MPSSettings.limits.maxToolModules;
 
-        return 0;
+            case CATEGORY_WEAPON:
+                return getServerSettings() != null ? getServerSettings().maxWeaponModules : MPSSettings.limits.maxWeaponModules;
+
+            case CATEGORY_MOVEMENT:
+                return getServerSettings() != null ? getServerSettings().maxMovementModules : MPSSettings.limits.maxMovementModules;
+
+            case CATEGORY_COSMETIC:
+                return getServerSettings() != null ? getServerSettings().maxCosmeticModules : MPSSettings.limits.maxCosmeticModules;
+
+            case CATEGORY_VISION:
+                return getServerSettings() != null ? getServerSettings().maxVisionModules : MPSSettings.limits.maxVisionModules;
+
+            case CATEGORY_ENVIRONMENTAL:
+                return getServerSettings() != null ? getServerSettings().maxEnvironmentalModules : MPSSettings.limits.maxEnvironmentalModules;
+
+            case CATEGORY_SPECIAL:
+                return getServerSettings() != null ? getServerSettings().maxSpecialModules : MPSSettings.limits.maxSpecialModules;
+
+            case CATEGORY_MINING_ENHANCEMENT:
+                return getServerSettings() != null ? getServerSettings().maxMiningEnhancementModules : MPSSettings.limits.maxMiningEnhancementModules;
+
+            default:
+                return 0;
+        }
     }
 
     /**

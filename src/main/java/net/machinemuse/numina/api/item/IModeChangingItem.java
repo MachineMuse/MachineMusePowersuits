@@ -1,10 +1,7 @@
 package net.machinemuse.numina.api.item;
 
 import net.machinemuse.numina.api.constants.NuminaNBTConstants;
-import net.machinemuse.numina.api.module.IMiningEnhancementModule;
-import net.machinemuse.numina.api.module.IModuleManager;
-import net.machinemuse.numina.api.module.IPowerModule;
-import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.numina.api.module.*;
 import net.machinemuse.numina.network.MusePacketModeChangeRequest;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
@@ -63,7 +60,14 @@ public interface IModeChangingItem extends IModularItem {
     }
 
     default void setActiveMode(@Nonnull ItemStack stack, String newMode) {
+        String activeMode = getActiveMode(stack);
+        IPowerModule oldModule = getModuleManager().getModule(activeMode);
+        if (oldModule instanceof IEnchantmentModule)
+            ((IEnchantmentModule) oldModule).removeEnchantment(stack);
         MuseNBTUtils.getMuseItemTag(stack).setString(NuminaNBTConstants.TAG_MODE, newMode);
+        IPowerModule module = getModuleManager().getModule(newMode);
+        if (module instanceof IEnchantmentModule)
+            ((IEnchantmentModule) module).addEnchantment(stack);
     }
 
     default void cycleMode(ItemStack stack, EntityPlayer player, int dMode) {

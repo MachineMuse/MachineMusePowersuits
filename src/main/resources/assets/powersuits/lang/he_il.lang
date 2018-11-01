@@ -10,7 +10,6 @@ item.powersuits.powerArmorChestplate.name=שריון חליפת כוח
 item.powersuits.powerArmorHelmet.name=קסדת חליפת כוח
 item.powersuits.powerFist.name=זרוע כוח
 
-
 item.powersuits.powerArmorComponent.componentWiring.name= מחברים
 item.powersuits.powerArmorComponent.componentWiring.desc= סוג מיוחד של חיווט עם קיבולת voltaic גבוהה ודיוק, הכרחי עבור האלקטרוניקה רגיש שריון כוח.
 item.powersuits.powerArmorComponent.componentSolenoid.name= סולנואיד
@@ -56,9 +55,119 @@ item.powersuits.powerArmorComponent.componentComputerChip.desc=מעגל בקרה
 item.powersuits.powerArmorComponent.componentRubberHose.name=צינור גומי מבודדים
 item.powersuits.powerArmorComponent.componentRubberHose.desc=צינור גומי מבודד היטב המסוגל לעמוד בחום או בקור
 
-
-
 fluid.liquid_nitrogen=חנקן נוזלי
+
+# NBTTags used as labels
+powersuits.tradeoff.slotPoints=נקודות חריץ
+powersuits.tradeoff.armorPoints=נקודות שריון
+powersuits.tradeoff.armorPhysical=שריון (פיזי)
+powersuits.tradeoff.armorEnergy=שריון (אנרגיה)
+powersuits.tradeoff.armorEnergyPerDamage=אנרגיה לפי נזק
+powersuits.tradeoff.fieldStrength=עוצמת השדה
+powersuits.tradeoff.heatGeneration=דור חום
+powersuits.tradeoff.energyPerBlock=אנרגיה לכל בלוק לשנייה
+powersuits.tradeoff.movementResistance=תנועת ההתנגדות
+powersuits.tradeoff.energyGenerated=אנרגיה המופקת
+powersuits.tradeoff.daytimeHeatGen=הדור חום יום
+powersuits.tradeoff.nightTimeHeatGen=לילה חום הדור
+powersuits.tradeoff.daytimeEnergyGen=יום אנרגיה הדור
+powersuits.tradeoff.nightTimeEnergyGen=לילה אנרגיה הדור
+powersuits.tradeoff.thermalEnergyGen=דור אנרגיה
+powersuits.tradeoff.apiaristArmorEnergyCon=אפיארסט צריכת אנרגיה שריון
+powersuits.tradeoff.eatingEnergyCon=צריכת אנרגיה אכילה
+powersuits.tradeoff.autoFeederEfficiency=יעילות מזין אוטומטי
+powersuits.tradeoff.basicCoolingPower=כוח קירור בסיסי
+powersuits.tradeoff.coolingBonus=בונוס קירור
+powersuits.tradeoff.coolingSystemEnergyCon=מערכת קירור צריכת אנרגיה
+powersuits.tradeoff.repulsorEnergyCon=צריכת אנרגיה דוחה
+powersuits.tradeoff.advCoolSysEnergyCon=מערכת קירור מתקדמת צריכת אנרגיה
+powersuits.tradeoff.joltEnergy=ג 'ולט אנרגיה
+powersuits.tradeoff.blinkDriveEnergyCon=להבהב כונן צריכת אנרגיה
+powersuits.tradeoff.blinkDriveRange=טווח נסיעה מהבהב
+powersuits.tradeoff.yLookRatio=יחס Y-look
+powersuits.tradeoff.jetBootsEnergyCon=צריכת אנרגיה
+powersuits.tradeoff.jetbootsThrust=Jetboots דחף
+powersuits.tradeoff.jetpackEnergyCon=צריכת אנרגיה Jetpack
+powersuits.tradeoff.jetpackThrust=הדחף Jetpack
+powersuits.tradeoff.jumpEnergyCon=קפיצה צריכת אנרגיה
+powersuits.tradeoff.jumpBoost=קפיצה Boost
+powersuits.tradeoff.jumpExhaustComp=לקפוץ פיצוי תשישות
+powersuits.tradeoff.distanceRed=הפחתת מרחק
+powersuits.tradeoff.impactEnergyCon=השפעת צריכת אנרגיה
+powersuits.tradeoff.sprintEnergyCon=ספרינט צריכת אנרגיה
+powersuits.tradeoff.sprintSpeedMult=מכפיל מהירות Sprint
+powersuits.tradeoff.sprintExComp=ספרינט תשישות פיצוי
+powersuits.tradeoff.walkingEnergyCon=צריכת אנרגיה מהלכת
+powersuits.tradeoff.walkingSpeedMult=מהירות מכפיל מהירות
+powersuits.tradeoff.underwaterMovBoost=תנועה מתחת למים Boost
+powersuits.tradeoff.swimBoostEnergyCon=לשחות להגביר את צריכת האנרגיה
+powersuits.tradeoff.energyCon=צריכת אנרגיה
+powersuits.tradeoff.magnetRadius=מגנט רדיוס
+powersuits.tradeoff.fieldOfView=שדה הראייה
+powersuits.tradeoff.fOVMult=מכפיל FOV
+powersuits.tradeoff.underWaterEnergyCon=צריכת אנרגיה תת-מימית
+powersuits.tradeoff.underWaterHarvSpeed=מתחת למים קציר מהירות
+powersuits.tradeoff.axeEnergyCon=צריכת אנרגיה אקס
+powersuits.tradeoff.axeHarvSpd=מהירות קצירת הגרזן
+powersuits.tradeoff.chiselHarvSpd=אזמל קציר מהירות
+powersuits.tradeoff.chiselEnergyCon=אזמל צריכת אנרגיה
+powersuits.tradeoff.ignitEnergyCon=הצתה צריכת אנרגיה
+powersuits.tradeoff.grafterEnergyCon=צריכת אנרגיה
+powersuits.tradeoff.grafterHeatGen=הדור חום
+powersuits.tradeoff.hoeEnergyCon=Hoe צריכת אנרגיה
+powersuits.tradeoff.hoeSearchRad=חיפוש רדיוס
+powersuits.tradeoff.luxCapEnergyCon=צריכת חשמל
+powersuits.tradeoff.luxCapRed=לוקס קבל אדום גוון
+powersuits.tradeoff.luxCapGreen=לוקס קבל ירוק גוון
+powersuits.tradeoff.luxCapBlue=לוקס קבלים
+powersuits.tradeoff.pickHarvSpd=פיקאקס קציר מהירות
+powersuits.tradeoff.pickaxeEnergyCon=צריכת אנרגיה פיקאקס
+powersuits.tradeoff.scoopHarSpd=סקוף קציר מהירות
+powersuits.tradeoff.scoopEnergyCon=סקופ צריכת אנרגיה
+powersuits.tradeoff.shearEnergyCon=גז צריכת אנרגיה
+powersuits.tradeoff.shearHarvSpd=גזירה קציר מהירות
+powersuits.tradeoff.shovelHarvSpd=אתחול קציר מהירות
+powersuits.tradeoff.shovelEnergyCon=אתים צריכת אנרגיה
+powersuits.tradeoff.spinBladeEnergyCon=ספינינג להב צריכת אנרגיה
+powersuits.tradeoff.spinBladeDam=ספינינג Blade נזק
+powersuits.tradeoff.heatEmission=מחממים פליטה
+powersuits.tradeoff.punchEnergyCon=פונץ צריכת אנרגיה
+powersuits.tradeoff.meleeDamage=נזקי תגרה
+powersuits.tradeoff.meleeKnockback=תגרה
+powersuits.tradeoff.plasmaEnergyPerTick=פלסמה אנרגיה לכל Tick
+powersuits.tradeoff.plasmaDamage=נזק פלזמה בתשלום מלא
+powersuits.tradeoff.plasmaExplosiveness=פלזמה פיצוץ
+powersuits.tradeoff.railgunTotalImpulse=רכבת סך הכל דחף
+powersuits.tradeoff.railgunEnergyCost=פליטת חום...
+powersuits.tradeoff.railgunHeatEm=פליטת חום
+powersuits.tradeoff.power=כוח
+powersuits.tradeoff.voltage=מתח
+powersuits.tradeoff.impact=השפעה
+powersuits.tradeoff.carryThrough=העברה
+powersuits.tradeoff.amperage=אמפרג '
+powersuits.tradeoff.creeper=מטפס
+powersuits.tradeoff.advancedCoolingPower=כוח קירור מתקדם
+powersuits.tradeoff.overclock=Overclock
+powersuits.tradeoff.thrust=דחף
+powersuits.tradeoff.range=טווח
+powersuits.tradeoff.radius=רדיוס
+powersuits.tradeoff.efficiency=יעילות
+powersuits.tradeoff.red=אדום
+powersuits.tradeoff.green=ירוק
+powersuits.tradeoff.blue=כחול
+powersuits.tradeoff.sprintAssist=ספרינט Assist
+powersuits.tradeoff.compensation=- פיצוי
+powersuits.tradeoff.walkingAssist=סיוע הליכה
+powersuits.tradeoff.vertically=אנכית
+powersuits.tradeoff.maxEnergy=אנרגיה מקסימלית
+powersuits.tradeoff.maxHeat=חום מרבי
+powersuits.tradeoff.aoeEnergyCon=צריכת אנרגיה AoE
+powersuits.tradeoff.aoeMiningDiameter=קוטר AoE כרייה
+powersuits.tradeoff.silkTouchEnCon=משי צריכת אנרגיה משי
+powersuits.tradeoff.diameter=קוטר
+powersuits.tradeoff.enchLevel=רמת הקסם
+powersuits.tradeoff.fortuneEnCon=צריכת אנרגיה פורצ 'ן
+powersuits.tradeoff.fortuneLevel=רמת פורצ 'ן
 
 
 # Armor
@@ -71,10 +180,8 @@ module.powersuits.diamondPlating.desc=יהלום ציפוי קשה יותר יק
 module.powersuits.energyShield.name=מגן אנרגיה
 module.powersuits.energyShield.desc=מגני אנרגיה הם הרבה יותר קל מאשר ציפוי, אבל לצרוך אנרגיה.
 
-
 module.powersuits.transparentArmor.name=שריון שקוף
 module.powersuits.transparentArmor.desc=הפוך את הפריט לשקוף, כך שתוכל להראות את העור מבלי לאבד שריון.
-
 
 module.powersuits.basicBattery.name=סוללה בסיסית
 module.powersuits.basicBattery.desc=שלב סוללה כדי לאפשר לפריט לאחסן אנרגיה.
@@ -95,8 +202,6 @@ module.powersuits.kineticGenerator.desc=צור כוח עם התנועה שלך.
 module.powersuits.thermalGenerator.name=מחולל תרמי
 module.powersuits.thermalGenerator.desc=צור חשמל מכמויות קיצוניות של חום.
 
-
-
 module.powersuits.airtightSeal.name=סתימת אוויר
 module.powersuits.airtightSeal.desc=אטום את החליפה נגד אטמוספרות עוינות עבור להעז לכוכבי לכת אחרים.
 module.powersuits.apiaristArmor.name=שריון כוורן
@@ -113,8 +218,6 @@ module.powersuits.mobRepulsor.name=מאפיה דוחה
 module.powersuits.mobRepulsor.desc=דוחף את האספסוף ממך כאשר מופעל, אבל כל הזמן מנקז כוח. מומלץ מאוד להגדיר את המודול הזה keybind בגלל האנרגיה גבוהה לצייר.
 module.powersuits.waterElectrolyzer.name=מחשמל מים
 module.powersuits.waterElectrolyzer.desc=כאשר אתה מפעיל את האוויר, מודול זה יהיה לטלטל את המים סביבך, electrolyzing בועה קטנה לנשום.
-
-
 
 module.powersuits.blinkDrive.name=מתקן השתגרות
 module.powersuits.blinkDrive.desc=קבל מנקודה א 'לנקודה ג' דרך נקודה ב ', כאשר נקודה ב' היא קפל בחלל ובזמן.
@@ -149,8 +252,6 @@ module.powersuits.invisibility.desc=פולטים הולוגרמה של הסבי�
 module.powersuits.magnet.name=מגנט
 module.powersuits.magnet.desc=יוצר שדה מגנטי חזק מספיק כדי למשוך פריטים לכיוון השחקן. אזהרה: מודול זה מתרוקן באופן רציף. כבה אותו כאשר אין צורך. (תפריט Keybind: k)
 
-
-
 module.powersuits.binoculars.name=משקפת
 module.powersuits.binoculars.desc=עם הבעיות כי היו אוטיפין לאחרונה מציקים, אתה כבר החליט לקחת את היכולת זום לתוך הידיים שלך.
 module.powersuits.nightVision.name=ראיית לילה
@@ -161,6 +262,13 @@ module.powersuits.aurameter.desc=לחבר כמה משקפי מגן Thaumic יש 
 # Tools
 module.powersuits.aoePickUpgrade.name=שדרוג מקדחה יהלום
 module.powersuits.aoePickUpgrade.desc=עדכון זה יאפשר את המודול pickaxe שלי אזור 3x3 של בלוקים
+module.powersuits.madModule.name=Vein Miner
+module.powersuits.madModule.desc=A Vein miner powered by Mekanism's Atomic Disasemmber
+module.powersuits.fortuneModule.name=Fortune Enchantment
+module.powersuits.fortuneModule.desc=A module that provides the fortune enchantment.
+module.powersuits.silk_touch.name=Silk Touch Enchantment
+module.powersuits.silk_touch.desc=A module that provides the Silk Touch enchantment
+
 module.powersuits.appengECWirelessFluid.name=מסופי נוזל אלחוטיים
 module.powersuits.appengECWirelessFluid.desc=מסנן נוזל אלחוטי אנרגיסטי אנרגיסטי אקלקליס יישומי המשולב בכלי החשמל שלך.
 module.powersuits.appengWireless.name=מסוף אלחוטי
@@ -216,8 +324,6 @@ module.powersuits.shovel.desc=אתים טובים עבור חומרים רכים
 module.powersuits.treetap.name=עץ הקש
 module.powersuits.treetap.desc=טריטפ IC2 משולב בכלי הכוח שלך.
 
-
-
 module.powersuits.bladeLauncher.name=משגר להבים
 module.powersuits.bladeLauncher.desc=משיקה ספינינג להב של מוות (או גז).
 module.powersuits.lightningSummoner.name=ברק מזמין /
@@ -228,8 +334,6 @@ module.powersuits.plasmaCannon.name=תותח פלזמה
 module.powersuits.plasmaCannon.desc=השתמש קשתות חשמל בשדה בלימה כדי superheat אוויר פלזמה ולהשיק אותו על אויבים.
 module.powersuits.railgun.name=נשק ישיר
 module.powersuits.railgun.desc=הרכבה המאיצה קליע למהירויות קוליות באמצעות כוח מגנטי. רתיעה כבדה.
-
-
 
 gui.powersuits.noModulesFound.line1=אין פריטים כוחיים מודולריים
 gui.powersuits.noModulesFound.line2=נמצא במלאי. תכין קצת!
@@ -253,8 +357,6 @@ gui.powersuits.equippedTotals=מאובטחת סך הכל
 gui.powersuits.energyStorage=אחסון אנרגיה
 gui.powersuits.armor=שריון
 gui.powersuits.slotpoints=נקודות חריץ
-
-
 
 tooltip.powersuits.pressShift=הקש SHIFT לקבלת מידע נוסף.
 tooltip.powersuits.componentTooltip=לשימוש ב טינקר טבלה.
@@ -336,7 +438,6 @@ textureSpec.head.partName=ראש
 textureSpec.chest.partName=חזה
 textureSpec.legs.partName=רגליים
 textureSpec.feet.partName=כף רגל
-
 
 textureSpec.citizenjoe_armorskin.specName=אזרח ג 'ו שריון עור
 

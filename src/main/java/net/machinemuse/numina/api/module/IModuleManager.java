@@ -141,6 +141,17 @@ public interface IModuleManager {
         }
     }
 
+    default int getNumberInstalledModulesOfType(@Nonnull ItemStack stack, EnumModuleCategory category) {
+        int matches = 0;
+        NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
+        for (IPowerModule module : getValidModulesForItem(stack)) {
+            if (tagHasModule(itemTag, module.getDataName()) && module.getCategory() == category) {
+                matches += 1;
+            }
+        }
+        return matches;
+    }
+
     default List<IPowerModule> getItemInstalledModules(@Nonnull ItemStack stack) {
         List<IPowerModule> installedModules = new ArrayList();
         NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);

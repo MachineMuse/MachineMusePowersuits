@@ -22,9 +22,6 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         CapabilityHeat.register();
         Numina.INSTANCE.configDir = new File(event.getModConfigurationDirectory(), NuminaConstants.CONFIG_FOLDER);
-        File recipesFolder = new File(Numina.getInstance().configDir, "/recipes");
-        recipesFolder.mkdirs();
-        recipesFolder.mkdir();
     }
 
     public void init(FMLInitializationEvent event) {
