@@ -20,8 +20,7 @@ public class LeatherPlatingModule extends PowerModuleBase {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(this.getDataName(), MuseItemUtils.copyAndResize(new ItemStack(Items.LEATHER), 2));
 
-        addBasePropertyDouble(MPSModuleConstants.ARMOR_VALUE_PHYSICAL, 3, " " +
-                I18n.format(MPSModuleConstants.MODULE_TRADEOFF_PREFIX + MPSModuleConstants.ARMOR_POINTS));
+        addBasePropertyDouble(MPSModuleConstants.ARMOR_VALUE_PHYSICAL, 3, MPSModuleConstants.ARMOR_POINTS);
         addBasePropertyDouble(NuminaNBTConstants.MAXIMUM_HEAT, 75);
     }
 

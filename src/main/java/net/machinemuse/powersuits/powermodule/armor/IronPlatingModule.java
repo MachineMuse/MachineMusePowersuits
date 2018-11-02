@@ -18,8 +18,7 @@ public class IronPlatingModule extends PowerModuleBase {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(this.getDataName(), MuseItemUtils.copyAndResize(ItemComponent.ironPlating, 1));
 
-        addBasePropertyDouble(MPSModuleConstants.ARMOR_VALUE_PHYSICAL, 4, " " +
-                I18n.format(MPSModuleConstants.MODULE_TRADEOFF_PREFIX + MPSModuleConstants.ARMOR_POINTS));
+        addBasePropertyDouble(MPSModuleConstants.ARMOR_VALUE_PHYSICAL, 4, MPSModuleConstants.ARMOR_POINTS);
         addBasePropertyDouble(NuminaNBTConstants.MAXIMUM_HEAT, 300);
     }
 

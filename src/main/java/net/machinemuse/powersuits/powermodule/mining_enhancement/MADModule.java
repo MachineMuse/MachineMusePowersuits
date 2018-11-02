@@ -65,8 +65,11 @@ public class MADModule extends PowerModuleBase implements IToggleableModule, IMi
         }
 
         ElectricItemUtils.chargeItem(emulatedTool, 100000);
+        // TODO: set tag manually?          //        System.out.println("emulated tool: " + emulatedTool.serializeNBT().toString());
 
-        System.out.println("emulated tool: " + emulatedTool.serializeNBT().toString());
+//        {id:"mekanism:atomicdisassembler",Count:1b,tag:{mekData:{mode:3,energyStored:1000000.0d}},Damage:0s}
+
+//        NBTTagCompound nbt2 = new NBTTagCompound();
 
 
 // Fixme: todo in 1.13 when emulated tools are actually stored
