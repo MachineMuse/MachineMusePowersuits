@@ -10,9 +10,12 @@ import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.armor.*;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;
@@ -47,8 +50,12 @@ public abstract class PowerModuleBase implements IPowerModule {
         addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
     }
 
+    @SideOnly(Side.CLIENT)
     public static String getUnit(String propertyName) {
         String unit = units.get(propertyName);
+        if (unit != null && unit.startsWith(MPSModuleConstants.MODULE_TRADEOFF_PREFIX))
+            unit = I18n.format(unit);
+
         return unit == null ? "" : unit;
     }
 
@@ -59,8 +66,6 @@ public abstract class PowerModuleBase implements IPowerModule {
 
     @Override
     public abstract TextureAtlasSprite getIcon(ItemStack item);
-
-
 
     @Override
     public Map<String, List<IPropertyModifier>> getPropertyModifiers() {

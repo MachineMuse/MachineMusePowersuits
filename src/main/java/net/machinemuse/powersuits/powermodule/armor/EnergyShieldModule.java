@@ -18,7 +18,8 @@ public class EnergyShieldModule extends PowerModuleBase {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(this.getDataName(), MuseItemUtils.copyAndResize(ItemComponent.fieldEmitter, 2));
 
-        addTradeoffPropertyDouble(MPSModuleConstants.MODULE_FIELD_STRENGTH, MPSModuleConstants.ARMOR_VALUE_ENERGY, 6, MPSModuleConstants.ARMOR_POINTS);
+        addTradeoffPropertyDouble(MPSModuleConstants.MODULE_FIELD_STRENGTH, MPSModuleConstants.ARMOR_VALUE_ENERGY, 6,
+                MPSModuleConstants.MODULE_TRADEOFF_PREFIX + MPSModuleConstants.ARMOR_POINTS);
         addTradeoffPropertyDouble(MPSModuleConstants.MODULE_FIELD_STRENGTH, MPSModuleConstants.ARMOR_ENERGY_CONSUMPTION, 5000, "RF");
         addTradeoffPropertyDouble(MPSModuleConstants.MODULE_FIELD_STRENGTH, NuminaNBTConstants.MAXIMUM_HEAT, 500, "");
     }

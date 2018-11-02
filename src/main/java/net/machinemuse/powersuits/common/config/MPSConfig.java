@@ -309,7 +309,9 @@ public enum MPSConfig {
         }
 
         try {
-            FileUtils.writeStringToFile(new File(getConfigFolder(), "missingConfigDoubles.txt"), stringBuilder.toString(), Charset.defaultCharset(), false);
+            String output = stringBuilder.toString();
+            if(output != null && !output.isEmpty())
+                FileUtils.writeStringToFile(new File(getConfigFolder(), "missingConfigDoubles.txt"), output, Charset.defaultCharset(), false);
         } catch (IOException e) {
             e.printStackTrace();
         }
