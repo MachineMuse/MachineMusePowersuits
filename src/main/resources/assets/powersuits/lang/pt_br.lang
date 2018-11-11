@@ -1,12 +1,6 @@
 
 itemGroup.powersuits=Exotrajes Modulares
 
-# Config ---------------------------
-# HUD
-config.powersuits.hud.useHUD=I like big tortoises
-
-
-
 tile.powersuits.luxCapacitor.name=Capacitor Prismático
 tile.powersuits.tinkerTable.name=Mesa de Ajustes para Exotrajes
 
@@ -163,6 +157,7 @@ powersuits.tradeoff.efficiency=Eficiência
 powersuits.tradeoff.red=Vermelho
 powersuits.tradeoff.green=verde
 powersuits.tradeoff.blue=Azul
+powersuits.tradeoff.alpha=Alpha
 powersuits.tradeoff.sprintAssist=Assistente de Sprint
 powersuits.tradeoff.compensation=Remuneração
 powersuits.tradeoff.walkingAssist=Assistente de Caminhada
@@ -176,6 +171,7 @@ powersuits.tradeoff.diameter=Diâmetro
 powersuits.tradeoff.enchLevel=Nível de Encantamento
 powersuits.tradeoff.fortuneEnCon=Consumo de energia da fortuna
 powersuits.tradeoff.fortuneLevel=Nível de fortuna
+
 
 # Armor
 module.powersuits.leatherPlating.name=Revestimento de couro
@@ -559,3 +555,6 @@ model.powerfist_fingers_firing_left.pinky1.partName=Pinky 1
 model.powerfist_fingers_firing_left.pinky2.partName=Pinky 2
 model.powerfist_fingers_firing_left.thumb1.partName=Thumb 1
 model.powerfist_fingers_firing_left.thumb2.partName=Thumb 2
+# Config ---------------------------
+# HUD
+config.powersuits.hud.useHUD=I like big tortoises

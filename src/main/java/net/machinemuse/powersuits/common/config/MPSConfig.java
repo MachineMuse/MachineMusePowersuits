@@ -1,7 +1,11 @@
 package net.machinemuse.powersuits.common.config;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import net.machinemuse.numina.api.module.EnumModuleCategory;
 import net.machinemuse.numina.common.Numina;
+import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.common.MPSCreativeTab;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
@@ -9,8 +13,10 @@ import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorHelmet;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorLeggings;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
+import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import org.apache.commons.io.FileUtils;
@@ -19,7 +25,9 @@ import org.lwjgl.input.Keyboard;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
@@ -310,7 +318,7 @@ public enum MPSConfig {
 
         try {
             String output = stringBuilder.toString();
-            if(output != null && !output.isEmpty())
+            if (output != null && !output.isEmpty())
                 FileUtils.writeStringToFile(new File(getConfigFolder(), "missingConfigDoubles.txt"), output, Charset.defaultCharset(), false);
         } catch (IOException e) {
             e.printStackTrace();
@@ -331,5 +339,40 @@ public enum MPSConfig {
             e.printStackTrace();
         }
         return;
+    }
+
+//    public NBTTagCompound getRenderTagFor
+
+
+    /**
+     * Save the model settings as a Json in the config folder using the itemstack name as the folder name
+     */
+    public boolean savePreset(String presetName, @Nonnull ItemStack itemStack) {
+        if (itemStack.isEmpty())
+            return false;
+
+        try {
+            // get the render tag for the item
+            NBTTagCompound nbt = MPSNBTUtils.getMuseRenderTag(itemStack);
+
+            // sub folder based on the item name
+            String subfolder = itemStack.getItem().getRegistryName().getResourcePath();
+
+            // path with subfolder
+            File file = new File(MPSConfig.INSTANCE.getConfigFolder(), subfolder);
+
+            // final complete path
+            file = new File(file, presetName + ".json");
+
+            Writer writer = new FileWriter(file);
+            Gson gson = new GsonBuilder().create();
+            gson.toJson(nbt, writer);
+            writer.flush();
+            writer.close();
+        } catch(Exception e) {
+            MuseLogger.logException("Failed to save preset: ", e);
+            return false;
+        }
+        return true;
     }
 }

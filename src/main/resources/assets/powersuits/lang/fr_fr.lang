@@ -155,6 +155,7 @@ powersuits.tradeoff.efficiency=Efficacité
 powersuits.tradeoff.red=Rouge
 powersuits.tradeoff.green=Vert
 powersuits.tradeoff.blue=Bleu
+powersuits.tradeoff.alpha=Alpha
 powersuits.tradeoff.sprintAssist=Assistance de sprint
 powersuits.tradeoff.compensation=Compensation
 powersuits.tradeoff.walkingAssist=Aide à la marche
@@ -168,6 +169,7 @@ powersuits.tradeoff.diameter=Diamètre
 powersuits.tradeoff.enchLevel=Niveau d'enchantement
 powersuits.tradeoff.fortuneEnCon=Consommation d'énergie Fortune
 powersuits.tradeoff.fortuneLevel=Niveau de fortune
+
 
 # Armor
 module.powersuits.leatherPlating.name=Revetement en cuir

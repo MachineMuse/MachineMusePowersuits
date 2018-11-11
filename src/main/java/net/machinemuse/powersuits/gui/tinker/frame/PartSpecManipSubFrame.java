@@ -1,7 +1,10 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.client.render.RenderState;
+import net.machinemuse.numina.common.Numina;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.MuseLogger;
@@ -12,6 +15,7 @@ import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.client.render.modelspec.*;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.gui.GuiIcons;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
@@ -28,6 +32,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -48,6 +55,11 @@ public class PartSpecManipSubFrame {
     public MuseRelativeRect border;
     public List<PartSpecBase> partSpecs;
     public boolean open;
+
+    //TODO: add dialog to save as with a name for presets.
+
+
+
 
     public PartSpecManipSubFrame(SpecBase model, ColourPickerFrame colourframe, ItemSelectionFrame itemSelector, MuseRelativeRect border) {
         this.model = model;
@@ -317,8 +329,17 @@ public class PartSpecManipSubFrame {
 
             tagdata = this.getOrMakeSpecTag(spec);
             spec.setColourIndex(tagdata, columnNumber);
-            if (player.world.isRemote)
+            if (player.world.isRemote) {
                 PacketSender.sendToServer(new MusePacketCosmeticInfo(player, this.getSelectedItem().inventorySlot, tagname, tagdata).getPacket131());
+                /**
+                 * this stuff was just for testing. Unfortunately, the file is created blank and does not populate
+                 */
+
+
+
+
+
+            }
             return true;
         }
         return false;
