@@ -50,7 +50,7 @@ public class ItemComponent extends Item {
         this.maxStackSize = 64;
         String name = "powerArmorComponent";
         this.setRegistryName(new ResourceLocation(MODID, name.toLowerCase()));
-        this.setUnlocalizedName(new StringBuilder(MODID).append(".").append(name).toString());
+        this.setTranslationKey(new StringBuilder(MODID).append(".").append(name).toString());
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setCreativeTab(MPSConfig.INSTANCE.mpsCreativeTab);
@@ -84,7 +84,7 @@ public class ItemComponent extends Item {
             String message = I18n.format("tooltip.powersuits.componentTooltip");
             message = MuseStringUtils.wrapMultipleFormatTags(message, MuseStringUtils.FormatCodes.Grey, MuseStringUtils.FormatCodes.Italic);
             currentTipList.add(message);
-            String description = I18n.format(getUnlocalizedName(stack) + ".desc");
+            String description = I18n.format(getTranslationKey(stack) + ".desc");
             currentTipList.addAll(MuseStringUtils.wrapStringToLength(description, 30));
         } else {
             currentTipList.add(MuseCommonStrings.additionalInfoInstructions());
@@ -119,14 +119,14 @@ public class ItemComponent extends Item {
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack itemStack) {
+    public String getTranslationKey(ItemStack itemStack) {
         String unlocalizedName = names.get(itemStack.getMetadata());
         if (unlocalizedName != null) {
             unlocalizedName = unlocalizedName.replaceAll("\\s", "");
         } else
             unlocalizedName = "";
 
-        return this.getUnlocalizedName() + "." + unlocalizedName;
+        return this.getTranslationKey() + "." + unlocalizedName;
     }
 
     /**

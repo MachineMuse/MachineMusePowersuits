@@ -40,7 +40,7 @@ public class PlayerUpdateHandler {
 //            for (ItemStack stack : modularItemsEquipped) {
 //                // Temporary Advanced Rocketry hack Not the best way but meh.
 //                NBTTagList tagList = stack.getEnchantmentTagList();
-//                if (tagList != null && !tagList.hasNoTags()) {
+//                if (tagList != null && !tagList.isEmpty()) {
 //                    if (tagList.tagCount() == 1) {
 //                        if (!(tagList.getCompoundTagAt(0).getShort("id") == 128))
 //                            stack.getTagCompound().removeTag("ench");

@@ -58,12 +58,12 @@
 //    }
 //
 //    public boolean accepts(ResourceLocation modelLocation) {
-//        return enabledDomains.contains(modelLocation.getResourceDomain()) && modelLocation.getResourcePath().endsWith(".obj");
+//        return enabledDomains.contains(modelLocation.getResourceDomain()) && modelLocation.getPath().endsWith(".obj");
 //    }
 //
 //    @Nullable
 //    private IModel loadModelWithoutCaching(ResourceLocation modelLocation) throws Exception {
-//        ResourceLocation file = new ResourceLocation(modelLocation.getResourceDomain(), modelLocation.getResourcePath());
+//        ResourceLocation file = new ResourceLocation(modelLocation.getResourceDomain(), modelLocation.getPath());
 //        OBJModelPlus model = null;
 //
 //        IResource resource;
@@ -71,14 +71,14 @@
 //            resource = manager.getResource(file);
 //        } catch (FileNotFoundException e) {
 //            MuseLogger.logException("failed to load model: ", e);
-//            if (modelLocation.getResourcePath().startsWith("models/block/"))
-//                resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/item/" + file.getResourcePath().substring("models/block/".length())));
-//            else if (modelLocation.getResourcePath().startsWith("models/item/"))
-//                resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/block/" + file.getResourcePath().substring("models/item/".length())));
-//            else if (modelLocation.getResourcePath().startsWith("models/models/item/"))
-//                resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/item/" + file.getResourcePath().substring("models/models/item/".length())));
-//            else if (modelLocation.getResourcePath().startsWith("models/models/block/"))
-//                resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/block/" + file.getResourcePath().substring("models/models/block/".length())));
+//            if (modelLocation.getPath().startsWith("models/block/"))
+//                resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/item/" + file.getPath().substring("models/block/".length())));
+//            else if (modelLocation.getPath().startsWith("models/item/"))
+//                resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/block/" + file.getPath().substring("models/item/".length())));
+//            else if (modelLocation.getPath().startsWith("models/models/item/"))
+//                resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/item/" + file.getPath().substring("models/models/item/".length())));
+//            else if (modelLocation.getPath().startsWith("models/models/block/"))
+//                resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/block/" + file.getPath().substring("models/models/block/".length())));
 //            else throw e;
 //        }
 //        OBJModelPlus.Parser parser = new OBJModelPlus.Parser(resource, manager);
@@ -105,7 +105,7 @@
 //
 //    @Override
 //    public IModel loadModel(ResourceLocation modelLocation) throws Exception {
-//        ResourceLocation file = new ResourceLocation(modelLocation.getResourceDomain(), modelLocation.getResourcePath());
+//        ResourceLocation file = new ResourceLocation(modelLocation.getResourceDomain(), modelLocation.getPath());
 //         OBJModelPlus model = null;
 //        if (!cache.containsKey(file)) {
 //            model = (OBJModelPlus) loadModelWithoutCaching(file);
@@ -190,26 +190,26 @@ public enum OBJPlusLoader implements ICustomModelLoader {
 
     @Override
     public boolean accepts(ResourceLocation modelLocation) {
-        return enabledDomains.contains(modelLocation.getResourceDomain()) && modelLocation.getResourcePath().endsWith(".obj");
+        return enabledDomains.contains(modelLocation.getNamespace()) && modelLocation.getPath().endsWith(".obj");
     }
 
     @Override
     public IModel loadModel(ResourceLocation modelLocation) throws Exception {
-        ResourceLocation file = new ResourceLocation(modelLocation.getResourceDomain(), modelLocation.getResourcePath());
+        ResourceLocation file = new ResourceLocation(modelLocation.getNamespace(), modelLocation.getPath());
         if (!cache.containsKey(file)) {
             IResource resource;
             try {
                 resource = manager.getResource(file);
             } catch (FileNotFoundException e) {
                 MuseLogger.logException("failed to load model: ", e);
-                if (modelLocation.getResourcePath().startsWith("models/block/"))
-                    resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/item/" + file.getResourcePath().substring("models/block/".length())));
-                else if (modelLocation.getResourcePath().startsWith("models/item/"))
-                    resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/block/" + file.getResourcePath().substring("models/item/".length())));
-                else if (modelLocation.getResourcePath().startsWith("models/models/item/"))
-                    resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/item/" + file.getResourcePath().substring("models/models/item/".length())));
-                else if (modelLocation.getResourcePath().startsWith("models/models/block/"))
-                    resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/block/" + file.getResourcePath().substring("models/models/block/".length())));
+                if (modelLocation.getPath().startsWith("models/block/"))
+                    resource = manager.getResource(new ResourceLocation(file.getNamespace(), "models/item/" + file.getPath().substring("models/block/".length())));
+                else if (modelLocation.getPath().startsWith("models/item/"))
+                    resource = manager.getResource(new ResourceLocation(file.getNamespace(), "models/block/" + file.getPath().substring("models/item/".length())));
+                else if (modelLocation.getPath().startsWith("models/models/item/"))
+                    resource = manager.getResource(new ResourceLocation(file.getNamespace(), "models/item/" + file.getPath().substring("models/models/item/".length())));
+                else if (modelLocation.getPath().startsWith("models/models/block/"))
+                    resource = manager.getResource(new ResourceLocation(file.getNamespace(), "models/block/" + file.getPath().substring("models/models/block/".length())));
                 else throw e;
             }
             OBJModelPlus.Parser parser = new OBJModelPlus.Parser(resource, manager);

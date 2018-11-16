@@ -11,6 +11,7 @@ import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableModule;
+import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableFrame;
 import net.minecraft.util.SoundCategory;
 import org.lwjgl.opengl.GL11;
 

@@ -9,10 +9,15 @@ import java.util.List;
 public class ClickableLabel implements IClickable {
     protected String label;
     protected MusePoint2D position;
+    public static final int offsetx = 8;
 
     public ClickableLabel(String label, MusePoint2D position) {
         this.label = label;
         this.position = position;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     /*
@@ -30,7 +35,13 @@ public class ClickableLabel implements IClickable {
 
     @Override
     public boolean hitBox(double x, double y) {
-        return false;
+        if (label == null || label.isEmpty())
+            return false;
+
+        MusePoint2D radius = new MusePoint2D(MuseRenderer.getStringWidth(label) / 2 + 2, 6);
+        boolean hitx = Math.abs(position.getX() - x) < radius.getX();
+        boolean hity = Math.abs(position.getY() - y) < radius.getY();
+        return hitx && hity;
     }
 
     /*

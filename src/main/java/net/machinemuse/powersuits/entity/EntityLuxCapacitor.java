@@ -70,9 +70,9 @@ public class EntityLuxCapacitor extends EntityThrowable implements IEntityAdditi
     protected void onImpact(RayTraceResult hitResult) {
         if (!this.isDead && hitResult.typeOfHit == RayTraceResult.Type.BLOCK) {
             EnumFacing dir = hitResult.sideHit.getOpposite();
-            int x = hitResult.getBlockPos().getX() - dir.getFrontOffsetX();
-            int y = hitResult.getBlockPos().getY() - dir.getFrontOffsetY();
-            int z = hitResult.getBlockPos().getZ() - dir.getFrontOffsetZ();
+            int x = hitResult.getBlockPos().getX() - dir.getXOffset();
+            int y = hitResult.getBlockPos().getY() - dir.getYOffset();
+            int z = hitResult.getBlockPos().getZ() - dir.getZOffset();
             if (y > 0) {
                 BlockPos blockPos = new BlockPos(x, y, z);
                 if (MPSItems.INSTANCE.luxCapacitor.canPlaceBlockAt(world, blockPos)) {

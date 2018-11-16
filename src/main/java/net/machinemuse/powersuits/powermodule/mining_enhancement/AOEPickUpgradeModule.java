@@ -83,7 +83,7 @@ public class AOEPickUpgradeModule extends PowerModuleBase implements IMiningEnha
                 if (ModuleManager.INSTANCE.itemHasActiveModule(itemStack, module.getDataName()) && ((IBlockBreakingModule) module).canHarvestBlock(itemStack, state, player, blockPos, playerEnergy - energyUsage)) {
                     if (posIn == blockPos) // center block
                         harvested = true;
-                    block.onBlockDestroyedByPlayer(player.world, blockPos, state);
+                    block.onPlayerDestroy(player.world, blockPos, state);
                     player.world.playEvent(null, 2001, blockPos, Block.getStateId(state));
                     player.world.setBlockToAir(blockPos);
                     block.breakBlock(player.world, blockPos, state);

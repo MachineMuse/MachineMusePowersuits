@@ -59,7 +59,7 @@ public class BlockLuxCapacitor extends BlockDirectional {
         super(Material.CIRCUITS);
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN));
         setRegistryName(MPSModConstants.MODID, name.toLowerCase());
-        setUnlocalizedName(new StringBuilder(MPSModConstants.MODID).append(".").append(name).toString());
+        setTranslationKey(new StringBuilder(MPSModConstants.MODID).append(".").append(name).toString());
         setHardness(0.05F);
         setResistance(10.0F);
         setSoundType(SoundType.METAL);
@@ -151,7 +151,7 @@ public class BlockLuxCapacitor extends BlockDirectional {
     @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta));
+        return this.getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta));
     }
 
     @Override

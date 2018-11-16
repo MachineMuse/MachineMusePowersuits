@@ -30,7 +30,7 @@ public class ItemPowerArmorHelmet extends ItemPowerArmor implements
 
     public ItemPowerArmorHelmet() {
         super(0, EntityEquipmentSlot.HEAD);
-        this.setUnlocalizedName("powerArmorHelmet");
+        this.setTranslationKey("powerArmorHelmet");
         this.armorType = EntityEquipmentSlot.HEAD;
     }
 

@@ -110,8 +110,8 @@ public class OBJModelPlus implements IModel {
         builder.put(ModelLoader.White.LOCATION.toString(), ModelLoader.White.INSTANCE);
         TextureAtlasSprite missing = bakedTextureGetter.apply(new ResourceLocation("missingno"));
         for (Map.Entry<String, Material> e : matLib.materials.entrySet()) {
-            if (e.getValue().getTexture().getTextureLocation().getResourcePath().startsWith("#")) {
-                FMLLog.log.fatal("OBJPlusLoader: Unresolved texture '{}' for obj model '{}'", e.getValue().getTexture().getTextureLocation().getResourcePath(), modelLocation);
+            if (e.getValue().getTexture().getTextureLocation().getPath().startsWith("#")) {
+                FMLLog.log.fatal("OBJPlusLoader: Unresolved texture '{}' for obj model '{}'", e.getValue().getTexture().getTextureLocation().getPath(), modelLocation);
                 builder.put(e.getKey(), missing);
             } else {
                 builder.put(e.getKey(), bakedTextureGetter.apply(e.getValue().getTexture().getTextureLocation()));
@@ -466,9 +466,9 @@ public class OBJModelPlus implements IModel {
             this.materials.clear();
             boolean hasSetTexture = false;
             boolean hasSetColor = false;
-            String domain = from.getResourceDomain();
+            String domain = from.getNamespace();
             if (!path.contains("/"))
-                path = from.getResourcePath().substring(0, from.getResourcePath().lastIndexOf("/") + 1) + path;
+                path = from.getPath().substring(0, from.getPath().lastIndexOf("/") + 1) + path;
             mtlStream = new InputStreamReader(manager.getResource(new ResourceLocation(domain, path)).getInputStream(), StandardCharsets.UTF_8);
             mtlReader = new BufferedReader(mtlStream);
 

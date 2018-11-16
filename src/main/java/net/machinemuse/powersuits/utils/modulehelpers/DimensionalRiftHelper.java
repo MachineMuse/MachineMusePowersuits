@@ -61,7 +61,7 @@ public class DimensionalRiftHelper extends Teleporter {
     }
 
     public TileEntity findPortalInChunk(BlockPos pos) {
-        Chunk chunk = this.worldServerInstance.getChunkFromBlockCoords(pos);
+        Chunk chunk = this.worldServerInstance.getChunk(pos);
         for (Object tile : chunk.getTileEntityMap().values()) {
             if ((tile instanceof TileEntityPortal)) {
                 return (TileEntity) tile;

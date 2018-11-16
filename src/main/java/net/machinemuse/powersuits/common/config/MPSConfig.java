@@ -356,7 +356,7 @@ public enum MPSConfig {
             NBTTagCompound nbt = MPSNBTUtils.getMuseRenderTag(itemStack);
 
             // sub folder based on the item name
-            String subfolder = itemStack.getItem().getRegistryName().getResourcePath();
+            String subfolder = itemStack.getItem().getRegistryName().getPath();
 
             // path with subfolder
             File file = new File(MPSConfig.INSTANCE.getConfigFolder(), subfolder);

@@ -28,10 +28,6 @@ public class CosmeticGui extends MuseGui {
         this.worldx = worldx;
         this.worldy = worldy;
         this.worldz = worldz;
-//        this.xSize = 256;
-//        this.ySize = 200;
-//        this.xSize = 400;
-//        this.ySize = 244;
 
         ScaledResolution screen = new ScaledResolution(Minecraft.getMinecraft());
         this.xSize = Math.min(screen.getScaledWidth() - 50, 500);
@@ -59,13 +55,35 @@ public class CosmeticGui extends MuseGui {
                 Colour.DARKBLUE.withAlpha(0.8F));
         frames.add(renderframe);
 
+
+        // FIXME: finish transitioning to scrollable frame.
+
         ColourPickerFrame colourpicker = new ColourPickerFrame(
-                new MuseRect(absX(0.18f), absY(-0.95f),
-                        absX(0.95f), absY(-0.025f)),
+                new MusePoint2D(absX(0.18f),
+                        absY(-0.95f)),
+
+                new MusePoint2D(absX(0.95f),
+                        absY(-0.27f)),
+
                 Colour.LIGHTBLUE.withAlpha(0.8F),
                 Colour.DARKBLUE.withAlpha(0.8F),
                 itemSelect);
         frames.add(colourpicker);
+
+
+        // TODO: usse config setting for turing this off. Adjust colour picker frame element spacing and frame size for when this is absent.
+
+
+        LoadSaveResetSubFrame loadSaveResetSubFrame = new LoadSaveResetSubFrame(
+                new MuseRect(
+                        absX(0.18f),
+                        absY(-0.23f),
+                        absX(0.95f),
+                        absY(-0.025f)),
+                Colour.LIGHTBLUE.withAlpha(0.8F),
+                Colour.DARKBLUE.withAlpha(0.8F),
+                itemSelect);
+        frames.add(loadSaveResetSubFrame);
 
         PartManipContainer partframe = new PartManipContainer(
                 itemSelect, colourpicker,

@@ -111,10 +111,10 @@ public class DefaultModelSpec {
             nbt.setTag(elem.getString(NuminaNBTConstants.TAG_MODEL) + "." + elem.getString(NuminaNBTConstants.TAG_PART), elem);
         }
 
-        if (!specList.hasNoTags())
+        if (!specList.isEmpty())
             nbt.setTag(MPSNBTConstants.NBT_SPECLIST_TAG, specList);
 
-        if (!texSpecTag.hasNoTags())
+        if (!texSpecTag.isEmpty())
             nbt.setTag(MPSNBTConstants.NBT_TEXTURESPEC_TAG, texSpecTag);
 
         nbt.setTag(NuminaNBTConstants.TAG_COLOURS, new NBTTagIntArray(colours));

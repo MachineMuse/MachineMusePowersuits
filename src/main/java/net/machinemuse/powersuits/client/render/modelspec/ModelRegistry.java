@@ -46,8 +46,8 @@ public class ModelRegistry extends MuseRegistry<SpecBase> {
     }
 
     public static OBJModelPlus getIModel(ResourceLocation location, int attempt) {
-        String domain = location.getResourceDomain();
-        String resourePath = location.getResourcePath().replaceFirst("^models/models", "models");
+        String domain = location.getNamespace();
+        String resourePath = location.getPath().replaceFirst("^models/models", "models");
 
         location = new ResourceLocation(domain, resourePath);
         IModel model;

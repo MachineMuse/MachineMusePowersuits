@@ -4,22 +4,29 @@ import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.math.Colour;
-import net.machinemuse.numina.utils.math.geometry.DrawableMuseRect;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
-import net.machinemuse.numina.utils.math.geometry.MuseRect;
+import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
 import net.machinemuse.powersuits.gui.GuiIcons;
+import net.machinemuse.powersuits.gui.tinker.clickable.ClickableLabel;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableSlider;
+import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableFrame;
+import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableLabel;
+import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableRectangle;
+import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableSlider;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.network.packets.MusePacketColourInfo;
 import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagIntArray;
+import org.lwjgl.opengl.GL11;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,28 +38,63 @@ import java.util.stream.Collectors;
  * <p>
  * Ported to Java by lehjr on 11/2/16.
  */
-public class ColourPickerFrame implements IGuiFrame {
-    public ItemSelectionFrame itemSelector;
-    public DrawableMuseRect border;
-    public ClickableSlider rslider;
-    public ClickableSlider gslider;
-    public ClickableSlider bslider;
-    public ClickableSlider aslider;
 
-    public ClickableSlider selectedSlider;
+// TODO: create base class and make this extend it for cosmetic preset friendly setup
+public class ColourPickerFrame extends ScrollableFrame {
+    public ItemSelectionFrame itemSelector;
+    public ScrollableSlider rslider;
+    public ScrollableSlider gslider;
+    public ScrollableSlider bslider;
+    public ScrollableSlider aslider;
+    ScrollableColourBox colourBox;
+    String COLOUR_PREFIX = I18n.format("gui.powersuits.colourPrefix");
+
+    public ScrollableLabel colourLabel;
+
+    public ScrollableSlider selectedSlider;
     public int selectedColour;
     public int decrAbove;
+    ScrollableRectangle[] rectangles;
 
-    public ColourPickerFrame(MuseRect borderRef, Colour insideColour, Colour borderColour, ItemSelectionFrame itemSelector) {
+    public ColourPickerFrame(MusePoint2D topleft, MusePoint2D bottomright, Colour borderColour, Colour insideColour, ItemSelectionFrame itemSelector) {
+        super(topleft, bottomright, borderColour, insideColour);
         this.itemSelector = itemSelector;
-        this.border = new DrawableMuseRect(borderRef, insideColour, borderColour);
-        this.rslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 4), this.border.width() - 10, "red");
-        this.gslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 20), this.border.width() - 10, "green");
-        this.bslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 36), this.border.width() - 10, "blue");
-        this.aslider = new ClickableSlider(new MusePoint2D(this.border.centerx(), this.border.top() + 52), this.border.width() - 10, "alpha");
+        this.rectangles = new ScrollableRectangle[6];
+        this.totalsize = 120;
+
+        // sliders boxes 0-3
+        this.rslider = getScrollableSlider("red", null, 0);
+        this.gslider = getScrollableSlider("green", rslider, 1);
+        this.bslider = getScrollableSlider("blue", gslider, 2);
+        this.aslider = getScrollableSlider("alpha", bslider, 3);
+
+        // box 4 is for the color icon stuff
+        this.colourBox = new ScrollableColourBox(new MuseRelativeRect(border.left(), this.aslider.bottom(), this.border.right(), this.aslider.bottom()+ 25));
+        this.colourBox.setBelow(aslider);
+        rectangles[4] = colourBox;
+
+        // box 5 is the label
+        MuseRelativeRect colourLabelBox = new MuseRelativeRect(border.left(), this.colourBox.bottom(), this.border.right(), this.colourBox.bottom() + 20);
+        this.colourLabel = new ScrollableLabel(
+                new ClickableLabel(COLOUR_PREFIX, new MusePoint2D(colourLabelBox.centerx(), colourLabelBox.centery())), colourLabelBox);
+
+        colourLabel.setBelow(colourBox);
+        rectangles[5] = this.colourLabel;
+
         this.selectedSlider = null;
         this.selectedColour = 0;
         this.decrAbove = -1;
+    }
+
+    public ScrollableSlider getScrollableSlider(String name, ScrollableRectangle prev, int index) {
+        MuseRelativeRect newborder = new MuseRelativeRect(border.left(), prev != null ? prev.bottom() : this.border.top(),
+                this.border.right(), (prev != null ? prev.bottom() : this.border.top()) + 18);
+        ClickableSlider slider =
+                new ClickableSlider(new MusePoint2D(newborder.centerx(), newborder.centery()), newborder.width() - 15, name);
+        ScrollableSlider scrollableSlider = new ScrollableSlider(slider, newborder);
+        scrollableSlider.setBelow((prev != null) ? prev : null);
+        rectangles[index] = scrollableSlider;
+        return scrollableSlider;
     }
 
     public int[] colours() {
@@ -79,7 +121,7 @@ public class ColourPickerFrame implements IGuiFrame {
             }
             EntityPlayerSP player = Minecraft.getMinecraft().player;
             if (player.world.isRemote) {
-                PacketSender.sendToServer(new MusePacketColourInfo((EntityPlayer) player, this.itemSelector.getSelectedItem().inventorySlot, this.colours()));
+                PacketSender.sendToServer(new MusePacketColourInfo(player, this.itemSelector.getSelectedItem().inventorySlot, this.colours()));
             }
             return (NBTTagIntArray) renderSpec.getTag(NuminaNBTConstants.TAG_COLOURS);
         }
@@ -93,7 +135,7 @@ public class ColourPickerFrame implements IGuiFrame {
         renderSpec.setTag(NuminaNBTConstants.TAG_COLOURS, new NBTTagIntArray(intList));
         EntityPlayerSP player = Minecraft.getMinecraft().player;
         if (player.world.isRemote) {
-            PacketSender.sendToServer(new MusePacketColourInfo((EntityPlayer) player, this.itemSelector.getSelectedItem().inventorySlot, this.colours()));
+            PacketSender.sendToServer(new MusePacketColourInfo(player, this.itemSelector.getSelectedItem().inventorySlot, this.colours()));
         }
         return (NBTTagIntArray) renderSpec.getTag(NuminaNBTConstants.TAG_COLOURS);
     }
@@ -116,11 +158,12 @@ public class ColourPickerFrame implements IGuiFrame {
         this.selectedSlider = null;
     }
 
-
     @Override
     public void update(double mousex, double mousey) {
+        super.update(mousex, mousey);
+
         if (this.selectedSlider != null) {
-            this.selectedSlider.setValueByX(mousex);
+            this.selectedSlider.getSlider().setValueByX(mousex);
             if (colours().length > selectedColour) {
                 colours()[selectedColour] = Colour.getInt(rslider.getValue(), gslider.getValue(), bslider.getValue(), aslider.getValue());
 
@@ -133,19 +176,20 @@ public class ColourPickerFrame implements IGuiFrame {
 
     @Override
     public void draw() {
-        this.border.draw();
-        this.rslider.draw();
-        this.gslider.draw();
-        this.bslider.draw();
-        this.aslider.draw();
+        this.currentscrollpixels = Math.min(currentscrollpixels, getMaxScrollPixels());
 
-        for (int i = 0; i < colours().length; i++) {
-            new GuiIcons.ArmourColourPatch(border.left() + 8 + i * 8, border.bottom() - 16, new Colour(colours()[i]), null, null, null, null);
+        if (colours().length > selectedColour) {
+            colourLabel.setText(COLOUR_PREFIX + " 0X" + new Colour(colours()[selectedColour]).hexColour());
         }
-        new GuiIcons.ArmourColourPatch(this.border.left() + 8 + this.colours().length * 8, this.border.bottom() - 16, Colour.WHITE, null, null, null, null);
-        new GuiIcons.SelectedArmorOverlay(this.border.left() + 8 + this.selectedColour * 8, this.border.bottom() - 16, Colour.WHITE, null, null, null, null);
-        new GuiIcons.MinusSign(this.border.left() + 8 + this.selectedColour * 8, this.border.bottom() - 24, Colour.RED, null, null, null, null);
-        new GuiIcons.PlusSign(this.border.left() + 8 + this.colours().length * 8, this.border.bottom() - 16, Colour.GREEN, null, null, null, null);
+
+        super.preDraw();
+        GL11.glPushMatrix();
+        GL11.glTranslatef(0, -currentscrollpixels, 0);
+        for (ScrollableRectangle f : rectangles) {
+            f.draw();
+        }
+        GL11.glPopMatrix();
+        super.postDraw();
     }
 
     @Override
@@ -164,6 +208,8 @@ public class ColourPickerFrame implements IGuiFrame {
 
     @Override
     public void onMouseDown(double x, double y, int button) {
+        y = y + currentscrollpixels;
+
         if (this.rslider.hitBox(x, y))
             this.selectedSlider = this.rslider;
         else if (this.gslider.hitBox(x, y))
@@ -175,39 +221,15 @@ public class ColourPickerFrame implements IGuiFrame {
         else
             this.selectedSlider = null;
 
-        // add color
-        if (y > this.border.bottom() - 16 && y < this.border.bottom() - 8) {
-            int colourCol = (int) (x - this.border.left() - 8.0) / 8;
-            if (colourCol >= 0 && colourCol < colours().length) {
-                this.onSelectColour(colourCol);
-            } else if (colourCol == this.colours().length) {
-                MuseLogger.logDebug("Adding");
+        colourBox.addColour(x, y);
+        colourBox.removeColour(x, y);
 
-                List<Integer> intList = Arrays.stream(getIntArray(getOrCreateColourTag())).boxed().collect(Collectors.toList());
-                intList.add(Colour.WHITE.getInt());
-                setColourTagMaybe(intList);
-            }
-        }
-
-        // remove color
-        if (y > border.bottom() - 24 && y < border.bottom() - 16 && x > border.left() + 8 + selectedColour * 8 && x < border.left() + 16 + selectedColour * 8) {
-            NBTTagIntArray nbtTagIntArray = getOrCreateColourTag();
-            List<Integer> intList = Arrays.stream(getIntArray(nbtTagIntArray)).boxed().collect(Collectors.toList());
-
-            if (intList.size() > 1) {
-                intList.remove(selectedColour); // with integer list, will default to index rather than getValue
-
-                setColourTagMaybe(intList);
-
-                decrAbove = selectedColour;
-                if (selectedColour == getIntArray(nbtTagIntArray).length) {
-                    selectedColour = selectedColour - 1;
-                }
-
-                EntityPlayerSP player = Minecraft.getMinecraft().player;
-                if (player.world.isRemote)
-                    PacketSender.sendToServer(new MusePacketColourInfo(player, itemSelector.getSelectedItem().inventorySlot, nbtTagIntArray.getIntArray()));
-            }
+        if (colourLabel.hitbox(x, y) && colours().length > selectedColour) {
+            // todo: insert chat to player...
+//            System.out.println("copying to clipboard: " + "0x" + new Colour(selectedColour).hexColour());
+            StringSelection selection = new StringSelection(new Colour(selectedColour).hexColour());
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(selection, selection);
         }
     }
 
@@ -215,5 +237,63 @@ public class ColourPickerFrame implements IGuiFrame {
         if (e == null) // null when no armor item selected
             return new int[0];
         return e.getIntArray();
+    }
+
+    class ScrollableColourBox extends ScrollableRectangle {
+        public ScrollableColourBox(MuseRelativeRect relativeRect) {
+            super(relativeRect);
+        }
+
+        boolean addColour(double x, double y) {
+            if (y > this.centery() + 8.5 && y < this.centery() + 16.5 ) {
+                int colourCol = (int) (x - left() - 8.0) / 8;
+                if (colourCol >= 0 && colourCol < colours().length) {
+                    onSelectColour(colourCol);
+                } else if (colourCol == colours().length) {
+                    MuseLogger.logDebug("Adding");
+                    List<Integer> intList = Arrays.stream(getIntArray(getOrCreateColourTag())).boxed().collect(Collectors.toList());
+                    intList.add(Colour.WHITE.getInt());
+                    setColourTagMaybe(intList);
+                }
+                return true;
+            }
+            return false;
+        }
+
+        boolean removeColour(double x, double y) {
+            if (y > this.centery() + 0.5 && y < this.centery() + 8.5 && x > left() + 8 + selectedColour * 8 && x < left() + 16 + selectedColour * 8) {
+                NBTTagIntArray nbtTagIntArray = getOrCreateColourTag();
+                List<Integer> intList = Arrays.stream(getIntArray(nbtTagIntArray)).boxed().collect(Collectors.toList());
+
+                if (intList.size() > 1) {
+                    intList.remove(selectedColour); // with integer list, will default to index rather than getValue
+
+                    setColourTagMaybe(intList);
+
+                    decrAbove = selectedColour;
+                    if (selectedColour == getIntArray(nbtTagIntArray).length) {
+                        selectedColour = selectedColour - 1;
+                    }
+
+                    EntityPlayerSP player = Minecraft.getMinecraft().player;
+                    if (player.world.isRemote)
+                        PacketSender.sendToServer(new MusePacketColourInfo(player, itemSelector.getSelectedItem().inventorySlot, nbtTagIntArray.getIntArray()));
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public void draw() {
+            // colours
+            for (int i=0; i < colours().length; i++) {
+                new GuiIcons.ArmourColourPatch(this.left() + 8 + i * 8, this.centery() + 8 , new Colour(colours()[i]), null, null, null, null);
+            }
+
+            new GuiIcons.ArmourColourPatch(this.left() + 8 + colours().length * 8, this.centery() + 8, Colour.WHITE, null, null, null, null);
+            new GuiIcons.SelectedArmorOverlay(this.left() + 8 + selectedColour * 8, this.centery() + 8, Colour.WHITE, null, null, null, null);
+            new GuiIcons.MinusSign(this.left() + 8 + selectedColour * 8, this.centery(), Colour.RED, null, null, null, null);
+            new GuiIcons.PlusSign(this.left() + 8 + colours().length * 8, this.centery() + 8, Colour.GREEN, null, null, null, null);
+        }
     }
 }

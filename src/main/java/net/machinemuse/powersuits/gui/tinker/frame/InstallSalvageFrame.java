@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
-import net.machinemuse.numina.api.module.IModuleManager;
 import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.network.MusePacket;
@@ -15,6 +14,7 @@ import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableButton;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableModule;
+import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableFrame;
 import net.machinemuse.powersuits.network.packets.MusePacketInstallModuleRequest;
 import net.machinemuse.powersuits.network.packets.MusePacketSalvageModuleRequest;
 import net.minecraft.client.entity.EntityPlayerSP;

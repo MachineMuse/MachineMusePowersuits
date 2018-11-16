@@ -219,7 +219,7 @@ public class MusePlayerUtils {
                 thrustUsed -= 1 + player.motionY;
                 player.motionY = -1;
             }
-            if (Math.abs(player.motionX) > 0 && desiredDirection.lengthVector() == 0) {
+            if (Math.abs(player.motionX) > 0 && desiredDirection.length() == 0) {
                 if (Math.abs(player.motionX) > thrust) {
                     player.motionX -= Math.signum(player.motionX) * thrust;
                     thrustUsed += thrust;
@@ -230,7 +230,7 @@ public class MusePlayerUtils {
                     player.motionX = 0;
                 }
             }
-            if (Math.abs(player.motionZ) > 0 && desiredDirection.lengthVector() == 0) {
+            if (Math.abs(player.motionZ) > 0 && desiredDirection.length() == 0) {
                 if (Math.abs(player.motionZ) > thrust) {
                     player.motionZ -= Math.signum(player.motionZ) * thrust;
                     thrustUsed += thrust;
@@ -330,7 +330,7 @@ public class MusePlayerUtils {
     }
 
     public static Biome getBiome(EntityPlayer player) {
-        Chunk chunk = player.world.getChunkFromBlockCoords(player.getPosition());
+        Chunk chunk = player.world.getChunk(player.getPosition());
         return chunk.getBiome(player.getPosition(), player.world.getBiomeProvider());
     }
 

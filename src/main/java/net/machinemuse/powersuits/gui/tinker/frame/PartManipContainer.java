@@ -5,6 +5,7 @@ import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
 import net.machinemuse.powersuits.client.render.modelspec.ModelRegistry;
 import net.machinemuse.powersuits.client.render.modelspec.SpecBase;
+import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableFrame;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 
@@ -28,7 +29,7 @@ public class PartManipContainer extends ScrollableFrame {
     public Integer lastItemSlot;
     public int lastColour;
     public int lastColourIndex;
-    public List<PartSpecManipSubFrame> modelframes = new ArrayList<>();
+    public List<PartSpecManipSubFrameBase> modelframes;
 
     public PartManipContainer(ItemSelectionFrame itemSelect,
                               ColourPickerFrame colourSelect,
@@ -71,11 +72,11 @@ public class PartManipContainer extends ScrollableFrame {
         return this.colourSelect.selectedColour;
     }
 
-    public List<PartSpecManipSubFrame> getModelframes() {
-        List<PartSpecManipSubFrame> modelframesList = new ArrayList<>();
+    public List<PartSpecManipSubFrameBase> getModelframes() {
+        List<PartSpecManipSubFrameBase> modelframesList = new ArrayList<>();
         Iterable<SpecBase> specCollection = ModelRegistry.getInstance().getSpecs();
-        PartSpecManipSubFrame prev = null;
-        PartSpecManipSubFrame newframe;
+        PartSpecManipSubFrameBase prev = null;
+        PartSpecManipSubFrameBase newframe;
         for (SpecBase modelspec : specCollection) {
             newframe = createNewFrame(modelspec, prev);
             prev = newframe;
@@ -84,16 +85,20 @@ public class PartManipContainer extends ScrollableFrame {
         return modelframesList;
     }
 
-    public PartSpecManipSubFrame createNewFrame(SpecBase modelspec, PartSpecManipSubFrame prev) {
+    public PartSpecManipSubFrameBase createNewFrame(SpecBase modelspec, PartSpecManipSubFrameBase prev) {
         MuseRelativeRect newborder = new MuseRelativeRect(this.topleft.getX() + 4, this.topleft.getY() + 4, this.bottomright.getX(), this.topleft.getY() + 10);
         newborder.setBelow((prev != null) ? prev.border : null);
-        return new PartSpecManipSubFrame(modelspec, this.colourSelect, this.itemSelect, newborder);
+
+        if (1==1)
+            return new PartSpecManipSubFrame(modelspec, this.colourSelect, this.itemSelect, newborder);
+        else
+            return new CosmeticPresetGenerationSubFrame(modelspec, this.colourSelect, this.itemSelect, newborder);
     }
 
     @Override
     public void onMouseDown(double x, double y, int button) {
         if (button == 0) {
-            for (PartSpecManipSubFrame frame : modelframes) {
+            for (PartSpecManipSubFrameBase frame : modelframes) {
                 frame.tryMouseClick(x, y + currentscrollpixels);
             }
         }
@@ -107,7 +112,7 @@ public class PartManipContainer extends ScrollableFrame {
             colourSelect.refreshColours(); // this does nothing
 
             double x = 0;
-            for (PartSpecManipSubFrame subframe : modelframes) {
+            for (PartSpecManipSubFrameBase subframe : modelframes) {
                 subframe.updateItems();
                 x += subframe.border.bottom();
             }
@@ -120,7 +125,7 @@ public class PartManipContainer extends ScrollableFrame {
     }
 
     public void decrAbove(int index) {
-        for (PartSpecManipSubFrame frame : modelframes) frame.decrAbove(index);
+        for (PartSpecManipSubFrameBase frame : modelframes) frame.decrAbove(index);
     }
 
     @Override
@@ -128,7 +133,7 @@ public class PartManipContainer extends ScrollableFrame {
         super.preDraw();
         GL11.glPushMatrix();
         GL11.glTranslated(0.0, (double) (-this.currentscrollpixels), 0.0);
-        for (PartSpecManipSubFrame f : modelframes) {
+        for (PartSpecManipSubFrameBase f : modelframes) {
             f.drawPartial(currentscrollpixels + 4 + border.top(), this.currentscrollpixels + border.bottom() - 4);
         }
         GL11.glPopMatrix();

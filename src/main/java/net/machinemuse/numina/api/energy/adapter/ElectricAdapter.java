@@ -17,10 +17,6 @@ import java.util.List;
  * Ported to Java by lehjr on 11/4/16.
  */
 public abstract class ElectricAdapter {
-
-
-
-
     @Nullable
     public static ElectricAdapter wrap(@Nonnull ItemStack itemStack) {
         //TODO: add a configurable blacklist
@@ -29,17 +25,10 @@ public abstract class ElectricAdapter {
             return null;
         Item i = itemStack.getItem();
 
-        String itemMod = itemStack.getItem().getRegistryName().getResourceDomain();
+        String itemMod = itemStack.getItem().getRegistryName().getNamespace();
 
         if (BlackList.blacklistModIds.contains(itemMod))
             return null;
-
-
-
-
-
-
-
 
         // Forge Energy
         if (itemStack.hasCapability(CapabilityEnergy.ENERGY, null)) {

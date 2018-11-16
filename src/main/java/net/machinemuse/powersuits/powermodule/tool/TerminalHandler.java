@@ -63,9 +63,9 @@ public class TerminalHandler implements
     @Optional.Method(modid = "appliedenergistics2")
     @Override
     public boolean canHandle(@Nonnull ItemStack is) {
-        if (is.isEmpty() || is.getUnlocalizedName() == null)
+        if (is.isEmpty() || is.getTranslationKey() == null)
             return false;
-        return is.getUnlocalizedName().equals(MPSItems.INSTANCE.powerFist.getUnlocalizedName());
+        return is.getTranslationKey().equals(MPSItems.INSTANCE.powerFist.getTranslationKey());
     }
 
     @Optional.Method(modid = "appliedenergistics2")

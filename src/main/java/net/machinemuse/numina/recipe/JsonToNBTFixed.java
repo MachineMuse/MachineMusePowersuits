@@ -214,7 +214,7 @@ public class JsonToNBTFixed {
                 if (i < 0) {
                     i = j;
                 } else if (j != i) {
-                    throw this.exception("Unable to insert " + NBTBase.getTagTypeName(j) + " into ListTag of type " + NBTBase.getTagTypeName(i));
+                    throw this.exception("Unable to insert " + NBTBase.getTypeName(j) + " into ListTag of type " + NBTBase.getTypeName(i));
                 }
 
                 nbttaglist.appendTag(nbtbase);
@@ -261,7 +261,7 @@ public class JsonToNBTFixed {
                 int i = nbtbase.getId();
 
                 if (i != p_193603_2_) {
-                    throw this.exception("Unable to insert " + NBTBase.getTagTypeName(i) + " into " + NBTBase.getTagTypeName(p_193603_1_));
+                    throw this.exception("Unable to insert " + NBTBase.getTypeName(i) + " into " + NBTBase.getTypeName(p_193603_1_));
                 }
 
                 if (p_193603_2_ == 1) {
