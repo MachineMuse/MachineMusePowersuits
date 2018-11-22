@@ -136,6 +136,8 @@ public class BlockLuxCapacitor extends BlockDirectional {
     }
 
     public boolean canPlaceAt(IBlockAccess worldIn, BlockPos pos, EnumFacing facing) {
+        if (!worldIn.getBlockState(pos).getBlock().isReplaceable(worldIn, pos))
+            return false;
         BlockPos blockpos = pos.offset(facing);
         IBlockState iblockstate = worldIn.getBlockState(blockpos);
         BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, blockpos, facing);

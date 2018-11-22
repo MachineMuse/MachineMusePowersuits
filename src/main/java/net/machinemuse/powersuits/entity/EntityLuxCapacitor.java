@@ -75,10 +75,19 @@ public class EntityLuxCapacitor extends EntityThrowable implements IEntityAdditi
             int z = hitResult.getBlockPos().getZ() - dir.getZOffset();
             if (y > 0) {
                 BlockPos blockPos = new BlockPos(x, y, z);
-                if (MPSItems.INSTANCE.luxCapacitor.canPlaceBlockAt(world, blockPos)) {
+                if (MPSItems.INSTANCE.luxCapacitor.canPlaceAt(world, blockPos, dir)) {
                     IBlockState blockState = MPSItems.INSTANCE.luxCapacitor.getStateForPlacement(world, blockPos, dir, hitResult.getBlockPos().getX(), hitResult.getBlockPos().getY(), hitResult.getBlockPos().getZ(), 0, null);
                     world.setBlockState(blockPos, ((IExtendedBlockState) blockState).withProperty(COLOR, color));
                     world.setTileEntity(blockPos, new TileEntityLuxCapacitor(color));
+                } else {
+                    for (EnumFacing facing : EnumFacing.values()) {
+                        if (MPSItems.INSTANCE.luxCapacitor.canPlaceAt(world, blockPos, facing)) {
+                            IBlockState blockState = MPSItems.INSTANCE.luxCapacitor.getStateForPlacement(world, blockPos, facing, hitResult.getBlockPos().getX(), hitResult.getBlockPos().getY(), hitResult.getBlockPos().getZ(), 0, null);
+                            world.setBlockState(blockPos, ((IExtendedBlockState) blockState).withProperty(COLOR, color));
+                            world.setTileEntity(blockPos, new TileEntityLuxCapacitor(color));
+                            break;
+                        }
+                    }
                 }
                 this.setDead();
             }
