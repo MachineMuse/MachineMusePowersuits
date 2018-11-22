@@ -45,6 +45,20 @@ public class CommonProxy {
         NetworkRegistry.INSTANCE.registerGuiHandler(ModularPowersuits.getInstance(), MPSGuiHandler.INSTANCE);
         TerminalHandler.registerHandler();
         MinecraftForge.EVENT_BUS.register(new PlayerLoginHandlerThingy()); // doesn't seem to work if fired preinit
+
+
+
+//        File newConfig = new File(event.getModConfigurationDirectory() + "/machinemuse/powersuits.cfg");
+//        Config.init(new Configuration(newConfig));
+//        Config.setConfigFolderBase(event.getModConfigurationDirectory());
+//        Config.extractRecipes();
+//        MPSItems.populateItems();
+//        MPSItems.populateComponents();
+
+
+
+
+
     }
 
     public void postInit(FMLPostInitializationEvent event) {

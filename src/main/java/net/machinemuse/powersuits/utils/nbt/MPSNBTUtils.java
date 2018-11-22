@@ -19,6 +19,44 @@ import static net.machinemuse.numina.api.constants.NuminaNBTConstants.TAG_RENDER
 
 
 public class MPSNBTUtils {
+
+    // TODO: cosmetic tag
+
+    /**
+        MuseCosmeticTag: new parent tag for cosmetic stuff
+
+        MuseRenderTag: child tag under cosmetic tag ... designates legacy style rendering
+
+        MuseCosmeticPreset: child tag under cosmetic tag ... value is a key for lookup in the config system
+
+        MuseLegacyRenderTag: legacy rendering that has not yet been converted to new system.
+
+
+
+
+
+
+
+
+     */
+
+//    public static NBTTagCompound getMuseCosmeticTag(@Nonnull ItemStack stack, EntityEquipmentSlot armorSlot) {
+//        NBTTagCompound tag = MuseNBTUtils.getMuseItemTag(stack);
+//
+//
+//
+//    }
+
+
+
+
+
+
+
+
+
+
+
     public static NBTTagCompound getMuseRenderTag(@Nonnull ItemStack stack, EntityEquipmentSlot armorSlot) {
         NBTTagCompound tag = MuseNBTUtils.getMuseItemTag(stack);
         if (!tag.hasKey(TAG_RENDER) || !(tag.getTag(TAG_RENDER) instanceof NBTTagCompound)) {
