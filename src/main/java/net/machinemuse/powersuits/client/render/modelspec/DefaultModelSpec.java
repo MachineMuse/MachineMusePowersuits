@@ -90,15 +90,15 @@ public class DefaultModelSpec {
 
                         for (PartSpecBase partSpec : spec.getPartSpecs()) {
                             if (partSpec.binding.getSlot() == slot) {
-
+                                /*
                                 // jet pack model not displayed by default
                                 if (partSpec.binding.getItemState().equals("all") ||
                                         (partSpec.binding.getItemState().equals("jetpack") &&
-                                                ModuleManager.INSTANCE.itemHasModule(stack, MPSModuleConstants.MODULE_JETPACK__DATANAME))) {
+                                                ModuleManager.INSTANCE.itemHasModule(stack, MPSModuleConstants.MODULE_JETPACK__DATANAME))) { */
                                     prefArray.add(((ModelPartSpec) partSpec).multiSet(new NBTTagCompound(),
                                             getNewColourIndex(colours, spec.getColours(), partSpec.defaultcolourindex),
                                             ((ModelPartSpec) partSpec).getGlow()));
-                                }
+                                /*} */
                             }
                         }
                     }

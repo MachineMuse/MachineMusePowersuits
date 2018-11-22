@@ -6,6 +6,12 @@ public class NuminaNBTConstants {
     public static final String TAG_MODULE_PREFIX = "MMModModule";// Machine Muse Mod
 
     public static final String TAG_RENDER = "render";
+    public static final String TAG_COSMETIC = "cosmetic";
+    public static final String TAG_COSMETIC_PRESET = "cosmeticPreset";
+
+
+
+
     public static final String TAG_COLOURS = "colours";
     public static final String TAG_ONLINE = "Active";
     public static final String TAG_MODE = "mode";

@@ -3,6 +3,7 @@ package net.machinemuse.powersuits.common.config;
 import io.netty.buffer.ByteBufInputStream;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
+import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -29,15 +30,6 @@ public class MPSServerSettings {
     public final double baseMaxHeatLegs;
     public final double baseMaxHeatFeet;
 
-//    /**
-//     * Max Modules --------------------------------------------------------------------------------
-//     */
-//    public final int maxModulesPowerFist;
-//    public final int maxModulesHelmet;
-//    public final int maxModulesChestplate;
-//    public final int maxModulesLeggings;
-//    public final int maxModulesFeet;
-
     /**
      * Max Modules of Type -----------------------------------------------------------------------
      */
@@ -60,37 +52,52 @@ public class MPSServerSettings {
     public final Map<String, Double> propertyDouble;
     public final Map<String, Integer> propertyInteger;
 
+
+    /**
+     * Cosmetics ---------------------------------------------------------------------------------
+     */
+    public final boolean useLegacyCosmeticSystem;
+    public final boolean allowHighPollyArmorModuels;
+    public final boolean allowPowerFistCustomization;
+
+    public final Map<String, NBTTagCompound> cosmeticPresetsPowerFist;
+    public final Map<String, NBTTagCompound> cosmeticPresetsPowerArmorHelmet;
+    public final Map<String, NBTTagCompound> cosmeticPresetsPowerArmorChestplate;
+    public final Map<String, NBTTagCompound> cosmeticPresetsPowerArmorLeggings;
+    public final Map<String, NBTTagCompound> cosmeticPresetsPowerArmorBoots;
+
     /**
      * Server side instance.
      */
     public MPSServerSettings() {
-        /** General ------------------------------------------------------------------------------- */
+        /**
+         *  General -------------------------------------------------------------------------------
+         */
         useOldAutoFeeder = MPSSettings.general.useOldAutoFeeder;
         maximumFlyingSpeedmps = MPSSettings.general.getMaximumFlyingSpeedmps;
         getWeightCapacity = MPSSettings.general.getWeightCapacity;
         maximumArmorPerPiece = MPSSettings.general.getMaximumArmorPerPiece;
         getSalvageChance = MPSSettings.general.getSalvageChance;
 
-        /** Max Base Heat Heat -------------------------------------------------------------------- */
+        /**
+         * Max Base Heat Heat --------------------------------------------------------------------
+         */
         baseMaxHeatPowerFist = MPSSettings.general.baseMaxHeatPowerFist;
         baseMaxHeatHelmet = MPSSettings.general.baseMaxHeatHelmet;
         baseMaxHeatChest = MPSSettings.general.baseMaxHeatChest;
         baseMaxHeatLegs = MPSSettings.general.baseMaxHeatLegs;
         baseMaxHeatFeet = MPSSettings.general.baseMaxHeatFeet;
 
-//        /** Max Modules --------------------------------------------------------------------------- */
-//        maxModulesPowerFist = MPSSettings.general.maxModulesPowerFist;
-//        maxModulesHelmet = MPSSettings.general.maxModulesHelmet;
-//        maxModulesChestplate = MPSSettings.general.maxModulesChestplate;
-//        maxModulesLeggings = MPSSettings.general.maxModulesLeggings;
-//        maxModulesFeet = MPSSettings.general.maxModulesFeet;
-
-        /** Modules ------------------------------------------------------------------------------- */
+        /**
+         * Modules -------------------------------------------------------------------------------
+         */
         allowedModules = new TreeMap<>(MPSSettings.modules.allowedModules);
         propertyDouble = new TreeMap<>(MPSSettings.modules.propertyDouble);
         propertyInteger = new TreeMap<>(MPSSettings.modules.propertyInteger);
 
-        /** Max Modules of Type ------------------------------------------------------------------- */
+        /**
+         * Max Modules of Type -------------------------------------------------------------------
+         */
         maxArmorModules = MPSSettings.limits.maxArmorModules;
         maxEnergyStorageModules = MPSSettings.limits.maxEnergyStorageModules;
         maxEnergyGenModules = MPSSettings.limits.maxEnergyGenModules;
@@ -102,13 +109,28 @@ public class MPSServerSettings {
         maxEnvironmentalModules = MPSSettings.limits.maxEnvironmentalModules;
         maxSpecialModules = MPSSettings.limits.maxSpecialModules;
         maxMiningEnhancementModules = MPSSettings.limits.maxMiningEnhancementModules;
+
+        /**
+         * Cosmetics ------------------------------------------------------------------------------
+         */
+        useLegacyCosmeticSystem = MPSSettings.cosmetics.useLegacyCosmeticSystem;
+        allowHighPollyArmorModuels = MPSSettings.cosmetics.allowHighPollyArmorModuels;
+        allowPowerFistCustomization = MPSSettings.cosmetics.allowPowerFistCustomization;
+
+        cosmeticPresetsPowerFist = MPSSettings.cosmetics.getCosmeticPresetsPowerFist();
+        cosmeticPresetsPowerArmorHelmet = MPSSettings.cosmetics.getCosmeticPresetsPowerArmorHelmet();
+        cosmeticPresetsPowerArmorChestplate = MPSSettings.cosmetics.getCosmeticPresetsPowerArmorChestplate();
+        cosmeticPresetsPowerArmorLeggings = MPSSettings.cosmetics.getCosmeticPresetsPowerArmorLeggings();
+        cosmeticPresetsPowerArmorBoots = MPSSettings.cosmetics.getCosmeticPresetsPowerArmorBoots();
     }
 
     /**
      * Sets all settings from a packet received client side in a new instance held in MPSSettings.
      */
     public MPSServerSettings(final ByteBufInputStream datain) {
-        /** General ------------------------------------------------------------------------------- */
+        /**
+         * General -------------------------------------------------------------------------------
+         */
         useOldAutoFeeder = MusePackager.INSTANCE.readBoolean(datain);
         maximumFlyingSpeedmps = MusePackager.INSTANCE.readDouble(datain);
         getWeightCapacity = MusePackager.INSTANCE.readDouble(datain);
@@ -119,22 +141,17 @@ public class MPSServerSettings {
         baseMaxHeatChest = MusePackager.INSTANCE.readDouble(datain);
         baseMaxHeatLegs = MusePackager.INSTANCE.readDouble(datain);
         baseMaxHeatFeet = MusePackager.INSTANCE.readDouble(datain);
-//        // Max Modules
-//        maxModulesPowerFist = MusePackager.INSTANCE.readInt(datain);
-//        maxModulesHelmet = MusePackager.INSTANCE.readInt(datain);
-//        maxModulesChestplate = MusePackager.INSTANCE.readInt(datain);
-//        maxModulesLeggings = MusePackager.INSTANCE.readInt(datain);
-//        maxModulesFeet = MusePackager.INSTANCE.readInt(datain);
 
-        /** Modules ------------------------------------------------------------------------------- */
-//        allowedModules = MusePackager.INSTANCE.readMap(datain, String.class, Boolean.class);
-//        propertyDouble = MusePackager.INSTANCE.readMap(datain, String.class, Double.class);
-
+        /**
+         * Modules -------------------------------------------------------------------------------
+         */
         allowedModules = MusePackager.INSTANCE.readMap(datain, String.class, Boolean.class);
         propertyDouble = MusePackager.INSTANCE.readMap(datain, String.class, Double.class);
         propertyInteger = MusePackager.INSTANCE.readMap(datain, String.class, Integer.class);
 
-        /** Max Modules of Type ------------------------------------------------------------------- */
+        /**
+         * Max Modules of Type -------------------------------------------------------------------
+         */
         maxArmorModules= MusePackager.INSTANCE.readInt(datain);
         maxEnergyStorageModules= MusePackager.INSTANCE.readInt(datain);
         maxEnergyGenModules= MusePackager.INSTANCE.readInt(datain);
@@ -146,6 +163,18 @@ public class MPSServerSettings {
         maxEnvironmentalModules= MusePackager.INSTANCE.readInt(datain);
         maxSpecialModules= MusePackager.INSTANCE.readInt(datain);
         maxMiningEnhancementModules= MusePackager.INSTANCE.readInt(datain);
+
+        /**
+         * Cosmetics ------------------------------------------------------------------------------
+         */
+        useLegacyCosmeticSystem = MusePackager.INSTANCE.readBoolean(datain);
+        allowHighPollyArmorModuels = MusePackager.INSTANCE.readBoolean(datain);
+        allowPowerFistCustomization = MusePackager.INSTANCE.readBoolean(datain);
+        cosmeticPresetsPowerFist = MusePackager.INSTANCE.readMap(datain, String.class, NBTTagCompound.class);
+        cosmeticPresetsPowerArmorHelmet = MusePackager.INSTANCE.readMap(datain, String.class, NBTTagCompound.class);
+        cosmeticPresetsPowerArmorChestplate = MusePackager.INSTANCE.readMap(datain, String.class, NBTTagCompound.class);
+        cosmeticPresetsPowerArmorLeggings = MusePackager.INSTANCE.readMap(datain, String.class, NBTTagCompound.class);
+        cosmeticPresetsPowerArmorBoots = MusePackager.INSTANCE.readMap(datain, String.class, NBTTagCompound.class);
     }
 
     /**
@@ -154,7 +183,9 @@ public class MPSServerSettings {
      * the server to be able to control these settings.
      */
     public void writeToBuffer(final MusePacket packet) {
-        /** General ------------------------------------------------------------------------------- */
+        /**
+         * General -------------------------------------------------------------------------------
+         */
         packet.writeBoolean(useOldAutoFeeder);
         packet.writeDouble(maximumFlyingSpeedmps);
         packet.writeDouble(getWeightCapacity);
@@ -166,19 +197,16 @@ public class MPSServerSettings {
         packet.writeDouble(baseMaxHeatLegs);
         packet.writeDouble(baseMaxHeatFeet);
 
-//        /** Max Modules --------------------------------------------------------------------------- */
-//        packet.writeInt(maxModulesPowerFist);
-//        packet.writeInt(maxModulesHelmet);
-//        packet.writeInt(maxModulesChestplate);
-//        packet.writeInt(maxModulesLeggings);
-//        packet.writeInt(maxModulesFeet);
-
-        /** Modules ------------------------------------------------------------------------------- */
+        /**
+         * Modules -------------------------------------------------------------------------------
+         */
         packet.writeMap(allowedModules, true);
         packet.writeMap(propertyDouble, true);
         packet.writeMap(propertyInteger, true);
 
-        /** Max Modules of Type ------------------------------------------------------------------- */
+        /**
+         * Max Modules of Type -------------------------------------------------------------------
+         */
         packet.writeInt(maxArmorModules);
         packet.writeInt(maxEnergyStorageModules);
         packet.writeInt(maxEnergyGenModules);
@@ -190,5 +218,17 @@ public class MPSServerSettings {
         packet.writeInt(maxEnvironmentalModules);
         packet.writeInt(maxSpecialModules);
         packet.writeInt(maxMiningEnhancementModules);
+
+        /**
+         * Cosmetics ------------------------------------------------------------------------------
+         */
+        packet.writeBoolean(useLegacyCosmeticSystem);
+        packet.writeBoolean(allowHighPollyArmorModuels);
+        packet.writeBoolean(allowPowerFistCustomization);
+        packet.writeMap(cosmeticPresetsPowerFist, true);
+        packet.writeMap(cosmeticPresetsPowerArmorHelmet, true);
+        packet.writeMap(cosmeticPresetsPowerArmorChestplate, true);
+        packet.writeMap(cosmeticPresetsPowerArmorLeggings, true);
+        packet.writeMap(cosmeticPresetsPowerArmorBoots, true);
     }
 }

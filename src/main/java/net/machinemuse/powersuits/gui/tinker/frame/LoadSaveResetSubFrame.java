@@ -4,6 +4,7 @@ import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.DrawableMuseRect;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRect;
+import net.machinemuse.powersuits.common.config.CosmeticPresetSaveLoad;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableButton;
 import net.minecraft.client.resources.I18n;
 
@@ -37,6 +38,11 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
 
     @Override
     public void onMouseDown(double x, double y, int button) {
+        if (save.hitBox(x, y) && !itemSelector.getSelectedItem().getItem().isEmpty())
+            CosmeticPresetSaveLoad.savePreset("defaultArmorSkin", itemSelector.getSelectedItem().getItem());
+
+
+
 
     }
 

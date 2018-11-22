@@ -3,6 +3,8 @@ package net.machinemuse.powersuits.gui.tinker;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRect;
+import net.machinemuse.powersuits.common.config.CosmeticPresetSaveLoad;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.gui.MuseGui;
 import net.machinemuse.powersuits.gui.tinker.frame.*;
 import net.minecraft.client.Minecraft;
@@ -85,13 +87,24 @@ public class CosmeticGui extends MuseGui {
                 itemSelect);
         frames.add(loadSaveResetSubFrame);
 
-        PartManipContainer partframe = new PartManipContainer(
-                itemSelect, colourpicker,
-                new MusePoint2D(absX(-0.95F), absY(0.025f)),
-                new MusePoint2D(absX(+0.95F), absY(0.95f)),
-                Colour.LIGHTBLUE.withAlpha(0.8F),
-                Colour.DARKBLUE.withAlpha(0.8F));
-        frames.add(partframe);
+
+        if (MPSConfig.INSTANCE.useLegacyCosmeticSystem()) {
+            PartManipContainer partframe = new PartManipContainer(
+                    itemSelect, colourpicker,
+                    new MusePoint2D(absX(-0.95F), absY(0.025f)),
+                    new MusePoint2D(absX(+0.95F), absY(0.95f)),
+                    Colour.LIGHTBLUE.withAlpha(0.8F),
+                    Colour.DARKBLUE.withAlpha(0.8F));
+            frames.add(partframe);
+        } else {
+            CosmeticPresetSubFrame cosmeticFrame = new CosmeticPresetSubFrame(
+                    itemSelect, colourpicker,
+                    new MusePoint2D(absX(-0.95F), absY(0.025f)),
+                    new MusePoint2D(absX(+0.95F), absY(0.95f)),
+                    Colour.LIGHTBLUE.withAlpha(0.8F),
+                    Colour.DARKBLUE.withAlpha(0.8F));
+            frames.add(cosmeticFrame);
+        }
 
         TabSelectFrame tabFrame = new TabSelectFrame(
                 player,

@@ -29,7 +29,7 @@ public class PartManipContainer extends ScrollableFrame {
     public Integer lastItemSlot;
     public int lastColour;
     public int lastColourIndex;
-    public List<PartSpecManipSubFrameBase> modelframes;
+    public List<PartSpecManipSubFrame> modelframes;
 
     public PartManipContainer(ItemSelectionFrame itemSelect,
                               ColourPickerFrame colourSelect,
@@ -72,11 +72,11 @@ public class PartManipContainer extends ScrollableFrame {
         return this.colourSelect.selectedColour;
     }
 
-    public List<PartSpecManipSubFrameBase> getModelframes() {
-        List<PartSpecManipSubFrameBase> modelframesList = new ArrayList<>();
+    public List<PartSpecManipSubFrame> getModelframes() {
+        List<PartSpecManipSubFrame> modelframesList = new ArrayList<>();
         Iterable<SpecBase> specCollection = ModelRegistry.getInstance().getSpecs();
-        PartSpecManipSubFrameBase prev = null;
-        PartSpecManipSubFrameBase newframe;
+        PartSpecManipSubFrame prev = null;
+        PartSpecManipSubFrame newframe;
         for (SpecBase modelspec : specCollection) {
             newframe = createNewFrame(modelspec, prev);
             prev = newframe;
@@ -85,20 +85,16 @@ public class PartManipContainer extends ScrollableFrame {
         return modelframesList;
     }
 
-    public PartSpecManipSubFrameBase createNewFrame(SpecBase modelspec, PartSpecManipSubFrameBase prev) {
+    public PartSpecManipSubFrame createNewFrame(SpecBase modelspec, PartSpecManipSubFrame prev) {
         MuseRelativeRect newborder = new MuseRelativeRect(this.topleft.getX() + 4, this.topleft.getY() + 4, this.bottomright.getX(), this.topleft.getY() + 10);
         newborder.setBelow((prev != null) ? prev.border : null);
-
-        if (1==1)
             return new PartSpecManipSubFrame(modelspec, this.colourSelect, this.itemSelect, newborder);
-        else
-            return new CosmeticPresetGenerationSubFrame(modelspec, this.colourSelect, this.itemSelect, newborder);
     }
 
     @Override
     public void onMouseDown(double x, double y, int button) {
         if (button == 0) {
-            for (PartSpecManipSubFrameBase frame : modelframes) {
+            for (PartSpecManipSubFrame frame : modelframes) {
                 frame.tryMouseClick(x, y + currentscrollpixels);
             }
         }
@@ -112,7 +108,7 @@ public class PartManipContainer extends ScrollableFrame {
             colourSelect.refreshColours(); // this does nothing
 
             double x = 0;
-            for (PartSpecManipSubFrameBase subframe : modelframes) {
+            for (PartSpecManipSubFrame subframe : modelframes) {
                 subframe.updateItems();
                 x += subframe.border.bottom();
             }
@@ -125,7 +121,7 @@ public class PartManipContainer extends ScrollableFrame {
     }
 
     public void decrAbove(int index) {
-        for (PartSpecManipSubFrameBase frame : modelframes) frame.decrAbove(index);
+        for (PartSpecManipSubFrame frame : modelframes) frame.decrAbove(index);
     }
 
     @Override
@@ -133,7 +129,7 @@ public class PartManipContainer extends ScrollableFrame {
         super.preDraw();
         GL11.glPushMatrix();
         GL11.glTranslated(0.0, (double) (-this.currentscrollpixels), 0.0);
-        for (PartSpecManipSubFrameBase f : modelframes) {
+        for (PartSpecManipSubFrame f : modelframes) {
             f.drawPartial(currentscrollpixels + 4 + border.top(), this.currentscrollpixels + border.bottom() - 4);
         }
         GL11.glPopMatrix();
