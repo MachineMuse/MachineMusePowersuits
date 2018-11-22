@@ -9,6 +9,7 @@ import java.util.List;
 public class ClickableLabel implements IClickable {
     protected String label;
     protected MusePoint2D position;
+    public static final int offsetx = 8;
 
     public ClickableLabel(String label, MusePoint2D position) {
         this.label = label;

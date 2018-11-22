@@ -2,13 +2,12 @@ package net.machinemuse.powersuits.common.config;
 
 import net.machinemuse.powersuits.api.constants.MPSConfigConstants;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.common.MPSItems;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.config.Config;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static net.machinemuse.numina.api.constants.NuminaConstants.*;
 import static net.machinemuse.powersuits.api.constants.MPSModConstants.MODID;
 
 @Config(modid = MODID, name = MPSConfigConstants.CONFIG_FILE)
@@ -40,6 +39,9 @@ public class MPSSettings {
         @Config.RangeDouble(min = 0)
         public double keybindHUDy = 32.0;
     }
+
+
+
 
     /**
      * A mixture of client and server side settings
@@ -98,6 +100,27 @@ public class MPSSettings {
         @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_HEAT_FEET)
         @Config.Comment("ItemModuleBase Heat Cap")
         public double baseMaxHeatFeet = 5.0;
+
+//        // Maximum number of modules
+//        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_MODULES_HELMET)
+//        @Config.Comment("Max number of modules")
+//        public int maxModulesHelmet = 20;
+//
+//        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_MODULES_CHESTPLATE)
+//        @Config.Comment("Max number of modules")
+//        public int maxModulesChestplate = 20;
+//
+//        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_MODULES_LEGGINGS)
+//        @Config.Comment("Max number of modules")
+//        public int maxModulesLeggings = 20;
+//
+//        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_MODULES_FEET)
+//        @Config.Comment("Max number of modules")
+//        public int maxModulesFeet = 20;
+//
+//        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_MODULES_POWERFIST)
+//        @Config.Comment("Max number of modules")
+//        public int maxModulesPowerFist = 20;
     }
 
     /**
@@ -495,58 +518,5 @@ public class MPSSettings {
         @Config.Comment("Max number of Mining Enhancement modules per Power Fist")
         @Config.RangeDouble(min = 0, max = 99)
         public int maxMiningEnhancementModules = 99;
-    }
-
-    public static Cosmetics cosmetics = new Cosmetics();
-    public static class Cosmetics {
-        @Config.Comment("Use legacy cosmetic configuration instead of cosmetic presets")
-        public boolean useLegacyCosmeticSystem=true;
-
-        //        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_ALLOW_CONFLICTING_KEYBINDS)
-        @Config.Comment("Allow high polly armor models instead of just skins")
-        public boolean allowHighPollyArmorModuels = true;
-
-        @Config.Comment("Allow PowerFist model to be customized")
-        public boolean allowPowerFistCustomization=false;
-
-        @Config.Ignore
-        private Map<String, NBTTagCompound> cosmeticPresetsPowerFist;
-        public Map<String, NBTTagCompound> getCosmeticPresetsPowerFist() {
-            if (cosmeticPresetsPowerFist.isEmpty() && !allowPowerFistCustomization)
-                cosmeticPresetsPowerFist = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerFist);
-            return cosmeticPresetsPowerFist;
-        }
-
-        @Config.Ignore
-        private Map<String, NBTTagCompound> cosmeticPresetsPowerArmorHelmet;
-        public Map<String, NBTTagCompound> getCosmeticPresetsPowerArmorHelmet() {
-            if (cosmeticPresetsPowerArmorHelmet.isEmpty() && !useLegacyCosmeticSystem)
-                cosmeticPresetsPowerArmorHelmet = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerArmorHead);
-            return cosmeticPresetsPowerArmorHelmet;
-        }
-
-        @Config.Ignore
-        private Map<String, NBTTagCompound> cosmeticPresetsPowerArmorChestplate;
-        public Map<String, NBTTagCompound> getCosmeticPresetsPowerArmorChestplate() {
-            if(cosmeticPresetsPowerArmorChestplate.isEmpty() && !useLegacyCosmeticSystem)
-                cosmeticPresetsPowerArmorChestplate = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerArmorTorso);
-            return cosmeticPresetsPowerArmorChestplate;
-        }
-
-        @Config.Ignore
-        private Map<String, NBTTagCompound> cosmeticPresetsPowerArmorLeggings;
-        public Map<String, NBTTagCompound> getCosmeticPresetsPowerArmorLeggings() {
-            if(cosmeticPresetsPowerArmorLeggings.isEmpty() && !useLegacyCosmeticSystem)
-                cosmeticPresetsPowerArmorLeggings = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerArmorLegs);
-            return cosmeticPresetsPowerArmorLeggings;
-        }
-
-        @Config.Ignore
-        private Map<String, NBTTagCompound>  cosmeticPresetsPowerArmorBoots;
-        public Map<String, NBTTagCompound> getCosmeticPresetsPowerArmorBoots() {
-            if(cosmeticPresetsPowerArmorBoots.isEmpty() && !useLegacyCosmeticSystem)
-                cosmeticPresetsPowerArmorBoots = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerArmorFeet);
-            return getCosmeticPresetsPowerArmorBoots();
-        }
     }
 }

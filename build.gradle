@@ -12,15 +12,6 @@ buildscript {
         maven {
             url 'https://mvnrepository.com/artifact/org.lz4/lz4-java'
         }
-
-        maven {
-            url 'https://mvnrepository.com/artifact/org.json/json'
-        }
-
-        maven {
-            url 'https://mvnrepository.com/artifact/com.codesnippets4all/quick-json'
-        }
-
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
@@ -43,10 +34,10 @@ archivesBaseName = mod_id
 def numina_version = (System.getenv("NUMINA_VERSION") ?:"0.5.0")
 
 repositories {
-    //JEI
-    maven {
-        url "http://dvs1.progwml6.com/files/maven"
-    }
+	//JEI
+	maven {
+            url "http://dvs1.progwml6.com/files/maven"
+	}
     mavenCentral()
 }
 
@@ -55,14 +46,16 @@ dependencies {
     deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}:api"
 
     compile group: 'com.google.guava', name: 'guava', version: '22.0'
-
+    
     // at runtime, use the full JEI jar
     runtime "mezz.jei:jei_${minecraft_version}:${jei_version}"
 
-// https://mvnrepository.com/artifact/org.json/json
-    compile group: 'org.json', name: 'json', version: '20180813' // probably get rid of this
 
-    compile group: 'com.codesnippets4all', name: 'quick-json', version: '1.0.4'
+
+
+    //compile group: 'org.lz4', name: 'lz4-java', version: '1.4.1'
+
+
 
 }
 

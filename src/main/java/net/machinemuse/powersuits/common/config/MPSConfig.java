@@ -15,7 +15,6 @@ import net.machinemuse.powersuits.item.armor.ItemPowerArmorLeggings;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -62,7 +61,7 @@ public enum MPSConfig {
      */
     @Nullable
     public static File getConfigFolder() {
-        return Numina.configDir;
+        return Numina.INSTANCE.configDir;
     }
 
     @Nullable
@@ -80,7 +79,7 @@ public enum MPSConfig {
     }
 
     public static boolean useOldAutoFeeder() {
-        return getServerSettings() != null ? getServerSettings().useOldAutoFeeder : MPSSettings.General.useOldAutoFeeder;
+        return getServerSettings() != null ? getServerSettings().useOldAutoFeeder : MPSSettings.general.useOldAutoFeeder;
     }
 
     public static double getMaximumArmorPerPiece() {
@@ -106,6 +105,18 @@ public enum MPSConfig {
     }
 
     /**
+     * Models ------------------------------------------------------------------------------------
+     */
+    public static boolean allowHighPollyArmorModels() {
+//        return getServerSettings() != null ? getServerSettings().allowHighPollyArmorModels : MPSSettings.modelconfig.allowHighPollyArmorModels;
+        return true;
+    }
+
+    public static boolean doAdditionalInfo() {
+        return FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT && Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
+    }
+
+    /**
      * HUD Settings ------------------------------------------------------------------------------
      */
     public boolean toggleModuleSpam() {
@@ -125,7 +136,7 @@ public enum MPSConfig {
     }
 
     public boolean useGraphicalMeters() {
-        return MPSSettings.HUD.useGraphicalMeters;
+        return MPSSettings.hud.useGraphicalMeters;
     }
 
     /**
@@ -143,10 +154,6 @@ public enum MPSConfig {
     // TODO: 100%
     public double getSalvageChance() {
         return getServerSettings() != null ? getServerSettings().getSalvageChance : MPSSettings.general.getSalvageChance;
-    }
-
-    public static boolean doAdditionalInfo() {
-        return FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT && Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
     }
 
     public double getBaseMaxHeat(@Nonnull ItemStack itemStack) {
@@ -174,6 +181,30 @@ public enum MPSConfig {
 
         return 0;
     }
+
+//    public double getMaxModules(@Nonnull ItemStack itemStack) {
+//        if (itemStack.getItem() instanceof ItemPowerFist) {
+//            return getServerSettings() != null ? getServerSettings().maxModulesPowerFist: MPSSettings.general.maxModulesPowerFist;
+//        }
+//
+//        if (itemStack.getItem() instanceof ItemPowerArmorHelmet) {
+//            return getServerSettings() != null ? getServerSettings().maxModulesHelmet: MPSSettings.general.maxModulesHelmet;
+//        }
+//
+//        if (itemStack.getItem() instanceof ItemPowerArmorChestplate) {
+//            return getServerSettings() != null ? getServerSettings().maxModulesChestplate : MPSSettings.general.maxModulesChestplate;
+//        }
+//
+//        if (itemStack.getItem() instanceof ItemPowerArmorLeggings) {
+//            return getServerSettings() != null ? getServerSettings().maxModulesLeggings : MPSSettings.general.maxModulesLeggings ;
+//        }
+//
+//        if (itemStack.getItem() instanceof ItemPowerArmorBoots) {
+//            return getServerSettings() != null ? getServerSettings().maxModulesFeet : MPSSettings.general.maxModulesFeet;
+//        }
+//
+//        return 0;
+//    }
 
     /**
      * Limits -------------------------------------------------------------------------------------
@@ -310,36 +341,38 @@ public enum MPSConfig {
         return;
     }
 
+//    public NBTTagCompound getRenderTagFor
 
 
     /**
-     * Models ------------------------------------------------------------------------------------
+     * Save the model settings as a Json in the config folder using the itemstack name as the folder name
      */
-    public static boolean useLegacyCosmeticSystem() {
-        return getServerSettings() != null ? getServerSettings().useLegacyCosmeticSystem : MPSSettings.cosmetics.useLegacyCosmeticSystem;
-    }
+    public boolean savePreset(String presetName, @Nonnull ItemStack itemStack) {
+        if (itemStack.isEmpty())
+            return false;
 
-    public static boolean allowHighPollyArmorModels() {
-        return getServerSettings() != null ? getServerSettings().allowHighPollyArmorModuels : MPSSettings.cosmetics.allowHighPollyArmorModuels;
-    }
+        try {
+            // get the render tag for the item
+            NBTTagCompound nbt = MPSNBTUtils.getMuseRenderTag(itemStack);
 
-    public static boolean allowPowerFistCustomization() {
-        return getServerSettings() != null ? getServerSettings().allowPowerFistCustomization : MPSSettings.cosmetics.allowPowerFistCustomization;
-    }
+            // sub folder based on the item name
+            String subfolder = itemStack.getItem().getRegistryName().getPath();
 
-    public Map<String, NBTTagCompound> getCosmeticPresets(@Nonnull ItemStack itemStack) {
-        Item item  = itemStack.getItem();
+            // path with subfolder
+            File file = new File(MPSConfig.INSTANCE.getConfigFolder(), subfolder);
 
-        if (item instanceof ItemPowerFist)
-            return getServerSettings() != null ? getServerSettings().cosmeticPresetsPowerFist : MPSSettings.cosmetics.getCosmeticPresetsPowerFist();
-        else if (item instanceof ItemPowerArmorHelmet)
-            return getServerSettings() != null ? getServerSettings().cosmeticPresetsPowerArmorHelmet : MPSSettings.cosmetics.getCosmeticPresetsPowerArmorHelmet();
-        else if (item instanceof ItemPowerArmorChestplate)
-            return getServerSettings() != null ? getServerSettings().cosmeticPresetsPowerArmorChestplate : MPSSettings.cosmetics.getCosmeticPresetsPowerArmorChestplate();
-        else if (item instanceof ItemPowerArmorLeggings)
-            return getServerSettings() != null ? getServerSettings().cosmeticPresetsPowerArmorLeggings : MPSSettings.cosmetics.getCosmeticPresetsPowerArmorLeggings();
-        else if (item instanceof ItemPowerArmorBoots)
-            return getServerSettings() != null ? getServerSettings().cosmeticPresetsPowerArmorBoots : MPSSettings.cosmetics.getCosmeticPresetsPowerArmorLeggings();
-        return new HashMap<String, NBTTagCompound>();
+            // final complete path
+            file = new File(file, presetName + ".json");
+
+            Writer writer = new FileWriter(file);
+            Gson gson = new GsonBuilder().create();
+            gson.toJson(nbt, writer);
+            writer.flush();
+            writer.close();
+        } catch(Exception e) {
+            MuseLogger.logException("Failed to save preset: ", e);
+            return false;
+        }
+        return true;
     }
 }

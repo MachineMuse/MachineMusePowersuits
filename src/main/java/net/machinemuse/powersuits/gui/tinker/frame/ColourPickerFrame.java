@@ -265,7 +265,7 @@ public class ColourPickerFrame extends ScrollableFrame {
                 NBTTagIntArray nbtTagIntArray = getOrCreateColourTag();
                 List<Integer> intList = Arrays.stream(getIntArray(nbtTagIntArray)).boxed().collect(Collectors.toList());
 
-                if (intList.size() > 1 && selectedColour <= intList.size() -1) {
+                if (intList.size() > 1) {
                     intList.remove(selectedColour); // with integer list, will default to index rather than getValue
 
                     setColourTagMaybe(intList);
