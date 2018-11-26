@@ -263,7 +263,7 @@ public class PartSpecManipSubFrame {
             MuseLogger.logDebug("Line " + lineNumber + " Column " + columnNumber);
 
             switch (columnNumber) {
-                // removes the associated tag from the render tag making the part not visible
+                // removes the associated tag from the render tag making the part not isEnabled
                 case 0: {
                     if (spec instanceof TexturePartSpec)
                         tagname = NBT_TEXTURESPEC_TAG;
@@ -275,7 +275,7 @@ public class PartSpecManipSubFrame {
                     return true;
                 }
 
-                // set part to visible
+                // set part to isEnabled
                 case 1: {
                     if (spec instanceof TexturePartSpec)
                         tagname = NBT_TEXTURESPEC_TAG;

@@ -54,7 +54,7 @@
 //                if(nbt != null) stack.setTagCompound(nbt);
 //                return stack;
 //            } catch (Exception e) {
-//                MuseLogger.logError("Unable to load " + itemStackName + " from Item Registry");
+//                MuseLogger.logError("Unable to loadButton " + itemStackName + " from Item Registry");
 //                return null;
 //            }
 //        } else if (registryName != null) {
@@ -65,7 +65,7 @@
 //                if(nbt != null) stack.setTagCompound(nbt);
 //                return stack;
 //            } catch (Exception e) {
-//                MuseLogger.logError("Unable to load " + registryName + " from Item Registry");
+//                MuseLogger.logError("Unable to loadButton " + registryName + " from Item Registry");
 //                return null;
 //            }
 //        } else if (oredictName != null) {
@@ -76,7 +76,7 @@
 //                if(nbt != null) stack.setTagCompound(nbt);
 //                return stack;
 //            } catch (Exception e) {
-//                MuseLogger.logError("Unable to load " + oredictName + " from oredict");
+//                MuseLogger.logError("Unable to loadButton " + oredictName + " from oredict");
 //                return null;
 //            }
 //        } else {

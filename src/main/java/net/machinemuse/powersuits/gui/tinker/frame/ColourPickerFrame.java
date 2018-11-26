@@ -4,6 +4,7 @@ import net.machinemuse.numina.api.constants.NuminaNBTConstants;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.numina.utils.math.geometry.DrawableMuseRect;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
 import net.machinemuse.powersuits.gui.GuiIcons;
@@ -55,6 +56,7 @@ public class ColourPickerFrame extends ScrollableFrame {
     public int selectedColour;
     public int decrAbove;
     ScrollableRectangle[] rectangles;
+    boolean isEnabled;
 
     public ColourPickerFrame(MusePoint2D topleft, MusePoint2D bottomright, Colour borderColour, Colour insideColour, ItemSelectionFrame itemSelector) {
         super(topleft, bottomright, borderColour, insideColour);
@@ -84,6 +86,7 @@ public class ColourPickerFrame extends ScrollableFrame {
         this.selectedSlider = null;
         this.selectedColour = 0;
         this.decrAbove = -1;
+        this.isEnabled = true;
     }
 
     public ScrollableSlider getScrollableSlider(String name, ScrollableRectangle prev, int index) {
@@ -96,6 +99,15 @@ public class ColourPickerFrame extends ScrollableFrame {
         rectangles[index] = scrollableSlider;
         return scrollableSlider;
     }
+
+    public void setIsEnabled(boolean visible) {
+        this.isEnabled = visible;
+    }
+
+    public boolean getIsEnabled() {
+        return this.isEnabled;
+    }
+
 
     public int[] colours() {
         return (getOrCreateColourTag() != null) ? getOrCreateColourTag().getIntArray() : new int[0];
@@ -155,41 +167,54 @@ public class ColourPickerFrame extends ScrollableFrame {
 
     @Override
     public void onMouseUp(double x, double y, int button) {
-        this.selectedSlider = null;
+        if (this.isEnabled)
+            this.selectedSlider = null;
     }
+
+    public DrawableMuseRect getBorder(){
+        return this.border;
+    }
+
 
     @Override
     public void update(double mousex, double mousey) {
         super.update(mousex, mousey);
+        if (this.isEnabled) {
+            if (this.selectedSlider != null) {
+                this.selectedSlider.getSlider().setValueByX(mousex);
+                if (colours().length > selectedColour) {
+                    colours()[selectedColour] = Colour.getInt(rslider.getValue(), gslider.getValue(), bslider.getValue(), aslider.getValue());
 
-        if (this.selectedSlider != null) {
-            this.selectedSlider.getSlider().setValueByX(mousex);
-            if (colours().length > selectedColour) {
-                colours()[selectedColour] = Colour.getInt(rslider.getValue(), gslider.getValue(), bslider.getValue(), aslider.getValue());
-
-                EntityPlayerSP player = Minecraft.getMinecraft().player;
-                if (player.world.isRemote)
-                    PacketSender.sendToServer(new MusePacketColourInfo(player, itemSelector.getSelectedItem().inventorySlot, colours()));
+                    EntityPlayerSP player = Minecraft.getMinecraft().player;
+                    if (player.world.isRemote)
+                        PacketSender.sendToServer(new MusePacketColourInfo(player, itemSelector.getSelectedItem().inventorySlot, colours()));
+                }
+                // this just sets up the sliders on selecting an item
+            } else if (itemSelector.getSelectedItem() != null && colours().length > 0) {
+                if (selectedColour <= colours().length -1)
+                    onSelectColour(selectedColour);
             }
         }
     }
 
     @Override
     public void draw() {
-        this.currentscrollpixels = Math.min(currentscrollpixels, getMaxScrollPixels());
+        if (this.isEnabled) {
+            this.currentscrollpixels = Math.min(currentscrollpixels, getMaxScrollPixels());
 
-        if (colours().length > selectedColour) {
-            colourLabel.setText(COLOUR_PREFIX + " 0X" + new Colour(colours()[selectedColour]).hexColour());
-        }
+            if (colours().length > selectedColour) {
+                colourLabel.setText(COLOUR_PREFIX + " 0X" + new Colour(colours()[selectedColour]).hexColour());
+            }
 
-        super.preDraw();
-        GL11.glPushMatrix();
-        GL11.glTranslatef(0, -currentscrollpixels, 0);
-        for (ScrollableRectangle f : rectangles) {
-            f.draw();
+            super.preDraw();
+            GL11.glPushMatrix();
+            GL11.glTranslatef(0, -currentscrollpixels, 0);
+            for (ScrollableRectangle f : rectangles) {
+                f.draw();
+            }
+            GL11.glPopMatrix();
+            super.postDraw();
         }
-        GL11.glPopMatrix();
-        super.postDraw();
     }
 
     @Override
@@ -208,28 +233,30 @@ public class ColourPickerFrame extends ScrollableFrame {
 
     @Override
     public void onMouseDown(double x, double y, int button) {
-        y = y + currentscrollpixels;
+        if (this.isEnabled) {
+            y = y + currentscrollpixels;
 
-        if (this.rslider.hitBox(x, y))
-            this.selectedSlider = this.rslider;
-        else if (this.gslider.hitBox(x, y))
-            this.selectedSlider = this.gslider;
-        else if (this.bslider.hitBox(x, y))
-            this.selectedSlider = this.bslider;
-        else if (this.aslider.hitBox(x, y))
-            this.selectedSlider = this.aslider;
-        else
-            this.selectedSlider = null;
+            if (this.rslider.hitBox(x, y))
+                this.selectedSlider = this.rslider;
+            else if (this.gslider.hitBox(x, y))
+                this.selectedSlider = this.gslider;
+            else if (this.bslider.hitBox(x, y))
+                this.selectedSlider = this.bslider;
+            else if (this.aslider.hitBox(x, y))
+                this.selectedSlider = this.aslider;
+            else
+                this.selectedSlider = null;
 
-        colourBox.addColour(x, y);
-        colourBox.removeColour(x, y);
+            colourBox.addColour(x, y);
+            colourBox.removeColour(x, y);
 
-        if (colourLabel.hitbox(x, y) && colours().length > selectedColour) {
-            // todo: insert chat to player...
+            if (colourLabel.hitbox(x, y) && colours().length > selectedColour) {
+                // todo: insert chat to player...
 //            System.out.println("copying to clipboard: " + "0x" + new Colour(selectedColour).hexColour());
-            StringSelection selection = new StringSelection(new Colour(selectedColour).hexColour());
-            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-            clipboard.setContents(selection, selection);
+                StringSelection selection = new StringSelection(new Colour(selectedColour).hexColour());
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clipboard.setContents(selection, selection);
+            }
         }
     }
 

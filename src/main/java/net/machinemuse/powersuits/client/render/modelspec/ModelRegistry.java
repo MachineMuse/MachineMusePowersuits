@@ -61,7 +61,7 @@ public class ModelRegistry extends MuseRegistry<SpecBase> {
                 MuseLogger.logError("Model loading failed on attempt #" + attempt + "  :( " + location.toString());
             } else
                 return (OBJModelPlus) model;
-            MuseLogger.logError("Failed to load model. " + e);
+            MuseLogger.logError("Failed to loadButton model. " + e);
         }
         return (OBJModelPlus) model;
     }

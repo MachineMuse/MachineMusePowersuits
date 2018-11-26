@@ -90,6 +90,11 @@ public abstract class MuseRenderer {
         drawString(s, x - getStringWidth(s), y);
     }
 
+    public static void drawLeftAlignedStringString(String s, double x, double y) {
+        drawString(s, x, y);
+    }
+
+
     public static double getStringWidth(String s) {
         double val;
         GL11.glPushAttrib(GL11.GL_TEXTURE_BIT);

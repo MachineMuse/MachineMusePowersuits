@@ -108,7 +108,7 @@ public class ModelPowerFist implements IBakedModel {
 //            return ModelPowerFistHelper.INSTANCE.colouredPowerFistQuadMap.get(
 //                    new ModelPowerFistHelper.PowerFistQuadMapKey(colour, modelcameraTransformType, isFiring));
 //        } catch (Exception e) {
-//            MuseLogger.logException("failed to load get quads from cache: ", e);
+//            MuseLogger.logException("failed to loadButton get quads from cache: ", e);
 //            return Collections.EMPTY_LIST;
 //        }
 //    }
@@ -121,7 +121,7 @@ public class ModelPowerFist implements IBakedModel {
 //            .maximumSize(40)
 //            .build(new CacheLoader<ModelPowerFist.CachKey, List<BakedQuad>>() {
 //                @Override
-//                public List<BakedQuad> load(ModelPowerFist.CachKey key) throws Exception {
+//                public List<BakedQuad> loadButton(ModelPowerFist.CachKey key) throws Exception {
 //                    return null;
 //                }
 //            });

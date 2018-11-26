@@ -216,7 +216,7 @@ public class ModelHelper {
                 model = getIModel(location, attempt + 1);
                 MuseLogger.logError("Model loading failed on attempt #" + attempt + "  :( " + location.toString());
             } else {
-                MuseLogger.logError("Failed to load model. " + e);
+                MuseLogger.logError("Failed to loadButton model. " + e);
                 return getOBJModel(location, 0);
             }
         }
@@ -239,7 +239,7 @@ public class ModelHelper {
                 MuseLogger.logError("Model loading failed on attempt #" + attempt + "  :( " + location.toString());
             } else
                 return model;
-            MuseLogger.logError("Failed to load model. " + e);
+            MuseLogger.logError("Failed to loadButton model. " + e);
         }
         return model;
     }

@@ -11,6 +11,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 
+import java.io.IOException;
+
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 6:32 PM, 29/04/13
@@ -23,6 +25,8 @@ public class CosmeticGui extends MuseGui {
     int worldy;
     int worldz;
     ItemSelectionFrame itemSelect;
+    LoadSaveResetSubFrame loadSaveResetSubFrame;
+
 //    ItemStack lastSelectedItem;
 
     public CosmeticGui(EntityPlayer player, int worldx, int worldy, int worldz) {
@@ -76,7 +80,9 @@ public class CosmeticGui extends MuseGui {
         // TODO: usse config setting for turing this off. Adjust colour picker frame element spacing and frame size for when this is absent.
 
 
-        LoadSaveResetSubFrame loadSaveResetSubFrame = new LoadSaveResetSubFrame(
+        loadSaveResetSubFrame = new LoadSaveResetSubFrame(
+                colourpicker,
+                player,
                 new MuseRect(
                         absX(0.18f),
                         absY(-0.23f),
@@ -112,6 +118,13 @@ public class CosmeticGui extends MuseGui {
                 new MusePoint2D(absX(0.95F), absY(-0.95f)),
                 worldx, worldy, worldz);
         frames.add(tabFrame);
+    }
+
+    @Override
+    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+        super.keyTyped(typedChar, keyCode);
+        if (loadSaveResetSubFrame != null)
+            loadSaveResetSubFrame.keyTyped(typedChar, keyCode);
     }
 
     @Override

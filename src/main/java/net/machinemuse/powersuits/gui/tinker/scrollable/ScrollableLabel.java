@@ -6,7 +6,12 @@ import net.machinemuse.powersuits.gui.tinker.clickable.ClickableLabel;
 
 public class ScrollableLabel extends ScrollableRectangle {
     ClickableLabel label;
+    boolean enabled = true;
 
+    public ScrollableLabel(String text, MuseRelativeRect relativeRect) {
+        super(relativeRect);
+        this.label = new ClickableLabel(text, new MusePoint2D(relativeRect.centerx(), relativeRect.centery()));
+    }
 
     public ScrollableLabel(ClickableLabel label, MuseRelativeRect relativeRect) {
         super(relativeRect);
@@ -28,6 +33,16 @@ public class ScrollableLabel extends ScrollableRectangle {
         this.label = label;
     }
 
+    public ScrollableLabel setMode(int mode) {
+        this.label = this.label.setMode(mode);
+        return this;
+    }
+
+    public ScrollableLabel setEnabled(boolean enabled) {
+        this.enabled = enabled;
+        return this;
+    }
+
     public void setText(String text) {
         label.setLabel(text);
     }
@@ -38,6 +53,7 @@ public class ScrollableLabel extends ScrollableRectangle {
 
     @Override
     public void draw() {
-        label.draw();
+        if (enabled)
+            label.draw();
     }
 }

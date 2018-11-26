@@ -23,6 +23,10 @@ public class MuseRect {
         this.wh = br.minus(ul);
     }
 
+    public MuseRect copyOf() {
+        return new MuseRect(this.left(), this.top(), this.right(), this.bottom());
+    }
+
     public double left() {
         return ul.getX();
     }

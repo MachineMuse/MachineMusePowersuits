@@ -12,6 +12,8 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+import java.util.Objects;
+
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 10:16 AM, 01/05/13
@@ -52,19 +54,25 @@ public class MusePacketCosmeticInfo extends MusePacket {
         ItemStack stack = player.inventory.getStackInSlot(itemSlot);
         if (tagName != null && !stack.isEmpty() && stack.getItem() instanceof IModularItem) {
             NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
-            NBTTagCompound renderTag;
-            if (!itemTag.hasKey(NuminaNBTConstants.TAG_RENDER)) {
-                renderTag = new NBTTagCompound();
-                itemTag.setTag(NuminaNBTConstants.TAG_RENDER, renderTag);
+            if (Objects.equals(tagName, NuminaNBTConstants.TAG_RENDER)) {
+                itemTag.removeTag(NuminaNBTConstants.TAG_RENDER);
+                itemTag.setTag(NuminaNBTConstants.TAG_RENDER, tagData);
+                MuseLogger.logDebug("Resetting tag to default " + tagName);
             } else {
-                renderTag = itemTag.getCompoundTag(NuminaNBTConstants.TAG_RENDER);
-            }
-            if (tagData == null || tagData.isEmpty()) {
-                MuseLogger.logDebug("Removing tag " + tagName);
-                renderTag.removeTag(tagName);
-            } else {
-                MuseLogger.logDebug("Adding tag " + tagName + " : " + tagData);
-                renderTag.setTag(tagName, tagData);
+                NBTTagCompound renderTag;
+                if (!itemTag.hasKey(NuminaNBTConstants.TAG_RENDER)) {
+                    renderTag = new NBTTagCompound();
+                    itemTag.setTag(NuminaNBTConstants.TAG_RENDER, renderTag);
+                } else {
+                    renderTag = itemTag.getCompoundTag(NuminaNBTConstants.TAG_RENDER);
+                }
+                if (tagData == null || tagData.isEmpty()) {
+                    MuseLogger.logDebug("Removing tag " + tagName);
+                    renderTag.removeTag(tagName);
+                } else {
+                    MuseLogger.logDebug("Adding tag " + tagName + " : " + tagData);
+                    renderTag.setTag(tagName, tagData);
+                }
             }
         }
     }

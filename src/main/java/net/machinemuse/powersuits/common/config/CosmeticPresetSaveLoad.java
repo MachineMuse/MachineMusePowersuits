@@ -113,7 +113,7 @@ public class CosmeticPresetSaveLoad {
             Path fullPath = Paths.get(directory.toString(), presetName + "." + EXTENSION);
             Files.write(fullPath, byteArray);
         } catch(Exception e) {
-            MuseLogger.logException("Failed to save preset: ", e);
+            MuseLogger.logException("Failed to saveButton preset: ", e);
             return false;
         }
         return true;

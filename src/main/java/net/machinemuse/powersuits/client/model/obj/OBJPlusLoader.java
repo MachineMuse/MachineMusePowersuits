@@ -70,7 +70,7 @@
 //        try {
 //            resource = manager.getResource(file);
 //        } catch (FileNotFoundException e) {
-//            MuseLogger.logException("failed to load model: ", e);
+//            MuseLogger.logException("failed to loadButton model: ", e);
 //            if (modelLocation.getPath().startsWith("models/block/"))
 //                resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/item/" + file.getPath().substring("models/block/".length())));
 //            else if (modelLocation.getPath().startsWith("models/item/"))
@@ -201,7 +201,7 @@ public enum OBJPlusLoader implements ICustomModelLoader {
             try {
                 resource = manager.getResource(file);
             } catch (FileNotFoundException e) {
-                MuseLogger.logException("failed to load model: ", e);
+                MuseLogger.logException("failed to loadButton model: ", e);
                 if (modelLocation.getPath().startsWith("models/block/"))
                     resource = manager.getResource(new ResourceLocation(file.getNamespace(), "models/item/" + file.getPath().substring("models/block/".length())));
                 else if (modelLocation.getPath().startsWith("models/item/"))

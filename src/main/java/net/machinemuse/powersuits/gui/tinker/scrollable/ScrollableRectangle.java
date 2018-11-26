@@ -9,9 +9,6 @@ public class ScrollableRectangle extends MuseRelativeRect {
         super(relativeRect.left(), relativeRect.top(), relativeRect.right(), relativeRect.bottom());
     }
 
-
-
-
     public ScrollableRectangle(double left, double top, double right, double bottom) {
         super(left, top, right, bottom);
     }

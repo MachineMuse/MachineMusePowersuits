@@ -95,6 +95,11 @@ public class ClickableButton extends Clickable {
         return this;
     }
 
+    public ClickableButton setLable(String label) {
+        this.label = label;
+        return this;
+    }
+
     public String getLabel() {
         return label;
     }

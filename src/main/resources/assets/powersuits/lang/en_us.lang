@@ -377,8 +377,8 @@ gui.powersuits.slotpoints=Slot Points
 gui.powersuits.load=Load
 gui.powersuits.save=Save
 gui.powersuits.reset=Reset
+gui.powersuits.cancel=Cancel
 gui.powersuits.colourPrefix=Color:
-
 
 # Toooltips
 tooltip.powersuits.pressShift=Press SHIFT for more information.

@@ -124,7 +124,7 @@ public abstract class MuseStringUtils {
     }
 
     /**
-     * Puts the 'reset formatting' tag at the end of the string.
+     * Puts the 'resetButton formatting' tag at the end of the string.
      *
      * @param str
      * @return
@@ -134,7 +134,7 @@ public abstract class MuseStringUtils {
     }
 
     /**
-     * Puts the format tag on the front and the reset tag on the end
+     * Puts the format tag on the front and the resetButton tag on the end
      *
      * @param str
      * @param format
@@ -145,7 +145,7 @@ public abstract class MuseStringUtils {
     }
 
     /**
-     * Puts the format tag on the front and the reset tag on the end (enum
+     * Puts the format tag on the front and the resetButton tag on the end (enum
      * version)
      *
      * @param str
@@ -157,7 +157,7 @@ public abstract class MuseStringUtils {
     }
 
     /**
-     * Takes multiple format tags and adds them all, then appends a reset tag.
+     * Takes multiple format tags and adds them all, then appends a resetButton tag.
      *
      * @param str
      * @param tags
