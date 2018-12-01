@@ -32,13 +32,6 @@ public class ClickableLabel implements IClickable {
         this.label = label;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * machinemuse.powersuits.gui.Clickable#draw(net.minecraft.client.renderer
-     * .RenderEngine, machinemuse.powersuits.gui.MuseGui)
-     */
     @Override
     public void draw() {
         if (mode == 0)
@@ -60,11 +53,6 @@ public class ClickableLabel implements IClickable {
         return hitx && hity;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see machinemuse.powersuits.gui.Clickable#getToolTip()
-     */
     @Override
     public List<String> getToolTip() {
         return null;

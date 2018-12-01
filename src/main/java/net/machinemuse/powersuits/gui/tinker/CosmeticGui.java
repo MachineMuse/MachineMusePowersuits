@@ -3,8 +3,6 @@ package net.machinemuse.powersuits.gui.tinker;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRect;
-import net.machinemuse.powersuits.common.config.CosmeticPresetSaveLoad;
-import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.gui.MuseGui;
 import net.machinemuse.powersuits.gui.tinker.frame.*;
 import net.minecraft.client.Minecraft;
@@ -94,7 +92,7 @@ public class CosmeticGui extends MuseGui {
         frames.add(loadSaveResetSubFrame);
 
 
-        if (MPSConfig.INSTANCE.useLegacyCosmeticSystem()) {
+        if (/*MPSConfig.INSTANCE.useLegacyCosmeticSystem()*/ 1==0) {
             PartManipContainer partframe = new PartManipContainer(
                     itemSelect, colourpicker,
                     new MusePoint2D(absX(-0.95F), absY(0.025f)),
@@ -103,7 +101,7 @@ public class CosmeticGui extends MuseGui {
                     Colour.DARKBLUE.withAlpha(0.8F));
             frames.add(partframe);
         } else {
-            CosmeticPresetSubFrame cosmeticFrame = new CosmeticPresetSubFrame(
+            CosmeticPresetContainer cosmeticFrame = new CosmeticPresetContainer(
                     itemSelect, colourpicker,
                     new MusePoint2D(absX(-0.95F), absY(0.025f)),
                     new MusePoint2D(absX(+0.95F), absY(0.95f)),

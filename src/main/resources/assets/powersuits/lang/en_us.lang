@@ -379,6 +379,7 @@ gui.powersuits.save=Save
 gui.powersuits.reset=Reset
 gui.powersuits.cancel=Cancel
 gui.powersuits.colourPrefix=Color:
+gui.powersuits.saveAs=Save as:
 
 # Toooltips
 tooltip.powersuits.pressShift=Press SHIFT for more information.

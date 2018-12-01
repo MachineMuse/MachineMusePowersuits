@@ -11,8 +11,10 @@ import javax.annotation.Nonnull;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,12 +28,12 @@ public class CosmeticPresetSaveLoad {
     static final String EXTENSION = "dat";
 
     public static Map<String, NBTTagCompound> loadPresetsForItem(@Nonnull ItemStack itemStack) {
-        return loadPresetsForItem(itemStack.getItem());
+        return loadPresetsForItem(itemStack.getItem(), 0);
     }
 
-    public static Map<String, NBTTagCompound> loadPresetsForItem(Item item) {
+    public static Map<String, NBTTagCompound> loadPresetsForItem(Item item, int count) {
         Map<String, NBTTagCompound> retmap = new HashMap<>();
-        if (item == null) {
+        if (item == null || count > 4) {
             return retmap;
         }
 
@@ -39,9 +41,7 @@ public class CosmeticPresetSaveLoad {
         String subfolder = item.getRegistryName().getPath();
 
         // path with subfolder
-        Path directory = Paths.get(MPSConfig.INSTANCE.getConfigFolder().getAbsolutePath(), "cosmeticpresets", subfolder);
-
-
+        Path directory = Paths.get(MPSConfig.getConfigFolder().getAbsolutePath(), "cosmeticpresets", subfolder);
         try {
             Files.walkFileTree(directory, EnumSet.noneOf(FileVisitOption.class), 1, new SimpleFileVisitor<Path>() {
                 @Override
@@ -60,7 +60,67 @@ public class CosmeticPresetSaveLoad {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        if (retmap.isEmpty()) {
+            copyPresetsFromJar();
+            return loadPresetsForItem(item, count + 1);
+        }
+
         return retmap;
+    }
+
+    public static void copyPresetsFromJar() {
+        Path sourcePath;
+        FileSystem fileSystem = null;
+
+        try {
+            URI uri = CosmeticPresetSaveLoad.class.getResource("/assets/powersuits/cosmeticpresets/").toURI();
+            if ("jar".equals(uri.getScheme())) {
+                // We're running within a jar file
+                if (fileSystem == null) {
+                    try {
+                        // Create a reference to the filesystem
+                        fileSystem = FileSystems.newFileSystem(uri, Collections.emptyMap());
+                    } catch (FileSystemAlreadyExistsException lEx) {
+                        // Sometimes newFileSystem seems to raise FileSystemAlreadyExistsException - this code gets around this problem.
+                        fileSystem = FileSystems.getFileSystem(uri);
+                    }
+                }
+                // Get hold of the path to the top level directory of the JAR file
+                sourcePath = fileSystem.getPath("/");
+                sourcePath = sourcePath.resolve("assets/powersuits/cosmeticpresets");
+
+            } else
+                sourcePath = Paths.get(uri);
+
+
+            Files.walkFileTree(sourcePath, EnumSet.noneOf(FileVisitOption.class), 10, new SimpleFileVisitor<Path>() {
+                @Override
+                public FileVisitResult visitFile(Path selectedPath, BasicFileAttributes attrs) throws IOException {
+                    if (selectedPath.getFileName().toString().endsWith("." + EXTENSION)) {
+                        Path subFolder = selectedPath.getParent().getFileName();
+
+                        // path with subfolder
+                        Path target = Paths.get(MPSConfig.getConfigFolder().getAbsolutePath(), "cosmeticpresets", subFolder.toString(), selectedPath.getFileName().toString());
+                        try {
+                            // create dir
+                            if (!Files.exists(target.getParent()))
+                                Files.createDirectories(target.getParent());
+
+                            // create file without overwriting
+                            if (!Files.exists(target))
+                                Files.copy(selectedPath, target);//, StandardCopyOption.REPLACE_EXISTING);
+                        } catch(Exception e) {
+                            // FIXME
+                            MuseLogger.logException("Exception here: ", e);
+                        }
+                    }
+                    return FileVisitResult.CONTINUE;
+                }
+            });
+        } catch (Exception e) {
+            MuseLogger.logException("Something happened here: ", e);
+        }
     }
 
     /**
@@ -100,7 +160,7 @@ public class CosmeticPresetSaveLoad {
             String subfolder = itemStack.getItem().getRegistryName().getPath();
 
             // path with subfolder
-            Path directory = Paths.get(MPSConfig.INSTANCE.getConfigFolder().getAbsolutePath(), "cosmeticpresets", subfolder);
+            Path directory = Paths.get(MPSConfig.getConfigFolder().getAbsolutePath(), "cosmeticpresets", subfolder);
 
             try {
                 Files.createDirectories(directory);

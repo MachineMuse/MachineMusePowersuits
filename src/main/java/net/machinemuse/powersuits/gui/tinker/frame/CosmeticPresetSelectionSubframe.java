@@ -1,5 +1,7 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
+import net.machinemuse.numina.api.constants.NuminaNBTConstants;
+import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRect;
@@ -10,6 +12,7 @@ import net.machinemuse.powersuits.gui.tinker.clickable.ClickableLabel;
 import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableLabel;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
+import net.machinemuse.powersuits.network.packets.MusePacketCosmeticInfo;
 import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -27,14 +30,18 @@ public class CosmeticPresetSelectionSubframe extends ScrollableLabel {
     public ItemSelectionFrame itemSelector;
     String name;
     NBTTagCompound nbt;
+    NBTTagCompound cosmeticPresetNBT = new NBTTagCompound();
+
 
     public CosmeticPresetSelectionSubframe(String name, NBTTagCompound nbt, MusePoint2D musePoint2D, ItemSelectionFrame itemSelector, MuseRelativeRect border) {
         super(new ClickableLabel(name, musePoint2D), border);
         this.name = name;
         this.nbt = nbt;
+        this.cosmeticPresetNBT.setString(NuminaNBTConstants.TAG_COSMETIC_PRESET, name);
         this.itemSelector = itemSelector;
         this.border = border;
         this.open = true;
+        this.setMode(0);
     }
 
     public NBTTagCompound getNbt() {
@@ -88,13 +95,10 @@ public class CosmeticPresetSelectionSubframe extends ScrollableLabel {
     @Override
     public boolean hitbox(double x, double y) {
         // change the render tag to this ... keep in mind that the render tag for these are just a key to read from the config file
-        if(super.hitbox(x, y)) {
-
-            EntityPlayerSP player = Minecraft.getMinecraft().player;
-
-//            PacketSender.sendToServer(new MusePacketCosmeticInfo(player, this.getSelectedItem().inventorySlot, tagname, tagdata).getPacket131());
-
-
+        if(super.hitbox(x, y) && this.getSelectedItem() != null) {
+            if (isValidItem(getSelectedItem(), getEquipmentSlot())) {
+                PacketSender.sendToServer(new MusePacketCosmeticInfo(Minecraft.getMinecraft().player, this.getSelectedItem().inventorySlot, NuminaNBTConstants.TAG_COSMETIC, cosmeticPresetNBT).getPacket131());
+            }
             return true;
         }
         return false;

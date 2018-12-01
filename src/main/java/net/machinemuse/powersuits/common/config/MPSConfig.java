@@ -327,7 +327,13 @@ public enum MPSConfig {
         return getServerSettings() != null ? getServerSettings().allowPowerFistCustomization : MPSSettings.cosmetics.allowPowerFistCustomization;
     }
 
-    public Map<String, NBTTagCompound> getCosmeticPresets(@Nonnull ItemStack itemStack) {
+    @Nullable
+    public static NBTTagCompound getPresetNBTFor(@Nonnull ItemStack itemStack, String presetName) {
+        Map<String, NBTTagCompound> map = getCosmeticPresets(itemStack);
+        return map.get(presetName);
+    }
+
+    public static Map<String, NBTTagCompound> getCosmeticPresets(@Nonnull ItemStack itemStack) {
         Item item  = itemStack.getItem();
 
         if (item instanceof ItemPowerFist)

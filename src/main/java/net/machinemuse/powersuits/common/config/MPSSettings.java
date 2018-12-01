@@ -510,42 +510,42 @@ public class MPSSettings {
         public boolean allowPowerFistCustomization=false;
 
         @Config.Ignore
-        private Map<String, NBTTagCompound> cosmeticPresetsPowerFist;
+        private Map<String, NBTTagCompound> cosmeticPresetsPowerFist = new HashMap<>();
         public Map<String, NBTTagCompound> getCosmeticPresetsPowerFist() {
             if (cosmeticPresetsPowerFist.isEmpty() && !allowPowerFistCustomization)
-                cosmeticPresetsPowerFist = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerFist);
+                cosmeticPresetsPowerFist = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerFist, 0);
             return cosmeticPresetsPowerFist;
         }
 
         @Config.Ignore
-        private Map<String, NBTTagCompound> cosmeticPresetsPowerArmorHelmet;
+        private Map<String, NBTTagCompound> cosmeticPresetsPowerArmorHelmet = new HashMap<>();
         public Map<String, NBTTagCompound> getCosmeticPresetsPowerArmorHelmet() {
             if (cosmeticPresetsPowerArmorHelmet.isEmpty() && !useLegacyCosmeticSystem)
-                cosmeticPresetsPowerArmorHelmet = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerArmorHead);
+                cosmeticPresetsPowerArmorHelmet = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerArmorHead, 0);
             return cosmeticPresetsPowerArmorHelmet;
         }
 
         @Config.Ignore
-        private Map<String, NBTTagCompound> cosmeticPresetsPowerArmorChestplate;
+        private Map<String, NBTTagCompound> cosmeticPresetsPowerArmorChestplate = new HashMap<>();
         public Map<String, NBTTagCompound> getCosmeticPresetsPowerArmorChestplate() {
             if(cosmeticPresetsPowerArmorChestplate.isEmpty() && !useLegacyCosmeticSystem)
-                cosmeticPresetsPowerArmorChestplate = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerArmorTorso);
+                cosmeticPresetsPowerArmorChestplate = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerArmorTorso, 0);
             return cosmeticPresetsPowerArmorChestplate;
         }
 
         @Config.Ignore
-        private Map<String, NBTTagCompound> cosmeticPresetsPowerArmorLeggings;
+        private Map<String, NBTTagCompound> cosmeticPresetsPowerArmorLeggings = new HashMap<>();
         public Map<String, NBTTagCompound> getCosmeticPresetsPowerArmorLeggings() {
             if(cosmeticPresetsPowerArmorLeggings.isEmpty() && !useLegacyCosmeticSystem)
-                cosmeticPresetsPowerArmorLeggings = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerArmorLegs);
+                cosmeticPresetsPowerArmorLeggings = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerArmorLegs, 0);
             return cosmeticPresetsPowerArmorLeggings;
         }
 
         @Config.Ignore
-        private Map<String, NBTTagCompound>  cosmeticPresetsPowerArmorBoots;
+        private Map<String, NBTTagCompound>  cosmeticPresetsPowerArmorBoots = new HashMap<>();
         public Map<String, NBTTagCompound> getCosmeticPresetsPowerArmorBoots() {
             if(cosmeticPresetsPowerArmorBoots.isEmpty() && !useLegacyCosmeticSystem)
-                cosmeticPresetsPowerArmorBoots = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerArmorFeet);
+                cosmeticPresetsPowerArmorBoots = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerArmorFeet, 0);
             return getCosmeticPresetsPowerArmorBoots();
         }
     }
