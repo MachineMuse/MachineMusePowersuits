@@ -37,22 +37,44 @@ compileJava {
 def buildnumber = System.getenv("BUILD_NUMBER")
 def travisbuildnumber = (System.getenv("TRAVIS_BUILD_NUMBER") ?: -000).toInteger() + 00
 version = "${minecraft_version}-${mod_version}.${buildnumber ?: travisbuildnumber}"
-group= group_id // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = group_id // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = mod_id
 
-def numina_version = (System.getenv("NUMINA_VERSION") ?:"0.5.0")
+def numina_version = (System.getenv("NUMINA_VERSION") ?: "0.5.0")
 
 repositories {
-    //JEI
-    maven {
-        url "http://dvs1.progwml6.com/files/maven"
-    }
+    //url                                                           //dependencies
+    maven { url "http://dvs1.progwml6.com/files/maven" }            //JEI
+    maven { url = "http://maven.covers1624.net/" }                  //CoFH
+    maven { url = "http://maven.ic2.player.to" }                    //IC2 Forestry
+    maven { url = "http://maven.tterrag.com" }                      //EnderIO
+    maven { url = "http://maven2.tterrag.com" }                     //EnderIO
+    maven { url = 'http://maven.mcmoddev.com' }                     //TESLA API
+    maven { url = 'https://mod-buildcraft.com/maven/' }             //BuildCraft
+    maven { url = 'http://maven.cil.li/' }                          //Scannable
+    maven { url = 'https://repo.raoulvdberge.com/' }                //RefinedStorage
+    maven { url = 'http://maven.thiakil.com/' }                     //Mekanism
+    maven { url = "http://maven.blamejared.com" }                   //CraftTweaker - required by Mekanism
+    maven { url = 'https://minecraft.curseforge.com/api/maven/' }   //Thaumcraft
     mavenCentral()
 }
 
 dependencies {
-    // compile against the JEI API
-    deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}:api"
+    deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}:api"                             //JEI API
+    deobfCompile "cofh:CoFHCore:${minecraft_version}-${cofhcore_version}:universal"                 //CoFH Core
+    deobfCompile "appeng:appliedenergistics2:${ae2api_version}"                                     //Applied Energetics 2
+    deobfCompile "net.industrial-craft:industrialcraft-2:${ic2api_version}-ex112"                   //IC2 API
+    deobfCompile "com.enderio.core:EnderCore:${minecraft_version}-${endercore_version}:deobf"       //Ender Core
+    deobfCompile "net.sengir.forestry:forestry_${minecraft_version}:${forestry_version}"            //Forestry
+    deobfCompile "thaumcraft:Thaumcraft:1.12.2:${thaumcraft_version}"                               //Thaumcraft
+    deobfCompile "refinedstorage:refinedstorage:${refinedstorage_version}"                          //Refined Storage
+    compile "com.enderio:EnderIO:${minecraft_version}-${enderio_version}:api"                       //EnderIO API
+    compile "net.darkhax.tesla:Tesla-${minecraft_version}:${tesla_version}"                         //Tesla
+    compile "com.mod-buildcraft:buildcraft:${buildcraft_version}"                                   //BuildCraft
+    compile "li.cil.scannable:Scannable:MC${minecraft_version}-${scannable_version}"                //Scannable
+    compile "mekanism:Mekanism:${minecraft_version}-${mekanism_version}"                            //Mekanism
+    compile fileTree(dir: 'src/libs', include: 'RenderPlayerAPI-1.12.1-1.0.jar')                    //RenderPlayerAPI
+    compile fileTree(dir: 'src/libs', include: 'ExtraCells-1.12.2-2.6.1a.jar')                      //ExtraCells
 
     compile group: 'com.google.guava', name: 'guava', version: '22.0'
 
@@ -84,7 +106,7 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
         // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand 'version': project.version, 'mcversion': project.minecraft.version
     }
 
     // copy everything else, thats not the mcmod.info
