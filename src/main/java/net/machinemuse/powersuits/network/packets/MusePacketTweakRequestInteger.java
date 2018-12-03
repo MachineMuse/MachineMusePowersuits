@@ -37,7 +37,7 @@
 //    }
 //
 //    @Override
-//    public IMusePackager packager() {
+//    public IMusePackager getPackagerInstance() {
 //        return getPackagerInstance();
 //    }
 //

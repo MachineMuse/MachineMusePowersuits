@@ -54,7 +54,7 @@ public final class MusePacketHandler extends MessageToMessageCodec<FMLProxyPacke
     }
 
     public void addPackager(IMusePackager packagerIn) {
-        // checks the map to see if the packager is already listed
+        // checks the map to see if the getPackagerInstance is already listed
         if (!packagers.inverse().containsKey(packagerIn)) {
             packagers.put(packagers.size(), packagerIn);
         }

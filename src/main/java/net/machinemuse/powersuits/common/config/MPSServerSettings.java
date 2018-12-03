@@ -3,7 +3,14 @@ package net.machinemuse.powersuits.common.config;
 import io.netty.buffer.ByteBufInputStream;
 import net.machinemuse.numina.network.MusePackager;
 import net.machinemuse.numina.network.MusePacket;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorHelmet;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorLeggings;
+import net.machinemuse.powersuits.item.tool.ItemPowerFist;
+import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -230,5 +237,20 @@ public class MPSServerSettings {
         packet.writeMap(cosmeticPresetsPowerArmorChestplate, true);
         packet.writeMap(cosmeticPresetsPowerArmorLeggings, true);
         packet.writeMap(cosmeticPresetsPowerArmorBoots, true);
+    }
+
+    public void updateCosmeticInfo(ResourceLocation location, String name, NBTTagCompound cosmeticInfo) {
+        Item item = Item.REGISTRY.getObject(location);
+
+        if (item instanceof ItemPowerFist)
+            cosmeticPresetsPowerFist.put(name, cosmeticInfo);
+        else if (item instanceof ItemPowerArmorHelmet)
+            cosmeticPresetsPowerArmorHelmet.put(name, cosmeticInfo);
+        else if (item instanceof ItemPowerArmorChestplate)
+            cosmeticPresetsPowerArmorChestplate.put(name, cosmeticInfo);
+        else if (item instanceof ItemPowerArmorLeggings)
+            cosmeticPresetsPowerArmorLeggings.put(name, cosmeticInfo);
+        else if (item instanceof ItemPowerArmorBoots)
+            cosmeticPresetsPowerArmorBoots.put(name, cosmeticInfo);
     }
 }

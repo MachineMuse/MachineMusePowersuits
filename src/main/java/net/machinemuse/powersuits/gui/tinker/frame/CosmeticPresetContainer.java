@@ -24,6 +24,8 @@ public class CosmeticPresetContainer extends ScrollableFrame {
     public MusePoint2D bottomright;
     public Integer lastItemSlot;
     public List<CosmeticPresetSelectionSubframe> presetFrames;
+    protected boolean enabled;
+    protected boolean visibile;
 
     public CosmeticPresetContainer(ItemSelectionFrame itemSelect,
                                    ColourPickerFrame colourSelect,
@@ -38,8 +40,9 @@ public class CosmeticPresetContainer extends ScrollableFrame {
         this.bottomright = bottomright;
         this.lastItemSlot = null;
         this.presetFrames = getPresetFrames();
+        this.visibile = true;
+        this.enabled = true;
     }
-
 
     @Nonnull
     public ItemStack getItem() {
@@ -82,13 +85,16 @@ public class CosmeticPresetContainer extends ScrollableFrame {
 
     @Override
     public void onMouseDown(double x, double y, int button) {
-        System.out.println(" mouse click: " + x + ", " + y);
+        if (enabled) {
+
+            System.out.println(" mouse click: " + x + ", " + y);
 
 
-        if (button == 0) {
-            for (CosmeticPresetSelectionSubframe frame : presetFrames) {
-                if (frame.hitbox(x, y))
-                    return;
+            if (button == 0) {
+                for (CosmeticPresetSelectionSubframe frame : presetFrames) {
+                    if (frame.hitbox(x, y))
+                        return;
+                }
             }
         }
     }
@@ -96,57 +102,62 @@ public class CosmeticPresetContainer extends ScrollableFrame {
     @Override
     public void update(double mouseX, double mouseY) {
         super.update(mouseX, mouseY);
-        if (!Objects.equals(lastItemSlot, getItemSlot())) {
-            lastItemSlot = getItemSlot();
 
-            presetFrames = getPresetFrames();
-            double x = 0;
-            for (CosmeticPresetSelectionSubframe subframe : presetFrames) {
+        if (enabled) {
+            if (!Objects.equals(lastItemSlot, getItemSlot())) {
+                lastItemSlot = getItemSlot();
+
+                presetFrames = getPresetFrames();
+                double x = 0;
+                for (CosmeticPresetSelectionSubframe subframe : presetFrames) {
 //                subframe.updateItems();
-                x += subframe.border.bottom();
-            }
-            this.totalsize = (int) x;
+                    x += subframe.border.bottom();
+                }
+                this.totalsize = (int) x;
 //        }
-            if (colourSelect.decrAbove > -1) {
+                if (colourSelect.decrAbove > -1) {
 //            decrAbove(colourSelect.decrAbove);
-                colourSelect.decrAbove = -1;
+                    colourSelect.decrAbove = -1;
+                }
             }
         }
     }
 
-    //    @Override
-//    public void update(double mousex, double mousey) {
-//        super.update(mousex, mousey);
-//        if (!Objects.equals(lastItemSlot, getItemSlot())) {
-//            lastItemSlot = getItemSlot();
-//            colourSelect.refreshColours(); // this does nothing
-//
-//            double x = 0;
-//            for (CosmeticPresetSelectionSubframe subframe : presetFrames) {
-//                subframe.updateItems();
-//                x += subframe.border.bottom();
-//            }
-//            this.totalsize = (int) x;
-//        }
-//        if (colourSelect.decrAbove > -1) {
-//            decrAbove(colourSelect.decrAbove);
-//            colourSelect.decrAbove = -1;
-//        }
-//    }
-//
-//    public void decrAbove(int index) {
-//        for (CosmeticPresetSelectionSubframe frame : presetFrames) frame.decrAbove(index);
-//    }
+    public void hide () {
+        visibile = false;
+    }
+
+    public void show() {
+        visibile = true;
+    }
+
+    public boolean isVisibile() {
+        return visibile;
+    }
+
+    public void enable() {
+        enabled = true;
+    }
+
+    public void disable() {
+        enabled = false;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
 
     @Override
     public void draw() {
-        super.preDraw();
-        GL11.glPushMatrix();
-        GL11.glTranslated(0.0, (double) (-this.currentscrollpixels), 0.0);
-        for (CosmeticPresetSelectionSubframe f : presetFrames) {
-            f.draw();
+        if (visibile) {
+            super.preDraw();
+            GL11.glPushMatrix();
+            GL11.glTranslated(0.0, (double) (-this.currentscrollpixels), 0.0);
+            for (CosmeticPresetSelectionSubframe f : presetFrames) {
+                f.draw();
+            }
+            GL11.glPopMatrix();
+            super.postDraw();
         }
-        GL11.glPopMatrix();
-        super.postDraw();
     }
 }

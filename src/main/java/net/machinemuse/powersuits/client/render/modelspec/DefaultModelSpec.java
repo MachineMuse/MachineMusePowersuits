@@ -28,6 +28,10 @@ import java.util.List;
  * <p>
  * Special note: tried forEach() with a filter, but speed was up to 8 times slower
  */
+
+// FIXME: update to respect config settings...
+
+
 @SideOnly(Side.CLIENT)
 public class DefaultModelSpec {
     public static NBTTagCompound makeModelPrefs(@Nonnull ItemStack stack) {

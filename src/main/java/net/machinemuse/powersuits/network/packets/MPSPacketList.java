@@ -25,5 +25,6 @@ public class MPSPacketList {
         handler.addPackager(MusePacketColourInfo.getPackagerInstance());
 //        handler.addPackager( MusePacketPropertyModifierConfig.getPackagerInstance() );
         handler.addPackager(MPSPacketConfig.getPackagerInstance());
+        handler.addPackager(MusePacketCosmeticPresetUpdate.getPackagerInstance());
     }
 }

@@ -18,6 +18,7 @@ public class ClickableButton extends Clickable {
     protected MusePoint2D radius;
     protected DrawableMuseRect rect;
     protected boolean enabled;
+    protected boolean visible = true;
 
     public ClickableButton(String label, MusePoint2D position, boolean enabled) {
         this.label = label;
@@ -43,24 +44,26 @@ public class ClickableButton extends Clickable {
      */
     @Override
     public void draw() {
-        Colour topcolour;
-        Colour bottomcolour;
-        if (isEnabled()) {
-            topcolour = new Colour(0.5F, 0.6F, 0.8F, 1);
-            bottomcolour = new Colour(0.3F, 0.3F, 0.3F, 1);
-        } else {
-            topcolour = new Colour(0.8F, 0.3F, 0.3F, 1);
-            bottomcolour = new Colour(0.8F, 0.6F, 0.6F, 1);
+        if (visible) {
+            Colour topcolour;
+            Colour bottomcolour;
+            if (isEnabled()) {
+                topcolour = new Colour(0.5F, 0.6F, 0.8F, 1);
+                bottomcolour = new Colour(0.3F, 0.3F, 0.3F, 1);
+            } else {
+                topcolour = new Colour(0.8F, 0.3F, 0.3F, 1);
+                bottomcolour = new Colour(0.8F, 0.6F, 0.6F, 1);
+            }
+            this.rect.setLeft(position.getX() - radius.getX());
+            this.rect.setTop(position.getY() - radius.getY());
+            this.rect.setRight(position.getX() + radius.getX());
+            this.rect.setBottom(position.getY() + radius.getY());
+            this.rect.setOutsideColour(topcolour);
+            this.rect.setInsideColour(bottomcolour);
+            this.rect.draw();
+            MuseRenderer.drawCenteredString(this.label, position.getX(),
+                    position.getY() - 4);
         }
-        this.rect.setLeft(position.getX() - radius.getX());
-        this.rect.setTop(position.getY() - radius.getY());
-        this.rect.setRight(position.getX() + radius.getX());
-        this.rect.setBottom(position.getY() + radius.getY());
-        this.rect.setOutsideColour(topcolour);
-        this.rect.setInsideColour(bottomcolour);
-        this.rect.draw();
-        MuseRenderer.drawCenteredString(this.label, position.getX(),
-                position.getY() - 4);
     }
 
     /*
@@ -93,6 +96,18 @@ public class ClickableButton extends Clickable {
     public ClickableButton setEnabled(boolean enabled) {
         this.enabled = enabled;
         return this;
+    }
+
+    public void show() {
+        this.visible = true;
+    }
+
+    public void hide() {
+        this.visible = false;
+    }
+
+    public boolean isVisible() {
+        return visible;
     }
 
     public ClickableButton setLable(String label) {

@@ -27,7 +27,7 @@
 //    }
 //
 //    @Override
-//    public IMusePackager packager() {
+//    public IMusePackager getPackagerInstance() {
 //        return MusePacketNameChangeRequestPackager.INSTANCE;
 //    }
 //

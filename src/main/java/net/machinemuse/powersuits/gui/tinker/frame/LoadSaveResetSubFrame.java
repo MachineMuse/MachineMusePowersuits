@@ -10,10 +10,11 @@ import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec;
 import net.machinemuse.powersuits.common.config.CosmeticPresetSaveLoad;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableButton;
 import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableLabel;
+import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.machinemuse.powersuits.network.packets.MusePacketCosmeticInfo;
-import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,17 +31,21 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
     protected ClickableButton resetButton;
     ColourPickerFrame colourpicker;
     ScrollableLabel saveAsLabel;
+    final boolean usingCosmeticPresets;
+    final boolean allowCosmeticPresetCreation;
 
     final double originalBottom;
     final double originalTop;
     final double originalHeight;
     final double newHeight;
-
+    protected PartManipContainer partframe;
+    protected CosmeticPresetContainer cosmeticFrame;
+    protected boolean isEditing;
 
     GuiTextField presetNameInputBox;
 
 
-    public LoadSaveResetSubFrame(ColourPickerFrame colourpicker, EntityPlayer player, MuseRect borderRef, Colour insideColour, Colour borderColour, ItemSelectionFrame itemSelector) {
+    public LoadSaveResetSubFrame(ColourPickerFrame colourpicker, EntityPlayer player, MuseRect borderRef, Colour insideColour, Colour borderColour, ItemSelectionFrame itemSelector, boolean usingCosmeticPresetsIn, boolean allowCosmeticPresetCreationIn, PartManipContainer partframe, CosmeticPresetContainer cosmeticFrame) {
         this.border = new DrawableMuseRect(borderRef, insideColour, borderColour);
         this.originalTop = border.top();
         this.originalHeight = border.height();
@@ -69,15 +74,26 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
         presetNameInputBox.setFocused(false);
         presetNameInputBox.setMaxStringLength((int) border.width());
         presetNameInputBox.setText("");
+
+        this.usingCosmeticPresets = usingCosmeticPresetsIn;
+        this.allowCosmeticPresetCreation = allowCosmeticPresetCreationIn;
+
+        this.partframe = partframe;
+        this.cosmeticFrame = cosmeticFrame;
+        this.isEditing = false;
+
+        if (usingCosmeticPresets)
+            showPresetFrame();
+        else
+            showPartManipFrame();
     }
 
     @Override
     public void onMouseDown(double x, double y, int button) {
-        if (itemSelector.getSelectedItem() == null)
+        if (itemSelector.getSelectedItem() == null || itemSelector.getSelectedItem().getItem().isEmpty())
             return;
-        boolean boolVal = true;
 
-        if (!itemSelector.getSelectedItem().getItem().isEmpty()) {
+        if (allowCosmeticPresetCreation) {
             /**
              * if colour picker frame enabled/visible
              - hide colour picker frame
@@ -115,6 +131,24 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
                 }
             }
 
+
+            if (loadButton.hitBox(x, y)) {
+                // cancel
+                if (!colourpicker.isEnabled)
+                    closeSaveGUI();
+                // TODO: loading screen
+
+            }
+        } else {
+            saveButton.setEnabled(false);
+            saveButton.hide();
+            loadButton.setEnabled(false);
+            loadButton.hide();
+        }
+
+        if (!itemSelector.getSelectedItem().getItem().isEmpty()) {
+
+
             if (resetButton.hitBox(x, y)) {
                 // reset cosmetic tag to defaults
                 if (colourpicker.isEnabled) {
@@ -124,14 +158,6 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
                     // reset text in text input box
                     presetNameInputBox.setText("");
                 }
-            }
-
-            if (loadButton.hitBox(x, y)) {
-                // cancel
-                if (!colourpicker.isEnabled)
-                    closeSaveGUI();
-                // TODO: loading screen
-
             }
         }
     }
@@ -145,6 +171,15 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
         this.border.setTop(originalTop).setHeight(originalHeight);
         saveAsLabel.setEnabled(boolVal);
         loadButton.setLable(I18n.format("gui.powersuits.load"));
+        partframe.hide();
+        partframe.disable();
+        cosmeticFrame.enable();
+        cosmeticFrame.show();
+
+
+
+
+
 
         // fixme: hide cosmetic manip subframe
         // fixme: show cosmeitc preset selection subframe
@@ -160,17 +195,29 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
         saveAsLabel.setEnabled(boolVal);
         loadButton.setLable(I18n.format("gui.powersuits.cancel"));
 
+        partframe.show();
+        partframe.enable();
+        cosmeticFrame.disable();
+        cosmeticFrame.hide();
+
 
         // fixme: hide cosmeitc preset selection subframe
         // fixme: show cosmetic manip subframe
     }
 
+    void showPresetFrame() {
+        cosmeticFrame.enable();
+        cosmeticFrame.show();
+        partframe.disable();
+        partframe.hide();
+    }
 
-
-
-
-
-
+    void showPartManipFrame() {
+        cosmeticFrame.disable();
+        cosmeticFrame.hide();
+        partframe.enable();
+        partframe.show();
+    }
 
 
     @Override
@@ -180,9 +227,75 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
 
     @Override
     public void update(double mousex, double mousey) {
-        loadButton.setEnabled(true);
-        saveButton.setEnabled(true);
         resetButton.setEnabled(true);
+        resetButton.show();
+
+        // cosmetic preset creation mode
+        if (isEditing) {
+            showPartManipFrame();
+            loadButton.setEnabled(true);
+            loadButton.show();
+
+            saveButton.setEnabled(true);
+            saveButton.show();
+
+        } else if (usingCosmeticPresets) {
+
+            // allowed to create cosmetic presets but not yet doing so
+            if (allowCosmeticPresetCreation && !isEditing) {
+                saveButton.setEnabled(true);
+                saveButton.show();
+                saveButton.setLable("gui.powersuits.new");
+
+            } else {
+                showPresetFrame();
+                loadButton.setEnabled(false);
+                loadButton.hide();
+
+                saveButton.setEnabled(false);
+                saveButton.hide();
+
+                colourpicker.setIsEnabled(false);
+                presetNameInputBox.setEnabled(false);
+                presetNameInputBox.setVisible(false);
+                presetNameInputBox.setFocused(false);
+            }
+        } else {
+            if (!MPSConfig.INSTANCE.allowPowerFistCustomization() &&
+                    itemSelector.getSelectedItem() != null && itemSelector.getSelectedItem().getItem().getItem() instanceof ItemPowerFist) {
+                showPresetFrame();
+
+                loadButton.setEnabled(false);
+                loadButton.hide();
+
+                saveButton.setEnabled(false);
+                saveButton.hide();
+
+                colourpicker.setIsEnabled(false);
+                presetNameInputBox.setEnabled(false);
+                presetNameInputBox.setVisible(false);
+                presetNameInputBox.setFocused(false);
+            } else {
+                showPartManipFrame();
+                loadButton.setEnabled(false);
+                loadButton.hide();
+
+                saveButton.setEnabled(false);
+                saveButton.hide();
+
+                colourpicker.setIsEnabled(true);
+                presetNameInputBox.setEnabled(false);
+                presetNameInputBox.setVisible(false);
+                presetNameInputBox.setFocused(false);
+            }
+        }
+
+
+
+
+//        loadButton.setEnabled(true);
+//        saveButton.setEnabled(true);
+//        resetButton.setEnabled(true);
     }
 
     @Override

@@ -3,11 +3,14 @@ package net.machinemuse.powersuits.gui.tinker;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRect;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.gui.MuseGui;
 import net.machinemuse.powersuits.gui.tinker.frame.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.server.management.UserListOpsEntry;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import java.io.IOException;
 
@@ -25,6 +28,10 @@ public class CosmeticGui extends MuseGui {
     ItemSelectionFrame itemSelect;
     LoadSaveResetSubFrame loadSaveResetSubFrame;
 
+    protected final boolean allowCosmeticPresetCreation;
+    protected final boolean usingCosmeticPresets;
+
+
 //    ItemStack lastSelectedItem;
 
     public CosmeticGui(EntityPlayer player, int worldx, int worldy, int worldz) {
@@ -32,10 +39,22 @@ public class CosmeticGui extends MuseGui {
         this.worldx = worldx;
         this.worldy = worldy;
         this.worldz = worldz;
-
         ScaledResolution screen = new ScaledResolution(Minecraft.getMinecraft());
         this.xSize = Math.min(screen.getScaledWidth() - 50, 500);
         this.ySize = Math.min(screen.getScaledHeight() - 50, 300);
+
+        usingCosmeticPresets = !MPSConfig.INSTANCE.useLegacyCosmeticSystem();
+        if (usingCosmeticPresets) {
+            // check if player is the server owner
+            if (FMLCommonHandler.instance().getMinecraftServerInstance().isSinglePlayer()) {
+                allowCosmeticPresetCreation = player.getName().equals(FMLCommonHandler.instance().getMinecraftServerInstance().getServerOwner());
+            } else {
+                // check if player is top level op
+                UserListOpsEntry opEntry =  FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getOppedPlayers().getEntry(player.getGameProfile());
+                int opLevel = opEntry != null ? opEntry.getPermissionLevel() : 0;
+                allowCosmeticPresetCreation = opLevel == 4;
+            }
+        } else allowCosmeticPresetCreation = false;
     }
 
     /**
@@ -59,25 +78,48 @@ public class CosmeticGui extends MuseGui {
                 Colour.DARKBLUE.withAlpha(0.8F));
         frames.add(renderframe);
 
-
-        // FIXME: finish transitioning to scrollable frame.
-
         ColourPickerFrame colourpicker = new ColourPickerFrame(
                 new MusePoint2D(absX(0.18f),
                         absY(-0.95f)),
 
                 new MusePoint2D(absX(0.95f),
                         absY(-0.27f)),
-
                 Colour.LIGHTBLUE.withAlpha(0.8F),
                 Colour.DARKBLUE.withAlpha(0.8F),
                 itemSelect);
         frames.add(colourpicker);
 
+        PartManipContainer partframe = new PartManipContainer(
+                itemSelect, colourpicker,
+                new MusePoint2D(absX(-0.95F), absY(0.025f)),
+                new MusePoint2D(absX(+0.95F), absY(0.95f)),
+                Colour.LIGHTBLUE.withAlpha(0.8F),
+                Colour.DARKBLUE.withAlpha(0.8F));
 
-        // TODO: usse config setting for turing this off. Adjust colour picker frame element spacing and frame size for when this is absent.
+        CosmeticPresetContainer cosmeticFrame = new CosmeticPresetContainer(
+                itemSelect, colourpicker,
+                new MusePoint2D(absX(-0.95F), absY(0.025f)),
+                new MusePoint2D(absX(+0.95F), absY(0.95f)),
+                Colour.LIGHTBLUE.withAlpha(0.8F),
+                Colour.DARKBLUE.withAlpha(0.8F));
 
+        if (usingCosmeticPresets) {
+            partframe.hide();
+            partframe.disable();
+            cosmeticFrame.show();
+            cosmeticFrame.enable();
+            frames.add(cosmeticFrame);
+            if (allowCosmeticPresetCreation)
+                frames.add(partframe);
+        } else {
+            partframe.show();
+            partframe.enable();
+            cosmeticFrame.hide();
+            cosmeticFrame.disable();
+            frames.add(partframe);
+        }
 
+        // if not using presets then only the reset button is displayed
         loadSaveResetSubFrame = new LoadSaveResetSubFrame(
                 colourpicker,
                 player,
@@ -88,27 +130,12 @@ public class CosmeticGui extends MuseGui {
                         absY(-0.025f)),
                 Colour.LIGHTBLUE.withAlpha(0.8F),
                 Colour.DARKBLUE.withAlpha(0.8F),
-                itemSelect);
+                itemSelect,
+                usingCosmeticPresets,
+                allowCosmeticPresetCreation,
+                partframe,
+                cosmeticFrame);
         frames.add(loadSaveResetSubFrame);
-
-
-        if (/*MPSConfig.INSTANCE.useLegacyCosmeticSystem()*/ 1==0) {
-            PartManipContainer partframe = new PartManipContainer(
-                    itemSelect, colourpicker,
-                    new MusePoint2D(absX(-0.95F), absY(0.025f)),
-                    new MusePoint2D(absX(+0.95F), absY(0.95f)),
-                    Colour.LIGHTBLUE.withAlpha(0.8F),
-                    Colour.DARKBLUE.withAlpha(0.8F));
-            frames.add(partframe);
-        } else {
-            CosmeticPresetContainer cosmeticFrame = new CosmeticPresetContainer(
-                    itemSelect, colourpicker,
-                    new MusePoint2D(absX(-0.95F), absY(0.025f)),
-                    new MusePoint2D(absX(+0.95F), absY(0.95f)),
-                    Colour.LIGHTBLUE.withAlpha(0.8F),
-                    Colour.DARKBLUE.withAlpha(0.8F));
-            frames.add(cosmeticFrame);
-        }
 
         TabSelectFrame tabFrame = new TabSelectFrame(
                 player,
