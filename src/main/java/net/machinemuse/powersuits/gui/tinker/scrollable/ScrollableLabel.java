@@ -48,7 +48,7 @@ public class ScrollableLabel extends ScrollableRectangle {
     }
 
     public boolean hitbox(double x, double y) {
-        return label.hitBox(x, y);
+        return enabled && label.hitBox(x, y);
     }
 
     @Override

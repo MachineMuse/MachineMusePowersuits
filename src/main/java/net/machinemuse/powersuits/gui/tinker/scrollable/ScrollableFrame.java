@@ -19,6 +19,8 @@ public class ScrollableFrame implements IGuiFrame {
     protected boolean scrolldownPicked = false;
     protected boolean scrollupPicked = false;
     protected int lastdWheel = Mouse.getDWheel();
+    protected boolean visibile = true;
+    protected boolean enabled = true;
 
     protected DrawableMuseRect border;
 
@@ -80,6 +82,40 @@ public class ScrollableFrame implements IGuiFrame {
     public void draw() {
         preDraw();
         postDraw();
+    }
+
+    public void frameOff() {
+        this.disable();
+        this.hide();
+    }
+
+    public void frameOn() {
+        this.enable();
+        this.show();
+    }
+
+    public void hide () {
+        this.visibile = false;
+    }
+
+    public void show() {
+        this.visibile = true;
+    }
+
+    public boolean isVisibile() {
+        return this.visibile;
+    }
+
+    public void enable() {
+        this.enabled = true;
+    }
+
+    public void disable() {
+        this.enabled = false;
+    }
+
+    public boolean isEnabled() {
+        return this.enabled;
     }
 
     @Override

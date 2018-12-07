@@ -56,7 +56,6 @@ public class ColourPickerFrame extends ScrollableFrame {
     public int selectedColour;
     public int decrAbove;
     ScrollableRectangle[] rectangles;
-    boolean isEnabled;
 
     public ColourPickerFrame(MusePoint2D topleft, MusePoint2D bottomright, Colour borderColour, Colour insideColour, ItemSelectionFrame itemSelector) {
         super(topleft, bottomright, borderColour, insideColour);
@@ -86,7 +85,7 @@ public class ColourPickerFrame extends ScrollableFrame {
         this.selectedSlider = null;
         this.selectedColour = 0;
         this.decrAbove = -1;
-        this.isEnabled = true;
+        this.enable();
     }
 
     public ScrollableSlider getScrollableSlider(String name, ScrollableRectangle prev, int index) {
@@ -99,15 +98,6 @@ public class ColourPickerFrame extends ScrollableFrame {
         rectangles[index] = scrollableSlider;
         return scrollableSlider;
     }
-
-    public void setIsEnabled(boolean visible) {
-        this.isEnabled = visible;
-    }
-
-    public boolean getIsEnabled() {
-        return this.isEnabled;
-    }
-
 
     public int[] colours() {
         return (getOrCreateColourTag() != null) ? getOrCreateColourTag().getIntArray() : new int[0];
@@ -167,7 +157,7 @@ public class ColourPickerFrame extends ScrollableFrame {
 
     @Override
     public void onMouseUp(double x, double y, int button) {
-        if (this.isEnabled)
+        if (this.isEnabled())
             this.selectedSlider = null;
     }
 
@@ -179,7 +169,7 @@ public class ColourPickerFrame extends ScrollableFrame {
     @Override
     public void update(double mousex, double mousey) {
         super.update(mousex, mousey);
-        if (this.isEnabled) {
+        if (this.isEnabled()) {
             if (this.selectedSlider != null) {
                 this.selectedSlider.getSlider().setValueByX(mousex);
                 if (colours().length > selectedColour) {
@@ -199,7 +189,7 @@ public class ColourPickerFrame extends ScrollableFrame {
 
     @Override
     public void draw() {
-        if (this.isEnabled) {
+        if (this.isVisibile()) {
             this.currentscrollpixels = Math.min(currentscrollpixels, getMaxScrollPixels());
 
             if (colours().length > selectedColour) {
@@ -233,7 +223,7 @@ public class ColourPickerFrame extends ScrollableFrame {
 
     @Override
     public void onMouseDown(double x, double y, int button) {
-        if (this.isEnabled) {
+        if (this.isEnabled()) {
             y = y + currentscrollpixels;
 
             if (this.rslider.hitBox(x, y))

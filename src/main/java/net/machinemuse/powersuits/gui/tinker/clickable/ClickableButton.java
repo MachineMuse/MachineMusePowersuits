@@ -98,6 +98,24 @@ public class ClickableButton extends Clickable {
         return this;
     }
 
+    public void enable() {
+        this.enabled = true;
+    }
+
+    public void buttonOn() {
+        this.enable();
+        this.show();
+    }
+
+    public void buttonOff() {
+        this.disable();
+        this.hide();
+    }
+
+    public void disable() {
+        this.enabled = false;
+    }
+
     public void show() {
         this.visible = true;
     }
