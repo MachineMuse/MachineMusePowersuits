@@ -64,24 +64,29 @@ dependencies {
     deobfCompile "cofh:CoFHCore:${minecraft_version}-${cofhcore_version}:universal"                 //CoFH Core
     deobfCompile "appeng:appliedenergistics2:${ae2api_version}"                                     //Applied Energetics 2
     deobfCompile "net.industrial-craft:industrialcraft-2:${ic2api_version}-ex112"                   //IC2 API
-    deobfCompile "com.enderio.core:EnderCore:${minecraft_version}-${endercore_version}:deobf"       //Ender Core
+    compileOnly "com.enderio.core:EnderCore:${minecraft_version}-${endercore_version}"              //Ender Core
     deobfCompile "net.sengir.forestry:forestry_${minecraft_version}:${forestry_version}"            //Forestry
     deobfCompile "thaumcraft:Thaumcraft:1.12.2:${thaumcraft_version}"                               //Thaumcraft
     deobfCompile "refinedstorage:refinedstorage:${refinedstorage_version}"                          //Refined Storage
-    compile "com.enderio:EnderIO:${minecraft_version}-${enderio_version}:api"                       //EnderIO API
     compile "net.darkhax.tesla:Tesla-${minecraft_version}:${tesla_version}"                         //Tesla
     compile "com.mod-buildcraft:buildcraft:${buildcraft_version}"                                   //BuildCraft
     compile "li.cil.scannable:Scannable:MC${minecraft_version}-${scannable_version}"                //Scannable
-    compile "mekanism:Mekanism:${minecraft_version}-${mekanism_version}"                            //Mekanism
     compile fileTree(dir: 'src/libs', include: 'RenderPlayerAPI-1.12.1-1.0.jar')                    //RenderPlayerAPI
     compile fileTree(dir: 'src/libs', include: 'ExtraCells-1.12.2-2.6.1a.jar')                      //ExtraCells
-
+    compile("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")                           //Mekanism
+            { exclude group: 'mezz.jei' }//Mek has implemented a duplicated and out date JEI
+    compileOnly ("com.enderio:EnderIO:${minecraft_version}-${enderio_version}:api")                 //EnderIO API
+            { exclude group: "deobf.com.enderio.core"}//Another duplicated and (dirty words) dependency
+    
+    //in fact,if you want run with EnderIO,you had to manually add EnderCore and EnderIO to your run/mods
+    //or you can help to add some lines below that can help the "runClient" works properly while also load EnderIO
+    
     compile group: 'com.google.guava', name: 'guava', version: '22.0'
 
-    // at runtime, use the full JEI jar
-    runtime "mezz.jei:jei_${minecraft_version}:${jei_version}"
-
-// https://mvnrepository.com/artifact/org.json/json
+    //we need baubles at runtime
+    runtime "com.azanor:Baubles:${baubles_runtime_version}"
+    
+    // https://mvnrepository.com/artifact/org.json/json
     compile group: 'org.json', name: 'json', version: '20180813' // probably get rid of this
 
     compile group: 'com.codesnippets4all', name: 'quick-json', version: '1.0.4'
@@ -148,4 +153,8 @@ idea {
     module {
         inheritOutputDirs = true
     }
+}
+
+runClient {
+    jvmArgs "-Xmx3G"
 }
