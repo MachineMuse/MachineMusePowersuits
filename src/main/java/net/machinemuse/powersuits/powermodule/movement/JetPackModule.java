@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
-import net.machinemuse.numina.api.item.IModularItem;
-import net.machinemuse.numina.api.module.EnumModuleCategory;
-import net.machinemuse.numina.api.module.EnumModuleTarget;
-import net.machinemuse.numina.api.module.IPlayerTickModule;
-import net.machinemuse.numina.api.module.IToggleableModule;
+import net.machinemuse.numina.item.IModularItem;
+import net.machinemuse.numina.module.EnumModuleCategory;
+import net.machinemuse.numina.module.EnumModuleTarget;
+import net.machinemuse.numina.module.IPlayerTickModule;
+import net.machinemuse.numina.module.IToggleableModule;
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;

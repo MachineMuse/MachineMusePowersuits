@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.common;
 
-import net.machinemuse.numina.api.module.EnumModuleTarget;
-import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.numina.module.EnumModuleTarget;
+import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.common.ModCompatibility;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.powersuits.common.config.MPSConfig;
@@ -28,7 +28,7 @@ import net.machinemuse.powersuits.powermodule.vision.NightVisionModule;
 import net.machinemuse.powersuits.powermodule.vision.ThaumGogglesModule;
 import net.machinemuse.powersuits.powermodule.weapon.*;
 
-import static net.machinemuse.numina.api.module.EnumModuleTarget.*;
+import static net.machinemuse.numina.module.EnumModuleTarget.*;
 
 public class MPSModules {
     public static void addModule(IPowerModule module) {

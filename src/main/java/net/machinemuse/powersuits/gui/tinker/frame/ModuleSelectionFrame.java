@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
-import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;

@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.event;
 
-import net.machinemuse.numina.api.module.IPlayerTickModule;
-import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.numina.module.IPlayerTickModule;
+import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.numina.general.MuseMathUtils;

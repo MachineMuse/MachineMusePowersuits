@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.network.packets;
 
 import io.netty.buffer.ByteBufInputStream;
-import net.machinemuse.numina.api.constants.NuminaNBTConstants;
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.common.constants.NuminaNBTConstants;
+import net.machinemuse.numina.item.IModularItem;
 import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.utils.MuseLogger;

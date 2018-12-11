@@ -9,6 +9,7 @@ import net.machinemuse.powersuits.gui.tinker.frame.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.management.UserListOpsEntry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
@@ -30,9 +31,6 @@ public class CosmeticGui extends MuseGui {
 
     protected final boolean allowCosmeticPresetCreation;
     protected final boolean usingCosmeticPresets;
-
-
-//    ItemStack lastSelectedItem;
 
     public CosmeticGui(EntityPlayer player, int worldx, int worldy, int worldz) {
         this.player = player;
@@ -104,18 +102,14 @@ public class CosmeticGui extends MuseGui {
                 Colour.DARKBLUE.withAlpha(0.8F));
 
         if (usingCosmeticPresets) {
-            partframe.hide();
-            partframe.disable();
-            cosmeticFrame.show();
-            cosmeticFrame.enable();
+            partframe.frameOff();
+            cosmeticFrame.frameOn();
             frames.add(cosmeticFrame);
             if (allowCosmeticPresetCreation)
                 frames.add(partframe);
         } else {
-            partframe.show();
-            partframe.enable();
-            cosmeticFrame.hide();
-            cosmeticFrame.disable();
+            partframe.frameOn();
+            cosmeticFrame.frameOff();
             frames.add(partframe);
         }
 
@@ -143,6 +137,12 @@ public class CosmeticGui extends MuseGui {
                 new MusePoint2D(absX(0.95F), absY(-0.95f)),
                 worldx, worldy, worldz);
         frames.add(tabFrame);
+    }
+
+    @Override
+    public void onGuiClosed() {
+        super.onGuiClosed();
+        loadSaveResetSubFrame.onGuiClosed();
     }
 
     @Override

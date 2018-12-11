@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.item.armor;
 
 import com.google.common.collect.Multimap;
-import net.machinemuse.numina.api.item.IArmorTraits;
+import net.machinemuse.numina.item.IArmorTraits;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;

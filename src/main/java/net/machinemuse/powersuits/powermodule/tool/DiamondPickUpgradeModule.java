@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.numina.api.module.*;
+import net.machinemuse.numina.module.*;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.helper.ToolHelpers;
 import net.machinemuse.numina.utils.item.MuseItemUtils;

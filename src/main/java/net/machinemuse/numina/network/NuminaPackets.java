@@ -12,7 +12,6 @@ public class NuminaPackets {
     public static void init() {
 //        handler.addPackager(MusePacketNameChangeRequest.getPackagerInstance());
         handler.addPackager(MusePacketModeChangeRequest.getPackagerInstance());
-        handler.addPackager(MusePacketModeChangeRequest.getPackagerInstance());
         handler.addPackager(MusePacketRecipeUpdate.getPackagerInstance());
         handler.addPackager(NuminaPacketConfig.getPackagerInstance());
     }

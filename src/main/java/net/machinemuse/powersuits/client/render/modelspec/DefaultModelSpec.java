@@ -1,9 +1,7 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import net.machinemuse.numina.api.constants.NuminaNBTConstants;
-import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
-import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
@@ -12,8 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -32,7 +28,7 @@ import java.util.List;
 // FIXME: update to respect config settings...
 
 
-@SideOnly(Side.CLIENT)
+//@SideOnly(Side.CLIENT)
 public class DefaultModelSpec {
     public static NBTTagCompound makeModelPrefs(@Nonnull ItemStack stack) {
         if (!stack.isEmpty()) {

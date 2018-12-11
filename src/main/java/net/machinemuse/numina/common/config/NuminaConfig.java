@@ -1,6 +1,6 @@
 package net.machinemuse.numina.common.config;
 
-import net.machinemuse.numina.api.energy.adapter.ElectricAdapter;
+import net.machinemuse.numina.capabilities.energy.adapter.ElectricAdapter;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;

@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.utils.nbt;
 
-import net.machinemuse.numina.api.constants.NuminaNBTConstants;
+import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
@@ -23,8 +23,12 @@ import java.util.Objects;
 
 
 public class MPSNBTUtils {
+//    @Nullable
+//    public static NBTTagCompound getPresetName(
+
+
     @Nullable
-    static NBTTagCompound getMuseCosmeticTag(NBTTagCompound nbt) {
+    public static NBTTagCompound getMuseCosmeticTag(NBTTagCompound nbt) {
         if (nbt.hasKey(NuminaNBTConstants.TAG_COSMETIC, Constants.NBT.TAG_COMPOUND))
             return nbt.getCompoundTag(NuminaNBTConstants.TAG_COSMETIC);
         return null;
@@ -38,7 +42,7 @@ public class MPSNBTUtils {
     }
 
     @Nullable
-    static String getPresetName(NBTTagCompound nbt) {
+    public static String getPresetName(NBTTagCompound nbt) {
         if (nbt.hasKey(NuminaNBTConstants.TAG_COSMETIC_PRESET, Constants.NBT.TAG_STRING))
             return nbt.getString(NuminaNBTConstants.TAG_COSMETIC_PRESET);
         return null;
@@ -94,6 +98,10 @@ public class MPSNBTUtils {
             if (renderTag  == null) {
                 MuseLogger.logDebug("Missing settings for preset: " + presetName);
                 renderTag = MPSConfig.INSTANCE.getPresetNBTFor(stack, "Default");
+
+                // FIXME: manually load render tag from here
+
+
             }
             return renderTag;
         }

@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.network.packets;
 
 import io.netty.buffer.ByteBufInputStream;
-import net.machinemuse.numina.api.item.IModeChangingItem;
-import net.machinemuse.numina.api.module.IEnchantmentModule;
-import net.machinemuse.numina.api.module.IPowerModule;
-import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.numina.item.IModeChangingItem;
+import net.machinemuse.numina.module.IEnchantmentModule;
+import net.machinemuse.numina.module.IPowerModule;
+import net.machinemuse.numina.module.IRightClickModule;
 import net.machinemuse.numina.network.IMusePackager;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.utils.item.MuseItemUtils;

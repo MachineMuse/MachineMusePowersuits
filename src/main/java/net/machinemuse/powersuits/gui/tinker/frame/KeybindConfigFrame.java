@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
-import net.machinemuse.numina.api.gui.IClickable;
-import net.machinemuse.numina.api.module.IPowerModule;
-import net.machinemuse.numina.api.module.IToggleableModule;
+import net.machinemuse.numina.gui.IClickable;
+import net.machinemuse.numina.module.IPowerModule;
+import net.machinemuse.numina.module.IToggleableModule;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
 import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.numina.utils.math.Colour;

@@ -1,6 +1,6 @@
 package net.machinemuse.numina.common;
 
-import net.machinemuse.numina.api.constants.NuminaConstants;
+import net.machinemuse.numina.common.constants.NuminaConstants;
 import net.machinemuse.numina.common.proxy.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;

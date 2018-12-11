@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.utils;
 
 import com.enderio.core.common.transform.EnderCoreMethods;
-import net.machinemuse.numina.api.item.IModularItem;
+import net.machinemuse.numina.item.IModularItem;
 import net.machinemuse.numina.common.ModCompatibility;
 import net.machinemuse.numina.general.MuseMathUtils;
 import net.machinemuse.numina.player.NuminaPlayerUtils;

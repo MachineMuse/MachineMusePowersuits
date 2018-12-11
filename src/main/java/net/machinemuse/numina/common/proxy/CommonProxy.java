@@ -1,6 +1,6 @@
 package net.machinemuse.numina.common.proxy;
 
-import net.machinemuse.numina.api.constants.NuminaConstants;
+import net.machinemuse.numina.common.constants.NuminaConstants;
 import net.machinemuse.numina.capabilities.heat.CapabilityHeat;
 import net.machinemuse.numina.common.Numina;
 import net.machinemuse.numina.event.NuminaPlayerTracker;

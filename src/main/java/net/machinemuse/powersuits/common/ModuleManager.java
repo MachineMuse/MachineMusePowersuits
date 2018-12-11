@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.common;
 
-import net.machinemuse.numina.api.item.IModularItem;
-import net.machinemuse.numina.api.module.IModuleManager;
-import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.numina.item.IModularItem;
+import net.machinemuse.numina.module.IModuleManager;
+import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.armor.*;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
@@ -15,8 +15,6 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import static net.machinemuse.numina.api.module.EnumModuleTarget.*;
 
 public enum ModuleManager implements IModuleManager {
     INSTANCE;

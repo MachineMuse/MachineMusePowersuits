@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.gui;
 
-import net.machinemuse.numina.api.gui.IClickable;
+import net.machinemuse.numina.gui.IClickable;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.DrawableMuseRect;
 import net.machinemuse.numina.utils.render.MuseRenderer;

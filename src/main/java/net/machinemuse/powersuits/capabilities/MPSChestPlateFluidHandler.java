@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.capabilities;
 
 import com.google.common.collect.Lists;
-import net.machinemuse.numina.api.constants.NuminaNBTConstants;
-import net.machinemuse.numina.api.module.IModuleManager;
+import net.machinemuse.numina.common.constants.NuminaNBTConstants;
+import net.machinemuse.numina.module.IModuleManager;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.minecraft.item.ItemStack;

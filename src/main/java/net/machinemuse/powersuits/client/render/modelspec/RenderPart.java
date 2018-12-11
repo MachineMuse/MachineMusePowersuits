@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import net.machinemuse.numina.api.constants.NuminaNBTConstants;
+import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.client.model.item.armor.ArmorModelInstance;

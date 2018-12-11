@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.GZIPInputStream;
 
 /**
@@ -137,6 +138,51 @@ public interface IMusePackager {
             return new NBTTagCompound();
         }
     }
+    /**
+     * Just because read map fails for this.
+     */
+    default Map<String, NBTTagCompound> readNBTMap(ByteBufInputStream dataIn) {
+        Map<String, NBTTagCompound> mapOut = new HashMap<>();
+
+        try {
+            int mapLength = dataIn.readInt();
+            System.out.println("map length: " + mapLength);
+
+            for (int i = 0; i < mapLength; i++) {
+                String s = readString(dataIn);
+                NBTTagCompound nbt = readNBTTagCompound(dataIn);
+
+                System.out.println("string: " + s);
+                System.out.println("nbt: " + nbt);
+                mapOut.put(s, nbt);
+
+//                mapOut.put(readString(dataIn), readNBTTagCompound(dataIn));
+            }
+            return mapOut;
+        } catch (Exception exception) {
+            MuseLogger.logException("PROBLEM WRITING DATA TO PACKET:", exception);
+        }
+        return mapOut;
+    }
+
+    default byte[] decompressGZipBytes(final byte[] compressed) {
+        byte[] decomp = new byte[compressed.length * 4];//you might need to allocate more
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try {
+            GZIPInputStream zippy = new GZIPInputStream(new ByteArrayInputStream(compressed));
+            int buffRead;
+            // once reading is finished, -1 is returned
+            while ((buffRead = zippy.read(decomp)) != -1) {
+                bos.write(decomp, 0, buffRead);
+            }
+            zippy.close();
+            return bos.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new byte[0];
+    }
 
     /**
      * DecompiledPixelLauncher (package com.google.research.reflection.common)
@@ -164,7 +210,6 @@ public interface IMusePackager {
             }
 
             if (compressOrNot) {
-//                bytes = decompressLZ4Bytes(bytes);
                 bytes = decompressGZipBytes(bytes);
             }
 
@@ -180,29 +225,10 @@ public interface IMusePackager {
         return hashMap;
     }
 
-    default byte[] decompressGZipBytes(final byte[] compressed) {
-        byte[] decomp = new byte[compressed.length * 4];//you might need to allocate more
-
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        try {
-            GZIPInputStream zippy = new GZIPInputStream(new ByteArrayInputStream(compressed));
-            int buffRead;
-            // once reading is finished, -1 is returned
-            while ((buffRead = zippy.read(decomp)) != -1) {
-                bos.write(decomp, 0, buffRead);
-            }
-            zippy.close();
-            return bos.toByteArray();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return new byte[0];
-    }
-
     default HashMap readMap(final DataInputStream dataIn, final Class keyClass, final Class valueClass) {
         final HashMap<Object, Object> hashMap = new HashMap<>();
         int mapLength;
+
         try {
             mapLength = dataIn.readInt();
             for (int i = 0; i < mapLength; i++) {

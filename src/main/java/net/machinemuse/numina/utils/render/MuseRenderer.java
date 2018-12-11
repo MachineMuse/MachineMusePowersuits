@@ -1,6 +1,6 @@
 package net.machinemuse.numina.utils.render;
 
-import net.machinemuse.numina.api.gui.IClickable;
+import net.machinemuse.numina.gui.IClickable;
 import net.machinemuse.numina.client.render.BillboardHelper;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
 import net.machinemuse.numina.client.render.RenderState;
@@ -22,7 +22,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.List;
 
-import static net.machinemuse.numina.api.constants.NuminaConstants.LIGHTNING_TEXTURE;
+import static net.machinemuse.numina.common.constants.NuminaConstants.LIGHTNING_TEXTURE;
 
 /**
  * Contains a bunch of random OpenGL-related functions, accessed statically.

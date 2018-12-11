@@ -129,6 +129,12 @@ public class MPSServerSettings {
         cosmeticPresetsPowerArmorChestplate = MPSSettings.cosmetics.getCosmeticPresetsPowerArmorChestplate();
         cosmeticPresetsPowerArmorLeggings = MPSSettings.cosmetics.getCosmeticPresetsPowerArmorLeggings();
         cosmeticPresetsPowerArmorBoots = MPSSettings.cosmetics.getCosmeticPresetsPowerArmorBoots();
+
+        System.out.println("cosmeticPresetsPowerFist size: " + cosmeticPresetsPowerFist.size());
+        System.out.println("cosmeticPresetsPowerArmorHelmet size: " + cosmeticPresetsPowerArmorHelmet.size() );
+        System.out.println("cosmeticPresetsPowerArmorChestplate size: " + cosmeticPresetsPowerArmorChestplate.size());
+        System.out.println("cosmeticPresetsPowerArmorLeggings size: " + cosmeticPresetsPowerArmorLeggings.size());
+        System.out.println("cosmeticPresetsPowerArmorBoots size: " + cosmeticPresetsPowerArmorBoots.size());
     }
 
     /**
@@ -177,11 +183,11 @@ public class MPSServerSettings {
         useLegacyCosmeticSystem = MusePackager.INSTANCE.readBoolean(datain);
         allowHighPollyArmorModuels = MusePackager.INSTANCE.readBoolean(datain);
         allowPowerFistCustomization = MusePackager.INSTANCE.readBoolean(datain);
-        cosmeticPresetsPowerFist = MusePackager.INSTANCE.readMap(datain, String.class, NBTTagCompound.class);
-        cosmeticPresetsPowerArmorHelmet = MusePackager.INSTANCE.readMap(datain, String.class, NBTTagCompound.class);
-        cosmeticPresetsPowerArmorChestplate = MusePackager.INSTANCE.readMap(datain, String.class, NBTTagCompound.class);
-        cosmeticPresetsPowerArmorLeggings = MusePackager.INSTANCE.readMap(datain, String.class, NBTTagCompound.class);
-        cosmeticPresetsPowerArmorBoots = MusePackager.INSTANCE.readMap(datain, String.class, NBTTagCompound.class);
+        cosmeticPresetsPowerFist = MusePackager.INSTANCE.readNBTMap(datain);
+        cosmeticPresetsPowerArmorHelmet = MusePackager.INSTANCE.readNBTMap(datain);
+        cosmeticPresetsPowerArmorChestplate = MusePackager.INSTANCE.readNBTMap(datain);
+        cosmeticPresetsPowerArmorLeggings = MusePackager.INSTANCE.readNBTMap(datain);
+        cosmeticPresetsPowerArmorBoots = MusePackager.INSTANCE.readNBTMap(datain);
     }
 
     /**
@@ -232,11 +238,31 @@ public class MPSServerSettings {
         packet.writeBoolean(useLegacyCosmeticSystem);
         packet.writeBoolean(allowHighPollyArmorModuels);
         packet.writeBoolean(allowPowerFistCustomization);
-        packet.writeMap(cosmeticPresetsPowerFist, true);
-        packet.writeMap(cosmeticPresetsPowerArmorHelmet, true);
-        packet.writeMap(cosmeticPresetsPowerArmorChestplate, true);
-        packet.writeMap(cosmeticPresetsPowerArmorLeggings, true);
-        packet.writeMap(cosmeticPresetsPowerArmorBoots, true);
+
+        System.out.println("cosmeticPresetsPowerFist size: " + cosmeticPresetsPowerFist.size());
+
+//        packet.writeNBTMap(cosmeticPresetsPowerFist);
+
+
+        packet.writeNBTMap(cosmeticPresetsPowerArmorBoots);
+        packet.writeNBTMap(cosmeticPresetsPowerArmorBoots);
+        packet.writeNBTMap(cosmeticPresetsPowerArmorBoots);
+        packet.writeNBTMap(cosmeticPresetsPowerArmorBoots);
+        packet.writeNBTMap(cosmeticPresetsPowerArmorBoots);
+
+        // test
+
+
+
+
+//        packet.writeNBTMap(cosmeticPresetsPowerArmorHelmet);
+//        packet.writeNBTMap(cosmeticPresetsPowerArmorChestplate);
+//        packet.writeNBTMap(cosmeticPresetsPowerArmorLeggings);
+//        packet.writeNBTMap(cosmeticPresetsPowerArmorBoots);
+
+
+        System.out.println("cosmeticPresetsPowerArmorBoots size: " + cosmeticPresetsPowerArmorBoots.size());
+
     }
 
     public void updateCosmeticInfo(ResourceLocation location, String name, NBTTagCompound cosmeticInfo) {

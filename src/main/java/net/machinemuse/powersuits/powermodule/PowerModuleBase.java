@@ -1,29 +1,25 @@
 package net.machinemuse.powersuits.powermodule;
 
-import net.machinemuse.numina.api.item.IModularItem;
-import net.machinemuse.numina.api.module.EnumModuleTarget;
-import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.numina.module.EnumModuleTarget;
+import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.api.nbt.*;
+import net.machinemuse.numina.nbt.*;
 import net.machinemuse.powersuits.api.constants.MPSModConstants;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.machinemuse.powersuits.item.armor.*;
-import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static net.machinemuse.numina.api.constants.NuminaNBTConstants.TAG_ONLINE;
+import static net.machinemuse.numina.common.constants.NuminaNBTConstants.TAG_ONLINE;
 
 public abstract class PowerModuleBase implements IPowerModule {
     protected static Map<String, String> units = new HashMap<>();

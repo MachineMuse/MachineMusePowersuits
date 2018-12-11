@@ -1,19 +1,34 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
+import net.machinemuse.numina.common.constants.NuminaNBTConstants;
+import net.machinemuse.numina.network.PacketSender;
+import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.DrawableMuseRect;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRect;
 import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
 import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec;
+import net.machinemuse.powersuits.common.config.CosmeticPresetSaveLoad;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableButton;
+import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableLabel;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
+import net.machinemuse.powersuits.network.packets.MusePacketCosmeticInfo;
+import net.machinemuse.powersuits.network.packets.MusePacketCosmeticPresetUpdate;
+import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class LoadSaveResetSubFrame implements IGuiFrame {
@@ -35,11 +50,12 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
     protected PartManipContainer partframe;
     protected CosmeticPresetContainer cosmeticFrame;
     protected boolean isEditing;
+    protected int lastCosmeticItem = -1;
 
     GuiTextField presetNameInputBox;
 
-
     public LoadSaveResetSubFrame(ColourPickerFrame colourpicker, EntityPlayer player, MuseRect borderRef, Colour insideColour, Colour borderColour, ItemSelectionFrame itemSelector, boolean usingCosmeticPresetsIn, boolean allowCosmeticPresetCreationIn, PartManipContainer partframe, CosmeticPresetContainer cosmeticFrame) {
+        this.player = player;
         this.border = new DrawableMuseRect(borderRef, insideColour, borderColour);
         this.originalTop = border.top();
         this.originalHeight = border.height();
@@ -63,9 +79,7 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
                 I18n.format("gui.powersuits.reset"),
                 new MusePoint2D(border.left() + sizex / 2.0, border.bottom() - sizey / 2.0), true);
 
-        presetNameInputBox.setEnabled(false);
-        presetNameInputBox.setVisible(false);
-        presetNameInputBox.setFocused(false);
+        textInputOff();
         presetNameInputBox.setMaxStringLength((int) border.width());
         presetNameInputBox.setText("");
 
@@ -147,7 +161,7 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
     void textInputOn () {
         presetNameInputBox.setEnabled(true);
         presetNameInputBox.setVisible(true);
-        presetNameInputBox.setFocused(false);
+        presetNameInputBox.setFocused(true);
         saveAsLabel.setEnabled(true);
     }
 
@@ -181,84 +195,214 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
         // fixme: show cosmeitc preset selection subframe
     }
 
+    /**
+     * Get's the equipment slot the item is for.
+     */
+    public EntityEquipmentSlot getEquipmentSlot() {
+        ItemStack selectedItem = getSelectedItem().getItem();
+        if (!selectedItem.isEmpty() && selectedItem.getItem() instanceof ItemPowerArmor)
+            return ((ItemPowerArmor) selectedItem.getItem()).armorType;
 
+        Minecraft mc = Minecraft.getMinecraft();
+        EntityPlayer player = mc.player;
+        ItemStack heldItem = player.getHeldItemOffhand();
+
+        if (!heldItem.isEmpty() && MuseItemUtils.stackEqualExact(selectedItem, heldItem))
+            return EntityEquipmentSlot.OFFHAND;
+        return EntityEquipmentSlot.MAINHAND;
+    }
+
+    /**
+     * This is just for resetting the cosmetic tag to a preset and is called when either
+     * switching to a new tab or when exiting the GUI altogether
+     */
+    public void onGuiClosed() {
+        if (allowCosmeticPresetCreation) {
+            // FIXME: update tag to cosmetic preset
+
+
+            System.out.println("creator gui closed and was editing: " + isEditing);
+
+
+        }
+
+
+//        if (itemSelector.getSelectedItem() != null && itemSelector.getSelectedItem().getItem().getItem() instanceof ItemPowerFist) {
+//
+//        }
+
+
+
+        // FIXME: use this for updating cosmetic tag on exit of GUI
+    }
 
     @Override
     public void update(double mousex, double mousey) {
         if (usingCosmeticPresets ||
                 (!MPSConfig.INSTANCE.allowPowerFistCustomization() &&
-                        itemSelector.getSelectedItem() != null && itemSelector.getSelectedItem().getItem().getItem() instanceof ItemPowerFist)) {
-            if (allowCosmeticPresetCreation)
+                        itemSelector.getSelectedItem() != null && getSelectedItem().getItem().getItem() instanceof ItemPowerFist)) {
+
+            //
+            if (allowCosmeticPresetCreation) {
                 cosmeticPresetCreator();
-            else
+                // normal preset user
+            } else
                 cosmeticPresetsNormal();
         } else
             setLegacyMode();
     }
 
+    NBTTagCompound getDefaultPreset(@Nonnull ItemStack itemStack) {
+        return MPSConfig.INSTANCE.getPresetNBTFor(itemStack, "Default");
+    }
 
+    public boolean isValidItem(ClickableItem clickie, EntityEquipmentSlot slot) {
+        if (clickie != null) {
+            if (clickie.getItem().getItem() instanceof ItemPowerArmor)
+                return clickie.getItem().getItem().isValidArmor(clickie.getItem(), slot, Minecraft.getMinecraft().player);
+            else if (clickie.getItem().getItem() instanceof ItemPowerFist && slot.getSlotType().equals(EntityEquipmentSlot.Type.HAND))
+                return true;
+        }
+        return false;
+    }
 
-
-
+    public ClickableItem getSelectedItem() {
+        return this.itemSelector.getSelectedItem();
+    }
 
     @Override
     public void onMouseDown(double x, double y, int button) {
         if (itemSelector.getSelectedItem() == null || itemSelector.getSelectedItem().getItem().isEmpty())
             return;
 
-
         if (usingCosmeticPresets ||
                 (!MPSConfig.INSTANCE.allowPowerFistCustomization() &&
-                        itemSelector.getSelectedItem() != null && itemSelector.getSelectedItem().getItem().getItem() instanceof ItemPowerFist)) {
+                        getSelectedItem() != null && getSelectedItem().getItem().getItem() instanceof ItemPowerFist)) {
             if (allowCosmeticPresetCreation) {
                 if (isEditing) {
+                    // todo: insert check for new item selected and save tag for previous item selected
+
+                    if (itemSelector.getLastItemSlot() != -1 && itemSelector.selectedItemStack != itemSelector.getLastItemSlot()) {
+                        System.out.println("previous item index: " + itemSelector.getSelectedItemSlot());
+                        System.out.println("current item index: " + itemSelector.getSelectedItemSlot());
+
+                        System.out.println("this is where we would save the cosmetic preset tag for the previous item:");
+
+                    }
+
+
+//                        ClickableItem lastItemClickie = itemSelector.getPreviousSelectedItem();
+//                        if (lastItemClickie != null) {
+//                            ItemStack lastItemStack = lastItemClickie.getItem();
+//
+//
+//
+////                        NBTTagCompound cosmeticTag = MPSNBTUtils.getMuseRenderTag()
+////
+////
+////
+////                                .getCosmeticTag()
+////
+////
+////                        if ()
+//
+//
+//
+//
+//
+//                        }
+//                    }
+
+
+
+
+
+
+
                     if (saveButton.hitBox(x, y)) {
                         // save as dialog is open
                         if (presetNameInputBox.getVisible()) {
                             // fixme: insert save code here... save and revert isEditing to false if save sucessful. also sync to server and change cosmetic tag to preset
                             System.out.println("save tag to file, sync to server, change tag to preset close creation dialog");
+
+                            String name = presetNameInputBox.getText();
+                            ItemStack itemStack = getSelectedItem().getItem();
+
+                            boolean save = CosmeticPresetSaveLoad.savePreset(name, itemStack);
+                            if (save) {
+                                if (isValidItem(getSelectedItem(), getEquipmentSlot())) {
+                                    // get the render tag for the item
+                                    NBTTagCompound nbt = MPSNBTUtils.getMuseRenderTag(itemStack).copy();
+                                    PacketSender.sendToServer(new MusePacketCosmeticPresetUpdate(player, itemStack.getItem().getRegistryName(), name, nbt).getPacket131());
+
+                                    // Fixeme: this should not update until GUI closed or until next item is selected
+//                                    NBTTagCompound nbtUpdate = new NBTTagCompound();
+//                                    nbtUpdate.setString(NuminaNBTConstants.TAG_COSMETIC_PRESET, name);
+//                                    PacketSender.sendToServer(new MusePacketCosmeticInfo(Minecraft.getMinecraft().player, this.getSelectedItem().inventorySlot, NuminaNBTConstants.TAG_COSMETIC, nbtUpdate).getPacket131());
+                                }
+
+
+//                                MusePacketCosmeticPresetUpdate()
+
+
+
+                                // sync
+
+
+
+//                                closeSaveGUI();
+                            }
+
+
+
+
                         } else {
                             // enabling here opens save dialog in update loop
                             textInputOn();
                         }
 
-
+                        // reset tag to cosmetic copy of cosmetic preset default as legacy tag for editing.
                     } else if (resetButton.hitBox(x, y)) {
-//                        if (presetNameInputBox.getVisible()) {
-//                            presetNameInputBox.setText("");
-//                        } else {
-                            System.out.println("reset cosmetic tag to tag from default preset");
-
-                            // fixme: reset cosmetic tag to default preset
-//                        }
-                    // cancel creation
+                        NBTTagCompound nbt = getDefaultPreset(itemSelector.getSelectedItem().getItem());
+                        if (isValidItem(getSelectedItem(), getEquipmentSlot())) {
+                            PacketSender.sendToServer(new MusePacketCosmeticInfo(player, itemSelector.getSelectedItem().inventorySlot, NuminaNBTConstants.TAG_RENDER, nbt).getPacket131());
+                        }
+                        // cancel creation
                     } else if (loadButton.hitBox(x, y)) {
-
-
+                        NBTTagCompound nbt = new NBTTagCompound();
+                        nbt.setString(NuminaNBTConstants.TAG_COSMETIC_PRESET, "Default");
+                        if (isValidItem(getSelectedItem(), getEquipmentSlot())) {
+                            PacketSender.sendToServer(new MusePacketCosmeticInfo(Minecraft.getMinecraft().player, this.getSelectedItem().inventorySlot, NuminaNBTConstants.TAG_COSMETIC, nbt).getPacket131());
+                        }
                         isEditing = false;
                     }
                 } else {
                     if (saveButton.hitBox(x, y)) {
                         isEditing = true;
                     } else if (resetButton.hitBox(x, y)) {
-                        System.out.println("reset cosmetic tag to default preset");
-
-                        // fixme: reset cosmetic tag to default preset
+                        NBTTagCompound nbt = new NBTTagCompound();
+                        nbt.setString(NuminaNBTConstants.TAG_COSMETIC_PRESET, "Default");
+                        if (isValidItem(getSelectedItem(), getEquipmentSlot())) {
+                            PacketSender.sendToServer(new MusePacketCosmeticInfo(Minecraft.getMinecraft().player, this.getSelectedItem().inventorySlot, NuminaNBTConstants.TAG_COSMETIC, nbt).getPacket131());
+                        }
                     }
                 }
             } else {
                 if (resetButton.hitBox(x, y)) {
-                    System.out.println("reset cosmetic tag to default preset");
-
-                    // fixme: reset cosmetic tag to default preset
+                    NBTTagCompound nbt = new NBTTagCompound();
+                    nbt.setString(NuminaNBTConstants.TAG_COSMETIC_PRESET, "Default");
+                    if (isValidItem(getSelectedItem(), getEquipmentSlot())) {
+                        PacketSender.sendToServer(new MusePacketCosmeticInfo(Minecraft.getMinecraft().player, this.getSelectedItem().inventorySlot, NuminaNBTConstants.TAG_COSMETIC, nbt).getPacket131());
+                    }
                 }
             }
             // legacy mode
         } else {
             if (resetButton.hitBox(x, y)) {
-                System.out.println("reset cosmetic tag to legacy default");
-
-                // fixme: reset cosmetic tag to default preset
+                if (isValidItem(getSelectedItem(), getEquipmentSlot())) {
+                    NBTTagCompound nbt = DefaultModelSpec.makeModelPrefs(itemSelector.getSelectedItem().getItem());
+                    PacketSender.sendToServer(new MusePacketCosmeticInfo(player, itemSelector.getSelectedItem().inventorySlot, NuminaNBTConstants.TAG_RENDER, nbt).getPacket131());
+                }
             }
         }
 
@@ -400,10 +544,7 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
         saveAsLabel.setEnabled(boolVal);
         loadButton.setLable(I18n.format("gui.powersuits.cancel"));
 
-        partframe.show();
-        partframe.enable();
-        cosmeticFrame.disable();
-        cosmeticFrame.hide();
+        showPartManipFrame();
 
 
         // fixme: hide cosmeitc preset selection subframe
@@ -431,10 +572,6 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
     @Override
     public void draw() {
         border.draw();
-
-//        System.out.println("load button is visible: " + loadButton.isVisible());
-
-
         loadButton.draw();
         saveButton.draw();
         resetButton.draw();
@@ -450,7 +587,6 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
             return true;
         return false;
     }
-
 
     @Override
     public List<String> getToolTip(int x, int y) {

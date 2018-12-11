@@ -1,7 +1,7 @@
 //package net.machinemuse.powersuits.network.packets;
 //
 //import io.netty.buffer.ByteBufInputStream;
-//import net.machinemuse.numina.api.module.IPowerModule;
+//import net.machinemuse.numina.module.IPowerModule;
 //import net.machinemuse.numina.api.nbt.IPropertyModifier;
 //import net.machinemuse.numina.network.IMusePackager;
 //import net.machinemuse.numina.network.MusePacket;

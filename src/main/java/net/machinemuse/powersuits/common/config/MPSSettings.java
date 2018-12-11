@@ -546,7 +546,7 @@ public class MPSSettings {
         public Map<String, NBTTagCompound> getCosmeticPresetsPowerArmorBoots() {
             if(cosmeticPresetsPowerArmorBoots.isEmpty() && !useLegacyCosmeticSystem)
                 cosmeticPresetsPowerArmorBoots = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerArmorFeet, 0);
-            return getCosmeticPresetsPowerArmorBoots();
+            return cosmeticPresetsPowerArmorBoots;
         }
     }
 }

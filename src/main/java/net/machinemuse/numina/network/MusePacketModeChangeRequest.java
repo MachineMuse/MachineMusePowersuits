@@ -1,15 +1,11 @@
 package net.machinemuse.numina.network;
 
 import io.netty.buffer.ByteBufInputStream;
-import net.machinemuse.numina.api.item.IModeChangingItem;
-import net.machinemuse.numina.api.module.IMiningEnhancementModule;
-import net.machinemuse.numina.api.module.IModuleManager;
+import net.machinemuse.numina.item.IModeChangingItem;
+import net.machinemuse.numina.module.IModuleManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
-import java.util.List;
 
 /**
  * Author: MachineMuse (Claire Semple)

@@ -1,11 +1,7 @@
 package net.machinemuse.powersuits.common.config;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import net.machinemuse.numina.api.module.EnumModuleCategory;
+import net.machinemuse.numina.module.EnumModuleCategory;
 import net.machinemuse.numina.common.Numina;
-import net.machinemuse.numina.utils.MuseLogger;
-import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.common.MPSCreativeTab;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
@@ -13,7 +9,6 @@ import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorHelmet;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorLeggings;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
-import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -26,9 +21,7 @@ import org.lwjgl.input.Keyboard;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
@@ -310,8 +303,6 @@ public enum MPSConfig {
         return;
     }
 
-
-
     /**
      * Models ------------------------------------------------------------------------------------
      */
@@ -335,7 +326,6 @@ public enum MPSConfig {
 
     public static Map<String, NBTTagCompound> getCosmeticPresets(@Nonnull ItemStack itemStack) {
         Item item  = itemStack.getItem();
-
         if (item instanceof ItemPowerFist)
             return getServerSettings() != null ? getServerSettings().cosmeticPresetsPowerFist : MPSSettings.cosmetics.getCosmeticPresetsPowerFist();
         else if (item instanceof ItemPowerArmorHelmet)
@@ -345,7 +335,7 @@ public enum MPSConfig {
         else if (item instanceof ItemPowerArmorLeggings)
             return getServerSettings() != null ? getServerSettings().cosmeticPresetsPowerArmorLeggings : MPSSettings.cosmetics.getCosmeticPresetsPowerArmorLeggings();
         else if (item instanceof ItemPowerArmorBoots)
-            return getServerSettings() != null ? getServerSettings().cosmeticPresetsPowerArmorBoots : MPSSettings.cosmetics.getCosmeticPresetsPowerArmorLeggings();
+            return getServerSettings() != null ? getServerSettings().cosmeticPresetsPowerArmorBoots : MPSSettings.cosmetics.getCosmeticPresetsPowerArmorBoots();
         return new HashMap<String, NBTTagCompound>();
     }
 }

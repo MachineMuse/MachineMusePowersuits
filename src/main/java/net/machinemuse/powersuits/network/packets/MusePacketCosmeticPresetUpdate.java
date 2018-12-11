@@ -75,8 +75,20 @@ public class MusePacketCosmeticPresetUpdate extends MusePacket {
             String name = readString(datain);
             NBTTagCompound cosmeticSettings = readNBTTagCompound(datain);
 
+            System.out.println("registry name: " + location.toString());
+            System.out.println("name: " + name);
+            System.out.println("cosmeticSettings: " + cosmeticSettings.toString());
+
+
+
             MPSServerSettings settings = MPSConfig.INSTANCE.getServerSettings();
-            settings.updateCosmeticInfo(location, name, cosmeticSettings);
+            if (settings != null) {
+                settings.updateCosmeticInfo(location, name, cosmeticSettings);
+            } else {
+                // FIXME: update local config map instead
+
+                System.out.println("update local config map instead");
+            }
             return new MusePacketCosmeticPresetUpdate(player, location, name, cosmeticSettings);
         }
     }

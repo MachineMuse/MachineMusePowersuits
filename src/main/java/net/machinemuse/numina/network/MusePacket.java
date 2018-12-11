@@ -178,12 +178,27 @@ public abstract class MusePacket {
 
             // bytearrayoutputstream only updates if dataoutputstream closes
             dataoutputstream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException exception) {
+            MuseLogger.logException("PROBLEM WRITING DATA TO PACKET:", exception);
         } finally {
 
         }
         return bytearrayoutputstream.toByteArray();
+    }
+
+    /**
+     * Just because write map fails for this.
+     */
+    public void writeNBTMap(@Nonnull final Map<String, NBTTagCompound> map) {
+        try {
+            bytesOut.writeInt(map.size());
+            for (Map.Entry<String, NBTTagCompound> entry: map.entrySet()) {
+                writeString(entry.getKey());
+                writeNBTTagCompound(entry.getValue());
+            }
+        } catch (IOException exception) {
+            MuseLogger.logException("PROBLEM WRITING DATA TO PACKET:", exception);
+        }
     }
 
     /**

@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
-import net.machinemuse.numina.api.module.IPowerModule;
-import net.machinemuse.numina.api.nbt.IPropertyModifier;
-import net.machinemuse.numina.api.nbt.PropertyModifierLinearAdditiveDouble;
+import net.machinemuse.numina.module.IPowerModule;
+import net.machinemuse.numina.nbt.IPropertyModifier;
+import net.machinemuse.numina.nbt.PropertyModifierLinearAdditiveDouble;
 import net.machinemuse.numina.network.MusePacket;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.math.Colour;

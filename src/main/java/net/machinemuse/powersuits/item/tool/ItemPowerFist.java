@@ -10,13 +10,13 @@ import com.raoulvdberge.refinedstorage.api.network.item.INetworkItemProvider;
 import crazypants.enderio.api.tool.ITool;
 import forestry.api.arboriculture.IToolGrafter;
 import mekanism.api.IMekWrench;
-import net.machinemuse.numina.api.constants.NuminaNBTConstants;
-import net.machinemuse.numina.api.item.IModeChangingItem;
-import net.machinemuse.numina.api.item.IModularItem;
-import net.machinemuse.numina.api.module.IBlockBreakingModule;
-import net.machinemuse.numina.api.module.IMiningEnhancementModule;
-import net.machinemuse.numina.api.module.IPowerModule;
-import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.numina.common.constants.NuminaNBTConstants;
+import net.machinemuse.numina.item.IModeChangingItem;
+import net.machinemuse.numina.item.IModularItem;
+import net.machinemuse.numina.module.IBlockBreakingModule;
+import net.machinemuse.numina.module.IMiningEnhancementModule;
+import net.machinemuse.numina.module.IPowerModule;
+import net.machinemuse.numina.module.IRightClickModule;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
@@ -26,7 +26,6 @@ import net.machinemuse.powersuits.capabilities.MPSCapProvider;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.powermodule.tool.RefinedStorageWirelessModule;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -48,8 +47,6 @@ import net.minecraftforge.fml.common.Optional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.LinkedList;
-import java.util.List;
 
 //import mods.railcraft.api.core.items.IToolCrowbar;
 
