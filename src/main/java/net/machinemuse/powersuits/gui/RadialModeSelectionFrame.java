@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.gui;
 import net.machinemuse.numina.item.IModeChangingItem;
 import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.module.IRightClickModule;
-import net.machinemuse.numina.network.MusePacketModeChangeRequest;
+import net.machinemuse.numina.network.packets.MusePacketModeChangeRequest;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.SpiralPointToPoint2D;

@@ -2,7 +2,7 @@ package net.machinemuse.numina.item;
 
 import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.numina.module.*;
-import net.machinemuse.numina.network.MusePacketModeChangeRequest;
+import net.machinemuse.numina.network.packets.MusePacketModeChangeRequest;
 import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;

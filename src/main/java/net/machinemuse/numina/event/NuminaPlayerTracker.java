@@ -1,6 +1,6 @@
 package net.machinemuse.numina.event;
 
-import net.machinemuse.numina.network.NuminaPacketConfig;
+import net.machinemuse.numina.network.packets.NuminaPacketConfig;
 import net.machinemuse.numina.network.PacketSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

@@ -1,8 +1,6 @@
 package net.machinemuse.numina.common.config;
 
-import io.netty.buffer.ByteBufInputStream;
-import net.machinemuse.numina.network.MusePackager;
-import net.machinemuse.numina.network.MusePacket;
+import io.netty.buffer.ByteBuf;
 
 public class NuminaServerSettings {
     public final double mekRatio;
@@ -15,6 +13,9 @@ public class NuminaServerSettings {
     public final int maxTier3;
     public final int maxTier4;
 
+    /**
+     * Server side initialization
+     */
     public NuminaServerSettings() {
         mekRatio = NuminaSettings.mekRatio;
         ic2Ratio = NuminaSettings.ic2Ratio;
@@ -27,32 +28,36 @@ public class NuminaServerSettings {
         maxTier4 = NuminaSettings.maxTier4;
     }
 
-    public NuminaServerSettings(final ByteBufInputStream datain) {
-        mekRatio = MusePackager.INSTANCE.readDouble(datain);
-        ic2Ratio = MusePackager.INSTANCE.readDouble(datain);
-        rsRatio = MusePackager.INSTANCE.readDouble(datain);
-        ae2Ratio = MusePackager.INSTANCE.readDouble(datain);
+    /**
+     * Set values from packet sent from server
+     */
+    public NuminaServerSettings(final ByteBuf buf) {
+        mekRatio = buf.readDouble();
+        ic2Ratio = buf.readDouble();
+        rsRatio = buf.readDouble();
+        ae2Ratio = buf.readDouble();
 
-        maxTier1 = MusePackager.INSTANCE.readInt(datain);
-        maxTier2 = MusePackager.INSTANCE.readInt(datain);
-        maxTier3 = MusePackager.INSTANCE.readInt(datain);
-        maxTier4 = MusePackager.INSTANCE.readInt(datain);
+        maxTier1 = buf.readInt();
+        maxTier2 = buf.readInt();
+        maxTier3 = buf.readInt();
+        maxTier4 = buf.readInt();
     }
 
     /**
      * This is a server side operation that gets the values and writes them to the packet.
      * This packet is then sent to a new client on login to sync config values. This allows
      * the server to be able to control these settings.
+     * @param buf
      */
-    public void writeToBuffer(final MusePacket packet) {
-        packet.writeDouble(mekRatio);
-        packet.writeDouble(ic2Ratio);
-        packet.writeDouble(rsRatio);
-        packet.writeDouble(ae2Ratio);
+    public void writeToBuffer(final ByteBuf buf) {
+        buf.writeDouble(mekRatio);
+        buf.writeDouble(ic2Ratio);
+        buf.writeDouble(rsRatio);
+        buf.writeDouble(ae2Ratio);
 
-        packet.writeInt(maxTier1);
-        packet.writeInt(maxTier2);
-        packet.writeInt(maxTier3);
-        packet.writeInt(maxTier4);
+        buf.writeInt(maxTier1);
+        buf.writeInt(maxTier2);
+        buf.writeInt(maxTier3);
+        buf.writeInt(maxTier4);
     }
 }
