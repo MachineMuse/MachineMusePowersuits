@@ -5,6 +5,7 @@ import net.machinemuse.numina.item.IModeChangingItem;
 import net.machinemuse.numina.module.IModuleManager;
 import net.machinemuse.numina.network.MuseByteBufferUtils;
 import net.machinemuse.numina.utils.MuseLogger;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -13,10 +14,12 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class MusePacketModeChangeRequest implements IMessage {
+    protected EntityPlayer player;
     protected String mode;
     protected int slot;
 
-    public MusePacketModeChangeRequest(String mode, int slot) {
+    public MusePacketModeChangeRequest(EntityPlayer player, String mode, int slot) {
+        this.player = player;
         this.mode = mode;
         this.slot = slot;
     }

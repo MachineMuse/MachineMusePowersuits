@@ -8,7 +8,7 @@ import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.KeybindManager;
-import net.machinemuse.powersuits.network.packets.MusePacketToggleRequest;
+import net.machinemuse.powersuits.network.packets_old.MusePacketToggleRequest;
 import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;

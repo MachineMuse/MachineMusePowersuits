@@ -1,22 +1,19 @@
 package net.machinemuse.powersuits.network.packets;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufInputStream;
-import net.machinemuse.numina.network.IMusePackager;
-import net.machinemuse.numina.network.MusePacket;
-import net.machinemuse.numina.network.PacketSender;
+import net.machinemuse.numina.network.MuseByteBufferUtils;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.powersuits.control.PlayerInputMap;
+import net.machinemuse.powersuits.network.MPSPackets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
 
-import java.io.DataOutputStream;
-
-/**
- * Author: MachineMuse (Claire Semple)
- * Created: 12:28 PM, 5/6/13
- * <p>
- * Ported to Java by lehjr on 11/14/16.
- */
-public class MusePacketPlayerUpdate extends MusePacket {
+public class MusePacketPlayerUpdate implements IMessage {
     EntityPlayer player;
     PlayerInputMap inputMap;
 
@@ -25,40 +22,40 @@ public class MusePacketPlayerUpdate extends MusePacket {
         this.inputMap = inputMap;
     }
 
-    public static MusePacketPlayerUpdatePackager getPackagerInstance() {
-        return MusePacketPlayerUpdatePackager.INSTANCE;
+
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        String username = MuseByteBufferUtils.readUTF8String(buf);
+        PlayerInputMap inputMap = PlayerInputMap.getInputMapFor(username);
+        inputMap.readFromStream(new ByteBufInputStream(buf));
     }
 
     @Override
-    public IMusePackager packager() {
-        return getPackagerInstance();
+    public void toBytes(ByteBuf buf) {
+        MuseByteBufferUtils.writeUTF8String(buf, player.getCommandSenderEntity().getName());
+        MuseByteBufferUtils.writePlayerInputMap(buf, inputMap);
     }
 
-    @Override
-    public void write() {
-        writeString(player.getCommandSenderEntity().getName());
-//        inputMap.writeToStream(dataout());
-        inputMap.writeToStream(new DataOutputStream(bytesOut()));
-    }
-
-    @Override
-    public void handleServer(EntityPlayerMP player) {
-        MusePacketPlayerUpdate updatePacket = new MusePacketPlayerUpdate(player, inputMap);
-        player.motionX = inputMap.motionX;
-        player.motionY = inputMap.motionY;
-        player.motionZ = inputMap.motionZ;
-        PacketSender.sendToAllAround(updatePacket, player, 128);
-    }
-
-    public enum MusePacketPlayerUpdatePackager implements IMusePackager {
-        INSTANCE;
-
+    public static class Handler implements IMessageHandler<MusePacketPlayerUpdate, IMessage> {
         @Override
-        public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
-            String username = readString(datain);
-            PlayerInputMap inputMap = PlayerInputMap.getInputMapFor(username);
-            inputMap.readFromStream(datain);
-            return new MusePacketPlayerUpdate(player, inputMap);
+        public IMessage onMessage(MusePacketPlayerUpdate message, MessageContext ctx) {
+            if (ctx.side != Side.SERVER) {
+                MuseLogger.logError("Colour Info Packet sent to wrong side: " + ctx.side);
+                return null;
+            }
+
+            EntityPlayerMP player = ctx.getServerHandler().player;
+            PlayerInputMap inputMap = message.inputMap;
+
+            MusePacketPlayerUpdate updatePacket = new MusePacketPlayerUpdate(player, inputMap);
+            player.motionX = inputMap.motionX;
+            player.motionY = inputMap.motionY;
+            player.motionZ = inputMap.motionZ;
+            MPSPackets.sendToAllAround(updatePacket, player, 128);
+
+
+
+            return null;
         }
     }
 }

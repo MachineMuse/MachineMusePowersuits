@@ -1,6 +1,6 @@
 package net.machinemuse.numina.network;
 
-import net.machinemuse.numina.api.constants.NuminaConstants;
+import net.machinemuse.numina.common.constants.NuminaConstants;
 import net.machinemuse.numina.network.packets.MusePacketModeChangeRequest;
 import net.machinemuse.numina.network.packets.NuminaPacketConfig;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -11,9 +11,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class NuminaPackets {
-    private static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(NuminaConstants.MODID);
+    public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(NuminaConstants.MODID);
 
-    public static void registerPackets() {
+    public static void registerNuminaPackets() {
         INSTANCE.registerMessage(NuminaPacketConfig.Handler.class, NuminaPacketConfig.class, 0, Side.CLIENT);
         INSTANCE.registerMessage(MusePacketModeChangeRequest.Handler.class, MusePacketModeChangeRequest.class, 1, Side.SERVER);
     }

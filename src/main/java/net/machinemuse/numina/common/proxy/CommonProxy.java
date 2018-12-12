@@ -20,12 +20,12 @@ import java.io.File;
  */
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
+        NuminaPackets.registerNuminaPackets();
         CapabilityHeat.register();
         Numina.INSTANCE.configDir = new File(event.getModConfigurationDirectory(), NuminaConstants.CONFIG_FOLDER);
     }
 
     public void init(FMLInitializationEvent event) {
-        NuminaPackets.init();
         MinecraftForge.EVENT_BUS.register(new NuminaPlayerTracker());
     }
 

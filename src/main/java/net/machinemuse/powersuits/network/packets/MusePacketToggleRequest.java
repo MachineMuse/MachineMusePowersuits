@@ -1,19 +1,17 @@
 package net.machinemuse.powersuits.network.packets;
 
-import io.netty.buffer.ByteBufInputStream;
-import net.machinemuse.numina.network.IMusePackager;
-import net.machinemuse.numina.network.MusePacket;
+import io.netty.buffer.ByteBuf;
+import net.machinemuse.numina.network.MuseByteBufferUtils;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
 
-/**
- * Author: MachineMuse (Claire Semple)
- * Created: 12:28 PM, 5/6/13
- * <p>
- * Ported to Java by lehjr on 11/14/16.
- */
-public class MusePacketToggleRequest extends MusePacket {
+public class MusePacketToggleRequest implements IMessage {
     EntityPlayer player;
     String module;
     Boolean active;
@@ -24,34 +22,31 @@ public class MusePacketToggleRequest extends MusePacket {
         this.active = active;
     }
 
-    public static MusePacketToggleRequestPackager getPackagerInstance() {
-        return MusePacketToggleRequestPackager.INSTANCE;
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        this.module = MuseByteBufferUtils.readUTF8String(buf);
+        this.active = buf.readBoolean();
     }
 
     @Override
-    public IMusePackager packager() {
-        return getPackagerInstance();
+    public void toBytes(ByteBuf buf) {
+        MuseByteBufferUtils.writeUTF8String(buf, module);
+        buf.writeBoolean(active);
     }
 
-    @Override
-    public void write() {
-        writeString(module);
-        writeBoolean(active);
-    }
-
-    @Override
-    public void handleServer(EntityPlayerMP player) {
-        ModuleManager.INSTANCE.toggleModuleForPlayer(player, module, active);
-    }
-
-    public enum MusePacketToggleRequestPackager implements IMusePackager {
-        INSTANCE;
-
+    public static class Handler implements IMessageHandler<MusePacketToggleRequest,IMessage> {
         @Override
-        public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
-            String module = readString(datain);
-            boolean value = readBoolean(datain);
-            return new MusePacketToggleRequest(player, module, value);
+        public IMessage onMessage(MusePacketToggleRequest message, MessageContext ctx) {
+            if (ctx.side != Side.SERVER) {
+                MuseLogger.logError("Toggle Request Packet sent to wrong side: " + ctx.side);
+                return null;
+            }
+
+            EntityPlayerMP player = ctx.getServerHandler().player;
+            String module = message.module;
+            Boolean active = message.active;
+            ModuleManager.INSTANCE.toggleModuleForPlayer(player, module, active);
+            return null;
         }
     }
 }

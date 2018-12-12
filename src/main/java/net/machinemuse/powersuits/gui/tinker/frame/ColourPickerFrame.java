@@ -15,7 +15,7 @@ import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableLabel;
 import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableRectangle;
 import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableSlider;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
-import net.machinemuse.powersuits.network.packets.MusePacketColourInfo;
+import net.machinemuse.powersuits.network.packets_old.MusePacketColourInfo;
 import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;

@@ -14,7 +14,7 @@ import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableTinkerSlider;
 import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableFrame;
-import net.machinemuse.powersuits.network.packets.MusePacketTweakRequestDouble;
+import net.machinemuse.powersuits.network.packets_old.MusePacketTweakRequestDouble;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.minecraft.client.entity.EntityPlayerSP;

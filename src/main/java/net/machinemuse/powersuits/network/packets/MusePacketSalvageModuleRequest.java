@@ -1,12 +1,12 @@
 package net.machinemuse.powersuits.network.packets;
 
-import io.netty.buffer.ByteBufInputStream;
+import io.netty.buffer.ByteBuf;
 import net.machinemuse.numina.item.IModeChangingItem;
 import net.machinemuse.numina.module.IEnchantmentModule;
 import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.module.IRightClickModule;
-import net.machinemuse.numina.network.IMusePackager;
-import net.machinemuse.numina.network.MusePacket;
+import net.machinemuse.numina.network.MuseByteBufferUtils;
+import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.common.ModuleManager;
@@ -15,6 +15,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Packet for requesting to purchase an upgrade. Player-to-server. Server
@@ -26,7 +30,7 @@ import net.minecraft.util.NonNullList;
  * <p>
  * Ported to Java by lehjr on 11/14/16.
  */
-public class MusePacketSalvageModuleRequest extends MusePacket {
+public class MusePacketSalvageModuleRequest implements IMessage {
     EntityPlayer player;
     int itemSlot;
     String moduleName;
@@ -37,51 +41,49 @@ public class MusePacketSalvageModuleRequest extends MusePacket {
         this.moduleName = moduleName;
     }
 
-    public static MusePacketSalvageModuleRequestPackager getPackagerInstance() {
-        return MusePacketSalvageModuleRequestPackager.INSTANCE;
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        this.itemSlot = buf.readInt();
+        this.moduleName = MuseByteBufferUtils.readUTF8String(buf);
     }
 
     @Override
-    public IMusePackager packager() {
-        return getPackagerInstance();
+    public void toBytes(ByteBuf buf) {
+        buf.writeInt(itemSlot);
+        MuseByteBufferUtils.writeUTF8String(buf, moduleName);
     }
 
-    @Override
-    public void write() {
-        writeInt(itemSlot);
-        writeString(moduleName);
-    }
+    public static class Handler implements IMessageHandler<MusePacketSalvageModuleRequest, IMessage> {
+        @Override
+        public IMessage onMessage(MusePacketSalvageModuleRequest message, MessageContext ctx) {
+            if (ctx.side != Side.SERVER) {
+                MuseLogger.logError("Module Salvage Packet sent to wrong side: " + ctx.side);
+                return null;
+            }
 
-    @Override
-    public void handleServer(EntityPlayerMP player) {
-        if (moduleName != null) {
-            ItemStack stack = player.inventory.getStackInSlot(itemSlot);
-            NonNullList<ItemStack> refund = ModuleManager.INSTANCE.getInstallCost(moduleName);
-            if (ModuleManager.INSTANCE.itemHasModule(stack, moduleName)) {
-                MuseNBTUtils.removeMuseValuesTag(stack);
-                ModuleManager.INSTANCE.removeModule(stack, moduleName);
-                for (ItemStack refundItem : refund) {
-                    MuseItemUtils.giveOrDropItemWithChance(player, refundItem.copy(), MPSConfig.INSTANCE.getSalvageChance());
-                }
+            int itemSlot= message.itemSlot;
+            String moduleName = message.moduleName;
+            final EntityPlayerMP player = ctx.getServerHandler().player;
 
-                IPowerModule module = ModuleManager.INSTANCE.getModule(moduleName);
-                if (stack.getItem() instanceof IModeChangingItem && module instanceof IRightClickModule) {
-                    if (module instanceof IEnchantmentModule)
-                        ((IEnchantmentModule) module).removeEnchantment(stack);
-                    ((IModeChangingItem) stack.getItem()).setActiveMode(stack, "");
+            if (moduleName != null) {
+                ItemStack stack = player.inventory.getStackInSlot(itemSlot);
+                NonNullList<ItemStack> refund = ModuleManager.INSTANCE.getInstallCost(moduleName);
+                if (ModuleManager.INSTANCE.itemHasModule(stack, moduleName)) {
+                    MuseNBTUtils.removeMuseValuesTag(stack);
+                    ModuleManager.INSTANCE.removeModule(stack, moduleName);
+                    for (ItemStack refundItem : refund) {
+                        MuseItemUtils.giveOrDropItemWithChance(player, refundItem.copy(), MPSConfig.INSTANCE.getSalvageChance());
+                    }
+
+                    IPowerModule module = ModuleManager.INSTANCE.getModule(moduleName);
+                    if (stack.getItem() instanceof IModeChangingItem && module instanceof IRightClickModule) {
+                        if (module instanceof IEnchantmentModule)
+                            ((IEnchantmentModule) module).removeEnchantment(stack);
+                        ((IModeChangingItem) stack.getItem()).setActiveMode(stack, "");
+                    }
                 }
             }
-        }
-    }
-
-    public enum MusePacketSalvageModuleRequestPackager implements IMusePackager {
-        INSTANCE;
-
-        @Override
-        public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
-            int itemSlot = readInt(datain);
-            String moduleName = readString(datain);
-            return new MusePacketSalvageModuleRequest(player, itemSlot, moduleName);
+            return null;
         }
     }
 }

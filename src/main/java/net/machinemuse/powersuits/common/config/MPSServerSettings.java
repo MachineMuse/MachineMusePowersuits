@@ -1,8 +1,7 @@
 package net.machinemuse.powersuits.common.config;
 
-import io.netty.buffer.ByteBufInputStream;
-import net.machinemuse.numina.network.MusePackager;
-import net.machinemuse.numina.network.MusePacket;
+import io.netty.buffer.ByteBuf;
+import net.machinemuse.numina.network.MuseByteBufferUtils;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorHelmet;
@@ -129,73 +128,69 @@ public class MPSServerSettings {
         cosmeticPresetsPowerArmorChestplate = MPSSettings.cosmetics.getCosmeticPresetsPowerArmorChestplate();
         cosmeticPresetsPowerArmorLeggings = MPSSettings.cosmetics.getCosmeticPresetsPowerArmorLeggings();
         cosmeticPresetsPowerArmorBoots = MPSSettings.cosmetics.getCosmeticPresetsPowerArmorBoots();
-
-        System.out.println("cosmeticPresetsPowerFist size: " + cosmeticPresetsPowerFist.size());
-        System.out.println("cosmeticPresetsPowerArmorHelmet size: " + cosmeticPresetsPowerArmorHelmet.size() );
-        System.out.println("cosmeticPresetsPowerArmorChestplate size: " + cosmeticPresetsPowerArmorChestplate.size());
-        System.out.println("cosmeticPresetsPowerArmorLeggings size: " + cosmeticPresetsPowerArmorLeggings.size());
-        System.out.println("cosmeticPresetsPowerArmorBoots size: " + cosmeticPresetsPowerArmorBoots.size());
     }
 
     /**
      * Sets all settings from a packet received client side in a new instance held in MPSSettings.
+     * @param datain
      */
-    public MPSServerSettings(final ByteBufInputStream datain) {
+    public MPSServerSettings(final ByteBuf datain) {
         /**
          * General -------------------------------------------------------------------------------
          */
-        useOldAutoFeeder = MusePackager.INSTANCE.readBoolean(datain);
-        maximumFlyingSpeedmps = MusePackager.INSTANCE.readDouble(datain);
-        getWeightCapacity = MusePackager.INSTANCE.readDouble(datain);
-        maximumArmorPerPiece = MusePackager.INSTANCE.readDouble(datain);
-        getSalvageChance = MusePackager.INSTANCE.readDouble(datain);
-        baseMaxHeatPowerFist = MusePackager.INSTANCE.readDouble(datain);
-        baseMaxHeatHelmet = MusePackager.INSTANCE.readDouble(datain);
-        baseMaxHeatChest = MusePackager.INSTANCE.readDouble(datain);
-        baseMaxHeatLegs = MusePackager.INSTANCE.readDouble(datain);
-        baseMaxHeatFeet = MusePackager.INSTANCE.readDouble(datain);
+        useOldAutoFeeder = datain.readBoolean();
+        maximumFlyingSpeedmps = datain.readDouble();
+        getWeightCapacity = datain.readDouble();
+        maximumArmorPerPiece = datain.readDouble();
+        getSalvageChance = datain.readDouble();
+        baseMaxHeatPowerFist = datain.readDouble();
+        baseMaxHeatHelmet = datain.readDouble();
+        baseMaxHeatChest = datain.readDouble();
+        baseMaxHeatLegs = datain.readDouble();
+        baseMaxHeatFeet = datain.readDouble();
 
         /**
          * Modules -------------------------------------------------------------------------------
          */
-        allowedModules = MusePackager.INSTANCE.readMap(datain, String.class, Boolean.class);
-        propertyDouble = MusePackager.INSTANCE.readMap(datain, String.class, Double.class);
-        propertyInteger = MusePackager.INSTANCE.readMap(datain, String.class, Integer.class);
+        allowedModules = MuseByteBufferUtils.readMap(datain, String.class, Boolean.class);
+        propertyDouble =MuseByteBufferUtils.readMap(datain, String.class, Double.class);
+        propertyInteger = MuseByteBufferUtils.readMap(datain, String.class, Integer.class);
 
         /**
          * Max Modules of Type -------------------------------------------------------------------
          */
-        maxArmorModules= MusePackager.INSTANCE.readInt(datain);
-        maxEnergyStorageModules= MusePackager.INSTANCE.readInt(datain);
-        maxEnergyGenModules= MusePackager.INSTANCE.readInt(datain);
-        maxToolModules= MusePackager.INSTANCE.readInt(datain);
-        maxWeaponModules= MusePackager.INSTANCE.readInt(datain);
-        maxMovementModules= MusePackager.INSTANCE.readInt(datain);
-        maxCosmeticModules= MusePackager.INSTANCE.readInt(datain);
-        maxVisionModules= MusePackager.INSTANCE.readInt(datain);
-        maxEnvironmentalModules= MusePackager.INSTANCE.readInt(datain);
-        maxSpecialModules= MusePackager.INSTANCE.readInt(datain);
-        maxMiningEnhancementModules= MusePackager.INSTANCE.readInt(datain);
+        maxArmorModules = datain.readInt();
+        maxEnergyStorageModules = datain.readInt();
+        maxEnergyGenModules = datain.readInt();
+        maxToolModules = datain.readInt();
+        maxWeaponModules = datain.readInt();
+        maxMovementModules = datain.readInt();
+        maxCosmeticModules = datain.readInt();
+        maxVisionModules = datain.readInt();
+        maxEnvironmentalModules = datain.readInt();
+        maxSpecialModules = datain.readInt();
+        maxMiningEnhancementModules = datain.readInt();
 
         /**
          * Cosmetics ------------------------------------------------------------------------------
          */
-        useLegacyCosmeticSystem = MusePackager.INSTANCE.readBoolean(datain);
-        allowHighPollyArmorModuels = MusePackager.INSTANCE.readBoolean(datain);
-        allowPowerFistCustomization = MusePackager.INSTANCE.readBoolean(datain);
-        cosmeticPresetsPowerFist = MusePackager.INSTANCE.readNBTMap(datain);
-        cosmeticPresetsPowerArmorHelmet = MusePackager.INSTANCE.readNBTMap(datain);
-        cosmeticPresetsPowerArmorChestplate = MusePackager.INSTANCE.readNBTMap(datain);
-        cosmeticPresetsPowerArmorLeggings = MusePackager.INSTANCE.readNBTMap(datain);
-        cosmeticPresetsPowerArmorBoots = MusePackager.INSTANCE.readNBTMap(datain);
+        useLegacyCosmeticSystem = datain.readBoolean();
+        allowHighPollyArmorModuels = datain.readBoolean();
+        allowPowerFistCustomization = datain.readBoolean();
+        cosmeticPresetsPowerFist = MuseByteBufferUtils.readMap(datain, String.class, NBTTagCompound.class);
+        cosmeticPresetsPowerArmorHelmet = MuseByteBufferUtils.readMap(datain, String.class, NBTTagCompound.class);
+        cosmeticPresetsPowerArmorChestplate = MuseByteBufferUtils.readMap(datain, String.class, NBTTagCompound.class);
+        cosmeticPresetsPowerArmorLeggings = MuseByteBufferUtils.readMap(datain, String.class, NBTTagCompound.class);
+        cosmeticPresetsPowerArmorBoots = MuseByteBufferUtils.readMap(datain, String.class, NBTTagCompound.class);
     }
 
     /**
      * This is a server side operation that gets the values and writes them to the packet.
      * This packet is then sent to a new client on login to sync config values. This allows
      * the server to be able to control these settings.
+     * @param packet
      */
-    public void writeToBuffer(final MusePacket packet) {
+    public void writeToBuffer(final ByteBuf packet) {
         /**
          * General -------------------------------------------------------------------------------
          */
@@ -213,9 +208,9 @@ public class MPSServerSettings {
         /**
          * Modules -------------------------------------------------------------------------------
          */
-        packet.writeMap(allowedModules, true);
-        packet.writeMap(propertyDouble, true);
-        packet.writeMap(propertyInteger, true);
+        MuseByteBufferUtils.writeMap(packet,allowedModules, true);
+        MuseByteBufferUtils.writeMap(packet,propertyDouble, true);
+        MuseByteBufferUtils.writeMap(packet,propertyInteger, true);
 
         /**
          * Max Modules of Type -------------------------------------------------------------------
@@ -239,30 +234,11 @@ public class MPSServerSettings {
         packet.writeBoolean(allowHighPollyArmorModuels);
         packet.writeBoolean(allowPowerFistCustomization);
 
-        System.out.println("cosmeticPresetsPowerFist size: " + cosmeticPresetsPowerFist.size());
-
-//        packet.writeNBTMap(cosmeticPresetsPowerFist);
-
-
-        packet.writeNBTMap(cosmeticPresetsPowerArmorBoots);
-        packet.writeNBTMap(cosmeticPresetsPowerArmorBoots);
-        packet.writeNBTMap(cosmeticPresetsPowerArmorBoots);
-        packet.writeNBTMap(cosmeticPresetsPowerArmorBoots);
-        packet.writeNBTMap(cosmeticPresetsPowerArmorBoots);
-
-        // test
-
-
-
-
-//        packet.writeNBTMap(cosmeticPresetsPowerArmorHelmet);
-//        packet.writeNBTMap(cosmeticPresetsPowerArmorChestplate);
-//        packet.writeNBTMap(cosmeticPresetsPowerArmorLeggings);
-//        packet.writeNBTMap(cosmeticPresetsPowerArmorBoots);
-
-
-        System.out.println("cosmeticPresetsPowerArmorBoots size: " + cosmeticPresetsPowerArmorBoots.size());
-
+        MuseByteBufferUtils.writeMap(packet,cosmeticPresetsPowerFist, true);
+        MuseByteBufferUtils.writeMap(packet,cosmeticPresetsPowerArmorHelmet, true);
+        MuseByteBufferUtils.writeMap(packet,cosmeticPresetsPowerArmorChestplate, true);
+        MuseByteBufferUtils.writeMap(packet,cosmeticPresetsPowerArmorLeggings, true);
+        MuseByteBufferUtils.writeMap(packet,cosmeticPresetsPowerArmorBoots, true);
     }
 
     public void updateCosmeticInfo(ResourceLocation location, String name, NBTTagCompound cosmeticInfo) {

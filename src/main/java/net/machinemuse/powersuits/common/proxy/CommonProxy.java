@@ -10,7 +10,7 @@ import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.event.HarvestEventHandler;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.event.PlayerLoginHandlerThingy;
-import net.machinemuse.powersuits.network.packets.MPSPacketList;
+import net.machinemuse.powersuits.network.MPSPackets;
 import net.machinemuse.powersuits.powermodule.tool.TerminalHandler;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -33,6 +33,7 @@ import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
  */
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
+        MPSPackets.registerMPSPackets();
         MPSItems.INSTANCE.initFluids();
     }
 
@@ -41,7 +42,6 @@ public class CommonProxy {
         EntityRegistry.registerModEntity(new ResourceLocation(MODID, "entityPlasmaBolt"), EntityPlasmaBolt.class, "entityPlasmaBolt", 2477, ModularPowersuits.getInstance(), 64, 20, true);
         EntityRegistry.registerModEntity(new ResourceLocation(MODID, "entitySpinningBlade"), EntitySpinningBlade.class, "entitySpinningBlade", 2478, ModularPowersuits.getInstance(), 64, 20, true);
         EntityRegistry.registerModEntity(MPSItems.INSTANCE.luxCapacitor.getRegistryName(), EntityLuxCapacitor.class, "entityLuxCapacitor", 2479, ModularPowersuits.getInstance(), 64, 20, true);
-        MPSPacketList.registerPackets();
         NetworkRegistry.INSTANCE.registerGuiHandler(ModularPowersuits.getInstance(), MPSGuiHandler.INSTANCE);
         TerminalHandler.registerHandler();
         MinecraftForge.EVENT_BUS.register(new PlayerLoginHandlerThingy()); // doesn't seem to work if fired preinit
@@ -62,7 +62,6 @@ public class CommonProxy {
     }
 
     public void postInit(FMLPostInitializationEvent event) {
-//        Config.addCustomInstallCosts(); // Fixme: replace with similar function in MPSConfig
     }
 
     public void registerEvents() {

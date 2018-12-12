@@ -1,7 +1,7 @@
 package net.machinemuse.numina.event;
 
 import net.machinemuse.numina.network.packets.NuminaPacketConfig;
-import net.machinemuse.numina.network.PacketSender;
+import net.machinemuse.powersuits.network.MPSPackets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -24,7 +24,7 @@ public final class NuminaPlayerTracker {
         if (!isUsingBuiltInServer || (isUsingBuiltInServer && FMLCommonHandler.instance().getMinecraftServerInstance().getCurrentPlayerCount() > 1)) {
 
             // sync config settings between client and server
-            PacketSender.sendTo(new NuminaPacketConfig(player), (EntityPlayerMP) player);
+            MPSPackets.sendTo(new NuminaPacketConfig(), (EntityPlayerMP) player);
 
             // FIXME!!! recipes not done this way anymore??
 //            for (JSONRecipe recipe : JSONRecipeList.getJSONRecipesList()) {

@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
 import net.machinemuse.numina.common.constants.NuminaNBTConstants;
-import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRect;
@@ -12,6 +11,7 @@ import net.machinemuse.powersuits.gui.tinker.clickable.ClickableLabel;
 import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableLabel;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
+import net.machinemuse.powersuits.network.MPSPackets;
 import net.machinemuse.powersuits.network.packets.MusePacketCosmeticInfo;
 import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.client.Minecraft;
@@ -96,7 +96,7 @@ public class CosmeticPresetSelectionSubframe extends ScrollableLabel {
         // change the render tag to this ... keep in mind that the render tag for these are just a key to read from the config file
         if(super.hitbox(x, y) && this.getSelectedItem() != null) {
             if (isValidItem(getSelectedItem(), getEquipmentSlot())) {
-                PacketSender.sendToServer(new MusePacketCosmeticInfo(Minecraft.getMinecraft().player, this.getSelectedItem().inventorySlot, NuminaNBTConstants.TAG_COSMETIC, cosmeticPresetNBT).getPacket131());
+                MPSPackets.sendToServer(new MusePacketCosmeticInfo(Minecraft.getMinecraft().player, this.getSelectedItem().inventorySlot, NuminaNBTConstants.TAG_COSMETIC, cosmeticPresetNBT));
             }
             return true;
         }

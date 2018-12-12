@@ -3,8 +3,8 @@ package net.machinemuse.numina.item;
 import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.numina.module.*;
 import net.machinemuse.numina.network.packets.MusePacketModeChangeRequest;
-import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
+import net.machinemuse.powersuits.network.MPSPackets;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -76,7 +76,7 @@ public interface IModeChangingItem extends IModularItem {
             int newindex = clampMode(modes.indexOf(this.getActiveMode(stack)) + dMode, modes.size());
             String newmode = (String) modes.get(newindex);
             this.setActiveMode(stack, newmode);
-            PacketSender.sendToServer(new MusePacketModeChangeRequest(player, newmode, player.inventory.currentItem));
+            MPSPackets.sendToServer(new MusePacketModeChangeRequest(player, newmode, player.inventory.currentItem));
         }
     }
 

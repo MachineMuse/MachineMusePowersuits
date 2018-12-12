@@ -1,7 +1,10 @@
 package net.machinemuse.numina.network;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufInputStream;
+import io.netty.buffer.ByteBufOutputStream;
 import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -14,22 +17,71 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 public class MuseByteBufferUtils extends ByteBufUtils {
+    public static void writePlayerInputMap(ByteBuf buf, PlayerInputMap inputMap) {
+        ByteBufOutputStream bos = new ByteBufOutputStream(buf);
+        DataOutputStream dos = new DataOutputStream(bos);
+        inputMap.writeToStream(dos);
+        try {
+            dos.flush();
+            dos.close();
+        } catch (IOException exception) {
+            MuseLogger.logException("PROBLEM WRITING DATA TO PACKET:", exception);
+        }
+    }
 
-    public int readInt(ByteBuf buf) {
-        return buf.readInt();
+    public static PlayerInputMap readPlayerInputMap(ByteBuf buf) {
+        ByteBufInputStream bis = new ByteBufInputStream(buf);
+        DataInputStream dis = new DataInputStream(bis);
+
+
+
+
     }
 
 
 
 
+    public static void writeCompressedNBT(ByteBuf buf, NBTTagCompound nbt) {
+        ByteBufOutputStream bos = new ByteBufOutputStream(buf);
+        DataOutputStream dos = new DataOutputStream(bos);
+        try {
+            CompressedStreamTools.writeCompressed(nbt, dos);
+            dos.flush();
+            dos.close();
+        } catch (IOException exception) {
+            MuseLogger.logException("PROBLEM WRITING DATA TO PACKET:", exception);
+        }
+    }
 
+    public static NBTTagCompound readCompressedNBT(ByteBuf buf ) {
+        ByteBufInputStream bis = new ByteBufInputStream(buf);
+        DataInputStream dis = new DataInputStream(bis);
+        NBTTagCompound nbt;
+        try {
+            nbt = CompressedStreamTools.readCompressed(dis);
+        } catch (IOException exception) {
+            MuseLogger.logException("PROBLEM READING DATA FROM PACKET:", exception);
+            nbt = new NBTTagCompound();
+        }
+        return nbt;
+    }
 
+    public static void writeIntArray(ByteBuf buf, int[] intArray) {
+        buf.writeInt(intArray.length);
+        for (int i = 0; i < intArray.length; i++) {
+            buf.writeInt(intArray[i]);
+        }
+    }
 
+    public static int[] readIntArray(ByteBuf buf) {
+        int arraySize = buf.readInt();
+        int[] intArray = new int[arraySize];
 
-
-
-
-
+        for (int i = 0; i < arraySize; i++) {
+            intArray[i] = buf.readInt();
+        }
+        return intArray;
+    }
 
     /**
      * write compressed or uncompressed map to the ByteBuf
@@ -87,7 +139,6 @@ public class MuseByteBufferUtils extends ByteBufUtils {
             dataLength = dataIn.readInt();
 
             byte[] bytes = new byte[dataLength];
-            int remaining = dataLength;
             dataIn.readBytes(bytes);//, dataLength - remaining, remaining);
 
             if (compressOrNot) {

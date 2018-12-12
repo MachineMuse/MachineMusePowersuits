@@ -16,7 +16,7 @@ import net.machinemuse.powersuits.gui.GuiIcons;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
-import net.machinemuse.powersuits.network.packets.MusePacketCosmeticInfo;
+import net.machinemuse.powersuits.network.packets_old.MusePacketCosmeticInfo;
 import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;

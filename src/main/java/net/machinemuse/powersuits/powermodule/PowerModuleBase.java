@@ -2,7 +2,6 @@ package net.machinemuse.powersuits.powermodule;
 
 import net.machinemuse.numina.module.EnumModuleTarget;
 import net.machinemuse.numina.module.IPowerModule;
-import net.machinemuse.numina.api.nbt.*;
 import net.machinemuse.numina.nbt.*;
 import net.machinemuse.powersuits.api.constants.MPSModConstants;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;

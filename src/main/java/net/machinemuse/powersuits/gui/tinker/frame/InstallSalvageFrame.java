@@ -1,20 +1,19 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
-import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.client.sound.Musique;
-import net.machinemuse.numina.network.MusePacket;
-import net.machinemuse.numina.network.PacketSender;
+import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
-import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableButton;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableModule;
 import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableFrame;
+import net.machinemuse.powersuits.network.MPSPackets;
 import net.machinemuse.powersuits.network.packets.MusePacketInstallModuleRequest;
 import net.machinemuse.powersuits.network.packets.MusePacketSalvageModuleRequest;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -162,11 +161,10 @@ public class InstallSalvageFrame extends ScrollableFrame {
 
     private void doSalvage() {
         IPowerModule module = targetModule.getSelectedModule().getModule();
-        MusePacket newpacket = new MusePacketSalvageModuleRequest(
+        MPSPackets.sendToServer(new MusePacketSalvageModuleRequest(
                 player,
                 targetItem.getSelectedItem().inventorySlot,
-                module.getDataName());
-        PacketSender.sendToServer(newpacket.getPacket131());
+                module.getDataName()));
     }
 
     /**
@@ -178,11 +176,10 @@ public class InstallSalvageFrame extends ScrollableFrame {
         if (player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(ModuleManager.INSTANCE.getInstallCost(module.getDataName()), player.inventory)) {
             Musique.playClientSound(SoundDictionary.SOUND_EVENT_GUI_INSTALL, SoundCategory.BLOCKS, 1, null);
             // Now send request to server to make it legit
-            MusePacket newpacket = new MusePacketInstallModuleRequest(
+            MPSPackets.sendToServer(new MusePacketInstallModuleRequest(
                     player,
                     targetItem.getSelectedItem().inventorySlot,
-                    module.getDataName());
-            PacketSender.sendToServer(newpacket.getPacket131());
+                    module.getDataName()));
         }
     }
 }
