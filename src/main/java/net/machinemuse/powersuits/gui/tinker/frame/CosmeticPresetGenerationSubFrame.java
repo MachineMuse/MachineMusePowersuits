@@ -3,7 +3,6 @@ package net.machinemuse.powersuits.gui.tinker.frame;
 import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.numina.general.MuseMathUtils;
-import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.math.Colour;
@@ -16,7 +15,8 @@ import net.machinemuse.powersuits.gui.GuiIcons;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
-import net.machinemuse.powersuits.network.packets_old.MusePacketCosmeticInfo;
+import net.machinemuse.powersuits.network.MPSPackets;
+import net.machinemuse.powersuits.network.packets.MusePacketCosmeticInfo;
 import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -181,7 +181,7 @@ public class CosmeticPresetGenerationSubFrame extends PartSpecManipSubFrameBase 
                 if (oldindex >= index && oldindex > 0) {
                     spec.setColourIndex(tagdata, oldindex - 1);
                     if (player.world.isRemote)
-                        PacketSender.sendToServer(new MusePacketCosmeticInfo(player, getSelectedItem().inventorySlot, tagname, tagdata).getPacket131());
+                        MPSPackets.sendToServer(new MusePacketCosmeticInfo(player, getSelectedItem().inventorySlot, tagname, tagdata));
                 }
             }
         }
@@ -268,7 +268,7 @@ public class CosmeticPresetGenerationSubFrame extends PartSpecManipSubFrameBase 
                     else
                         tagname = ModelRegistry.getInstance().makeName(spec);
                     if (player.world.isRemote)
-                        PacketSender.sendToServer(new MusePacketCosmeticInfo(player, this.getSelectedItem().inventorySlot, tagname, new NBTTagCompound()).getPacket131());
+                        MPSPackets.sendToServer(new MusePacketCosmeticInfo(player, this.getSelectedItem().inventorySlot, tagname, new NBTTagCompound()));
                     this.updateItems();
                     return true;
                 }
@@ -283,7 +283,7 @@ public class CosmeticPresetGenerationSubFrame extends PartSpecManipSubFrameBase 
                     if (spec instanceof ModelPartSpec)
                         ((ModelPartSpec) spec).setGlow(tagdata, false);
                     if (player.world.isRemote)
-                        PacketSender.sendToServer(new MusePacketCosmeticInfo(player, this.getSelectedItem().inventorySlot, tagname, tagdata).getPacket131());
+                        MPSPackets.sendToServer(new MusePacketCosmeticInfo(player, this.getSelectedItem().inventorySlot, tagname, tagdata));
                     this.updateItems();
                     return true;
                 }
@@ -295,7 +295,7 @@ public class CosmeticPresetGenerationSubFrame extends PartSpecManipSubFrameBase 
                         tagdata = this.getOrMakeSpecTag(spec);
                         ((ModelPartSpec) spec).setGlow(tagdata, true);
                         if (player.world.isRemote)
-                            PacketSender.sendToServer(new MusePacketCosmeticInfo(player, this.getSelectedItem().inventorySlot, tagname, tagdata).getPacket131());
+                            MPSPackets.sendToServer(new MusePacketCosmeticInfo(player, this.getSelectedItem().inventorySlot, tagname, tagdata));
                         this.updateItems();
                         return true;
                     }
@@ -319,7 +319,7 @@ public class CosmeticPresetGenerationSubFrame extends PartSpecManipSubFrameBase 
             tagdata = this.getOrMakeSpecTag(spec);
             spec.setColourIndex(tagdata, columnNumber);
             if (player.world.isRemote) {
-                PacketSender.sendToServer(new MusePacketCosmeticInfo(player, this.getSelectedItem().inventorySlot, tagname, tagdata).getPacket131());
+                MPSPackets.sendToServer(new MusePacketCosmeticInfo(player, this.getSelectedItem().inventorySlot, tagname, tagdata));
             }
             return true;
         }

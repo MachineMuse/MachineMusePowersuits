@@ -3,7 +3,6 @@ package net.machinemuse.powersuits.network.packets;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufInputStream;
 import net.machinemuse.numina.network.MuseByteBufferUtils;
-import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.machinemuse.powersuits.network.MPSPackets;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,21 +12,33 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
+import java.io.IOException;
+
 public class MusePacketPlayerUpdate implements IMessage {
     EntityPlayer player;
     PlayerInputMap inputMap;
+    String username;
+
+    public MusePacketPlayerUpdate() {
+    }
 
     public MusePacketPlayerUpdate(EntityPlayer player, PlayerInputMap inputMap) {
         this.player = player;
+        this.username = player.getCommandSenderEntity().getName();
         this.inputMap = inputMap;
     }
 
-
     @Override
     public void fromBytes(ByteBuf buf) {
-        String username = MuseByteBufferUtils.readUTF8String(buf);
-        PlayerInputMap inputMap = PlayerInputMap.getInputMapFor(username);
-        inputMap.readFromStream(new ByteBufInputStream(buf));
+        this.username = MuseByteBufferUtils.readUTF8String(buf);
+        this.inputMap = PlayerInputMap.getInputMapFor(username);
+        ByteBufInputStream byteBuf = new ByteBufInputStream(buf);
+        this.inputMap.readFromStream(byteBuf);
+        try {
+            byteBuf.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -39,22 +50,17 @@ public class MusePacketPlayerUpdate implements IMessage {
     public static class Handler implements IMessageHandler<MusePacketPlayerUpdate, IMessage> {
         @Override
         public IMessage onMessage(MusePacketPlayerUpdate message, MessageContext ctx) {
-            if (ctx.side != Side.SERVER) {
-                MuseLogger.logError("Colour Info Packet sent to wrong side: " + ctx.side);
-                return null;
+            if (ctx.side == Side.SERVER) {
+                EntityPlayerMP player = ctx.getServerHandler().player;
+                player.getServerWorld().addScheduledTask(() -> {
+                    PlayerInputMap inputMap = message.inputMap;
+                    MusePacketPlayerUpdate updatePacket = new MusePacketPlayerUpdate(player, inputMap);
+                    player.motionX = inputMap.motionX;
+                    player.motionY = inputMap.motionY;
+                    player.motionZ = inputMap.motionZ;
+                    MPSPackets.sendToAllAround(updatePacket, player,128); // <-- test me
+                });
             }
-
-            EntityPlayerMP player = ctx.getServerHandler().player;
-            PlayerInputMap inputMap = message.inputMap;
-
-            MusePacketPlayerUpdate updatePacket = new MusePacketPlayerUpdate(player, inputMap);
-            player.motionX = inputMap.motionX;
-            player.motionY = inputMap.motionY;
-            player.motionZ = inputMap.motionZ;
-            MPSPackets.sendToAllAround(updatePacket, player, 128);
-
-
-
             return null;
         }
     }

@@ -16,6 +16,11 @@ public class MusePacketToggleRequest implements IMessage {
     String module;
     Boolean active;
 
+    public MusePacketToggleRequest() {
+
+    }
+
+
     public MusePacketToggleRequest(EntityPlayer player, String module, Boolean active) {
         this.player = player;
         this.module = module;
@@ -37,15 +42,14 @@ public class MusePacketToggleRequest implements IMessage {
     public static class Handler implements IMessageHandler<MusePacketToggleRequest,IMessage> {
         @Override
         public IMessage onMessage(MusePacketToggleRequest message, MessageContext ctx) {
-            if (ctx.side != Side.SERVER) {
-                MuseLogger.logError("Toggle Request Packet sent to wrong side: " + ctx.side);
-                return null;
+            if (ctx.side == Side.SERVER) {
+                final EntityPlayerMP player = ctx.getServerHandler().player;
+                player.getServerWorld().addScheduledTask(() -> {
+                    String module = message.module;
+                    Boolean active = message.active;
+                    ModuleManager.INSTANCE.toggleModuleForPlayer(player, module, active);
+                });
             }
-
-            EntityPlayerMP player = ctx.getServerHandler().player;
-            String module = message.module;
-            Boolean active = message.active;
-            ModuleManager.INSTANCE.toggleModuleForPlayer(player, module, active);
             return null;
         }
     }

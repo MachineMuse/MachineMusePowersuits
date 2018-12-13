@@ -8,21 +8,24 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class NuminaPacketConfig implements IMessage {
+    NuminaServerSettings settings;
     public NuminaPacketConfig() {
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        NuminaServerSettings settings = new NuminaServerSettings(buf);
+        settings = new NuminaServerSettings(buf);
         NuminaConfig.INSTANCE.setServerSettings(settings);
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        if (NuminaConfig.INSTANCE.getServerSettings() == null)
-            NuminaConfig.INSTANCE.setServerSettings(new NuminaServerSettings());
-        // write values to packet to send to the client
-        NuminaConfig.INSTANCE.getServerSettings().writeToBuffer(buf);
+        settings = NuminaConfig.INSTANCE.getServerSettings();
+        if (settings == null) {
+            settings = new NuminaServerSettings();
+            NuminaConfig.INSTANCE.setServerSettings(settings);
+        }
+        settings.writeToBuffer(buf);
     }
 
     public static class Handler implements IMessageHandler<NuminaPacketConfig , IMessage> {

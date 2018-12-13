@@ -4,7 +4,6 @@ import io.netty.buffer.ByteBuf;
 import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.numina.item.IModularItem;
 import net.machinemuse.numina.network.MuseByteBufferUtils;
-import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -25,6 +24,10 @@ public class MusePacketColourInfo implements IMessage {
     EntityPlayer player;
     int itemSlot;
     int[] tagData;
+
+    public MusePacketColourInfo() {
+
+    }
 
     public MusePacketColourInfo(EntityPlayer player, int itemSlot, int[] tagData) {
         this.player = player;
@@ -47,18 +50,18 @@ public class MusePacketColourInfo implements IMessage {
     public static class Handler implements IMessageHandler<MusePacketColourInfo, IMessage> {
         @Override
         public IMessage onMessage(MusePacketColourInfo message, MessageContext ctx) {
-            if (ctx.side != Side.SERVER) {
-                MuseLogger.logError("Colour Info Packet sent to wrong side: " + ctx.side);
-                return null;
-            }
-            int itemSlot = message.itemSlot;
-            int[] tagData = message.tagData;
-            EntityPlayerMP player = ctx.getServerHandler().player;
+            if (ctx.side == Side.SERVER) {
+                final EntityPlayerMP player = ctx.getServerHandler().player;
+                player.getServerWorld().addScheduledTask(() -> {
+                    int itemSlot = message.itemSlot;
+                    int[] tagData = message.tagData;
 
-            ItemStack stack = player.inventory.getStackInSlot(itemSlot);
-            if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-                NBTTagCompound renderTag = MPSNBTUtils.getMuseRenderTag(stack);
-                renderTag.setIntArray(NuminaNBTConstants.TAG_COLOURS, tagData);
+                    ItemStack stack = player.inventory.getStackInSlot(itemSlot);
+                    if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
+                        NBTTagCompound renderTag = MPSNBTUtils.getMuseRenderTag(stack);
+                        renderTag.setIntArray(NuminaNBTConstants.TAG_COLOURS, tagData);
+                    }
+                });
             }
             return null;
         }

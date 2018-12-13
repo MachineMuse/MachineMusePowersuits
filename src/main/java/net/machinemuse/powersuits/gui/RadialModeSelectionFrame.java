@@ -4,13 +4,13 @@ import net.machinemuse.numina.item.IModeChangingItem;
 import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.module.IRightClickModule;
 import net.machinemuse.numina.network.packets.MusePacketModeChangeRequest;
-import net.machinemuse.numina.network.PacketSender;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.SpiralPointToPoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableModule;
 import net.machinemuse.powersuits.gui.tinker.frame.IGuiFrame;
+import net.machinemuse.powersuits.network.MPSPackets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
@@ -119,7 +119,7 @@ public class RadialModeSelectionFrame implements IGuiFrame {
             // update to detect mode changes
             selectedModuleOriginal = selectedModuleNew;
             ((IModeChangingItem) stack.getItem()).setActiveMode(stack, getSelectedModule().getModule().getDataName());
-            PacketSender.sendToServer(new MusePacketModeChangeRequest(player, getSelectedModule().getModule().getDataName(), player.inventory.currentItem));
+            MPSPackets.sendToServer(new MusePacketModeChangeRequest(player, getSelectedModule().getModule().getDataName(), player.inventory.currentItem));
         }
     }
 

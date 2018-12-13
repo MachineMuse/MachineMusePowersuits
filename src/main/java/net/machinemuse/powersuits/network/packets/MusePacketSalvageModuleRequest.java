@@ -35,6 +35,10 @@ public class MusePacketSalvageModuleRequest implements IMessage {
     int itemSlot;
     String moduleName;
 
+    public MusePacketSalvageModuleRequest() {
+
+    }
+
     public MusePacketSalvageModuleRequest(EntityPlayer player, int itemSlot, String moduleName) {
         this.player = player;
         this.itemSlot = itemSlot;
@@ -56,32 +60,30 @@ public class MusePacketSalvageModuleRequest implements IMessage {
     public static class Handler implements IMessageHandler<MusePacketSalvageModuleRequest, IMessage> {
         @Override
         public IMessage onMessage(MusePacketSalvageModuleRequest message, MessageContext ctx) {
-            if (ctx.side != Side.SERVER) {
-                MuseLogger.logError("Module Salvage Packet sent to wrong side: " + ctx.side);
-                return null;
-            }
+            if (ctx.side == Side.SERVER) {
+                final EntityPlayerMP player = ctx.getServerHandler().player;
+                player.getServerWorld().addScheduledTask(() -> {
+                    int itemSlot= message.itemSlot;
+                    String moduleName = message.moduleName;
+                    if (moduleName != null) {
+                        ItemStack stack = player.inventory.getStackInSlot(itemSlot);
+                        NonNullList<ItemStack> refund = ModuleManager.INSTANCE.getInstallCost(moduleName);
+                        if (ModuleManager.INSTANCE.itemHasModule(stack, moduleName)) {
+                            MuseNBTUtils.removeMuseValuesTag(stack);
+                            ModuleManager.INSTANCE.removeModule(stack, moduleName);
+                            for (ItemStack refundItem : refund) {
+                                MuseItemUtils.giveOrDropItemWithChance(player, refundItem.copy(), MPSConfig.INSTANCE.getSalvageChance());
+                            }
 
-            int itemSlot= message.itemSlot;
-            String moduleName = message.moduleName;
-            final EntityPlayerMP player = ctx.getServerHandler().player;
-
-            if (moduleName != null) {
-                ItemStack stack = player.inventory.getStackInSlot(itemSlot);
-                NonNullList<ItemStack> refund = ModuleManager.INSTANCE.getInstallCost(moduleName);
-                if (ModuleManager.INSTANCE.itemHasModule(stack, moduleName)) {
-                    MuseNBTUtils.removeMuseValuesTag(stack);
-                    ModuleManager.INSTANCE.removeModule(stack, moduleName);
-                    for (ItemStack refundItem : refund) {
-                        MuseItemUtils.giveOrDropItemWithChance(player, refundItem.copy(), MPSConfig.INSTANCE.getSalvageChance());
+                            IPowerModule module = ModuleManager.INSTANCE.getModule(moduleName);
+                            if (stack.getItem() instanceof IModeChangingItem && module instanceof IRightClickModule) {
+                                if (module instanceof IEnchantmentModule)
+                                    ((IEnchantmentModule) module).removeEnchantment(stack);
+                                ((IModeChangingItem) stack.getItem()).setActiveMode(stack, "");
+                            }
+                        }
                     }
-
-                    IPowerModule module = ModuleManager.INSTANCE.getModule(moduleName);
-                    if (stack.getItem() instanceof IModeChangingItem && module instanceof IRightClickModule) {
-                        if (module instanceof IEnchantmentModule)
-                            ((IEnchantmentModule) module).removeEnchantment(stack);
-                        ((IModeChangingItem) stack.getItem()).setActiveMode(stack, "");
-                    }
-                }
+                });
             }
             return null;
         }

@@ -34,6 +34,9 @@ public class MusePacketInstallModuleRequest implements IMessage {
     int itemSlot;
     String moduleName;
 
+    public MusePacketInstallModuleRequest() {
+    }
+
     public MusePacketInstallModuleRequest(EntityPlayer player, int itemSlot, String moduleName) {
         this.player = player;
         this.itemSlot = itemSlot;
@@ -55,38 +58,35 @@ public class MusePacketInstallModuleRequest implements IMessage {
     public static class Handler implements IMessageHandler<MusePacketInstallModuleRequest, IMessage> {
         @Override
         public IMessage onMessage(MusePacketInstallModuleRequest message, MessageContext ctx) {
-            if (ctx.side != Side.SERVER) {
-                MuseLogger.logError("Module Install Packet sent to wrong side: " + ctx.side);
-                return null;
-            }
+            if (ctx.side == Side.SERVER) {
+                EntityPlayerMP player = ctx.getServerHandler().player;
+                player.getServerWorld().addScheduledTask(() -> {
+                    int itemSlot = message.itemSlot;
+                    String moduleName = message.moduleName;
+                    ItemStack stack = player.inventory.getStackInSlot(itemSlot);
+                    if (moduleName != null) {
+                        InventoryPlayer inventory = player.inventory;
+                        IPowerModule moduleType = ModuleManager.INSTANCE.getModule(moduleName);
+                        if (moduleType == null || !moduleType.isAllowed()) {
+                            player.sendMessage(new TextComponentString("Server has disallowed this module. Sorry!"));
+                        } else {
+                            NonNullList<ItemStack> cost = ModuleManager.INSTANCE.getInstallCost(moduleName);
+                            if ((!ModuleManager.INSTANCE.itemHasModule(stack, moduleName) && MuseItemUtils.hasInInventory(cost, player.inventory)) || player.capabilities.isCreativeMode) {
+                                MuseNBTUtils.removeMuseValuesTag(stack);
+                                ModuleManager.INSTANCE.itemAddModule(stack, moduleType);
+                                for (ItemStack stackInCost : cost) {
+                                    ElectricItemUtils.givePlayerEnergy(player, MPSConfig.INSTANCE.rfValueOfComponent(stackInCost));
+                                }
 
-            int itemSlot= message.itemSlot;
-            String moduleName = message.moduleName;
-            final EntityPlayerMP player = ctx.getServerHandler().player;
-
-            ItemStack stack = player.inventory.getStackInSlot(itemSlot);
-            if (moduleName != null) {
-                InventoryPlayer inventory = player.inventory;
-                IPowerModule moduleType = ModuleManager.INSTANCE.getModule(moduleName);
-                if (moduleType == null || !moduleType.isAllowed()) {
-                    player.sendMessage(new TextComponentString("Server has disallowed this module. Sorry!"));
-                    return null;
-                }
-                NonNullList<ItemStack> cost = ModuleManager.INSTANCE.getInstallCost(moduleName);
-                if ((!ModuleManager.INSTANCE.itemHasModule(stack, moduleName) && MuseItemUtils.hasInInventory(cost, player.inventory)) || player.capabilities.isCreativeMode) {
-                    MuseNBTUtils.removeMuseValuesTag(stack);
-                    ModuleManager.INSTANCE.itemAddModule(stack, moduleType);
-                    for (ItemStack stackInCost : cost) {
-                        ElectricItemUtils.givePlayerEnergy(player, MPSConfig.INSTANCE.rfValueOfComponent(stackInCost));
+                                if (!player.capabilities.isCreativeMode) {
+                                    MuseItemUtils.deleteFromInventory(cost, inventory);
+                                }
+                                // use builtin handler
+                                player.inventoryContainer.detectAndSendChanges();
+                            }
+                        }
                     }
-
-                    if (!player.capabilities.isCreativeMode) {
-                        MuseItemUtils.deleteFromInventory(cost, inventory);
-                    }
-
-                    // use builtin handler
-                    player.inventoryContainer.detectAndSendChanges();
-                }
+                });
             }
             return null;
         }

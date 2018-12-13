@@ -29,17 +29,14 @@ public class MuseByteBufferUtils extends ByteBufUtils {
         }
     }
 
-    public static PlayerInputMap readPlayerInputMap(ByteBuf buf) {
-        ByteBufInputStream bis = new ByteBufInputStream(buf);
-        DataInputStream dis = new DataInputStream(bis);
-
-
-
-
-    }
-
-
-
+//    public static PlayerInputMap readPlayerInputMap(ByteBuf buf) {
+//        ByteBufInputStream bis = new ByteBufInputStream(buf);
+//        DataInputStream dis = new DataInputStream(bis);
+//
+//
+//
+//
+//    }
 
     public static void writeCompressedNBT(ByteBuf buf, NBTTagCompound nbt) {
         ByteBufOutputStream bos = new ByteBufOutputStream(buf);

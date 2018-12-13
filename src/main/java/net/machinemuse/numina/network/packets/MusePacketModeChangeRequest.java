@@ -4,7 +4,6 @@ import io.netty.buffer.ByteBuf;
 import net.machinemuse.numina.item.IModeChangingItem;
 import net.machinemuse.numina.module.IModuleManager;
 import net.machinemuse.numina.network.MuseByteBufferUtils;
-import net.machinemuse.numina.utils.MuseLogger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -24,6 +23,10 @@ public class MusePacketModeChangeRequest implements IMessage {
         this.slot = slot;
     }
 
+    public MusePacketModeChangeRequest() {
+
+    }
+
     @Override
     public void fromBytes(ByteBuf buf) {
         this.mode = MuseByteBufferUtils.readUTF8String(buf);
@@ -39,26 +42,23 @@ public class MusePacketModeChangeRequest implements IMessage {
     public static class Handler implements IMessageHandler<MusePacketModeChangeRequest, IMessage> {
         @Override
         public IMessage onMessage(MusePacketModeChangeRequest message, MessageContext ctx) {
-            if (ctx.side != Side.SERVER) {
-                MuseLogger.logError("ModeChangingItem Packet sent to wrong side: " + ctx.side);
-                return null;
-            }
-
-            int slot = message.slot;
-            String mode = message.mode;
-
-            final EntityPlayerMP player = ctx.getServerHandler().player;
-            if (slot > -1 && slot < 9) {
-                ItemStack stack = player.inventory.mainInventory.get(slot);
-                if (!stack.isEmpty() && stack.getItem() instanceof IModeChangingItem) {
-                    IModeChangingItem modeChangingItem = ((IModeChangingItem) stack.getItem());
-                    IModuleManager moduleManager = modeChangingItem.getModuleManager();
-                    if (moduleManager.isValidForItem(stack, mode))
-                        modeChangingItem.setActiveMode(stack, mode);
-                }
+            if (ctx.side == Side.SERVER) {
+                EntityPlayerMP player = ctx.getServerHandler().player;
+                player.getServerWorld().addScheduledTask(() -> {
+                    int slot = message.slot;
+                    String mode = message.mode;
+                    if (slot > -1 && slot < 9) {
+                        ItemStack stack = player.inventory.mainInventory.get(slot);
+                        if (!stack.isEmpty() && stack.getItem() instanceof IModeChangingItem) {
+                            IModeChangingItem modeChangingItem = ((IModeChangingItem) stack.getItem());
+                            IModuleManager moduleManager = modeChangingItem.getModuleManager();
+                            if (moduleManager.isValidForItem(stack, mode))
+                                modeChangingItem.setActiveMode(stack, mode);
+                        }
+                    }
+                });
             }
             return null;
         }
     }
-
 }

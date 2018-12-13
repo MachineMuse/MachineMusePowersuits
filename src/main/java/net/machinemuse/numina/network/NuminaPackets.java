@@ -3,6 +3,7 @@ package net.machinemuse.numina.network;
 import net.machinemuse.numina.common.constants.NuminaConstants;
 import net.machinemuse.numina.network.packets.MusePacketModeChangeRequest;
 import net.machinemuse.numina.network.packets.NuminaPacketConfig;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -26,8 +27,8 @@ public class NuminaPackets {
         INSTANCE.sendToAll(message);
     }
 
-    public static void sendToAllAround(IMessage message, NetworkRegistry.TargetPoint targetPoint) {
-        INSTANCE.sendToAllAround(message, targetPoint);
+    public static void sendToAllAround(IMessage message, Entity entity, double d) {
+        INSTANCE.sendToAllAround(message, new NetworkRegistry.TargetPoint(entity.dimension, entity.posX, entity.posY, entity.posZ, d));
     }
 
     public static void sendToDimension(IMessage message, int dim) {

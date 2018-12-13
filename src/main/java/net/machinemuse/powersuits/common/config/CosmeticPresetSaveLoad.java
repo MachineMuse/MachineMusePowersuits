@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 import java.io.ByteArrayOutputStream;
@@ -151,13 +152,16 @@ public class CosmeticPresetSaveLoad {
 
         // get the render tag for the item
         NBTTagCompound nbt = MPSNBTUtils.getMuseRenderTag(itemStack).copy();
+        return savePreset(itemStack.getItem().getRegistryName(), presetName, nbt);
+    }
 
+    public static boolean savePreset(ResourceLocation registryNameIn, String nameIn, NBTTagCompound cosmeticSettingsIn) {
         // byte array
-        byte [] byteArray = compressGZip(nbt);
+        byte [] byteArray = compressGZip(cosmeticSettingsIn);
 
         try {
             // sub folder based on the item name
-            String subfolder = itemStack.getItem().getRegistryName().getPath();
+            String subfolder = registryNameIn.getPath();
 
             // path with subfolder
             Path directory = Paths.get(MPSConfig.getConfigFolder().getAbsolutePath(), "cosmeticpresets", subfolder);
@@ -170,7 +174,7 @@ public class CosmeticPresetSaveLoad {
             }
 
             // final complete path
-            Path fullPath = Paths.get(directory.toString(), presetName + "." + EXTENSION);
+            Path fullPath = Paths.get(directory.toString(), nameIn + "." + EXTENSION);
             Files.write(fullPath, byteArray);
         } catch(Exception e) {
             MuseLogger.logException("Failed to saveButton preset: ", e);
