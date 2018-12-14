@@ -54,42 +54,27 @@ public class CosmeticPresetContainer extends ScrollableFrame {
         return (itemSelect.getSelectedItem() != null) ? itemSelect.getSelectedItem().inventorySlot : null;
     }
 
-    public int getColourIndex() {
-        return this.colourSelect.selectedColour;
-    }
-
     public List<CosmeticPresetSelectionSubframe> getPresetFrames() {
         List<CosmeticPresetSelectionSubframe> cosmeticFrameList = new ArrayList<>();
-        Map<String, NBTTagCompound> presets = MPSConfig.INSTANCE.getCosmeticPresets(getItem());
         CosmeticPresetSelectionSubframe newFrame;
         CosmeticPresetSelectionSubframe prev = null;
-        for (Map.Entry entry :  MPSConfig.INSTANCE.getCosmeticPresets(getItem()).entrySet()) {
-            newFrame = createNewFrame((String)entry.getKey(), (NBTTagCompound) entry.getValue(), prev);
+        for (String name :  MPSConfig.INSTANCE.getCosmeticPresets(getItem()).keySet()) {
+            newFrame = createNewFrame(name, prev);
             prev = newFrame;
-//            newFrame.setMode(0);
             cosmeticFrameList.add(newFrame);
         }
         return cosmeticFrameList;
     }
 
-    public CosmeticPresetSelectionSubframe createNewFrame(String label, NBTTagCompound nbt, CosmeticPresetSelectionSubframe prev) {
+    public CosmeticPresetSelectionSubframe createNewFrame(String label, CosmeticPresetSelectionSubframe prev) {
         MuseRelativeRect newborder = new MuseRelativeRect(this.border.left() + 8, this.border.top() + 10, this.border.right(), this.border.top() + 24);
         newborder.setBelow((prev != null) ? prev.border : null);
-
-
-
-
-
-        return new CosmeticPresetSelectionSubframe(label, nbt, new MusePoint2D(newborder.left(), newborder.centery()),  this.itemSelect, newborder);
+        return new CosmeticPresetSelectionSubframe(label, new MusePoint2D(newborder.left(), newborder.centery()),  this.itemSelect, newborder);
     }
 
     @Override
     public void onMouseDown(double x, double y, int button) {
         if (enabled) {
-
-            System.out.println(" mouse click: " + x + ", " + y);
-
-
             if (button == 0) {
                 for (CosmeticPresetSelectionSubframe frame : presetFrames) {
                     if (frame.hitbox(x, y))

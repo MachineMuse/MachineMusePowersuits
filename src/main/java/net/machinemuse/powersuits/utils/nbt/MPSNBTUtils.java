@@ -13,7 +13,9 @@ import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
@@ -23,89 +25,27 @@ import java.util.Objects;
 
 
 public class MPSNBTUtils {
-//    @Nullable
-//    public static NBTTagCompound getPresetName(
-
-
-    @Nullable
-    public static NBTTagCompound getMuseCosmeticTag(NBTTagCompound nbt) {
-        if (nbt.hasKey(NuminaNBTConstants.TAG_COSMETIC, Constants.NBT.TAG_COMPOUND))
-            return nbt.getCompoundTag(NuminaNBTConstants.TAG_COSMETIC);
-        return null;
-    }
-
-    @Nullable
-    static NBTTagCompound getRenderTag(NBTTagCompound nbt) {
-        if (nbt.hasKey(NuminaNBTConstants.TAG_RENDER, Constants.NBT.TAG_COMPOUND))
-            return nbt.getCompoundTag(NuminaNBTConstants.TAG_RENDER);
-        return null;
-    }
-
-    @Nullable
-    public static String getPresetName(NBTTagCompound nbt) {
-        if (nbt.hasKey(NuminaNBTConstants.TAG_COSMETIC_PRESET, Constants.NBT.TAG_STRING))
-            return nbt.getString(NuminaNBTConstants.TAG_COSMETIC_PRESET);
-        return null;
-    }
-
     public static NBTTagCompound getMuseRenderTag(@Nonnull ItemStack stack, EntityEquipmentSlot armorSlot) {
         NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
-        NBTTagCompound renderTag;
+        NBTTagCompound renderTag = null;
+        if (itemTag.hasKey(NuminaNBTConstants.TAG_RENDER, Constants.NBT.TAG_COMPOUND))
+            renderTag = itemTag.getCompoundTag(NuminaNBTConstants.TAG_RENDER);
+        else if (itemTag.hasKey(NuminaNBTConstants.TAG_COSMETIC_PRESET, Constants.NBT.TAG_STRING))
+            renderTag = MPSConfig.INSTANCE.getPresetNBTFor(stack, itemTag.getString(NuminaNBTConstants.TAG_COSMETIC_PRESET));
 
-        // this will be null on legacy rendering until user
-        NBTTagCompound cosmeticTag = getMuseCosmeticTag(itemTag);
-
-        // move render tag to under cosmetic tag, creating whatever tag structure needed
-        if (cosmeticTag == null) {
-            // if cosmetic presets are to be used, or powerfist customization is not allowed set to default preset
-            if (!MPSConfig.INSTANCE.useLegacyCosmeticSystem() ||
-                    (stack.getItem() instanceof ItemPowerFist && MPSConfig.INSTANCE.allowPowerFistCustomization())) {
-                cosmeticTag = new NBTTagCompound();
-                cosmeticTag.setString(NuminaNBTConstants.TAG_COSMETIC_PRESET, "Default");
-                itemTag.removeTag(NuminaNBTConstants.TAG_RENDER);
-                itemTag.setTag(NuminaNBTConstants.TAG_COSMETIC, cosmeticTag);
-                return MPSConfig.INSTANCE.getPresetNBTFor(stack, "Default");
-            } else {
-                renderTag = getRenderTag(itemTag);
-                if (renderTag != null) {
-                    itemTag.setTag(NuminaNBTConstants.TAG_COSMETIC, renderTag);
-                    itemTag.removeTag(NuminaNBTConstants.TAG_RENDER);
-                    return renderTag;
-                }
-                renderTag = new NBTTagCompound();
-                renderTag.setTag(NuminaNBTConstants.TAG_RENDER, DefaultModelSpec.makeModelPrefs(stack, armorSlot));
-                itemTag.setTag(NuminaNBTConstants.TAG_COSMETIC, renderTag);
-                return renderTag;
-            }
-        }
-
-        // cosmetic tag exists
-        renderTag = getRenderTag(cosmeticTag);
-        // allow customization so use render tag
-        if (renderTag == null && !MPSConfig.INSTANCE.useLegacyCosmeticSystem() ||
-                (stack.getItem() instanceof ItemPowerFist && MPSConfig.INSTANCE.allowPowerFistCustomization())) {
-            if (renderTag != null)
-                return renderTag;
-            MuseLogger.logDebug("TAG BREACH IMMINENT, PLEASE HOLD ONTO YOUR SEATBELTS");
-            cosmeticTag.removeTag(NuminaNBTConstants.TAG_RENDER);
-            cosmeticTag.setTag(NuminaNBTConstants.TAG_RENDER, DefaultModelSpec.makeModelPrefs(stack, armorSlot));
-            return getRenderTag(cosmeticTag);
-        }
-
-        String presetName = getPresetName(cosmeticTag);
-        if (presetName != null) {
-            renderTag = MPSConfig.INSTANCE.getPresetNBTFor(stack, presetName);
-            if (renderTag  == null) {
-                MuseLogger.logDebug("Missing settings for preset: " + presetName);
-                renderTag = MPSConfig.INSTANCE.getPresetNBTFor(stack, "Default");
-
-                // FIXME: manually load render tag from here
-
-
-            }
+        if (renderTag != null)
             return renderTag;
+
+        // if cosmetic presets are to be used, or powerfist customization is not allowed set to default preset
+        if (!MPSConfig.INSTANCE.useLegacyCosmeticSystem() ||
+                (stack.getItem() instanceof ItemPowerFist && MPSConfig.INSTANCE.allowPowerFistCustomization())) {
+            itemTag.setString(NuminaNBTConstants.TAG_COSMETIC_PRESET, "Default");
+            return MPSConfig.INSTANCE.getPresetNBTFor(stack, "Default");
         }
-        return MPSConfig.INSTANCE.getPresetNBTFor(stack, "Default");
+
+        renderTag = DefaultModelSpec.makeModelPrefs(stack, armorSlot);
+        itemTag.setTag(NuminaNBTConstants.TAG_RENDER, renderTag);
+        return renderTag;
     }
 
     public static NBTTagCompound getMuseRenderTag(@Nonnull ItemStack stack) {
@@ -130,6 +70,7 @@ public class MPSNBTUtils {
 
     public static boolean hasHighPolyModel(ItemStack stack, EntityEquipmentSlot slot) {
         NBTTagCompound renderTag = getMuseRenderTag(stack, slot);
+
         // any tag other than the colours or texSpec tag is a ModelPartSpec tag
         for (String tagName : renderTag.getKeySet()) {
             if (Objects.equals(tagName, MPSNBTConstants.NBT_TEXTURESPEC_TAG) || Objects.equals(tagName, NuminaNBTConstants.TAG_COLOURS))

@@ -3,7 +3,14 @@ package net.machinemuse.powersuits.common.config;
 import net.machinemuse.powersuits.api.constants.MPSConfigConstants;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.MPSItems;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorHelmet;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorLeggings;
+import net.machinemuse.powersuits.item.tool.ItemPowerFist;
+import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Config;
 
 import java.util.HashMap;
@@ -508,6 +515,21 @@ public class MPSSettings {
 
         @Config.Comment("Allow PowerFist model to be customized")
         public boolean allowPowerFistCustomization=false;
+
+        public void updateCosmeticInfo(ResourceLocation location, String name, NBTTagCompound cosmeticInfo) {
+            Item item = Item.REGISTRY.getObject(location);
+
+            if (item instanceof ItemPowerFist)
+                cosmeticPresetsPowerFist.put(name, cosmeticInfo);
+            else if (item instanceof ItemPowerArmorHelmet)
+                cosmeticPresetsPowerArmorHelmet.put(name, cosmeticInfo);
+            else if (item instanceof ItemPowerArmorChestplate)
+                cosmeticPresetsPowerArmorChestplate.put(name, cosmeticInfo);
+            else if (item instanceof ItemPowerArmorLeggings)
+                cosmeticPresetsPowerArmorLeggings.put(name, cosmeticInfo);
+            else if (item instanceof ItemPowerArmorBoots)
+                cosmeticPresetsPowerArmorBoots.put(name, cosmeticInfo);
+        }
 
         @Config.Ignore
         private Map<String, NBTTagCompound> cosmeticPresetsPowerFist = new HashMap<>();

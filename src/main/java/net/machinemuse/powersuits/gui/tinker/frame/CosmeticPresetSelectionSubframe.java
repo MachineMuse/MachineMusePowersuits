@@ -12,8 +12,7 @@ import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableLabel;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.machinemuse.powersuits.network.MPSPackets;
-import net.machinemuse.powersuits.network.packets.MusePacketCosmeticInfo;
-import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
+import net.machinemuse.powersuits.network.packets.MusePacketCosmeticPreset;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -28,23 +27,13 @@ public class CosmeticPresetSelectionSubframe extends ScrollableLabel {
     public boolean open;
     public ItemSelectionFrame itemSelector;
     String name;
-    NBTTagCompound nbt;
-    NBTTagCompound cosmeticPresetNBT = new NBTTagCompound();
-
-
-    public CosmeticPresetSelectionSubframe(String name, NBTTagCompound nbt, MusePoint2D musePoint2D, ItemSelectionFrame itemSelector, MuseRelativeRect border) {
+    public CosmeticPresetSelectionSubframe(String name, MusePoint2D musePoint2D, ItemSelectionFrame itemSelector, MuseRelativeRect border) {
         super(new ClickableLabel(name, musePoint2D), border);
         this.name = name;
-        this.nbt = nbt;
-        this.cosmeticPresetNBT.setString(NuminaNBTConstants.TAG_COSMETIC_PRESET, name);
         this.itemSelector = itemSelector;
         this.border = border;
         this.open = true;
         this.setMode(0);
-    }
-
-    public NBTTagCompound getNbt() {
-        return nbt;
     }
 
     public boolean isValidItem(ClickableItem clickie, EntityEquipmentSlot slot) {
@@ -78,8 +67,8 @@ public class CosmeticPresetSelectionSubframe extends ScrollableLabel {
         return EntityEquipmentSlot.MAINHAND;
     }
 
-    public NBTTagCompound getRenderTag() {
-        return MPSNBTUtils.getMuseRenderTag(this.getSelectedItem().getItem(), this.getEquipmentSlot());
+    public String getName() {
+        return name;
     }
 
     public NBTTagCompound getItemTag() {
@@ -96,7 +85,7 @@ public class CosmeticPresetSelectionSubframe extends ScrollableLabel {
         // change the render tag to this ... keep in mind that the render tag for these are just a key to read from the config file
         if(super.hitbox(x, y) && this.getSelectedItem() != null) {
             if (isValidItem(getSelectedItem(), getEquipmentSlot())) {
-                MPSPackets.sendToServer(new MusePacketCosmeticInfo(Minecraft.getMinecraft().player, this.getSelectedItem().inventorySlot, NuminaNBTConstants.TAG_COSMETIC, cosmeticPresetNBT));
+                MPSPackets.sendToServer(new MusePacketCosmeticPreset(Minecraft.getMinecraft().player, this.getSelectedItem().inventorySlot, this.name));
             }
             return true;
         }

@@ -14,7 +14,8 @@ public class MPSPackets extends NuminaPackets {
         INSTANCE.registerMessage(MusePacketToggleRequest.Handler.class, MusePacketToggleRequest.class, 15, Side.SERVER);
         INSTANCE.registerMessage(MusePacketTweakRequestDouble.Handler.class, MusePacketTweakRequestDouble.class, 16, Side.SERVER);
         INSTANCE.registerMessage(MusePacketCosmeticPresetUpdate.Handler.class, MusePacketCosmeticPresetUpdate.class, 17, Side.SERVER);
-        INSTANCE.registerMessage(MusePacketPlayerUpdate.Handler.class, MusePacketPlayerUpdate.class, 18, Side.SERVER);
-        INSTANCE.registerMessage(MusePacketPlayerUpdate.Handler.class, MusePacketPlayerUpdate.class, 19, Side.CLIENT);
+        INSTANCE.registerMessage(MusePacketCosmeticPreset.Handler.class, MusePacketCosmeticPreset.class, 18, Side.SERVER);
+        INSTANCE.registerMessage(MusePacketPlayerUpdate.Handler.class, MusePacketPlayerUpdate.class, 19, Side.SERVER);
+        INSTANCE.registerMessage(MusePacketPlayerUpdate.Handler.class, MusePacketPlayerUpdate.class, 20, Side.CLIENT);
     }
 }

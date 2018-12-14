@@ -62,46 +62,25 @@ public class MusePacketCosmeticInfo implements IMessage {
                     int itemSlot = message.itemSlot;
                     String tagName = message.tagName;
                     NBTTagCompound tagData = message.tagData;
-
                     ItemStack stack = player.inventory.getStackInSlot(itemSlot);
-                    if (tagName != null && !stack.isEmpty() && stack.getItem() instanceof IModularItem) {
+
+                    if (tagName != null && stack.getItem() instanceof IModularItem) {
                         NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
+                        itemTag.removeTag(NuminaNBTConstants.TAG_COSMETIC_PRESET);
 
-                        //cosmetic preset tag
-                        if (Objects.equals(tagName, NuminaNBTConstants.TAG_COSMETIC)) {
+                        if (Objects.equals(tagName, NuminaNBTConstants.TAG_RENDER)) {
                             itemTag.removeTag(NuminaNBTConstants.TAG_RENDER);
-                            itemTag.removeTag(NuminaNBTConstants.TAG_COSMETIC);
-                            itemTag.setTag(NuminaNBTConstants.TAG_COSMETIC, tagData);
-
-                            // setting complete render tag
-                        } else if (Objects.equals(tagName, NuminaNBTConstants.TAG_RENDER)) {
-                            itemTag.removeTag(NuminaNBTConstants.TAG_RENDER);
-                            itemTag.removeTag(NuminaNBTConstants.TAG_COSMETIC);
-                            NBTTagCompound cosmeticTag = new NBTTagCompound();
-                            cosmeticTag.setTag(NuminaNBTConstants.TAG_RENDER, tagData);
-                            itemTag.setTag(NuminaNBTConstants.TAG_COSMETIC, cosmeticTag);
-                            MuseLogger.logDebug("Resetting tag to default " + tagName);
+                            if (!tagData.isEmpty())
+                                itemTag.setTag(NuminaNBTConstants.TAG_RENDER, tagData);
                         } else {
-                            NBTTagCompound cosmeticTag = itemTag.getCompoundTag(NuminaNBTConstants.TAG_COSMETIC);
                             NBTTagCompound renderTag;
-
-                            // tag has not been moved yet.
-                            if (cosmeticTag == null)
-                                renderTag = itemTag.getCompoundTag(NuminaNBTConstants.TAG_RENDER);
-                            else
-                                renderTag = cosmeticTag.getCompoundTag(NuminaNBTConstants.TAG_RENDER);
-                            if (renderTag == null) {
-                                itemTag.removeTag(NuminaNBTConstants.TAG_RENDER);
-                                itemTag.removeTag(NuminaNBTConstants.TAG_COSMETIC);
-
-                                cosmeticTag = new NBTTagCompound();
+                            if (!itemTag.hasKey(NuminaNBTConstants.TAG_RENDER)) {
                                 renderTag = new NBTTagCompound();
-
-                                cosmeticTag.setTag(NuminaNBTConstants.TAG_RENDER, renderTag);
-                                itemTag.setTag(NuminaNBTConstants.TAG_COSMETIC, cosmeticTag);
+                                itemTag.setTag(NuminaNBTConstants.TAG_RENDER, renderTag);
+                            } else {
+                                renderTag = itemTag.getCompoundTag(NuminaNBTConstants.TAG_RENDER);
                             }
-
-                            if (tagData == null || tagData.isEmpty()) {
+                            if (tagData.isEmpty()) {
                                 MuseLogger.logDebug("Removing tag " + tagName);
                                 renderTag.removeTag(tagName);
                             } else {
@@ -111,6 +90,8 @@ public class MusePacketCosmeticInfo implements IMessage {
                         }
                     }
                 });
+            } else {
+
             }
             return null;
         }

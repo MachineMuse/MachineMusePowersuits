@@ -5,11 +5,14 @@ import net.machinemuse.numina.network.MuseByteBufferUtils;
 import net.machinemuse.powersuits.common.config.CosmeticPresetSaveLoad;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.common.config.MPSServerSettings;
+import net.machinemuse.powersuits.common.config.MPSSettings;
 import net.machinemuse.powersuits.network.MPSPackets;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.management.UserListOpsEntry;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -25,9 +28,9 @@ public class MusePacketCosmeticPresetUpdate implements IMessage {
     }
 
     public MusePacketCosmeticPresetUpdate(ResourceLocation registryNameIn, String nameIn, NBTTagCompound cosmeticSettingsIn) {
-        registryName = registryNameIn;
-        name = nameIn;
-        cosmeticSettings = cosmeticSettingsIn;
+        this.registryName = registryNameIn;
+        this.name = nameIn;
+        this.cosmeticSettings = cosmeticSettingsIn;
     }
 
     @Override
@@ -48,16 +51,32 @@ public class MusePacketCosmeticPresetUpdate implements IMessage {
         @Override
         public IMessage onMessage(MusePacketCosmeticPresetUpdate message, MessageContext ctx) {
             if (ctx.side == Side.SERVER) {
+                boolean allowCosmeticPresetCreation;
                 final EntityPlayerMP player = ctx.getServerHandler().player;
-                player.getServerWorld().addScheduledTask(() -> {
-                    ResourceLocation registryName = message.registryName;
-                    String name = message.name;
-                    NBTTagCompound cosmeticSettings = message.cosmeticSettings;
-                    MPSServerSettings settings = MPSConfig.INSTANCE.getServerSettings();
-                    settings.updateCosmeticInfo(registryName, name, cosmeticSettings);
-                    CosmeticPresetSaveLoad.savePreset(registryName, name, cosmeticSettings);
-                    MPSPackets.sendToAll(new MusePacketCosmeticPresetUpdate(registryName, name, cosmeticSettings));
-                });
+                // check if player is the server owner
+                if (FMLCommonHandler.instance().getMinecraftServerInstance().isSinglePlayer()) {
+                    allowCosmeticPresetCreation = player.getName().equals(FMLCommonHandler.instance().getMinecraftServerInstance().getServerOwner());
+                } else {
+                    // check if player is top level op
+                    UserListOpsEntry opEntry = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getOppedPlayers().getEntry(player.getGameProfile());
+                    int opLevel = opEntry != null ? opEntry.getPermissionLevel() : 0;
+                    allowCosmeticPresetCreation = opLevel == 4;
+                }
+                if(allowCosmeticPresetCreation) {
+                    player.getServerWorld().addScheduledTask(() -> {
+                        ResourceLocation registryName = message.registryName;
+                        String name = message.name;
+                        NBTTagCompound cosmeticSettings = message.cosmeticSettings;
+                        MPSServerSettings settings = MPSConfig.INSTANCE.getServerSettings();
+                        if (settings != null) {
+                            settings.updateCosmeticInfo(registryName, name, cosmeticSettings);
+                            MPSPackets.sendToAll(new MusePacketCosmeticPresetUpdate(registryName, name, cosmeticSettings));
+                        } else {
+                            MPSSettings.cosmetics.updateCosmeticInfo(registryName, name, cosmeticSettings);
+                        }
+                        CosmeticPresetSaveLoad.savePreset(registryName, name, cosmeticSettings);
+                    });
+                }
             } else {
                 Minecraft.getMinecraft().addScheduledTask(() -> {
                     ResourceLocation registryName = message.registryName;
