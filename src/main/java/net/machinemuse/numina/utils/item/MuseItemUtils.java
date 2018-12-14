@@ -1,7 +1,7 @@
 package net.machinemuse.numina.utils.item;
 
-import net.machinemuse.numina.item.IModularItem;
 import net.machinemuse.numina.general.MuseMathUtils;
+import net.machinemuse.numina.item.IModularItem;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.entity.player.EntityPlayer;

@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.common;
 
+import net.machinemuse.numina.common.ModCompatibility;
 import net.machinemuse.numina.module.EnumModuleTarget;
 import net.machinemuse.numina.module.IPowerModule;
-import net.machinemuse.numina.common.ModCompatibility;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.powermodule.armor.DiamondPlatingModule;
@@ -21,7 +21,10 @@ import net.machinemuse.powersuits.powermodule.energy_storage.UltimateBatteryModu
 import net.machinemuse.powersuits.powermodule.environmental.*;
 import net.machinemuse.powersuits.powermodule.mining_enhancement.*;
 import net.machinemuse.powersuits.powermodule.movement.*;
-import net.machinemuse.powersuits.powermodule.special.*;
+import net.machinemuse.powersuits.powermodule.special.ClockModule;
+import net.machinemuse.powersuits.powermodule.special.CompassModule;
+import net.machinemuse.powersuits.powermodule.special.InvisibilityModule;
+import net.machinemuse.powersuits.powermodule.special.MagnetModule;
 import net.machinemuse.powersuits.powermodule.tool.*;
 import net.machinemuse.powersuits.powermodule.vision.BinocularsModule;
 import net.machinemuse.powersuits.powermodule.vision.NightVisionModule;

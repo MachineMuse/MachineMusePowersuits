@@ -1,7 +1,9 @@
 package net.machinemuse.powersuits.common.config;
 
-import net.machinemuse.numina.module.EnumModuleCategory;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import net.machinemuse.numina.common.Numina;
+import net.machinemuse.numina.module.EnumModuleCategory;
 import net.machinemuse.powersuits.common.MPSCreativeTab;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
@@ -324,7 +326,7 @@ public enum MPSConfig {
         return map.get(presetName);
     }
 
-    public static Map<String, NBTTagCompound> getCosmeticPresets(@Nonnull ItemStack itemStack) {
+    public static BiMap<String, NBTTagCompound> getCosmeticPresets(@Nonnull ItemStack itemStack) {
         Item item  = itemStack.getItem();
         if (item instanceof ItemPowerFist)
             return getServerSettings() != null ? getServerSettings().cosmeticPresetsPowerFist : MPSSettings.cosmetics.getCosmeticPresetsPowerFist();
@@ -336,6 +338,6 @@ public enum MPSConfig {
             return getServerSettings() != null ? getServerSettings().cosmeticPresetsPowerArmorLeggings : MPSSettings.cosmetics.getCosmeticPresetsPowerArmorLeggings();
         else if (item instanceof ItemPowerArmorBoots)
             return getServerSettings() != null ? getServerSettings().cosmeticPresetsPowerArmorBoots : MPSSettings.cosmetics.getCosmeticPresetsPowerArmorBoots();
-        return new HashMap<String, NBTTagCompound>();
+        return HashBiMap.create();
     }
 }

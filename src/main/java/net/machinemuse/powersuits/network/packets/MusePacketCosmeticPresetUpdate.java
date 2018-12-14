@@ -12,6 +12,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.management.UserListOpsEntry;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -74,7 +75,10 @@ public class MusePacketCosmeticPresetUpdate implements IMessage {
                         } else {
                             MPSSettings.cosmetics.updateCosmeticInfo(registryName, name, cosmeticSettings);
                         }
-                        CosmeticPresetSaveLoad.savePreset(registryName, name, cosmeticSettings);
+                        if (CosmeticPresetSaveLoad.savePreset(registryName, name, cosmeticSettings));
+
+                        System.out.println("nbt here: " + cosmeticSettings);
+                        player.sendMessage(new TextComponentTranslation("gui.powersuits.savesuccessful"));
                     });
                 }
             } else {

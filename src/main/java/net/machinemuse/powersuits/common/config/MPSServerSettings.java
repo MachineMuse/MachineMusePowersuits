@@ -1,5 +1,7 @@
 package net.machinemuse.powersuits.common.config;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import io.netty.buffer.ByteBuf;
 import net.machinemuse.numina.network.MuseByteBufferUtils;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
@@ -66,11 +68,11 @@ public class MPSServerSettings {
     public final boolean allowHighPollyArmorModuels;
     public final boolean allowPowerFistCustomization;
 
-    public final Map<String, NBTTagCompound> cosmeticPresetsPowerFist;
-    public final Map<String, NBTTagCompound> cosmeticPresetsPowerArmorHelmet;
-    public final Map<String, NBTTagCompound> cosmeticPresetsPowerArmorChestplate;
-    public final Map<String, NBTTagCompound> cosmeticPresetsPowerArmorLeggings;
-    public final Map<String, NBTTagCompound> cosmeticPresetsPowerArmorBoots;
+    public final BiMap<String, NBTTagCompound> cosmeticPresetsPowerFist;
+    public final BiMap<String, NBTTagCompound> cosmeticPresetsPowerArmorHelmet;
+    public final BiMap<String, NBTTagCompound> cosmeticPresetsPowerArmorChestplate;
+    public final BiMap<String, NBTTagCompound> cosmeticPresetsPowerArmorLeggings;
+    public final BiMap<String, NBTTagCompound> cosmeticPresetsPowerArmorBoots;
 
     /**
      * Server side instance.
@@ -177,11 +179,11 @@ public class MPSServerSettings {
         useLegacyCosmeticSystem = datain.readBoolean();
         allowHighPollyArmorModuels = datain.readBoolean();
         allowPowerFistCustomization = datain.readBoolean();
-        cosmeticPresetsPowerFist = MuseByteBufferUtils.readMap(datain, String.class, NBTTagCompound.class);
-        cosmeticPresetsPowerArmorHelmet = MuseByteBufferUtils.readMap(datain, String.class, NBTTagCompound.class);
-        cosmeticPresetsPowerArmorChestplate = MuseByteBufferUtils.readMap(datain, String.class, NBTTagCompound.class);
-        cosmeticPresetsPowerArmorLeggings = MuseByteBufferUtils.readMap(datain, String.class, NBTTagCompound.class);
-        cosmeticPresetsPowerArmorBoots = MuseByteBufferUtils.readMap(datain, String.class, NBTTagCompound.class);
+        cosmeticPresetsPowerFist = HashBiMap.create(MuseByteBufferUtils.readMap(datain, String.class, NBTTagCompound.class));
+        cosmeticPresetsPowerArmorHelmet = HashBiMap.create(MuseByteBufferUtils.readMap(datain, String.class, NBTTagCompound.class));
+        cosmeticPresetsPowerArmorChestplate = HashBiMap.create(MuseByteBufferUtils.readMap(datain, String.class, NBTTagCompound.class));
+        cosmeticPresetsPowerArmorLeggings = HashBiMap.create(MuseByteBufferUtils.readMap(datain, String.class, NBTTagCompound.class));
+        cosmeticPresetsPowerArmorBoots = HashBiMap.create(MuseByteBufferUtils.readMap(datain, String.class, NBTTagCompound.class));
     }
 
     /**

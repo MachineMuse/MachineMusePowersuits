@@ -1,7 +1,10 @@
 package net.machinemuse.numina.item;
 
 import net.machinemuse.numina.common.constants.NuminaNBTConstants;
-import net.machinemuse.numina.module.*;
+import net.machinemuse.numina.module.IEnchantmentModule;
+import net.machinemuse.numina.module.IModuleManager;
+import net.machinemuse.numina.module.IPowerModule;
+import net.machinemuse.numina.module.IRightClickModule;
 import net.machinemuse.numina.network.packets.MusePacketModeChangeRequest;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.network.MPSPackets;

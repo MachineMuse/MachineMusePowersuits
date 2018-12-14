@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.utils;
 
-import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.numina.capabilities.energy.adapter.ElectricAdapter;
+import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.numina.item.IModeChangingItem;
 import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;

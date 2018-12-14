@@ -3,18 +3,15 @@ package net.machinemuse.powersuits.gui.tinker.frame;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
-import net.machinemuse.powersuits.client.render.modelspec.SpecBase;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableFrame;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class CosmeticPresetContainer extends ScrollableFrame {

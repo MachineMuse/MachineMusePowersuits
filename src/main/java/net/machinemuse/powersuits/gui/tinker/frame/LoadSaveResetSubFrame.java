@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
+import com.google.common.collect.BiMap;
 import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.math.Colour;
@@ -7,6 +8,7 @@ import net.machinemuse.numina.utils.math.geometry.DrawableMuseRect;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRect;
 import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
+import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec;
 import net.machinemuse.powersuits.common.config.CosmeticPresetSaveLoad;
@@ -28,6 +30,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -187,14 +190,6 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
         partframe.disable();
         cosmeticFrame.enable();
         cosmeticFrame.show();
-
-
-
-
-
-
-        // fixme: hide cosmetic manip subframe
-        // fixme: show cosmeitc preset selection subframe
     }
 
     /**
@@ -214,6 +209,21 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
         return EntityEquipmentSlot.MAINHAND;
     }
 
+    void checkAndFixItem(ClickableItem clickie) {
+        if (clickie != null) {
+            ItemStack itemStack = clickie.getItem();
+            NBTTagCompound itemNBT = MuseNBTUtils.getMuseItemTag(itemStack);
+            if (itemNBT.hasKey(NuminaNBTConstants.TAG_RENDER,Constants.NBT.TAG_COMPOUND)) {
+                BiMap<String, NBTTagCompound> presetMap = MPSConfig.INSTANCE.getCosmeticPresets(itemStack);
+                if (presetMap.containsValue(itemNBT.getCompoundTag(NuminaNBTConstants.TAG_RENDER))) {
+                    String name = presetMap.inverse().get(itemNBT.getCompoundTag(NuminaNBTConstants.TAG_RENDER));
+                    MPSPackets.sendToServer(new MusePacketCosmeticPreset(Minecraft.getMinecraft().player, clickie.inventorySlot, name));
+                } else
+                    MPSPackets.sendToServer(new MusePacketCosmeticPreset(Minecraft.getMinecraft().player, clickie.inventorySlot, "Default"));
+            }
+        }
+    }
+
     /**
      * This is just for resetting the cosmetic tag to a preset and is called when either
      * switching to a new tab or when exiting the GUI altogether
@@ -221,27 +231,10 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
     public void onGuiClosed() {
         System.out.println("creator gui closed and was editing: " + isEditing);
         if (allowCosmeticPresetCreation && isEditing) {
-            // FIXME: update tag to cosmetic preset
-
-
-//            if (isValidItem(getSelectedItem(), getEquipmentSlot())) {
-//                NBTTagCompound nbt = new NBTTagCompound();
-//                nbt.setString(NuminaNBTConstants.TAG_COSMETIC_PRESET, "Default");
-//                MPSPackets.sendToServer(new MusePacketCosmeticInfo(Minecraft.getMinecraft().player, this.getSelectedItem().inventorySlot, NuminaNBTConstants.TAG_COSMETIC, nbt));
-//            }
-//            isEditing = false;
-
-
+            for (ClickableItem clickie : itemSelector.itemButtons) {
+                checkAndFixItem(clickie);
+            }
         }
-
-
-//        if (itemSelector.getSelectedItem() != null && itemSelector.getSelectedItem().getItem().getItem() instanceof ItemPowerFist) {
-//
-//        }
-
-
-
-        // FIXME: use this for updating cosmetic tag on exit of GUI
     }
 
     @Override
@@ -292,51 +285,15 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
 
                     if (itemSelector.getLastItemSlot() != -1 && itemSelector.selectedItemStack != itemSelector.getLastItemSlot()) {
 
-
-
-
                         System.out.println("previous item index: " + itemSelector.getSelectedItemSlot());
                         System.out.println("current item index: " + itemSelector.getSelectedItemSlot());
 
                         System.out.println("this is where we would save the cosmetic preset tag for the previous item:");
-
                     }
-
-
-//                        ClickableItem lastItemClickie = itemSelector.getPreviousSelectedItem();
-//                        if (lastItemClickie != null) {
-//                            ItemStack lastItemStack = lastItemClickie.getItem();
-//
-//
-//
-////                        NBTTagCompound cosmeticTag = MPSNBTUtils.getMuseRenderTag()
-////
-////
-////
-////                                .getCosmeticTag()
-////
-////
-////                        if ()
-//
-//
-//
-//
-//
-//                        }
-//                    }
-
-
-
-
-
-
 
                     if (saveButton.hitBox(x, y)) {
                         // save as dialog is open
                         if (presetNameInputBox.getVisible()) {
-                            // fixme: insert save code here... save and revert isEditing to false if save sucessful. also sync to server and change cosmetic tag to preset
-                            System.out.println("save tag to file, sync to server, change tag to preset close creation dialog");
-
                             String name = presetNameInputBox.getText();
                             ItemStack itemStack = getSelectedItem().getItem();
 
@@ -346,28 +303,8 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
                                     // get the render tag for the item
                                     NBTTagCompound nbt = MPSNBTUtils.getMuseRenderTag(itemStack).copy();
                                     MPSPackets.sendToServer(new MusePacketCosmeticPresetUpdate(itemStack.getItem().getRegistryName(), name, nbt));
-
-                                    // Fixeme: this should not update until GUI closed or until next item is selected
-//                                    NBTTagCompound nbtUpdate = new NBTTagCompound();
-//                                    nbtUpdate.setString(NuminaNBTConstants.TAG_COSMETIC_PRESET, name);
-//                                    PacketSender.sendToServer(new MusePacketCosmeticInfo(Minecraft.getMinecraft().player, this.getSelectedItem().inventorySlot, NuminaNBTConstants.TAG_COSMETIC, nbtUpdate));
                                 }
-
-
-//                                MusePacketCosmeticPresetUpdate()
-
-
-
-                                // sync
-
-
-
-//                                closeSaveGUI();
                             }
-
-
-
-
                         } else {
                             // enabling here opens save dialog in update loop
                             textInputOn();
@@ -415,150 +352,6 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
                 }
             }
         }
-
-
-
-
-
-
-
-//        if (usingCosmeticPresets && allowCosmeticPresetCreation) {
-//            if (!isEditing) {
-//                buttonOn(saveButton);
-//                saveButton.setLable(I18n.format("gui.powersuits.new"));
-//
-//
-//
-//            } else {
-//
-//            }
-//
-//
-//
-//
-//        }
-
-
-
-
-
-
-
-
-//        if (loadButton.isVisible()) {
-//            loadButton.hide();
-//            loadButton.disable();
-//            System.out.println("disable load button");
-//        } else {
-//            loadButton.show();
-//            loadButton.enable();
-//            System.out.println("enable load button");
-//        }
-
-
-
-
-
-
-//        // fixme: rewrite all of this
-//
-//
-//        //
-//        if (allowCosmeticPresetCreation) {
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//            /**
-//             * if colour picker frame enabled/visible
-//             - hide colour picker frame
-//             - resize this frame
-//             - show "Save As" label
-//             - show text input box
-//             - change loadButton button text to cancel -> use this to exit
-//             - change resetButton button text to clear -> use this to clear text input
-//             - show preset subframe
-//             */
-//            if (saveButton.hitBox(x, y)) {
-//                if (colourpicker.isEnabled()) {
-//                    openSaveGUI();
-//                    /**
-//                     * if colour picker frame disabled/invisible
-//                     - loadButton/cancel unchanged
-//                     - check text input box for text
-//                     - if saveButton successful then resetButton to previous state but do not clear text in case user wants to saveButton other armor piece customization under same name
-//
-//
-//
-//                     hide colour picker frame
-//                     - resize this frame
-//                     - show "Save As" label
-//                     - show text input box
-//                     - change loadButton button text to cancel
-//                     - change resetButton button text to clear
-//                     - show preset subframe
-//                     */
-//                } else if (!presetNameInputBox.getText().isEmpty()) {
-//                    boolean save = CosmeticPresetSaveLoad.savePreset(presetNameInputBox.getText(), itemSelector.getSelectedItem().getItem());
-//                    if (save) {
-//                        closeSaveGUI();
-//                    }
-//                }
-//            }
-//
-//
-//            if (loadButton.hitBox(x, y)) {
-//                // cancel
-//                if (!colourpicker.isEnabled())
-//                    closeSaveGUI();
-//                // TODO: loading screen
-//
-//            }
-//        } else {
-//            saveButton.setEnabled(false);
-//            saveButton.hide();
-//            loadButton.setEnabled(false);
-//            loadButton.hide();
-//        }
-//
-//        if (!itemSelector.getSelectedItem().getItem().isEmpty()) {
-//
-//
-//            if (resetButton.hitBox(x, y)) {
-//                // reset cosmetic tag to defaults
-//                if (colourpicker.isEnabled()) {
-//                    NBTTagCompound nbt = DefaultModelSpec.makeModelPrefs(itemSelector.getSelectedItem().getItem());
-//                    PacketSender.sendToServer(new MusePacketCosmeticInfo(player, itemSelector.getSelectedItem().inventorySlot, NuminaNBTConstants.TAG_RENDER, nbt));
-//                } else {
-//                    // reset text in text input box
-//                    presetNameInputBox.setText("");
-//                }
-//            }
-//        }
-    }
-
-
-
-    void openSaveGUI () {
-        boolean boolVal = true;
-        presetNameInputBox.setEnabled(boolVal);
-        presetNameInputBox.setVisible(boolVal);
-        presetNameInputBox.setFocused(boolVal);
-        colourpicker.disable();
-        this.border.setTop(colourpicker.getBorder().top()).setHeight(newHeight);
-        saveAsLabel.setEnabled(boolVal);
-        loadButton.setLable(I18n.format("gui.powersuits.cancel"));
-
-        showPartManipFrame();
-
-
-        // fixme: hide cosmeitc preset selection subframe
-        // fixme: show cosmetic manip subframe
     }
 
     void showPresetFrame() {

@@ -1,9 +1,9 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
+import net.machinemuse.numina.common.ModCompatibility;
 import net.machinemuse.numina.module.EnumModuleCategory;
 import net.machinemuse.numina.module.EnumModuleTarget;
 import net.machinemuse.numina.module.IRightClickModule;
-import net.machinemuse.numina.common.ModCompatibility;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.ModuleManager;

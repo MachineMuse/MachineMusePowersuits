@@ -1,5 +1,7 @@
 package net.machinemuse.powersuits.common.config;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.item.Item;
@@ -32,10 +34,10 @@ public class CosmeticPresetSaveLoad {
         return loadPresetsForItem(itemStack.getItem(), 0);
     }
 
-    public static Map<String, NBTTagCompound> loadPresetsForItem(Item item, int count) {
+    public static BiMap<String, NBTTagCompound> loadPresetsForItem(Item item, int count) {
         Map<String, NBTTagCompound> retmap = new HashMap<>();
         if (item == null || count > 4) {
-            return retmap;
+            return HashBiMap.create(retmap);
         }
 
         // sub folder based on the item name
@@ -52,6 +54,10 @@ public class CosmeticPresetSaveLoad {
                         NBTTagCompound nbt = CompressedStreamTools.readCompressed(Files.newInputStream(selectedPath));
 
                         if (nbt != null && name != null && !name.isEmpty()) {
+                            if (retmap.containsKey("name"))
+                                System.out.println("MAP ALREADY HAS KEY");
+                            if (retmap.containsValue(nbt))
+                                System.out.println("MAP ALREADY HAS VALUE");
                             retmap.put(name, nbt);
                         }
                     }
@@ -67,7 +73,7 @@ public class CosmeticPresetSaveLoad {
             return loadPresetsForItem(item, count + 1);
         }
 
-        return retmap;
+        return HashBiMap.create(retmap);
     }
 
     public static void copyPresetsFromJar() {

@@ -3,7 +3,6 @@ package net.machinemuse.powersuits.network.packets;
 import io.netty.buffer.ByteBuf;
 import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.network.MuseByteBufferUtils;
-import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;

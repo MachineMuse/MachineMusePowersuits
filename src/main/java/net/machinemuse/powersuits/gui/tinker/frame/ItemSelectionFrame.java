@@ -11,7 +11,6 @@ import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableFrame;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 
 import java.util.ArrayList;

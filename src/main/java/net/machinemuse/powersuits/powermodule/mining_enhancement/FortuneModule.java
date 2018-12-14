@@ -1,6 +1,8 @@
 package net.machinemuse.powersuits.powermodule.mining_enhancement;
 
-import net.machinemuse.numina.module.*;
+import net.machinemuse.numina.module.EnumModuleTarget;
+import net.machinemuse.numina.module.IEnchantmentModule;
+import net.machinemuse.numina.module.IMiningEnhancementModule;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.ModuleManager;

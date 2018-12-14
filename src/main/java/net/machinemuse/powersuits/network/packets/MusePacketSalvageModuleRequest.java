@@ -6,7 +6,6 @@ import net.machinemuse.numina.module.IEnchantmentModule;
 import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.module.IRightClickModule;
 import net.machinemuse.numina.network.MuseByteBufferUtils;
-import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.common.ModuleManager;

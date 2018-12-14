@@ -1,14 +1,14 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
-import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.client.sound.Musique;
+import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRect;
 import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
 import net.machinemuse.numina.utils.render.MuseRenderer;
-import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableModule;
 import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableFrame;

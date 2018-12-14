@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.utils.nbt;
 
 import net.machinemuse.numina.common.constants.NuminaNBTConstants;
-import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
@@ -13,13 +12,10 @@ import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Objects;
 
 
