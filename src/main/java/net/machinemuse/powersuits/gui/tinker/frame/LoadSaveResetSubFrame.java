@@ -55,7 +55,7 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
     protected PartManipContainer partframe;
     protected CosmeticPresetContainer cosmeticFrame;
     protected boolean isEditing;
-    protected Map<Integer, String> lastCosmeticPresets;
+//    protected Map<Integer, String> lastCosmeticPresets;
 
     GuiTextField presetNameInputBox;
 
@@ -177,20 +177,20 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
         saveAsLabel.setEnabled(false);
     }
 
-    void closeSaveGUI() {
-        boolean boolVal = false;
-        presetNameInputBox.setEnabled(boolVal);
-        presetNameInputBox.setVisible(boolVal);
-        presetNameInputBox.setFocused(boolVal);
-        colourpicker.enable();
-        this.border.setTop(originalTop).setHeight(originalHeight);
-        saveAsLabel.setEnabled(boolVal);
-        loadButton.setLable(I18n.format("gui.powersuits.load"));
-        partframe.hide();
-        partframe.disable();
-        cosmeticFrame.enable();
-        cosmeticFrame.show();
-    }
+//    void closeSaveGUI() {
+//        boolean boolVal = false;
+//        presetNameInputBox.setEnabled(boolVal);
+//        presetNameInputBox.setVisible(boolVal);
+//        presetNameInputBox.setFocused(boolVal);
+//        colourpicker.enable();
+//        this.border.setTop(originalTop).setHeight(originalHeight);
+//        saveAsLabel.setEnabled(boolVal);
+//        loadButton.setLable(I18n.format("gui.powersuits.load"));
+//        partframe.hide();
+//        partframe.disable();
+//        cosmeticFrame.enable();
+//        cosmeticFrame.show();
+//    }
 
     /**
      * Get's the equipment slot the item is for.
@@ -229,7 +229,7 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
      * switching to a new tab or when exiting the GUI altogether
      */
     public void onGuiClosed() {
-        System.out.println("creator gui closed and was editing: " + isEditing);
+//        System.out.println("creator gui closed and was editing: " + isEditing);
         if (allowCosmeticPresetCreation && isEditing) {
             for (ClickableItem clickie : itemSelector.itemButtons) {
                 checkAndFixItem(clickie);
@@ -283,13 +283,13 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
                 if (isEditing) {
                     // todo: insert check for new item selected and save tag for previous item selected
 
-                    if (itemSelector.getLastItemSlot() != -1 && itemSelector.selectedItemStack != itemSelector.getLastItemSlot()) {
-
-                        System.out.println("previous item index: " + itemSelector.getSelectedItemSlot());
-                        System.out.println("current item index: " + itemSelector.getSelectedItemSlot());
-
-                        System.out.println("this is where we would save the cosmetic preset tag for the previous item:");
-                    }
+//                    if (itemSelector.getLastItemSlot() != -1 && itemSelector.selectedItemStack != itemSelector.getLastItemSlot()) {
+//
+//                        System.out.println("previous item index: " + itemSelector.getSelectedItemSlot());
+//                        System.out.println("current item index: " + itemSelector.getSelectedItemSlot());
+//
+//                        System.out.println("this is where we would save the cosmetic preset tag for the previous item:");
+//                    }
 
                     if (saveButton.hitBox(x, y)) {
                         // save as dialog is open

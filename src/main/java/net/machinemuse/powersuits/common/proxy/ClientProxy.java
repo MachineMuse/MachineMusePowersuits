@@ -36,7 +36,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
-
         // FIXME: delete? or leave it. Leaving it is harmless.
         CosmeticPresetSaveLoad.copyPresetsFromJar();
 

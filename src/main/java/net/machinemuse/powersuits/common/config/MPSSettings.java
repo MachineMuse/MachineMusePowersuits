@@ -270,11 +270,6 @@ public class MPSSettings {
             put( "blinkDrive.blinkDriveRange.base", 5.0D );
             put( "blinkDrive.blinkDriveRange.range.multiplier", 59.0D );
             put( "blinkDrive.slotPoints.base", 1.0D );
-            put( "chisel.chiselEnergyCon.base", 500.0D );
-            put( "chisel.chiselEnergyCon.overclock.multiplier", 9500.0D );
-            put( "chisel.chiselHarvSpd.base", 8.0D );
-            put( "chisel.chiselHarvSpd.overclock.multiplier", 22.0D );
-            put( "chisel.slotPoints.base", 1.0D );
             put( "climbAssist.slotPoints.base", 1.0D );
             put( "clock.slotPoints.base", 1.0D );
             put( "compass.slotPoints.base", 1.0D );
@@ -368,7 +363,6 @@ public class MPSSettings {
             put( "mobRepulsor.repulsorEnergyCon.base", 2500.0D );
             put( "mobRepulsor.slotPoints.base", 1.0D );
             put( "nightVision.slotPoints.base", 1.0D );
-            put( "omniProbe.slotPoints.base", 1.0D );
             put( "omniwrench.slotPoints.base", 1.0D );
             put( "oreScanner.slotPoints.base", 1.0D );
             put( "parachute.slotPoints.base", 1.0D );

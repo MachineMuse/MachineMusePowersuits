@@ -171,7 +171,6 @@ public class MusePlayerUtils {
             double strafeZ = -desiredDirection.x;
             double flightVerticality = 0;
             ItemStack helm = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
-            ;
             if (!helm.isEmpty() && helm.getItem() instanceof IModularItem) {
                 flightVerticality = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(helm, MPSModuleConstants.FLIGHT_VERTICALITY);
             }

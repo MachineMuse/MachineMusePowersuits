@@ -279,7 +279,6 @@ public enum MPSConfig {
         for (Map.Entry<String, Double> line : new TreeMap<>(missingModuleDoubles).entrySet()) { // treemap sorts the keys
             stringBuilder.append("put( \"").append(line.getKey()).append("\", ").append(line.getValue()).append("D );\n");
         }
-
         try {
             String output = stringBuilder.toString();
             if (output != null && !output.isEmpty())

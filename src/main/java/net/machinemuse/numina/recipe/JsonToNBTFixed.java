@@ -144,9 +144,8 @@ public class JsonToNBTFixed {
         int i;
 
         for (i = this.cursor; this.canRead() && this.isAllowedInKey(this.peek()); ++this.cursor) {
-            ;
-        }
 
+        }
         return this.string.substring(i, this.cursor);
     }
 

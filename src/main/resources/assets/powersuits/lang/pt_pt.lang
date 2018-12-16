@@ -364,6 +364,15 @@ gui.powersuits.equippedTotals=Totais Equipados
 gui.powersuits.energyStorage=Armazenamento de energia
 gui.powersuits.armor=Armadura
 gui.powersuits.slotpoints=Pontos de Slot
+gui.powersuits.load=Load
+gui.powersuits.save=Save
+gui.powersuits.reset=Reset
+gui.powersuits.cancel=Cancel
+gui.powersuits.colourPrefix=Color:
+gui.powersuits.saveAs=Save as:
+gui.powersuits.new=New
+gui.powersuits.savesuccessful=Save Successful
+
 
 tooltip.powersuits.pressShift=Pressione SHIFT para mais informações.
 tooltip.powersuits.componentTooltip=Para uso na Tinker Table.

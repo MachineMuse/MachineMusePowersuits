@@ -367,6 +367,15 @@ gui.powersuits.equippedTotals=Equipped Totals
 gui.powersuits.energyStorage=Energy Storage
 gui.powersuits.armor=Armor
 gui.powersuits.slotpoints=Slot Points
+gui.powersuits.load=Load
+gui.powersuits.save=Save
+gui.powersuits.reset=Reset
+gui.powersuits.cancel=Cancel
+gui.powersuits.colourPrefix=Color:
+gui.powersuits.saveAs=Save as:
+gui.powersuits.new=New
+gui.powersuits.savesuccessful=Save Successful
+
 
 # Toooltips
 tooltip.powersuits.pressShift=Press SHIFT for more information.
@@ -555,6 +564,3 @@ model.powerfist_fingers_firing_left.pinky1.partName=Pinky 1
 model.powerfist_fingers_firing_left.pinky2.partName=Pinky 2
 model.powerfist_fingers_firing_left.thumb1.partName=Thumb 1
 model.powerfist_fingers_firing_left.thumb2.partName=Thumb 2
-# Config ---------------------------
-# HUD
-config.powersuits.hud.useHUD=I like big tortoises

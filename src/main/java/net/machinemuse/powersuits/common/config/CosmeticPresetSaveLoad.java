@@ -54,10 +54,10 @@ public class CosmeticPresetSaveLoad {
                         NBTTagCompound nbt = CompressedStreamTools.readCompressed(Files.newInputStream(selectedPath));
 
                         if (nbt != null && name != null && !name.isEmpty()) {
-                            if (retmap.containsKey("name"))
-                                System.out.println("MAP ALREADY HAS KEY");
-                            if (retmap.containsValue(nbt))
-                                System.out.println("MAP ALREADY HAS VALUE");
+//                            if (retmap.containsKey("name"))
+//                                System.out.println("MAP ALREADY HAS KEY");
+//                            if (retmap.containsValue(nbt))
+//                                System.out.println("MAP ALREADY HAS VALUE");
                             retmap.put(name, nbt);
                         }
                     }

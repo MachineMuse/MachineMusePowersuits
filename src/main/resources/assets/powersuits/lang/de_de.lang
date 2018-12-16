@@ -369,6 +369,15 @@ gui.powersuits.equippedTotals=Ausgestattete Summen
 gui.powersuits.energyStorage=Energiespeicher
 gui.powersuits.armor=Rüstung
 gui.powersuits.slotpoints=Slot-Punkte
+gui.powersuits.load=Load
+gui.powersuits.save=Save
+gui.powersuits.reset=Reset
+gui.powersuits.cancel=Cancel
+gui.powersuits.colourPrefix=Color:
+gui.powersuits.saveAs=Save as:
+gui.powersuits.new=New
+gui.powersuits.savesuccessful=Save Successful
+
 
 # Kurzinfo
 tooltip.powersuits.pressShift=Drücken Sie UMSCHALTTASTE für weitere Informationen.

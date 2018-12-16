@@ -358,6 +358,15 @@ gui.powersuits.equippedTotals=Экипировано
 gui.powersuits.energyStorage=Хранилище энергии
 gui.powersuits.armor=Броня
 gui.powersuits.slotpoints=Точки шлица
+gui.powersuits.load=Load
+gui.powersuits.save=Save
+gui.powersuits.reset=Reset
+gui.powersuits.cancel=Cancel
+gui.powersuits.colourPrefix=Color:
+gui.powersuits.saveAs=Save as:
+gui.powersuits.new=New
+gui.powersuits.savesuccessful=Save Successful
+
 
 tooltip.powersuits.pressShift=Нажмите SHIFT для получения дополнительной информации.
 tooltip.powersuits.componentTooltip=Для использования в таблице Tinker.

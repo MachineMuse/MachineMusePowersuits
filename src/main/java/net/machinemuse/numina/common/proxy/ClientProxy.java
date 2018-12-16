@@ -17,8 +17,6 @@ import net.minecraftforge.fml.relauncher.Side;
 @Mod.EventBusSubscriber(Side.CLIENT)
 public class ClientProxy {
     public void init(FMLInitializationEvent event) {
-        System.out.println("something special happened here, very special... in fact, too special -_-");
-
         MinecraftForge.EVENT_BUS.register(new MouseEventHandler());
         MinecraftForge.EVENT_BUS.register(new RenderGameOverlayEventHandler());
         MinecraftForge.EVENT_BUS.register(new FOVUpdateEventHandler());

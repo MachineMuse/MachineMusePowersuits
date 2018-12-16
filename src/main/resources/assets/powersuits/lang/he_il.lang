@@ -358,6 +358,15 @@ gui.powersuits.equippedTotals=מאובטחת סך הכל
 gui.powersuits.energyStorage=אחסון אנרגיה
 gui.powersuits.armor=שריון
 gui.powersuits.slotpoints=נקודות חריץ
+gui.powersuits.load=Load
+gui.powersuits.save=Save
+gui.powersuits.reset=Reset
+gui.powersuits.cancel=Cancel
+gui.powersuits.colourPrefix=Color:
+gui.powersuits.saveAs=Save as:
+gui.powersuits.new=New
+gui.powersuits.savesuccessful=Save Successful
+
 
 tooltip.powersuits.pressShift=הקש SHIFT לקבלת מידע נוסף.
 tooltip.powersuits.componentTooltip=לשימוש ב טינקר טבלה.

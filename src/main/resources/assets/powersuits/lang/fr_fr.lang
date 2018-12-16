@@ -359,6 +359,15 @@ gui.powersuits.equippedTotals=Totaux équipés
 gui.powersuits.energyStorage=Stockage d'énergie
 gui.powersuits.armor=Armure
 gui.powersuits.slotpoints=Points d'emplacement
+gui.powersuits.load=Load
+gui.powersuits.save=Save
+gui.powersuits.reset=Reset
+gui.powersuits.cancel=Cancel
+gui.powersuits.colourPrefix=Color:
+gui.powersuits.saveAs=Save as:
+gui.powersuits.new=New
+gui.powersuits.savesuccessful=Save Successful
+
 
 tooltip.powersuits.pressShift=Appuyez sur Maj pour plus d'informations.
 tooltip.powersuits.componentTooltip=À utiliser dans la table de bricolage.
