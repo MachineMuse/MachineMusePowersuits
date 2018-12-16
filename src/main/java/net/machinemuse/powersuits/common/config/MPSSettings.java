@@ -233,6 +233,7 @@ public class MPSSettings {
             put( "advancedCoolingSystem.slotPoints.base", 1.0D );
             put( "aoePickUpgrade.aoeEnergyCon.base", 500.0D );
             put( "aoePickUpgrade.aoeEnergyCon.diameter.multiplier", 9500.0D );
+            put( "aoePickUpgrade.aoeMiningDiameter.diameter.multiplier", 5D);
             put( "aoePickUpgrade.slotPoints.base", 1.0D );
             put( "apiaristArmor.apiaristArmorEnergyCon.base", 100.0D );
             put( "apiaristArmor.slotPoints.base", 1.0D );
@@ -293,6 +294,7 @@ public class MPSSettings {
             put( "flintAndSteel.slotPoints.base", 1.0D );
             put( "fortuneModule.fortuneEnCon.base", 500.0D );
             put( "fortuneModule.fortuneEnCon.enchLevel.multiplier", 9500.0D );
+            put( "fortuneModule.fortuneLevel.enchLevel.multiplier", 3D);
             put( "fortuneModule.slotPoints.base", 1.0D );
             put( "glider.slotPoints.base", 1.0D );
             put( "grafter.grafterEnergyCon.base", 10000.0D );
