@@ -4,7 +4,6 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufInputStream;
 import io.netty.buffer.ByteBufOutputStream;
 import net.machinemuse.numina.utils.MuseLogger;
-import net.machinemuse.powersuits.control.PlayerInputMap;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -17,17 +16,7 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 public class MuseByteBufferUtils extends ByteBufUtils {
-    public static void writePlayerInputMap(ByteBuf buf, PlayerInputMap inputMap) {
-        ByteBufOutputStream bos = new ByteBufOutputStream(buf);
-        DataOutputStream dos = new DataOutputStream(bos);
-        inputMap.writeToStream(dos);
-        try {
-            dos.flush();
-            dos.close();
-        } catch (IOException exception) {
-            MuseLogger.logException("PROBLEM WRITING DATA TO PACKET:", exception);
-        }
-    }
+
 
 //    public static PlayerInputMap readPlayerInputMap(ByteBuf buf) {
 //        ByteBufInputStream bis = new ByteBufInputStream(buf);

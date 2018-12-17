@@ -9,7 +9,7 @@ import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.machinemuse.powersuits.control.PlayerInputMap;
+import net.machinemuse.numina.control.PlayerInputMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

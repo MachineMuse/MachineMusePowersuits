@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.control;
 
+import net.machinemuse.numina.control.PlayerInputMap;
 import net.machinemuse.numina.item.IModeChangingItem;
 import net.machinemuse.powersuits.common.ModularPowersuits;
 import net.minecraft.client.Minecraft;

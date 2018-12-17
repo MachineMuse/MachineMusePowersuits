@@ -5,9 +5,9 @@ import net.machinemuse.numina.module.IEnchantmentModule;
 import net.machinemuse.numina.module.IModuleManager;
 import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.module.IRightClickModule;
+import net.machinemuse.numina.network.NuminaPackets;
 import net.machinemuse.numina.network.packets.MusePacketModeChangeRequest;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
-import net.machinemuse.powersuits.network.MPSPackets;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -79,7 +79,7 @@ public interface IModeChangingItem extends IModularItem {
             int newindex = clampMode(modes.indexOf(this.getActiveMode(stack)) + dMode, modes.size());
             String newmode = (String) modes.get(newindex);
             this.setActiveMode(stack, newmode);
-            MPSPackets.sendToServer(new MusePacketModeChangeRequest(player, newmode, player.inventory.currentItem));
+            NuminaPackets.sendToServer(new MusePacketModeChangeRequest(player, newmode, player.inventory.currentItem));
         }
     }
 

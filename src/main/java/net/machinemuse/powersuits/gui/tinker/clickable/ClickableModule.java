@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.gui.tinker.clickable;
 
 import net.machinemuse.numina.client.render.MuseIconUtils;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
+import net.machinemuse.numina.gui.clickable.Clickable;
 import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;

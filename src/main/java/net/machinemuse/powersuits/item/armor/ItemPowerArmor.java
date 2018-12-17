@@ -222,11 +222,13 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         double physArmor = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_VALUE_PHYSICAL);
         double enerArmor = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_VALUE_ENERGY);
         double enerConsum = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.ARMOR_ENERGY_CONSUMPTION);
+
         totalArmor += physArmor;
         if (energy > enerConsum) {
             totalArmor += enerArmor;
         }
         totalArmor = Math.min(MPSConfig.INSTANCE.getMaximumArmorPerPiece(), totalArmor);
+
         return totalArmor;
     }
 

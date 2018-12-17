@@ -9,7 +9,7 @@ import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.KeybindManager;
-import net.machinemuse.powersuits.control.PlayerInputMap;
+import net.machinemuse.numina.control.PlayerInputMap;
 import net.machinemuse.powersuits.gui.hud.*;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
