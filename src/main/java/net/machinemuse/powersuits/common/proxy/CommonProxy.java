@@ -24,7 +24,7 @@ import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
 
 /**
  * Common side of the proxy. Provides functions which
- * the ClientProxy and ServerProxy will override if the behaviour is different for client and
+ * the ClientProxy and CommonProxy will override if the behaviour is different for client and
  * server, and keeps some common behaviour.
  *
  * @author MachineMuse

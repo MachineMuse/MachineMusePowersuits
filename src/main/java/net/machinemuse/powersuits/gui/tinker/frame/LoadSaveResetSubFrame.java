@@ -110,8 +110,7 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
     void setLegacyMode() {
         saveButton.buttonOff();
         loadButton.buttonOff();
-        cosmeticFrame.frameOff();
-        partframe.frameOn();
+        showPartManipFrame();
         colourPickerSetOpen();
     }
 
@@ -122,8 +121,8 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
         saveButton.buttonOff();
         loadButton.buttonOff();
         colourpickerSetClosed();
-        cosmeticFrame.frameOn();
-        partframe.frameOff();
+        textInputOff();
+        showPresetFrame();
     }
 
     /**
@@ -177,20 +176,15 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
         saveAsLabel.setEnabled(false);
     }
 
-//    void closeSaveGUI() {
-//        boolean boolVal = false;
-//        presetNameInputBox.setEnabled(boolVal);
-//        presetNameInputBox.setVisible(boolVal);
-//        presetNameInputBox.setFocused(boolVal);
-//        colourpicker.enable();
-//        this.border.setTop(originalTop).setHeight(originalHeight);
-//        saveAsLabel.setEnabled(boolVal);
-//        loadButton.setLable(I18n.format("gui.powersuits.load"));
-//        partframe.hide();
-//        partframe.disable();
-//        cosmeticFrame.enable();
-//        cosmeticFrame.show();
-//    }
+    void showPresetFrame() {
+        cosmeticFrame.frameOn();
+        partframe.frameOff();
+    }
+
+    void showPartManipFrame() {
+        cosmeticFrame.frameOff();
+        partframe.frameOn();
+    }
 
     /**
      * Get's the equipment slot the item is for.
@@ -242,12 +236,10 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
         if (usingCosmeticPresets ||
                 (!MPSConfig.INSTANCE.allowPowerFistCustomization() &&
                         itemSelector.getSelectedItem() != null && getSelectedItem().getItem().getItem() instanceof ItemPowerFist)) {
-
-            //
-            if (allowCosmeticPresetCreation) {
+            // normal preset user
+            if (allowCosmeticPresetCreation)
                 cosmeticPresetCreator();
-                // normal preset user
-            } else
+            else
                 cosmeticPresetsNormal();
         } else
             setLegacyMode();
@@ -352,16 +344,6 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
                 }
             }
         }
-    }
-
-    void showPresetFrame() {
-        cosmeticFrame.frameOn();
-        partframe.frameOff();
-    }
-
-    void showPartManipFrame() {
-        cosmeticFrame.frameOff();
-        partframe.frameOn();
     }
 
     @Override

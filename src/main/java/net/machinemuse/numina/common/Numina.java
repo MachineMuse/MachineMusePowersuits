@@ -1,11 +1,7 @@
 package net.machinemuse.numina.common;
 
-import net.machinemuse.numina.capabilities.heat.CapabilityHeat;
 import net.machinemuse.numina.common.constants.NuminaConstants;
-import net.machinemuse.numina.common.proxy.ClientProxy;
-import net.machinemuse.numina.event.NuminaPlayerTracker;
-import net.machinemuse.numina.network.NuminaPackets;
-import net.minecraftforge.common.MinecraftForge;
+import net.machinemuse.numina.common.proxy.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -27,8 +23,9 @@ public enum Numina {
     INSTANCE;
 
     public static File configDir = null;
-    @SidedProxy(clientSide = "net.machinemuse.numina.common.proxy.ClientProxy")
-    static ClientProxy proxy;
+
+    @SidedProxy(clientSide = "net.machinemuse.numina.common.proxy.ClientProxy", serverSide = "net.machinemuse.numina.common.proxy.CommonProxy")
+    static CommonProxy proxy;
 
     @Nonnull
     @Mod.InstanceFactory
@@ -38,19 +35,17 @@ public enum Numina {
 
     @Mod.EventHandler
     private void preInit(FMLPreInitializationEvent event) {
-        NuminaPackets.registerNuminaPackets();
-        CapabilityHeat.register();
-        Numina.INSTANCE.configDir = new File(event.getModConfigurationDirectory(), NuminaConstants.CONFIG_FOLDER);
+        proxy.preInit(event);
     }
 
     @Mod.EventHandler
     private void init(FMLInitializationEvent event) {
-        MinecraftForge.EVENT_BUS.register(new NuminaPlayerTracker());
         proxy.init(event);
     }
 
     @Mod.EventHandler
     private void postInit(FMLPostInitializationEvent event) {
+        proxy.postInit(event);
     }
 
     @Mod.EventHandler

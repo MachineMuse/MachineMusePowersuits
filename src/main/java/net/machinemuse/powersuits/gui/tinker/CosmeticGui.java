@@ -92,6 +92,7 @@ public class CosmeticGui extends MuseGui {
                 new MusePoint2D(absX(+0.95F), absY(0.95f)),
                 Colour.LIGHTBLUE.withAlpha(0.8F),
                 Colour.DARKBLUE.withAlpha(0.8F));
+        frames.add(partframe);
 
         CosmeticPresetContainer cosmeticFrame = new CosmeticPresetContainer(
                 itemSelect, colourpicker,
@@ -99,18 +100,7 @@ public class CosmeticGui extends MuseGui {
                 new MusePoint2D(absX(+0.95F), absY(0.95f)),
                 Colour.LIGHTBLUE.withAlpha(0.8F),
                 Colour.DARKBLUE.withAlpha(0.8F));
-
-        if (usingCosmeticPresets) {
-            partframe.frameOff();
-            cosmeticFrame.frameOn();
-            frames.add(cosmeticFrame);
-            if (allowCosmeticPresetCreation)
-                frames.add(partframe);
-        } else {
-            partframe.frameOn();
-            cosmeticFrame.frameOff();
-            frames.add(partframe);
-        }
+        frames.add(cosmeticFrame);
 
         // if not using presets then only the reset button is displayed
         loadSaveResetSubFrame = new LoadSaveResetSubFrame(

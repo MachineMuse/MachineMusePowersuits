@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
  * <p>
  * Note: make sure to have null checks in place.
  */
-@SideOnly(Side.CLIENT)
+//@SideOnly(Side.CLIENT)
 public class ModelRegistry extends MuseRegistry<SpecBase> {
     private static volatile ModelRegistry INSTANCE;
 

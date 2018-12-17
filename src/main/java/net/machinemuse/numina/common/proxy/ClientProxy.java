@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.Side;
  * Ported to Java by lehjr on 10/26/16.
  */
 @Mod.EventBusSubscriber(Side.CLIENT)
-public class ClientProxy {
+public class ClientProxy extends CommonProxy {
     public void init(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(new MouseEventHandler());
         MinecraftForge.EVENT_BUS.register(new RenderGameOverlayEventHandler());

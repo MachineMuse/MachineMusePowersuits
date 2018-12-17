@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.common;
 
 import net.machinemuse.powersuits.common.proxy.CommonProxy;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -27,7 +28,7 @@ public enum ModularPowersuits {
 
     public static final String MODID = "powersuits";
     public static final String VERSION = "@VERSION@";
-    @SidedProxy(clientSide = "net.machinemuse.powersuits.common.proxy.ClientProxy", serverSide = "net.machinemuse.powersuits.common.proxy.ServerProxy")
+    @SidedProxy(clientSide = "net.machinemuse.powersuits.common.proxy.ClientProxy", serverSide = "net.machinemuse.powersuits.common.proxy.CommonProxy")
     public static CommonProxy proxy;
     public static Configuration config = null;
 

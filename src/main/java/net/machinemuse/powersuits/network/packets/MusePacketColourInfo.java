@@ -4,6 +4,7 @@ import io.netty.buffer.ByteBuf;
 import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.numina.item.IModularItem;
 import net.machinemuse.numina.network.MuseByteBufferUtils;
+import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -58,8 +59,14 @@ public class MusePacketColourInfo implements IMessage {
 
                     ItemStack stack = player.inventory.getStackInSlot(itemSlot);
                     if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-                        NBTTagCompound renderTag = MPSNBTUtils.getMuseRenderTag(stack);
-                        renderTag.setIntArray(NuminaNBTConstants.TAG_COLOURS, tagData);
+                        NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
+                        NBTTagCompound renderTag = itemTag.getCompoundTag(NuminaNBTConstants.TAG_RENDER);
+                        if (renderTag == null) {
+                            renderTag = new NBTTagCompound();
+                            itemTag.setTag(NuminaNBTConstants.TAG_RENDER, renderTag);
+                        }
+                        if (renderTag != null)
+                            renderTag.setIntArray(NuminaNBTConstants.TAG_COLOURS, tagData);
                     }
                 });
             }
