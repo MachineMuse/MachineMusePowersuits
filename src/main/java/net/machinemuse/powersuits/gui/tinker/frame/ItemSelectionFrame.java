@@ -9,7 +9,7 @@ import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
-import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableFrame;
+import net.machinemuse.numina.gui.scrollable.ScrollableFrame;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.SoundCategory;
 

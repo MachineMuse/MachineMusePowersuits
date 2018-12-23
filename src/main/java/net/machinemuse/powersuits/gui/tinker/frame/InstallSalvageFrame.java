@@ -12,7 +12,7 @@ import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableButton;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableModule;
-import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableFrame;
+import net.machinemuse.numina.gui.scrollable.ScrollableFrame;
 import net.machinemuse.powersuits.network.MPSPackets;
 import net.machinemuse.powersuits.network.packets.MusePacketInstallModuleRequest;
 import net.machinemuse.powersuits.network.packets.MusePacketSalvageModuleRequest;

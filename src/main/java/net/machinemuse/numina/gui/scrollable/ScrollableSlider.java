@@ -1,8 +1,8 @@
-package net.machinemuse.powersuits.gui.tinker.scrollable;
+package net.machinemuse.numina.gui.scrollable;
 
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
-import net.machinemuse.powersuits.gui.tinker.clickable.ClickableSlider;
+import net.machinemuse.numina.gui.clickable.ClickableSlider;
 
 public class ScrollableSlider extends ScrollableRectangle {
     ClickableSlider slider;

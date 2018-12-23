@@ -5,7 +5,7 @@ import com.raoulvdberge.refinedstorage.api.network.item.INetworkItemHandler;
 import com.raoulvdberge.refinedstorage.apiimpl.network.item.NetworkItemWirelessGrid;
 import net.machinemuse.numina.common.ModCompatibility;
 import net.machinemuse.numina.common.config.NuminaConfig;
-import net.machinemuse.numina.general.MuseMathUtils;
+import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.numina.module.EnumModuleCategory;
 import net.machinemuse.numina.module.EnumModuleTarget;
 import net.machinemuse.numina.module.IRightClickModule;

@@ -6,13 +6,14 @@ import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.DrawableMuseRect;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.gui.GuiIcons;
-import net.machinemuse.powersuits.gui.tinker.clickable.ClickableLabel;
-import net.machinemuse.powersuits.gui.tinker.clickable.ClickableSlider;
-import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableFrame;
-import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableLabel;
-import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableRectangle;
-import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableSlider;
+import net.machinemuse.numina.gui.clickable.ClickableLabel;
+import net.machinemuse.numina.gui.clickable.ClickableSlider;
+import net.machinemuse.numina.gui.scrollable.ScrollableFrame;
+import net.machinemuse.numina.gui.scrollable.ScrollableLabel;
+import net.machinemuse.numina.gui.scrollable.ScrollableRectangle;
+import net.machinemuse.numina.gui.scrollable.ScrollableSlider;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.network.MPSPackets;
 import net.machinemuse.powersuits.network.packets.MusePacketColourInfo;
@@ -92,7 +93,8 @@ public class ColourPickerFrame extends ScrollableFrame {
         MuseRelativeRect newborder = new MuseRelativeRect(border.left(), prev != null ? prev.bottom() : this.border.top(),
                 this.border.right(), (prev != null ? prev.bottom() : this.border.top()) + 18);
         ClickableSlider slider =
-                new ClickableSlider(new MusePoint2D(newborder.centerx(), newborder.centery()), newborder.width() - 15, name);
+                new ClickableSlider(new MusePoint2D(newborder.centerx(), newborder.centery()), newborder.width() - 15, name,
+                        I18n.format(MPSModuleConstants.MODULE_TRADEOFF_PREFIX + name));
         ScrollableSlider scrollableSlider = new ScrollableSlider(slider, newborder);
         scrollableSlider.setBelow((prev != null) ? prev : null);
         rectangles[index] = scrollableSlider;

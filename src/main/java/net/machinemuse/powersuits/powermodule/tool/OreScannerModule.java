@@ -7,7 +7,7 @@ import li.cil.scannable.common.config.Constants;
 import li.cil.scannable.common.config.Settings;
 import li.cil.scannable.common.init.Items;
 import net.machinemuse.numina.client.sound.Musique;
-import net.machinemuse.numina.general.MuseMathUtils;
+import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.numina.module.EnumModuleCategory;
 import net.machinemuse.numina.module.EnumModuleTarget;
 import net.machinemuse.numina.module.IPlayerTickModule;

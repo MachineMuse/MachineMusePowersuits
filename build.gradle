@@ -21,6 +21,10 @@ buildscript {
             url 'https://mvnrepository.com/artifact/com.codesnippets4all/quick-json'
         }
 
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
+
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
@@ -60,6 +64,15 @@ repositories {
 }
 
 dependencies {
+//    compile 'com.github.nifty-gui:nifty:1.4.2'
+//    compile 'com.github.nifty-gui:nifty-default-controls:1.4.2'
+//    compile 'com.github.nifty-gui:nifty-style-black:1.4.2'
+//    compile 'com.github.nifty-gui:nifty-lwjgl-renderer:1.4.2'
+//    compile 'com.github.nifty-gui:nifty-examples:1.4.2'
+//    compile 'com.github.nifty-gui:nifty-examples-lwjgl:1.4.2'
+
+
+
     deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}:api"                             //JEI API
     deobfCompile "cofh:CoFHCore:${minecraft_version}-${cofhcore_version}:universal"                 //CoFH Core
     deobfCompile "appeng:appliedenergistics2:${ae2api_version}"                                     //Applied Energetics 2

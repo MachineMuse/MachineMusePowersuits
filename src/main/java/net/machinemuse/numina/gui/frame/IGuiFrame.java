@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.gui.tinker.frame;
+package net.machinemuse.numina.gui.frame;
 
 import java.util.List;
 

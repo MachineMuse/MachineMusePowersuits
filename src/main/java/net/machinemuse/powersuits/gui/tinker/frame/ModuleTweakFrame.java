@@ -11,7 +11,7 @@ import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableTinkerSlider;
-import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableFrame;
+import net.machinemuse.numina.gui.scrollable.ScrollableFrame;
 import net.machinemuse.powersuits.network.MPSPackets;
 import net.machinemuse.powersuits.network.packets.MusePacketTweakRequestDouble;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -126,7 +126,8 @@ public class ModuleTweakFrame extends ScrollableFrame {
             ClickableTinkerSlider slider = new ClickableTinkerSlider(
                     center,
                     border.right() - border.left() - 8,
-                    moduleTag, tweak);
+                    moduleTag,
+                    tweak, I18n.format(MPSModuleConstants.MODULE_TRADEOFF_PREFIX + tweak));
             sliders.add(slider);
             if (selectedSlider != null && slider.hitBox(center.getX(), center.getY())) {
                 selectedSlider = slider;

@@ -10,6 +10,7 @@ import net.machinemuse.powersuits.entity.EntitySpinningBlade;
 import net.machinemuse.powersuits.event.HarvestEventHandler;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.event.PlayerLoginHandlerThingy;
+import net.machinemuse.powersuits.event.PlayerUpdateHandler;
 import net.machinemuse.powersuits.network.MPSPackets;
 import net.machinemuse.powersuits.powermodule.tool.TerminalHandler;
 import net.minecraft.util.ResourceLocation;
@@ -67,6 +68,7 @@ public class CommonProxy {
     public void registerEvents() {
         MinecraftForge.EVENT_BUS.register(new HarvestEventHandler());
         MinecraftForge.EVENT_BUS.register(new MovementManager());
+        MinecraftForge.EVENT_BUS.register(new PlayerUpdateHandler());
     }
 
     public void registerRenderers() {

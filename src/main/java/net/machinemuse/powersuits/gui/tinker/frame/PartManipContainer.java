@@ -5,7 +5,7 @@ import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
 import net.machinemuse.powersuits.client.render.modelspec.ModelRegistry;
 import net.machinemuse.powersuits.client.render.modelspec.SpecBase;
-import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableFrame;
+import net.machinemuse.numina.gui.scrollable.ScrollableFrame;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 

@@ -1,4 +1,4 @@
-package net.machinemuse.numina.general;
+package net.machinemuse.numina.utils.math;
 
 import java.util.Random;
 

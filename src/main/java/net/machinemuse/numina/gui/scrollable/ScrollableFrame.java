@@ -1,11 +1,11 @@
-package net.machinemuse.powersuits.gui.tinker.scrollable;
+package net.machinemuse.numina.gui.scrollable;
 
 import net.machinemuse.numina.client.render.RenderState;
-import net.machinemuse.numina.general.MuseMathUtils;
+import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.DrawableMuseRect;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
-import net.machinemuse.powersuits.gui.tinker.frame.IGuiFrame;
+import net.machinemuse.numina.gui.frame.IGuiFrame;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
@@ -15,9 +15,6 @@ public class ScrollableFrame implements IGuiFrame {
     protected final int buttonsize = 5;
     protected int totalsize;
     protected int currentscrollpixels;
-    protected boolean scrollbarPicked = false;
-    protected boolean scrolldownPicked = false;
-    protected boolean scrollupPicked = false;
     protected int lastdWheel = Mouse.getDWheel();
     protected boolean visibile = true;
     protected boolean enabled = true;

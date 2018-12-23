@@ -1,6 +1,6 @@
 package net.machinemuse.numina.utils.item;
 
-import net.machinemuse.numina.general.MuseMathUtils;
+import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.numina.item.IModularItem;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
@@ -17,6 +17,8 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+// FIXME: eliminate references to MPS
 
 public class MuseItemUtils {
 

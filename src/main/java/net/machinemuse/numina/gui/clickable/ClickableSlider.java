@@ -1,12 +1,10 @@
-package net.machinemuse.powersuits.gui.tinker.clickable;
+package net.machinemuse.numina.gui.clickable;
 
-import net.machinemuse.numina.general.MuseMathUtils;
-import net.machinemuse.numina.gui.clickable.Clickable;
+import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.DrawableMuseRect;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
-import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.minecraft.client.resources.I18n;
 
 /**
@@ -17,29 +15,37 @@ import net.minecraft.client.resources.I18n;
  */
 public class ClickableSlider extends Clickable {
     final int cornersize = 3;
-    double valueInternal = 0;
+    private double valueInternal = 0;
     MusePoint2D pos;
     double width;
-    String name;
+    private String name;
+    private String label;
     DrawableMuseRect insideRect;
     DrawableMuseRect outsideRect;
 
-    public ClickableSlider(MusePoint2D pos, double width, String name) {
+    public ClickableSlider(MusePoint2D pos, double width, String name, String label) {
         this.pos = pos;
         this.width = width;
         this.name = name;
         this.position = pos;
         this.insideRect = new DrawableMuseRect(position.getX() - width / 2.0 - cornersize, position.getY() + 8, 0, position.getY() + 16, Colour.LIGHTBLUE, Colour.ORANGE);
         this.outsideRect = new DrawableMuseRect(position.getX() - width / 2.0 - cornersize, position.getY() + 8, position.getX() + width / 2.0 + cornersize, position.getY() + 16, Colour.LIGHTBLUE, Colour.DARKBLUE);
+        this.label = label;
     }
 
     public String name() {
         return this.name;
     }
 
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
     @Override
     public void draw() {
-        MuseRenderer.drawCenteredString(I18n.format(MPSModuleConstants.MODULE_TRADEOFF_PREFIX + name), position.getX(), position.getY());
+//        MuseRenderer.drawCenteredString(I18n.format(MPSModuleConstants.MODULE_TRADEOFF_PREFIX + name), position.getX(), position.getY());
+
+        MuseRenderer.drawCenteredString(I18n.format(label), position.getX(), position.getY());
         this.insideRect.setRight(position.getX() + width * (getValue() - 0.5) + cornersize);
         this.outsideRect.draw();
         this.insideRect.draw();

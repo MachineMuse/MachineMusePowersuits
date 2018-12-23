@@ -45,29 +45,29 @@ public class CosmeticPresetSaveLoad {
 
         // path with subfolder
         Path directory = Paths.get(MPSConfig.getConfigFolder().getAbsolutePath(), "cosmeticpresets", subfolder);
-        try {
-            Files.walkFileTree(directory, EnumSet.noneOf(FileVisitOption.class), 1, new SimpleFileVisitor<Path>() {
-                @Override
-                public FileVisitResult visitFile(Path selectedPath, BasicFileAttributes attrs) throws IOException {
-                    if (selectedPath.getFileName().toString().endsWith("." + EXTENSION)) {
-                        String name = selectedPath.getFileName().toString().replaceFirst("[.][^.]+$", "");
-                        NBTTagCompound nbt = CompressedStreamTools.readCompressed(Files.newInputStream(selectedPath));
+        if (Files.exists(directory))
+            try {
+                Files.walkFileTree(directory, EnumSet.noneOf(FileVisitOption.class), 1, new SimpleFileVisitor<Path>() {
+                    @Override
+                    public FileVisitResult visitFile(Path selectedPath, BasicFileAttributes attrs) throws IOException {
+                        if (selectedPath.getFileName().toString().endsWith("." + EXTENSION)) {
+                            String name = selectedPath.getFileName().toString().replaceFirst("[.][^.]+$", "");
+                            NBTTagCompound nbt = CompressedStreamTools.readCompressed(Files.newInputStream(selectedPath));
 
-                        if (nbt != null && name != null && !name.isEmpty()) {
+                            if (nbt != null && name != null && !name.isEmpty()) {
 //                            if (retmap.containsKey("name"))
 //                                System.out.println("MAP ALREADY HAS KEY");
 //                            if (retmap.containsValue(nbt))
 //                                System.out.println("MAP ALREADY HAS VALUE");
-                            retmap.put(name, nbt);
+                                retmap.put(name, nbt);
+                            }
                         }
+                        return FileVisitResult.CONTINUE;
                     }
-                    return FileVisitResult.CONTINUE;
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         if (retmap.isEmpty()) {
             copyPresetsFromJar();
             return loadPresetsForItem(item, count + 1);

@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.powermodule.weapon;
 
-import net.machinemuse.numina.general.MuseMathUtils;
+import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.numina.module.EnumModuleCategory;
 import net.machinemuse.numina.module.EnumModuleTarget;
 import net.machinemuse.numina.module.IRightClickModule;

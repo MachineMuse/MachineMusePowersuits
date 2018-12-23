@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.client.event;
 
-import net.machinemuse.numina.general.MuseMathUtils;
+import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;

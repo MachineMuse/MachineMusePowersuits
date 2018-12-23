@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.gui.tinker.clickable;
+package net.machinemuse.numina.gui.clickable;
 
 import net.machinemuse.numina.gui.IClickable;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;

@@ -7,7 +7,7 @@ import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.ModuleManager;
-import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableFrame;
+import net.machinemuse.numina.gui.scrollable.ScrollableFrame;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.minecraft.client.resources.I18n;

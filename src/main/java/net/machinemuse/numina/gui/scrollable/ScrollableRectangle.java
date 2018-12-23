@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.gui.tinker.scrollable;
+package net.machinemuse.numina.gui.scrollable;
 
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRect;

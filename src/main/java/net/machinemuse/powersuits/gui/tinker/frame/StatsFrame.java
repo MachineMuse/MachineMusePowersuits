@@ -5,7 +5,7 @@ import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.numina.utils.render.MuseRenderer;
-import net.machinemuse.powersuits.gui.tinker.scrollable.ScrollableFrame;
+import net.machinemuse.numina.gui.scrollable.ScrollableFrame;
 import net.machinemuse.powersuits.utils.nbt.NBTTagAccessor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
