@@ -383,10 +383,10 @@ public class OBJModelPlus implements IModel {
         public MaterialLibrary makeLibWithReplacements(ImmutableMap<String, String> replacements) {
             Map<String, Material> mats = new HashMap<String, Material>();
             for (Map.Entry<String, Material> e : this.materials.entrySet()) {
-                // key for the material name, with # added if missing
+                // key for the material id, with # added if missing
                 String keyMat = e.getKey();
                 if (!keyMat.startsWith("#")) keyMat = "#" + keyMat;
-                // key for the texture name, with ".png" stripped and # added if missing
+                // key for the texture id, with ".png" stripped and # added if missing
                 String keyTex = e.getValue().getTexture().getPath();
                 if (keyTex.endsWith(".png")) keyTex = keyTex.substring(0, keyTex.length() - ".png".length());
                 if (!keyTex.startsWith("#")) keyTex = "#" + keyTex;
@@ -999,7 +999,7 @@ public class OBJModelPlus implements IModel {
             builder.append(String.format("%n    parent: %s%n", this.parent.toString()));
             builder.append(String.format("    visibility map: %n"));
             for (Map.Entry<String, Boolean> e : this.visibilityMap.entrySet()) {
-                builder.append(String.format("        name: %s visible: %b%n", e.getKey(), e.getValue()));
+                builder.append(String.format("        id: %s visible: %b%n", e.getKey(), e.getValue()));
             }
             return builder.toString();
         }
@@ -1145,7 +1145,7 @@ public class OBJModelPlus implements IModel {
             for (Group g : this.model.getMatLib().getGroups().values()) {
 //                g.minUVBounds = this.model.getMatLib().minUVBounds;
 //                g.maxUVBounds = this.model.getMatLib().maxUVBounds;
-//                FMLLog.info("Group: %s u: [%f, %f] v: [%f, %f]", g.name, g.minUVBounds[0], g.maxUVBounds[0], g.minUVBounds[1], g.maxUVBounds[1]);
+//                FMLLog.info("Group: %s u: [%f, %f] v: [%f, %f]", g.id, g.minUVBounds[0], g.maxUVBounds[0], g.minUVBounds[1], g.maxUVBounds[1]);
 
                 if (state == null)
                     transform = modelState.apply(Optional.empty());

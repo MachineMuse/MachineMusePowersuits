@@ -34,7 +34,7 @@ public abstract class SpecBase extends MuseRegistry<PartSpecBase> {
     }
 
     /**
-     * returns the parent spec name
+     * returns the parent spec id
      *
      * @return
      */
@@ -70,7 +70,7 @@ public abstract class SpecBase extends MuseRegistry<PartSpecBase> {
     }
 
     /**
-     * returns the short name of the model. Used for NBT tags
+     * returns the short id of the model. Used for NBT tags
      * Implement on top level classes due to equals and hash checks will make this fail here
      *
      * @return

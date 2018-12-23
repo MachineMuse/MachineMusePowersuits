@@ -81,7 +81,7 @@ public class EventRegisterRenderers {
     }
 
 //
-//    ModelResourceLocation fluidLocation = new ModelResourceLocation(MODID.toLowerCase() + ":" + FiniteFluidBlock.name, "normal");
+//    ModelResourceLocation fluidLocation = new ModelResourceLocation(MODID.toLowerCase() + ":" + FiniteFluidBlock.id, "normal");
 //
 //    Item fluid = Item.getItemFromBlock(FiniteFluidBlock.instance);
 //            ModelLoader.setCustomModelResourceLocation(EmptyFluidContainer.instance, 0, new ModelResourceLocation("forge:bucket", "inventory"));

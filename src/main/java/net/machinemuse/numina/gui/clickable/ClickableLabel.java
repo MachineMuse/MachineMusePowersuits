@@ -32,6 +32,7 @@ public class ClickableLabel implements IClickable {
         this.label = label;
     }
 
+    // fixme: don't think this is actually working as intended
     @Override
     public void draw() {
         if (mode == 0)

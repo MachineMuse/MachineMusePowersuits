@@ -40,7 +40,7 @@ public class CosmeticPresetSaveLoad {
             return HashBiMap.create(retmap);
         }
 
-        // sub folder based on the item name
+        // sub folder based on the item id
         String subfolder = item.getRegistryName().getPath();
 
         // path with subfolder
@@ -55,7 +55,7 @@ public class CosmeticPresetSaveLoad {
                             NBTTagCompound nbt = CompressedStreamTools.readCompressed(Files.newInputStream(selectedPath));
 
                             if (nbt != null && name != null && !name.isEmpty()) {
-//                            if (retmap.containsKey("name"))
+//                            if (retmap.containsKey("id"))
 //                                System.out.println("MAP ALREADY HAS KEY");
 //                            if (retmap.containsValue(nbt))
 //                                System.out.println("MAP ALREADY HAS VALUE");
@@ -150,7 +150,7 @@ public class CosmeticPresetSaveLoad {
     }
 
     /**
-     * Save the model settings as a Json in the config folder using the itemstack name as the folder name
+     * Save the model settings as a Json in the config folder using the itemstack id as the folder id
      */
     public static boolean savePreset(String presetName, @Nonnull ItemStack itemStack) {
         if (itemStack.isEmpty())
@@ -166,7 +166,7 @@ public class CosmeticPresetSaveLoad {
         byte [] byteArray = compressGZip(cosmeticSettingsIn);
 
         try {
-            // sub folder based on the item name
+            // sub folder based on the item id
             String subfolder = registryNameIn.getPath();
 
             // path with subfolder

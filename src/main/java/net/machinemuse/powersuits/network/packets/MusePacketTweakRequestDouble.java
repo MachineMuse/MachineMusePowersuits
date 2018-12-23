@@ -58,7 +58,6 @@ public class MusePacketTweakRequestDouble implements IMessage {
                     String moduleName = message.moduleName;
                     String tweakName = message.tweakName;
                     double tweakValue = message.tweakValue;
-
                     if (moduleName != null && tweakName != null) {
                         ItemStack stack = player.inventory.getStackInSlot(itemSlot);
                         NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);

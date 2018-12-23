@@ -156,7 +156,7 @@ public class ModuleTweakFrame extends ScrollableFrame {
             ClickableItem item = itemTarget.getSelectedItem();
             IPowerModule module = moduleTarget.getSelectedModule().getModule();
             MPSPackets.sendToServer(
-                    new MusePacketTweakRequestDouble(player, item.inventorySlot, module.getDataName(), selectedSlider.name(), selectedSlider.getValue()));
+                    new MusePacketTweakRequestDouble(player, item.inventorySlot, module.getDataName(), selectedSlider.id(), selectedSlider.getValue()));
         }
         if (button == 0) {
             selectedSlider = null;

@@ -140,9 +140,9 @@
 //                    if (part.isPresent()) {
 //                        UnmodifiableIterator<String> parts = Models.getParts(part.get());
 //                        if (parts.hasNext()) {
-//                            String name = parts.next();
+//                            String id = parts.next();
 //                            // only interested in the root level
-//                            if (!parts.hasNext() && hiddenIn.contains(name)) return getValue;
+//                            if (!parts.hasNext() && hiddenIn.contains(id)) return getValue;
 //                        }
 //                    }
 //                    return Optional.absent();

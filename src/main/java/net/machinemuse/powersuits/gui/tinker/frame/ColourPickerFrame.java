@@ -89,12 +89,12 @@ public class ColourPickerFrame extends ScrollableFrame {
         this.enable();
     }
 
-    public ScrollableSlider getScrollableSlider(String name, ScrollableRectangle prev, int index) {
+    public ScrollableSlider getScrollableSlider(String id, ScrollableRectangle prev, int index) {
         MuseRelativeRect newborder = new MuseRelativeRect(border.left(), prev != null ? prev.bottom() : this.border.top(),
                 this.border.right(), (prev != null ? prev.bottom() : this.border.top()) + 18);
         ClickableSlider slider =
-                new ClickableSlider(new MusePoint2D(newborder.centerx(), newborder.centery()), newborder.width() - 15, name,
-                        I18n.format(MPSModuleConstants.MODULE_TRADEOFF_PREFIX + name));
+                new ClickableSlider(new MusePoint2D(newborder.centerx(), newborder.centery()), newborder.width() - 15, id,
+                        I18n.format(MPSModuleConstants.MODULE_TRADEOFF_PREFIX + id));
         ScrollableSlider scrollableSlider = new ScrollableSlider(slider, newborder);
         scrollableSlider.setBelow((prev != null) ? prev : null);
         rectangles[index] = scrollableSlider;

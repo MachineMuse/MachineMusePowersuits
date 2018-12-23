@@ -32,7 +32,7 @@ public abstract class MuseCommonStrings {
      * @param stack            The itemstack to get the tooltip for
      * @param worldIn          The world (unused)
      * @param currentTipList   A list of strings containing the existing tooltip. When
-     *                         passed, it will just contain the name of the item;
+     *                         passed, it will just contain the id of the item;
      *                         enchantments and lore are
      *                         appended afterwards.
      * @param advancedToolTips Whether or not the player has 'advanced tooltips' turned on in

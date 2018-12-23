@@ -226,13 +226,13 @@ public enum MPSConfig {
 
     public double getPropertyDoubleOrDefault(String name, double value) {
         //TODO: use this after porting finished
-        //return getServerSettings() != null ? getServerSettings().propertyDouble.getOrDefault(name, getValue) : MPSSettings.modules.propertyDouble.getOrDefault(name, getValue);
+        //return getServerSettings() != null ? getServerSettings().propertyDouble.getOrDefault(id, getValue) : MPSSettings.modules.propertyDouble.getOrDefault(id, getValue);
         if (getServerSettings() != null) {
             if (getServerSettings().propertyDouble.isEmpty() || !getServerSettings().propertyDouble.containsKey(name)) {
                 System.out.println("Property config values missing: ");
                 System.out.println("property: " + name);
                 System.out.println("getValue: " + value);
-//                getServerSettings().propertyDouble.put(name, getValue);
+//                getServerSettings().propertyDouble.put(id, getValue);
                 missingModuleDoubles.put(name, value);
 
             }
@@ -242,7 +242,7 @@ public enum MPSConfig {
                 System.out.println("Property config values missing: ");
                 System.out.println("property: " + name);
                 System.out.println("getValue: " + value);
-//                MPSSettings.modules.propertyDouble.put(name, getValue);
+//                MPSSettings.modules.propertyDouble.put(id, getValue);
                 missingModuleDoubles.put(name, value);
             }
             return MPSSettings.modules.propertyDouble.getOrDefault(name, value);
@@ -251,13 +251,13 @@ public enum MPSConfig {
 
     public int getPropertyIntegerOrDefault(String name, int value) {
         //TODO: use this after porting finished
-        //return getServerSettings() != null ? getServerSettings().propertyDouble.getOrDefault(name, getValue) : MPSSettings.modules.propertyDouble.getOrDefault(name, getValue);
+        //return getServerSettings() != null ? getServerSettings().propertyDouble.getOrDefault(id, getValue) : MPSSettings.modules.propertyDouble.getOrDefault(id, getValue);
         if (getServerSettings() != null) {
             if (getServerSettings().propertyInteger.isEmpty() || !getServerSettings().propertyInteger.containsKey(name)) {
                 System.out.println("Property config values missing: ");
                 System.out.println("property: " + name);
                 System.out.println("getValue: " + value);
-//                getServerSettings().propertyInteger.put(name, getValue);
+//                getServerSettings().propertyInteger.put(id, getValue);
                 missingModuleIntegers.put(name, value);
             }
             return getServerSettings().propertyInteger.getOrDefault(name, value);
@@ -266,7 +266,7 @@ public enum MPSConfig {
                 System.out.println("Property config values missing: ");
                 System.out.println("property: " + name);
                 System.out.println("getValue: " + value);
-//                MPSSettings.modules.propertyInteger.put(name, getValue);
+//                MPSSettings.modules.propertyInteger.put(id, getValue);
                 missingModuleIntegers.put(name, value);
             }
             return MPSSettings.modules.propertyInteger.getOrDefault(name, value);

@@ -35,9 +35,9 @@
 //    }
 //
 //    @Nonnull
-//    public static ItemStack getItem(String name) {
-//        if (getItemMap().containsKey(name))
-//            return getItemMap().get(name);
+//    public static ItemStack getItem(String id) {
+//        if (getItemMap().containsKey(id))
+//            return getItemMap().get(id);
 //        else
 //            return ItemStack.EMPTY;
 //    }

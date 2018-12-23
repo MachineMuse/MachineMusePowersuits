@@ -18,23 +18,23 @@ public class ClickableSlider extends Clickable {
     private double valueInternal = 0;
     MusePoint2D pos;
     double width;
-    private String name;
+    private String id;
     private String label;
     DrawableMuseRect insideRect;
     DrawableMuseRect outsideRect;
 
-    public ClickableSlider(MusePoint2D pos, double width, String name, String label) {
+    public ClickableSlider(MusePoint2D pos, double width, String id, String label) {
         this.pos = pos;
         this.width = width;
-        this.name = name;
+        this.id = id;
         this.position = pos;
         this.insideRect = new DrawableMuseRect(position.getX() - width / 2.0 - cornersize, position.getY() + 8, 0, position.getY() + 16, Colour.LIGHTBLUE, Colour.ORANGE);
         this.outsideRect = new DrawableMuseRect(position.getX() - width / 2.0 - cornersize, position.getY() + 8, position.getX() + width / 2.0 + cornersize, position.getY() + 16, Colour.LIGHTBLUE, Colour.DARKBLUE);
         this.label = label;
     }
 
-    public String name() {
-        return this.name;
+    public String id() {
+        return this.id;
     }
 
     public void setLabel(String label) {
@@ -43,8 +43,6 @@ public class ClickableSlider extends Clickable {
 
     @Override
     public void draw() {
-//        MuseRenderer.drawCenteredString(I18n.format(MPSModuleConstants.MODULE_TRADEOFF_PREFIX + name), position.getX(), position.getY());
-
         MuseRenderer.drawCenteredString(I18n.format(label), position.getX(), position.getY());
         this.insideRect.setRight(position.getX() + width * (getValue() - 0.5) + cornersize);
         this.outsideRect.draw();

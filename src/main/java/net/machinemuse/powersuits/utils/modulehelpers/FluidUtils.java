@@ -221,10 +221,10 @@ public class FluidUtils {
     }
 
 // I think this was for the power fist and the personal shrinking device...
-//    public static void setLiquid(@Nonnull ItemStack stack, String name) {
+//    public static void setLiquid(@Nonnull ItemStack stack, String id) {
 //        if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
 //            NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
-//            itemTag.setString(TAG_LIQUID, name);
+//            itemTag.setString(TAG_LIQUID, id);
 //        }
 //    }
 //

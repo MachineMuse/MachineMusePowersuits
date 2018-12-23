@@ -222,7 +222,7 @@ public class ItemPowerFist extends MPSItemElectricTool
     }
 
     /**
-     * Return the name for this tool's material.
+     * Return the id for this tool's material.
      */
     @Override
     public String getToolMaterialName() {
