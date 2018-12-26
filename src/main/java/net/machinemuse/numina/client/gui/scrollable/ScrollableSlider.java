@@ -1,8 +1,8 @@
-package net.machinemuse.numina.gui.scrollable;
+package net.machinemuse.numina.client.gui.scrollable;
 
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
-import net.machinemuse.numina.gui.clickable.ClickableSlider;
+import net.machinemuse.numina.client.gui.clickable.ClickableSlider;
 
 public class ScrollableSlider extends ScrollableRectangle {
     ClickableSlider slider;

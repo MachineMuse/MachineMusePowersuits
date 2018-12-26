@@ -1,6 +1,6 @@
-package net.machinemuse.numina.gui.clickable;
+package net.machinemuse.numina.client.gui.clickable;
 
-import net.machinemuse.numina.gui.IClickable;
+import net.machinemuse.numina.client.gui.IClickable;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 

@@ -26,4 +26,5 @@ public class NuminaNBTConstants {
     // heat
     public static final String CURRENT_HEAT = "curHeat";
     public static final String MAXIMUM_HEAT = "maxHeat";
+
 }

@@ -3,7 +3,7 @@ package net.machinemuse.numina.utils.render;
 import net.machinemuse.numina.client.render.BillboardHelper;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
 import net.machinemuse.numina.client.render.RenderState;
-import net.machinemuse.numina.gui.IClickable;
+import net.machinemuse.numina.client.gui.IClickable;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.SwirlyMuseCircle;
@@ -67,13 +67,7 @@ public abstract class MuseRenderer {
      * Does the necessary openGL calls and calls the Minecraft font renderer to draw a string at the specified coords
      */
     public static void drawString(String s, double x, double y, Colour c) {
-        // FIXME -- All of this stuff is commented out now in 1.10.2 because it is not needed and causes issues with transparencies of vanilla text, like the playerlevel number
-//        RenderHelper.disableStandardItemLighting();
-//        RenderState.blendingOn();
-//        RenderState.on2D();
         getFontRenderer().drawStringWithShadow(s, (int) x, (int) y, c.getInt());
-//        RenderState.off2D();
-//        RenderState.blendingOff();
     }
 
     /**

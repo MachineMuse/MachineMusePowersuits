@@ -1,4 +1,4 @@
-package net.machinemuse.numina.gui.clickable;
+package net.machinemuse.numina.client.gui.clickable;
 
 import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.numina.utils.math.Colour;

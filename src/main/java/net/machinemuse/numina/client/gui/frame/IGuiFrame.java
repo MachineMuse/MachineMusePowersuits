@@ -1,4 +1,4 @@
-package net.machinemuse.numina.gui.frame;
+package net.machinemuse.numina.client.gui.frame;
 
 import java.util.List;
 

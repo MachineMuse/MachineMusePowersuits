@@ -25,13 +25,6 @@ public final class NuminaPlayerTracker {
 
             // sync config settings between client and server
             NuminaPackets.sendTo(new NuminaPacketConfig(), (EntityPlayerMP) player);
-
-            // FIXME!!! recipes not done this way anymore??
-//            for (JSONRecipe recipe : JSONRecipeList.getJSONRecipesList()) {
-//                JSONRecipe[] recipeArray = new JSONRecipe[]{recipe};
-//                String recipeAsString= JSONRecipeList.gson.toJson(recipeArray);
-//                PacketSender.sendTo(new MusePacketRecipeUpdate(event.player, recipeAsString), (EntityPlayerMP)event.player);
-//            }
         }
     }
 }

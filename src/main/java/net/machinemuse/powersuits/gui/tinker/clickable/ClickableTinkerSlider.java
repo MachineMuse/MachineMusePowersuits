@@ -1,10 +1,8 @@
 package net.machinemuse.powersuits.gui.tinker.clickable;
 
-import net.machinemuse.numina.gui.clickable.ClickableSlider;
-import net.machinemuse.numina.utils.math.MuseMathUtils;
+import net.machinemuse.numina.client.gui.clickable.ClickableSlider;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.Constants;
 
 /**
  * Ported to Java by lehjr on 10/19/16.

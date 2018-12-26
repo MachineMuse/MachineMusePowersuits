@@ -1,4 +1,4 @@
-package net.machinemuse.numina.gui;
+package net.machinemuse.numina.client.gui;
 
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 

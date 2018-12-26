@@ -4,7 +4,7 @@ import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
 import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.machinemuse.numina.gui.scrollable.ScrollableFrame;
+import net.machinemuse.numina.client.gui.scrollable.ScrollableFrame;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 
