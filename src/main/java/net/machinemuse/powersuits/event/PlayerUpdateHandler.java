@@ -1,14 +1,14 @@
 package net.machinemuse.powersuits.event;
 
-import net.machinemuse.numina.api.module.IPlayerTickModule;
-import net.machinemuse.numina.api.module.IPowerModule;
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.common.config.NuminaConfig;
-import net.machinemuse.numina.general.MuseMathUtils;
+import net.machinemuse.numina.utils.math.MuseMathUtils;
+import net.machinemuse.numina.module.IPlayerTickModule;
+import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
-import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -40,7 +40,7 @@ public class PlayerUpdateHandler {
 //            for (ItemStack stack : modularItemsEquipped) {
 //                // Temporary Advanced Rocketry hack Not the best way but meh.
 //                NBTTagList tagList = stack.getEnchantmentTagList();
-//                if (tagList != null && !tagList.hasNoTags()) {
+//                if (tagList != null && !tagList.isEmpty()) {
 //                    if (tagList.tagCount() == 1) {
 //                        if (!(tagList.getCompoundTagAt(0).getShort("id") == 128))
 //                            stack.getTagCompound().removeTag("ench");

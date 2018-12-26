@@ -155,6 +155,7 @@ powersuits.tradeoff.efficiency=Eficiência
 powersuits.tradeoff.red=Vermelho
 powersuits.tradeoff.green=verde
 powersuits.tradeoff.blue=Azul
+powersuits.tradeoff.alpha=Alpha
 powersuits.tradeoff.sprintAssist=Assistente de Sprint
 powersuits.tradeoff.compensation=Remuneração
 powersuits.tradeoff.walkingAssist=Assistente de Caminhada
@@ -168,6 +169,7 @@ powersuits.tradeoff.diameter=Diâmetro
 powersuits.tradeoff.enchLevel=Nível de Encantamento
 powersuits.tradeoff.fortuneEnCon=Consumo de energia da fortuna
 powersuits.tradeoff.fortuneLevel=Nível de fortuna
+
 
 # Armor
 module.powersuits.leatherPlating.name=Revestimento de couro
@@ -362,6 +364,15 @@ gui.powersuits.equippedTotals=Totais Equipados
 gui.powersuits.energyStorage=Armazenamento de energia
 gui.powersuits.armor=Armadura
 gui.powersuits.slotpoints=Pontos de Slot
+gui.powersuits.load=Load
+gui.powersuits.save=Save
+gui.powersuits.reset=Reset
+gui.powersuits.cancel=Cancel
+gui.powersuits.colourPrefix=Color:
+gui.powersuits.saveAs=Save as:
+gui.powersuits.new=New
+gui.powersuits.savesuccessful=Save Successful
+
 
 tooltip.powersuits.pressShift=Pressione SHIFT para mais informações.
 tooltip.powersuits.componentTooltip=Para uso na Tinker Table.

@@ -5,6 +5,7 @@ import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
 import net.machinemuse.powersuits.client.render.modelspec.ModelRegistry;
 import net.machinemuse.powersuits.client.render.modelspec.SpecBase;
+import net.machinemuse.numina.gui.scrollable.ScrollableFrame;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 
@@ -28,7 +29,9 @@ public class PartManipContainer extends ScrollableFrame {
     public Integer lastItemSlot;
     public int lastColour;
     public int lastColourIndex;
-    public List<PartSpecManipSubFrame> modelframes = new ArrayList<>();
+    public List<PartSpecManipSubFrame> modelframes;
+    protected boolean enabled;
+    protected boolean visibile;
 
     public PartManipContainer(ItemSelectionFrame itemSelect,
                               ColourPickerFrame colourSelect,
@@ -46,6 +49,8 @@ public class PartManipContainer extends ScrollableFrame {
         this.lastColour = this.getColour();
         this.lastColourIndex = this.getColourIndex();
         this.modelframes = getModelframes();
+        enabled = true;
+        visibile = true;
     }
 
     @Nonnull
@@ -92,9 +97,11 @@ public class PartManipContainer extends ScrollableFrame {
 
     @Override
     public void onMouseDown(double x, double y, int button) {
-        if (button == 0) {
-            for (PartSpecManipSubFrame frame : modelframes) {
-                frame.tryMouseClick(x, y + currentscrollpixels);
+        if (enabled) {
+            if (button == 0) {
+                for (PartSpecManipSubFrame frame : modelframes) {
+                    frame.tryMouseClick(x, y + currentscrollpixels);
+                }
             }
         }
     }
@@ -102,21 +109,47 @@ public class PartManipContainer extends ScrollableFrame {
     @Override
     public void update(double mousex, double mousey) {
         super.update(mousex, mousey);
-        if (!Objects.equals(lastItemSlot, getItemSlot())) {
-            lastItemSlot = getItemSlot();
-            colourSelect.refreshColours(); // this does nothing
+        if (enabled) {
+            if (!Objects.equals(lastItemSlot, getItemSlot())) {
+                lastItemSlot = getItemSlot();
+                colourSelect.refreshColours(); // this does nothing
 
-            double x = 0;
-            for (PartSpecManipSubFrame subframe : modelframes) {
-                subframe.updateItems();
-                x += subframe.border.bottom();
+                double x = 0;
+                for (PartSpecManipSubFrame subframe : modelframes) {
+                    subframe.updateItems();
+                    x += subframe.border.bottom();
+                }
+                this.totalsize = (int) x;
             }
-            this.totalsize = (int) x;
+            if (colourSelect.decrAbove > -1) {
+                decrAbove(colourSelect.decrAbove);
+                colourSelect.decrAbove = -1;
+            }
         }
-        if (colourSelect.decrAbove > -1) {
-            decrAbove(colourSelect.decrAbove);
-            colourSelect.decrAbove = -1;
-        }
+    }
+
+    public void hide () {
+        visibile = false;
+    }
+
+    public void show() {
+        visibile = true;
+    }
+
+    public boolean isVisibile() {
+        return visibile;
+    }
+
+    public void enable() {
+        enabled = true;
+    }
+
+    public void disable() {
+        enabled = false;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
     }
 
     public void decrAbove(int index) {
@@ -125,13 +158,15 @@ public class PartManipContainer extends ScrollableFrame {
 
     @Override
     public void draw() {
-        super.preDraw();
-        GL11.glPushMatrix();
-        GL11.glTranslated(0.0, (double) (-this.currentscrollpixels), 0.0);
-        for (PartSpecManipSubFrame f : modelframes) {
-            f.drawPartial(currentscrollpixels + 4 + border.top(), this.currentscrollpixels + border.bottom() - 4);
+        if (visibile) {
+            super.preDraw();
+            GL11.glPushMatrix();
+            GL11.glTranslated(0.0, (double) (-this.currentscrollpixels), 0.0);
+            for (PartSpecManipSubFrame f : modelframes) {
+                f.drawPartial(currentscrollpixels + 4 + border.top(), this.currentscrollpixels + border.bottom() - 4);
+            }
+            GL11.glPopMatrix();
+            super.postDraw();
         }
-        GL11.glPopMatrix();
-        super.postDraw();
     }
 }

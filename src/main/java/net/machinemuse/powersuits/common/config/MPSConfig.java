@@ -1,7 +1,9 @@
 package net.machinemuse.powersuits.common.config;
 
-import net.machinemuse.numina.api.module.EnumModuleCategory;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import net.machinemuse.numina.common.Numina;
+import net.machinemuse.numina.module.EnumModuleCategory;
 import net.machinemuse.powersuits.common.MPSCreativeTab;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
@@ -10,7 +12,9 @@ import net.machinemuse.powersuits.item.armor.ItemPowerArmorHelmet;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorLeggings;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import org.apache.commons.io.FileUtils;
@@ -53,7 +57,7 @@ public enum MPSConfig {
      */
     @Nullable
     public static File getConfigFolder() {
-        return Numina.INSTANCE.configDir;
+        return Numina.configDir;
     }
 
     @Nullable
@@ -71,7 +75,7 @@ public enum MPSConfig {
     }
 
     public static boolean useOldAutoFeeder() {
-        return getServerSettings() != null ? getServerSettings().useOldAutoFeeder : MPSSettings.general.useOldAutoFeeder;
+        return getServerSettings() != null ? getServerSettings().useOldAutoFeeder : MPSSettings.General.useOldAutoFeeder;
     }
 
     public static double getMaximumArmorPerPiece() {
@@ -97,18 +101,6 @@ public enum MPSConfig {
     }
 
     /**
-     * Models ------------------------------------------------------------------------------------
-     */
-    public static boolean allowHighPollyArmorModels() {
-//        return getServerSettings() != null ? getServerSettings().allowHighPollyArmorModels : MPSSettings.modelconfig.allowHighPollyArmorModels;
-        return true;
-    }
-
-    public static boolean doAdditionalInfo() {
-        return FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT && Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
-    }
-
-    /**
      * HUD Settings ------------------------------------------------------------------------------
      */
     public boolean toggleModuleSpam() {
@@ -128,7 +120,7 @@ public enum MPSConfig {
     }
 
     public boolean useGraphicalMeters() {
-        return MPSSettings.hud.useGraphicalMeters;
+        return MPSSettings.HUD.useGraphicalMeters;
     }
 
     /**
@@ -146,6 +138,10 @@ public enum MPSConfig {
     // TODO: 100%
     public double getSalvageChance() {
         return getServerSettings() != null ? getServerSettings().getSalvageChance : MPSSettings.general.getSalvageChance;
+    }
+
+    public static boolean doAdditionalInfo() {
+        return FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT && Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
     }
 
     public double getBaseMaxHeat(@Nonnull ItemStack itemStack) {
@@ -173,30 +169,6 @@ public enum MPSConfig {
 
         return 0;
     }
-
-//    public double getMaxModules(@Nonnull ItemStack itemStack) {
-//        if (itemStack.getItem() instanceof ItemPowerFist) {
-//            return getServerSettings() != null ? getServerSettings().maxModulesPowerFist: MPSSettings.general.maxModulesPowerFist;
-//        }
-//
-//        if (itemStack.getItem() instanceof ItemPowerArmorHelmet) {
-//            return getServerSettings() != null ? getServerSettings().maxModulesHelmet: MPSSettings.general.maxModulesHelmet;
-//        }
-//
-//        if (itemStack.getItem() instanceof ItemPowerArmorChestplate) {
-//            return getServerSettings() != null ? getServerSettings().maxModulesChestplate : MPSSettings.general.maxModulesChestplate;
-//        }
-//
-//        if (itemStack.getItem() instanceof ItemPowerArmorLeggings) {
-//            return getServerSettings() != null ? getServerSettings().maxModulesLeggings : MPSSettings.general.maxModulesLeggings ;
-//        }
-//
-//        if (itemStack.getItem() instanceof ItemPowerArmorBoots) {
-//            return getServerSettings() != null ? getServerSettings().maxModulesFeet : MPSSettings.general.maxModulesFeet;
-//        }
-//
-//        return 0;
-//    }
 
     /**
      * Limits -------------------------------------------------------------------------------------
@@ -254,13 +226,13 @@ public enum MPSConfig {
 
     public double getPropertyDoubleOrDefault(String name, double value) {
         //TODO: use this after porting finished
-        //return getServerSettings() != null ? getServerSettings().propertyDouble.getOrDefault(name, getValue) : MPSSettings.modules.propertyDouble.getOrDefault(name, getValue);
+        //return getServerSettings() != null ? getServerSettings().propertyDouble.getOrDefault(id, getValue) : MPSSettings.modules.propertyDouble.getOrDefault(id, getValue);
         if (getServerSettings() != null) {
             if (getServerSettings().propertyDouble.isEmpty() || !getServerSettings().propertyDouble.containsKey(name)) {
                 System.out.println("Property config values missing: ");
                 System.out.println("property: " + name);
                 System.out.println("getValue: " + value);
-//                getServerSettings().propertyDouble.put(name, getValue);
+//                getServerSettings().propertyDouble.put(id, getValue);
                 missingModuleDoubles.put(name, value);
 
             }
@@ -270,7 +242,7 @@ public enum MPSConfig {
                 System.out.println("Property config values missing: ");
                 System.out.println("property: " + name);
                 System.out.println("getValue: " + value);
-//                MPSSettings.modules.propertyDouble.put(name, getValue);
+//                MPSSettings.modules.propertyDouble.put(id, getValue);
                 missingModuleDoubles.put(name, value);
             }
             return MPSSettings.modules.propertyDouble.getOrDefault(name, value);
@@ -279,13 +251,13 @@ public enum MPSConfig {
 
     public int getPropertyIntegerOrDefault(String name, int value) {
         //TODO: use this after porting finished
-        //return getServerSettings() != null ? getServerSettings().propertyDouble.getOrDefault(name, getValue) : MPSSettings.modules.propertyDouble.getOrDefault(name, getValue);
+        //return getServerSettings() != null ? getServerSettings().propertyDouble.getOrDefault(id, getValue) : MPSSettings.modules.propertyDouble.getOrDefault(id, getValue);
         if (getServerSettings() != null) {
             if (getServerSettings().propertyInteger.isEmpty() || !getServerSettings().propertyInteger.containsKey(name)) {
                 System.out.println("Property config values missing: ");
                 System.out.println("property: " + name);
                 System.out.println("getValue: " + value);
-//                getServerSettings().propertyInteger.put(name, getValue);
+//                getServerSettings().propertyInteger.put(id, getValue);
                 missingModuleIntegers.put(name, value);
             }
             return getServerSettings().propertyInteger.getOrDefault(name, value);
@@ -294,7 +266,7 @@ public enum MPSConfig {
                 System.out.println("Property config values missing: ");
                 System.out.println("property: " + name);
                 System.out.println("getValue: " + value);
-//                MPSSettings.modules.propertyInteger.put(name, getValue);
+//                MPSSettings.modules.propertyInteger.put(id, getValue);
                 missingModuleIntegers.put(name, value);
             }
             return MPSSettings.modules.propertyInteger.getOrDefault(name, value);
@@ -307,10 +279,9 @@ public enum MPSConfig {
         for (Map.Entry<String, Double> line : new TreeMap<>(missingModuleDoubles).entrySet()) { // treemap sorts the keys
             stringBuilder.append("put( \"").append(line.getKey()).append("\", ").append(line.getValue()).append("D );\n");
         }
-
         try {
             String output = stringBuilder.toString();
-            if(output != null && !output.isEmpty())
+            if (output != null && !output.isEmpty())
                 FileUtils.writeStringToFile(new File(getConfigFolder(), "missingConfigDoubles.txt"), output, Charset.defaultCharset(), false);
         } catch (IOException e) {
             e.printStackTrace();
@@ -331,5 +302,41 @@ public enum MPSConfig {
             e.printStackTrace();
         }
         return;
+    }
+
+    /**
+     * Models ------------------------------------------------------------------------------------
+     */
+    public static boolean useLegacyCosmeticSystem() {
+        return getServerSettings() != null ? getServerSettings().useLegacyCosmeticSystem : MPSSettings.cosmetics.useLegacyCosmeticSystem;
+    }
+
+    public static boolean allowHighPollyArmorModels() {
+        return getServerSettings() != null ? getServerSettings().allowHighPollyArmorModuels : MPSSettings.cosmetics.allowHighPollyArmorModuels;
+    }
+
+    public static boolean allowPowerFistCustomization() {
+        return getServerSettings() != null ? getServerSettings().allowPowerFistCustomization : MPSSettings.cosmetics.allowPowerFistCustomization;
+    }
+
+    @Nullable
+    public static NBTTagCompound getPresetNBTFor(@Nonnull ItemStack itemStack, String presetName) {
+        Map<String, NBTTagCompound> map = getCosmeticPresets(itemStack);
+        return map.get(presetName);
+    }
+
+    public static BiMap<String, NBTTagCompound> getCosmeticPresets(@Nonnull ItemStack itemStack) {
+        Item item  = itemStack.getItem();
+        if (item instanceof ItemPowerFist)
+            return getServerSettings() != null ? getServerSettings().cosmeticPresetsPowerFist : MPSSettings.cosmetics.getCosmeticPresetsPowerFist();
+        else if (item instanceof ItemPowerArmorHelmet)
+            return getServerSettings() != null ? getServerSettings().cosmeticPresetsPowerArmorHelmet : MPSSettings.cosmetics.getCosmeticPresetsPowerArmorHelmet();
+        else if (item instanceof ItemPowerArmorChestplate)
+            return getServerSettings() != null ? getServerSettings().cosmeticPresetsPowerArmorChestplate : MPSSettings.cosmetics.getCosmeticPresetsPowerArmorChestplate();
+        else if (item instanceof ItemPowerArmorLeggings)
+            return getServerSettings() != null ? getServerSettings().cosmeticPresetsPowerArmorLeggings : MPSSettings.cosmetics.getCosmeticPresetsPowerArmorLeggings();
+        else if (item instanceof ItemPowerArmorBoots)
+            return getServerSettings() != null ? getServerSettings().cosmeticPresetsPowerArmorBoots : MPSSettings.cosmetics.getCosmeticPresetsPowerArmorBoots();
+        return HashBiMap.create();
     }
 }

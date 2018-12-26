@@ -4,6 +4,8 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import net.machinemuse.numina.utils.MuseLogger;
 
+import java.util.Map;
+
 /**
  * Author: MachineMuse (Claire Semple)
  * Created: 4:30 AM, 29/04/13
@@ -45,6 +47,14 @@ public class MuseBiMap<S, T> {
             theMap.put(name, elem);
         }
         return name;
+    }
+
+    public Map<S,T> apply() {
+        return this.theMap;
+    }
+
+    public Map<T, S> inverse() {
+        return this.theMap.inverse();
     }
 
     public S getName(T elem) {

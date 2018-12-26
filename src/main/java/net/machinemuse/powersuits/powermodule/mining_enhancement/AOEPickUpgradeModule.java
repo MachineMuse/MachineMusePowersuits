@@ -1,12 +1,12 @@
 package net.machinemuse.powersuits.powermodule.mining_enhancement;
 
 import mekanism.common.HashList;
-import net.machinemuse.numina.api.module.*;
+import net.machinemuse.numina.module.*;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.MusePlayerUtils;
@@ -83,7 +83,7 @@ public class AOEPickUpgradeModule extends PowerModuleBase implements IMiningEnha
                 if (ModuleManager.INSTANCE.itemHasActiveModule(itemStack, module.getDataName()) && ((IBlockBreakingModule) module).canHarvestBlock(itemStack, state, player, blockPos, playerEnergy - energyUsage)) {
                     if (posIn == blockPos) // center block
                         harvested = true;
-                    block.onBlockDestroyedByPlayer(player.world, blockPos, state);
+                    block.onPlayerDestroy(player.world, blockPos, state);
                     player.world.playEvent(null, 2001, blockPos, Block.getStateId(state));
                     player.world.setBlockToAir(blockPos);
                     block.breakBlock(player.world, blockPos, state);

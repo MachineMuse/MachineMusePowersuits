@@ -1,13 +1,23 @@
 package net.machinemuse.powersuits.common.config;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import net.machinemuse.powersuits.api.constants.MPSConfigConstants;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.powersuits.common.MPSItems;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorHelmet;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorLeggings;
+import net.machinemuse.powersuits.item.tool.ItemPowerFist;
+import net.minecraft.item.Item;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Config;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static net.machinemuse.numina.api.constants.NuminaConstants.*;
 import static net.machinemuse.powersuits.api.constants.MPSModConstants.MODID;
 
 @Config(modid = MODID, name = MPSConfigConstants.CONFIG_FILE)
@@ -39,9 +49,6 @@ public class MPSSettings {
         @Config.RangeDouble(min = 0)
         public double keybindHUDy = 32.0;
     }
-
-
-
 
     /**
      * A mixture of client and server side settings
@@ -100,27 +107,6 @@ public class MPSSettings {
         @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_HEAT_FEET)
         @Config.Comment("ItemModuleBase Heat Cap")
         public double baseMaxHeatFeet = 5.0;
-
-//        // Maximum number of modules
-//        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_MODULES_HELMET)
-//        @Config.Comment("Max number of modules")
-//        public int maxModulesHelmet = 20;
-//
-//        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_MODULES_CHESTPLATE)
-//        @Config.Comment("Max number of modules")
-//        public int maxModulesChestplate = 20;
-//
-//        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_MODULES_LEGGINGS)
-//        @Config.Comment("Max number of modules")
-//        public int maxModulesLeggings = 20;
-//
-//        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_MODULES_FEET)
-//        @Config.Comment("Max number of modules")
-//        public int maxModulesFeet = 20;
-//
-//        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_BASE_MAX_MODULES_POWERFIST)
-//        @Config.Comment("Max number of modules")
-//        public int maxModulesPowerFist = 20;
     }
 
     /**
@@ -247,6 +233,7 @@ public class MPSSettings {
             put( "advancedCoolingSystem.slotPoints.base", 1.0D );
             put( "aoePickUpgrade.aoeEnergyCon.base", 500.0D );
             put( "aoePickUpgrade.aoeEnergyCon.diameter.multiplier", 9500.0D );
+            put( "aoePickUpgrade.aoeMiningDiameter.diameter.multiplier", 5D);
             put( "aoePickUpgrade.slotPoints.base", 1.0D );
             put( "apiaristArmor.apiaristArmorEnergyCon.base", 100.0D );
             put( "apiaristArmor.slotPoints.base", 1.0D );
@@ -284,11 +271,6 @@ public class MPSSettings {
             put( "blinkDrive.blinkDriveRange.base", 5.0D );
             put( "blinkDrive.blinkDriveRange.range.multiplier", 59.0D );
             put( "blinkDrive.slotPoints.base", 1.0D );
-            put( "chisel.chiselEnergyCon.base", 500.0D );
-            put( "chisel.chiselEnergyCon.overclock.multiplier", 9500.0D );
-            put( "chisel.chiselHarvSpd.base", 8.0D );
-            put( "chisel.chiselHarvSpd.overclock.multiplier", 22.0D );
-            put( "chisel.slotPoints.base", 1.0D );
             put( "climbAssist.slotPoints.base", 1.0D );
             put( "clock.slotPoints.base", 1.0D );
             put( "compass.slotPoints.base", 1.0D );
@@ -312,6 +294,7 @@ public class MPSSettings {
             put( "flintAndSteel.slotPoints.base", 1.0D );
             put( "fortuneModule.fortuneEnCon.base", 500.0D );
             put( "fortuneModule.fortuneEnCon.enchLevel.multiplier", 9500.0D );
+            put( "fortuneModule.fortuneLevel.enchLevel.multiplier", 3D);
             put( "fortuneModule.slotPoints.base", 1.0D );
             put( "glider.slotPoints.base", 1.0D );
             put( "grafter.grafterEnergyCon.base", 10000.0D );
@@ -382,7 +365,6 @@ public class MPSSettings {
             put( "mobRepulsor.repulsorEnergyCon.base", 2500.0D );
             put( "mobRepulsor.slotPoints.base", 1.0D );
             put( "nightVision.slotPoints.base", 1.0D );
-            put( "omniProbe.slotPoints.base", 1.0D );
             put( "omniwrench.slotPoints.base", 1.0D );
             put( "oreScanner.slotPoints.base", 1.0D );
             put( "parachute.slotPoints.base", 1.0D );
@@ -518,5 +500,73 @@ public class MPSSettings {
         @Config.Comment("Max number of Mining Enhancement modules per Power Fist")
         @Config.RangeDouble(min = 0, max = 99)
         public int maxMiningEnhancementModules = 99;
+    }
+
+    public static Cosmetics cosmetics = new Cosmetics();
+    public static class Cosmetics {
+        @Config.Comment("Use legacy cosmetic configuration instead of cosmetic presets")
+        public boolean useLegacyCosmeticSystem=true;
+
+        //        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_ALLOW_CONFLICTING_KEYBINDS)
+        @Config.Comment("Allow high polly armor models instead of just skins")
+        public boolean allowHighPollyArmorModuels = true;
+
+        @Config.Comment("Allow PowerFist model to be customized")
+        public boolean allowPowerFistCustomization=false;
+
+        public void updateCosmeticInfo(ResourceLocation location, String name, NBTTagCompound cosmeticInfo) {
+            Item item = Item.REGISTRY.getObject(location);
+
+            if (item instanceof ItemPowerFist)
+                cosmeticPresetsPowerFist.put(name, cosmeticInfo);
+            else if (item instanceof ItemPowerArmorHelmet)
+                cosmeticPresetsPowerArmorHelmet.put(name, cosmeticInfo);
+            else if (item instanceof ItemPowerArmorChestplate)
+                cosmeticPresetsPowerArmorChestplate.put(name, cosmeticInfo);
+            else if (item instanceof ItemPowerArmorLeggings)
+                cosmeticPresetsPowerArmorLeggings.put(name, cosmeticInfo);
+            else if (item instanceof ItemPowerArmorBoots)
+                cosmeticPresetsPowerArmorBoots.put(name, cosmeticInfo);
+        }
+
+        @Config.Ignore
+        private BiMap<String, NBTTagCompound> cosmeticPresetsPowerFist = HashBiMap.create();
+        public BiMap<String, NBTTagCompound> getCosmeticPresetsPowerFist() {
+            if (cosmeticPresetsPowerFist.isEmpty() && !allowPowerFistCustomization)
+                cosmeticPresetsPowerFist = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerFist, 0);
+            return cosmeticPresetsPowerFist;
+        }
+
+        @Config.Ignore
+        private BiMap<String, NBTTagCompound> cosmeticPresetsPowerArmorHelmet = HashBiMap.create();
+        public BiMap<String, NBTTagCompound> getCosmeticPresetsPowerArmorHelmet() {
+            if (cosmeticPresetsPowerArmorHelmet.isEmpty() && !useLegacyCosmeticSystem)
+                cosmeticPresetsPowerArmorHelmet = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerArmorHead, 0);
+            return cosmeticPresetsPowerArmorHelmet;
+        }
+
+        @Config.Ignore
+        private BiMap<String, NBTTagCompound> cosmeticPresetsPowerArmorChestplate = HashBiMap.create();
+        public BiMap<String, NBTTagCompound> getCosmeticPresetsPowerArmorChestplate() {
+            if(cosmeticPresetsPowerArmorChestplate.isEmpty() && !useLegacyCosmeticSystem)
+                cosmeticPresetsPowerArmorChestplate = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerArmorTorso, 0);
+            return cosmeticPresetsPowerArmorChestplate;
+        }
+
+        @Config.Ignore
+        private BiMap<String, NBTTagCompound> cosmeticPresetsPowerArmorLeggings = HashBiMap.create();
+        public BiMap<String, NBTTagCompound> getCosmeticPresetsPowerArmorLeggings() {
+            if(cosmeticPresetsPowerArmorLeggings.isEmpty() && !useLegacyCosmeticSystem)
+                cosmeticPresetsPowerArmorLeggings = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerArmorLegs, 0);
+            return cosmeticPresetsPowerArmorLeggings;
+        }
+
+        @Config.Ignore
+        private BiMap<String, NBTTagCompound>  cosmeticPresetsPowerArmorBoots = HashBiMap.create();
+        public BiMap<String, NBTTagCompound> getCosmeticPresetsPowerArmorBoots() {
+            if(cosmeticPresetsPowerArmorBoots.isEmpty() && !useLegacyCosmeticSystem)
+                cosmeticPresetsPowerArmorBoots = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerArmorFeet, 0);
+            return cosmeticPresetsPowerArmorBoots;
+        }
     }
 }

@@ -1,19 +1,42 @@
 package net.machinemuse.numina.network;
 
-/**
- * Author: MachineMuse (Claire Semple)
- * Created: 9:20 PM, 9/6/13
- * <p>
- * Ported to Java by lehjr on 10/22/16.
- */
-public class NuminaPackets {
-    static final MusePacketHandler handler = MusePacketHandler.getInstance();
+import net.machinemuse.numina.common.constants.NuminaConstants;
+import net.machinemuse.numina.network.packets.MusePacketModeChangeRequest;
+import net.machinemuse.numina.network.packets.NuminaPacketConfig;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-    public static void init() {
-//        handler.addPackager(MusePacketNameChangeRequest.getPackagerInstance());
-        handler.addPackager(MusePacketModeChangeRequest.getPackagerInstance());
-        handler.addPackager(MusePacketModeChangeRequest.getPackagerInstance());
-        handler.addPackager(MusePacketRecipeUpdate.getPackagerInstance());
-        handler.addPackager(NuminaPacketConfig.getPackagerInstance());
+public class NuminaPackets {
+    public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(NuminaConstants.MODID);
+
+    public static void registerNuminaPackets() {
+        INSTANCE.registerMessage(NuminaPacketConfig.Handler.class, NuminaPacketConfig.class, 0, Side.CLIENT);
+        INSTANCE.registerMessage(MusePacketModeChangeRequest.Handler.class, MusePacketModeChangeRequest.class, 1, Side.SERVER);
+    }
+
+    public static void sendTo(IMessage message, EntityPlayerMP player) {
+        INSTANCE.sendTo(message, player);
+    }
+
+    public static void sendToAll(IMessage message) {
+        INSTANCE.sendToAll(message);
+    }
+
+    public static void sendToAllAround(IMessage message, Entity entity, double d) {
+        INSTANCE.sendToAllAround(message, new NetworkRegistry.TargetPoint(entity.dimension, entity.posX, entity.posY, entity.posZ, d));
+    }
+
+    public static void sendToDimension(IMessage message, int dim) {
+        INSTANCE.sendToDimension(message, dim);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void sendToServer(IMessage message) {
+        INSTANCE.sendToServer(message);
     }
 }

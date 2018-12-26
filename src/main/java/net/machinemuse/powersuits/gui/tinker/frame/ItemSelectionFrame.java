@@ -9,6 +9,7 @@ import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
+import net.machinemuse.numina.gui.scrollable.ScrollableFrame;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.SoundCategory;
 
@@ -21,6 +22,7 @@ public class ItemSelectionFrame extends ScrollableFrame {
     protected int selectedItemStack = -1;
     protected EntityPlayer player;
     protected List<MusePoint2D> itemPoints;
+    protected int lastItemSlot = -1;
 
     public ItemSelectionFrame(MusePoint2D topleft, MusePoint2D bottomright, Colour borderColour, Colour insideColour, EntityPlayer player) {
         super(topleft, bottomright, borderColour, insideColour);
@@ -28,6 +30,14 @@ public class ItemSelectionFrame extends ScrollableFrame {
         List<Integer> slots = MuseItemUtils.getModularItemSlotsInInventory(player);
         loadPoints(slots.size());
         loadItems();
+    }
+
+    public int getLastItemSlot() {
+        return lastItemSlot;
+    }
+
+    public int getSelectedItemSlot() {
+        return selectedItemStack;
     }
 
     private void loadPoints(int num) {
@@ -103,6 +113,14 @@ public class ItemSelectionFrame extends ScrollableFrame {
         return itemButtons.size() == 0;
     }
 
+    public ClickableItem getPreviousSelectedItem() {
+        if (itemButtons.size() > lastItemSlot && lastItemSlot != -1) {
+            return itemButtons.get(lastItemSlot);
+        } else {
+            return null;
+        }
+    }
+
     public ClickableItem getSelectedItem() {
         if (itemButtons.size() > selectedItemStack && selectedItemStack != -1) {
             return itemButtons.get(selectedItemStack);
@@ -116,6 +134,7 @@ public class ItemSelectionFrame extends ScrollableFrame {
         int i = 0;
         for (ClickableItem item : itemButtons) {
             if (item.hitBox(x, y)) {
+                lastItemSlot = selectedItemStack;
                 Musique.playClientSound(SoundDictionary.SOUND_EVENT_GUI_SELECT, SoundCategory.BLOCKS, 1, null);
                 selectedItemStack = i;
                 break;

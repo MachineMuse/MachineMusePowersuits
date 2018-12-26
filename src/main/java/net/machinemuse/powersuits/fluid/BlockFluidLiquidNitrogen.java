@@ -9,6 +9,6 @@ public class BlockFluidLiquidNitrogen extends BlockFluidFinite {
     public BlockFluidLiquidNitrogen() {
         super(MPSItems.liquidNitrogen, Material.WATER);
         setRegistryName(MPSModConstants.MODID, LiquidNitrogen.name.toLowerCase());
-        setUnlocalizedName(new StringBuilder(MPSModConstants.MODID).append(".").append(LiquidNitrogen.name).toString());
+        setTranslationKey(new StringBuilder(MPSModConstants.MODID).append(".").append(LiquidNitrogen.name).toString());
     }
 }

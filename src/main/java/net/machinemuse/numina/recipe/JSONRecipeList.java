@@ -24,8 +24,8 @@
 //
 //    private static FilenameFilter filter = new FilenameFilter() {
 //        @Override
-//        public boolean accept(File dir, String name) {
-//            return name.endsWith(".recipe") || name.endsWith(".recipes");
+//        public boolean accept(File dir, String id) {
+//            return id.endsWith(".recipe") || id.endsWith(".recipes");
 //        }
 //    };
 //

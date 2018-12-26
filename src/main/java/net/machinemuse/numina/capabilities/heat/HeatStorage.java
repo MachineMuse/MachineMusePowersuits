@@ -1,7 +1,5 @@
 package net.machinemuse.numina.capabilities.heat;
 
-import net.machinemuse.numina.api.heat.IHeatStorage;
-
 /**
  * Based on Forge Energy and CoHF RF, but using doubles and max heat value is only a safety threashold, not a cap
  */

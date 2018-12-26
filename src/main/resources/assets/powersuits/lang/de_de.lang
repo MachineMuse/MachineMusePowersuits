@@ -159,6 +159,7 @@ powersuits.tradeoff.efficiency=Effizienz
 powersuits.tradeoff.red=Rot
 powersuits.tradeoff.green=Grün
 powersuits.tradeoff.blue=Blau
+powersuits.tradeoff.alpha=Alpha
 powersuits.tradeoff.sprintAssist=Sprint-Assistent
 powersuits.tradeoff.compensation=Entschädigung
 powersuits.tradeoff.walkingAssist=Gehassistent
@@ -172,6 +173,7 @@ powersuits.tradeoff.diameter=Durchmesser
 powersuits.tradeoff.enchLevel=Verzauberungsstufe
 powersuits.tradeoff.fortuneEnCon=Fortune Energy Consumption
 powersuits.tradeoff.fortuneLevel=Fortune Level
+
 
 # Rüstung
 module.powersuits.leatherPlating.name=Lederüberzug
@@ -367,6 +369,15 @@ gui.powersuits.equippedTotals=Ausgestattete Summen
 gui.powersuits.energyStorage=Energiespeicher
 gui.powersuits.armor=Rüstung
 gui.powersuits.slotpoints=Slot-Punkte
+gui.powersuits.load=Load
+gui.powersuits.save=Save
+gui.powersuits.reset=Reset
+gui.powersuits.cancel=Cancel
+gui.powersuits.colourPrefix=Color:
+gui.powersuits.saveAs=Save as:
+gui.powersuits.new=New
+gui.powersuits.savesuccessful=Save Successful
+
 
 # Kurzinfo
 tooltip.powersuits.pressShift=Drücken Sie UMSCHALTTASTE für weitere Informationen.

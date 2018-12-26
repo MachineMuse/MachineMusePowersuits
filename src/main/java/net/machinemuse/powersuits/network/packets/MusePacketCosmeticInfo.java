@@ -1,28 +1,36 @@
 package net.machinemuse.powersuits.network.packets;
 
-import io.netty.buffer.ByteBufInputStream;
-import net.machinemuse.numina.api.constants.NuminaNBTConstants;
-import net.machinemuse.numina.api.item.IModularItem;
-import net.machinemuse.numina.network.IMusePackager;
-import net.machinemuse.numina.network.MusePacket;
+import io.netty.buffer.ByteBuf;
+import net.machinemuse.numina.common.constants.NuminaNBTConstants;
+import net.machinemuse.numina.item.IModularItem;
+import net.machinemuse.numina.network.MuseByteBufferUtils;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
+
+import java.util.Objects;
 
 /**
  * Author: MachineMuse (Claire Semple)
- * Created: 10:16 AM, 01/05/13
+ * Created: 12:28 PM, 5/6/13
  * <p>
  * Ported to Java by lehjr on 11/14/16.
  */
-public class MusePacketCosmeticInfo extends MusePacket {
+public class MusePacketCosmeticInfo implements IMessage {
     EntityPlayer player;
     int itemSlot;
     String tagName;
     NBTTagCompound tagData;
+
+    public MusePacketCosmeticInfo(){
+    }
 
     public MusePacketCosmeticInfo(EntityPlayer player, int itemSlot, String tagName, NBTTagCompound tagData) {
         this.player = player;
@@ -31,53 +39,61 @@ public class MusePacketCosmeticInfo extends MusePacket {
         this.tagData = tagData;
     }
 
-    public static MusePacketCosmeticInfoPackager getPackagerInstance() {
-        return MusePacketCosmeticInfoPackager.INSTANCE;
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        this.itemSlot = buf.readInt();
+        this.tagName = MuseByteBufferUtils.readUTF8String(buf);
+        this.tagData = MuseByteBufferUtils.readCompressedNBT(buf);
     }
 
     @Override
-    public IMusePackager packager() {
-        return getPackagerInstance();
+    public void toBytes(ByteBuf buf) {
+        buf.writeInt(itemSlot);
+        MuseByteBufferUtils.writeUTF8String(buf, tagName);
+        MuseByteBufferUtils.writeCompressedNBT(buf, tagData);
     }
 
-    @Override
-    public void write() {
-        writeInt(itemSlot);
-        writeString(tagName);
-        writeNBTTagCompound(tagData);
-    }
-
-    @Override
-    public void handleServer(EntityPlayerMP player) {
-        ItemStack stack = player.inventory.getStackInSlot(itemSlot);
-        if (tagName != null && !stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
-            NBTTagCompound renderTag;
-            if (!itemTag.hasKey(NuminaNBTConstants.TAG_RENDER)) {
-                renderTag = new NBTTagCompound();
-                itemTag.setTag(NuminaNBTConstants.TAG_RENDER, renderTag);
-            } else {
-                renderTag = itemTag.getCompoundTag(NuminaNBTConstants.TAG_RENDER);
-            }
-            if (tagData == null || tagData.hasNoTags()) {
-                MuseLogger.logDebug("Removing tag " + tagName);
-                renderTag.removeTag(tagName);
-            } else {
-                MuseLogger.logDebug("Adding tag " + tagName + " : " + tagData);
-                renderTag.setTag(tagName, tagData);
-            }
-        }
-    }
-
-    public enum MusePacketCosmeticInfoPackager implements IMusePackager {
-        INSTANCE;
-
+    public static class Handler implements IMessageHandler<MusePacketCosmeticInfo, IMessage> {
         @Override
-        public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
-            int itemSlot = readInt(datain);
-            String tagName = readString(datain);
-            NBTTagCompound tagData = readNBTTagCompound(datain);
-            return new MusePacketCosmeticInfo(player, itemSlot, tagName, tagData);
+        public IMessage onMessage(MusePacketCosmeticInfo message, MessageContext ctx) {
+            if (ctx.side == Side.SERVER) {
+                final EntityPlayerMP player = ctx.getServerHandler().player;
+                player.getServerWorld().addScheduledTask(() -> {
+                    int itemSlot = message.itemSlot;
+                    String tagName = message.tagName;
+                    NBTTagCompound tagData = message.tagData;
+                    ItemStack stack = player.inventory.getStackInSlot(itemSlot);
+
+                    if (tagName != null && stack.getItem() instanceof IModularItem) {
+                        NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
+                        itemTag.removeTag(NuminaNBTConstants.TAG_COSMETIC_PRESET);
+
+                        if (Objects.equals(tagName, NuminaNBTConstants.TAG_RENDER)) {
+                            itemTag.removeTag(NuminaNBTConstants.TAG_RENDER);
+                            if (!tagData.isEmpty())
+                                itemTag.setTag(NuminaNBTConstants.TAG_RENDER, tagData);
+                        } else {
+                            NBTTagCompound renderTag;
+                            if (!itemTag.hasKey(NuminaNBTConstants.TAG_RENDER)) {
+                                renderTag = new NBTTagCompound();
+                                itemTag.setTag(NuminaNBTConstants.TAG_RENDER, renderTag);
+                            } else {
+                                renderTag = itemTag.getCompoundTag(NuminaNBTConstants.TAG_RENDER);
+                            }
+                            if (tagData.isEmpty()) {
+                                MuseLogger.logDebug("Removing tag " + tagName);
+                                renderTag.removeTag(tagName);
+                            } else {
+                                MuseLogger.logDebug("Adding tag " + tagName + " : " + tagData);
+                                renderTag.setTag(tagName, tagData);
+                            }
+                        }
+                    }
+                });
+            } else {
+
+            }
+            return null;
         }
     }
 }

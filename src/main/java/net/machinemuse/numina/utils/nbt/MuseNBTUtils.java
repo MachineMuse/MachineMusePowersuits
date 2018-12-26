@@ -1,13 +1,13 @@
 package net.machinemuse.numina.utils.nbt;
 
-import net.machinemuse.numina.api.constants.NuminaNBTConstants;
+import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import static net.machinemuse.numina.api.constants.NuminaNBTConstants.TAG_ITEM_PREFIX;
+import static net.machinemuse.numina.common.constants.NuminaNBTConstants.TAG_ITEM_PREFIX;
 
 public class MuseNBTUtils {
 

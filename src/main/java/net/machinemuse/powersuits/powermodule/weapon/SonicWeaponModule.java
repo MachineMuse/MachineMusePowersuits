@@ -1,7 +1,7 @@
 //package net.machinemuse.powersuits.powermodule.weapon;
 //
-//import net.machinemuse.numina.api.item.IModularItem;
-//import net.machinemuse.numina.api.module.IRightClickModule;
+//import net.machinemuse.numina.item.IModularItem;
+//import net.machinemuse.numina.module.IRightClickModule;
 //import net.machinemuse.powersuits.client.event.MuseIcon;
 //import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 //import net.machinemuse.powersuits.utils.MuseCommonStrings;

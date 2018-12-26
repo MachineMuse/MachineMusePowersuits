@@ -1,9 +1,9 @@
 package net.machinemuse.numina.utils.render;
 
-import net.machinemuse.numina.api.gui.IClickable;
 import net.machinemuse.numina.client.render.BillboardHelper;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
 import net.machinemuse.numina.client.render.RenderState;
+import net.machinemuse.numina.gui.IClickable;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.SwirlyMuseCircle;
@@ -22,7 +22,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.List;
 
-import static net.machinemuse.numina.api.constants.NuminaConstants.LIGHTNING_TEXTURE;
+import static net.machinemuse.numina.common.constants.NuminaConstants.LIGHTNING_TEXTURE;
 
 /**
  * Contains a bunch of random OpenGL-related functions, accessed statically.
@@ -89,6 +89,11 @@ public abstract class MuseRenderer {
     public static void drawRightAlignedString(String s, double x, double y) {
         drawString(s, x - getStringWidth(s), y);
     }
+
+    public static void drawLeftAlignedStringString(String s, double x, double y) {
+        drawString(s, x, y);
+    }
+
 
     public static double getStringWidth(String s) {
         double val;

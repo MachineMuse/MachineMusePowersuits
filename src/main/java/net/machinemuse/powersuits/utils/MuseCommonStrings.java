@@ -1,9 +1,9 @@
 package net.machinemuse.powersuits.utils;
 
-import net.machinemuse.numina.api.constants.NuminaNBTConstants;
-import net.machinemuse.numina.api.energy.adapter.ElectricAdapter;
-import net.machinemuse.numina.api.item.IModeChangingItem;
-import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.numina.capabilities.energy.adapter.ElectricAdapter;
+import net.machinemuse.numina.common.constants.NuminaNBTConstants;
+import net.machinemuse.numina.item.IModeChangingItem;
+import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
@@ -32,7 +32,7 @@ public abstract class MuseCommonStrings {
      * @param stack            The itemstack to get the tooltip for
      * @param worldIn          The world (unused)
      * @param currentTipList   A list of strings containing the existing tooltip. When
-     *                         passed, it will just contain the name of the item;
+     *                         passed, it will just contain the id of the item;
      *                         enchantments and lore are
      *                         appended afterwards.
      * @param advancedToolTips Whether or not the player has 'advanced tooltips' turned on in

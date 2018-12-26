@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
 import com.google.common.collect.ImmutableMap;
-import net.machinemuse.numina.api.constants.NuminaNBTConstants;
+import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.client.model.obj.OBJModelPlus;

@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.gui;
 
-import net.machinemuse.numina.api.gui.IClickable;
+import net.machinemuse.numina.gui.IClickable;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.DrawableMuseRect;
 import net.machinemuse.numina.utils.render.MuseRenderer;
-import net.machinemuse.powersuits.gui.tinker.frame.IGuiFrame;
+import net.machinemuse.numina.gui.frame.IGuiFrame;
 import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;

@@ -1,9 +1,8 @@
 package net.machinemuse.numina.utils.energy;
 
-import net.machinemuse.numina.api.energy.adapter.ElectricAdapter;
+import net.machinemuse.numina.capabilities.energy.adapter.ElectricAdapter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;

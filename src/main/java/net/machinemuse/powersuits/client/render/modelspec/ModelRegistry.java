@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
 import com.google.common.collect.ImmutableMap;
-import net.machinemuse.numina.api.constants.NuminaNBTConstants;
+import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.map.MuseRegistry;
 import net.machinemuse.powersuits.client.model.obj.OBJModelPlus;
@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
  * <p>
  * Note: make sure to have null checks in place.
  */
-@SideOnly(Side.CLIENT)
+//@SideOnly(Side.CLIENT)
 public class ModelRegistry extends MuseRegistry<SpecBase> {
     private static volatile ModelRegistry INSTANCE;
 
@@ -46,8 +46,8 @@ public class ModelRegistry extends MuseRegistry<SpecBase> {
     }
 
     public static OBJModelPlus getIModel(ResourceLocation location, int attempt) {
-        String domain = location.getResourceDomain();
-        String resourePath = location.getResourcePath().replaceFirst("^models/models", "models");
+        String domain = location.getNamespace();
+        String resourePath = location.getPath().replaceFirst("^models/models", "models");
 
         location = new ResourceLocation(domain, resourePath);
         IModel model;
@@ -61,7 +61,7 @@ public class ModelRegistry extends MuseRegistry<SpecBase> {
                 MuseLogger.logError("Model loading failed on attempt #" + attempt + "  :( " + location.toString());
             } else
                 return (OBJModelPlus) model;
-            MuseLogger.logError("Failed to load model. " + e);
+            MuseLogger.logError("Failed to loadButton model. " + e);
         }
         return (OBJModelPlus) model;
     }

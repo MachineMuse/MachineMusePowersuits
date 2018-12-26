@@ -1,12 +1,13 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
-import net.machinemuse.numina.api.constants.NuminaNBTConstants;
+import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.ModuleManager;
+import net.machinemuse.numina.gui.scrollable.ScrollableFrame;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.minecraft.client.resources.I18n;
@@ -19,7 +20,6 @@ import java.util.List;
 public class DetailedSummaryFrame extends ScrollableFrame {
     public static final double SCALEFACTOR = 1;
     protected EntityPlayer player;
-    protected double weight;
     protected int slotPoints;
     protected int energy;
     protected double armor;

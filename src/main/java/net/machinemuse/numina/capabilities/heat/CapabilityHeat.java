@@ -1,7 +1,6 @@
 package net.machinemuse.numina.capabilities.heat;
 
-import net.machinemuse.numina.api.constants.NuminaNBTConstants;
-import net.machinemuse.numina.api.heat.IHeatStorage;
+import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;

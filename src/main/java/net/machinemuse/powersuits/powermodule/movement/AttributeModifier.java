@@ -16,15 +16,15 @@
 //    final UUID uuid;
 //    final double amount;
 //    final String attributeName;
-//    final String name;
+//    final String id;
 //    final EntityEquipmentSlot slot;
 //
-//    public AttributeModifier(int operation, UUID uuid, double amount, String attributeName, String name, EntityEquipmentSlot slotIn) {
+//    public AttributeModifier(int operation, UUID uuid, double amount, String attributeName, String id, EntityEquipmentSlot slotIn) {
 //        this.operation = operation;
 //        this.uuid = uuid;
 //        this.amount = amount;
 //        this.attributeName = attributeName;
-//        this.name = name;
+//        this.id = id;
 //        this.slot = slotIn;
 //    }
 //
@@ -33,7 +33,7 @@
 //        this.uuid = new UUID(nbt);
 //        this.amount = nbt.getDouble("Amount");
 //        this.attributeName = nbt.getString("AttributeName");
-//        this.name = nbt.getString("Name");
+//        this.id = nbt.getString("Name");
 //        this.slot = EntityEquipmentSlot.fromString(!Objects.equals(nbt.getString("Slot"), "") ? nbt.getString("Slot").toLowerCase() : "legs" );
 //    }
 //
@@ -42,7 +42,7 @@
 //        uuid.toNBT(nbt);
 //        nbt.setDouble("Amount", amount);
 //        nbt.setString("AttributeName", attributeName);
-//        nbt.setString("Name", name);
+//        nbt.setString("Name", id);
 //        nbt.setString("Slot", slot.getName());
 //        return nbt;
 //    }

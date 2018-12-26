@@ -47,36 +47,36 @@
 //        }
 //
 //        if (itemStackName != null) {
-//            MuseLogger.logDebug("ItemStack name is: " + itemStackName);
+//            MuseLogger.logDebug("ItemStack id is: " + itemStackName);
 //            try {
 //                ItemStack stack = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(itemStackName)), newquantity);
 //                if(this.meta != null) stack.setItemDamage(meta);
 //                if(nbt != null) stack.setTagCompound(nbt);
 //                return stack;
 //            } catch (Exception e) {
-//                MuseLogger.logError("Unable to load " + itemStackName + " from Item Registry");
+//                MuseLogger.logError("Unable to loadButton " + itemStackName + " from Item Registry");
 //                return null;
 //            }
 //        } else if (registryName != null) {
 //            String[] names = registryName.split(":");
-//            MuseLogger.logDebug("registry name is: " + registryName);
+//            MuseLogger.logDebug("registry id is: " + registryName);
 //            try {
 //                ItemStack stack = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(names[0], names[1])), newquantity, newmeta);
 //                if(nbt != null) stack.setTagCompound(nbt);
 //                return stack;
 //            } catch (Exception e) {
-//                MuseLogger.logError("Unable to load " + registryName + " from Item Registry");
+//                MuseLogger.logError("Unable to loadButton " + registryName + " from Item Registry");
 //                return null;
 //            }
 //        } else if (oredictName != null) {
-//            MuseLogger.logDebug("oredict name is: " + oredictName);
+//            MuseLogger.logDebug("oredict id is: " + oredictName);
 //            try {
 //                ItemStack stack = OreDictionary.getOres(oredictName).get(0).copy();
 //                stack.setCount(Math.min(newquantity, stack.getMaxStackSize()));
 //                if(nbt != null) stack.setTagCompound(nbt);
 //                return stack;
 //            } catch (Exception e) {
-//                MuseLogger.logError("Unable to load " + oredictName + " from oredict");
+//                MuseLogger.logError("Unable to loadButton " + oredictName + " from oredict");
 //                return null;
 //            }
 //        } else {

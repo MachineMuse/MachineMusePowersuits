@@ -155,6 +155,7 @@ powersuits.tradeoff.efficiency=Эффективность
 powersuits.tradeoff.red=Красный
 powersuits.tradeoff.green=Зеленый
 powersuits.tradeoff.blue=синий
+powersuits.tradeoff.alpha=Alpha
 powersuits.tradeoff.sprintAssist=Sprint Assist
 powersuits.tradeoff.compensation=Компенсация
 powersuits.tradeoff.walkingAssist=Walking Assist
@@ -169,6 +170,7 @@ powersuits.tradeoff.enchLevel=Уровень зачарования
 powersuits.tradeoff.fortuneEnCon=Потребление энергии в Fortune
 powersuits.tradeoff.fortuneLevel=Уровень удачи
 
+
 # Armor
 module.powersuits.leatherPlating.name=Кожаная обшивка
 module.powersuits.leatherPlating.desc=Кожаная обшивка светлая, но немного защищена.
@@ -178,6 +180,7 @@ module.powersuits.diamondPlating.name=Алмазная обшивка
 module.powersuits.diamondPlating.desc=Продвинутая обшивка легче, прочнее и защищает ещё лучше основной, но её непросто получить.
 module.powersuits.energyShield.name=Энергетический щит
 module.powersuits.energyShield.desc=Энергетические щиты намного легче обшивок, но потребляют энергию.
+
 module.powersuits.transparentArmor.name=Прозрачная броня
 module.powersuits.transparentArmor.desc=Делает броню прозрачной, позволяя другим игрокам увидеть Ваш скин без потери брони.
 
@@ -355,6 +358,15 @@ gui.powersuits.equippedTotals=Экипировано
 gui.powersuits.energyStorage=Хранилище энергии
 gui.powersuits.armor=Броня
 gui.powersuits.slotpoints=Точки шлица
+gui.powersuits.load=Load
+gui.powersuits.save=Save
+gui.powersuits.reset=Reset
+gui.powersuits.cancel=Cancel
+gui.powersuits.colourPrefix=Color:
+gui.powersuits.saveAs=Save as:
+gui.powersuits.new=New
+gui.powersuits.savesuccessful=Save Successful
+
 
 tooltip.powersuits.pressShift=Нажмите SHIFT для получения дополнительной информации.
 tooltip.powersuits.componentTooltip=Для использования в таблице Tinker.

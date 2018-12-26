@@ -1,6 +1,9 @@
 package net.machinemuse.powersuits.powermodule.mining_enhancement;
 
-import net.machinemuse.numina.api.module.*;
+import net.machinemuse.numina.module.EnumModuleCategory;
+import net.machinemuse.numina.module.EnumModuleTarget;
+import net.machinemuse.numina.module.IEnchantmentModule;
+import net.machinemuse.numina.module.IMiningEnhancementModule;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
@@ -9,7 +12,6 @@ import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;

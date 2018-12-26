@@ -1,11 +1,11 @@
 package net.machinemuse.powersuits.powermodule.weapon;
 
-import net.machinemuse.numina.api.module.EnumModuleCategory;
-import net.machinemuse.numina.api.module.EnumModuleTarget;
+import net.machinemuse.numina.module.EnumModuleCategory;
+import net.machinemuse.numina.module.EnumModuleTarget;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;

@@ -48,7 +48,7 @@
 //    static LoadingCache<Colour, List<BakedQuad>> armorHeadIconCache = CacheBuilder.newBuilder()
 //            .maximumSize(100)
 //            .build(new CacheLoader<Colour, List<BakedQuad>>() {
-//                public List<BakedQuad> load(Colour colour) { // no checked exception //  throws Exception {
+//                public List<BakedQuad> loadButton(Colour colour) { // no checked exception //  throws Exception {
 //                    return ModelHelper.getColoredQuads(headIconModel.getQuads(null, null,0), colour);
 //                }
 //            });
@@ -56,7 +56,7 @@
 //    static LoadingCache<Colour, List<BakedQuad>> armorChestIconCache = CacheBuilder.newBuilder()
 //            .maximumSize(100)
 //            .build(new CacheLoader<Colour, List<BakedQuad>>() {
-//                public List<BakedQuad> load(Colour colour) { // no checked exception //  throws Exception {
+//                public List<BakedQuad> loadButton(Colour colour) { // no checked exception //  throws Exception {
 //                    return ModelHelper.getColoredQuads(chestIconModel.getQuads(null, null,0), colour);
 //                }
 //            });
@@ -64,7 +64,7 @@
 //    static LoadingCache<Colour, List<BakedQuad>> armorLegsIconCache = CacheBuilder.newBuilder()
 //            .maximumSize(100)
 //            .build(new CacheLoader<Colour, List<BakedQuad>>() {
-//                public List<BakedQuad> load(Colour colour) { // no checked exception //  throws Exception {
+//                public List<BakedQuad> loadButton(Colour colour) { // no checked exception //  throws Exception {
 //                    return ModelHelper.getColoredQuads(legsIconModel.getQuads(null, null,0), colour);
 //                }
 //            });
@@ -72,7 +72,7 @@
 //    static LoadingCache<Colour, List<BakedQuad>> armorFeetIconCache = CacheBuilder.newBuilder()
 //            .maximumSize(100)
 //            .build(new CacheLoader<Colour, List<BakedQuad>>() {
-//                public List<BakedQuad> load(Colour colour) { // no checked exception //  throws Exception {
+//                public List<BakedQuad> loadButton(Colour colour) { // no checked exception //  throws Exception {
 //                    return ModelHelper.getColoredQuads(feetIconModel.getQuads(null, null,0), colour);
 //                }
 //            });

@@ -1,50 +1,39 @@
 package net.machinemuse.powersuits.network.packets;
 
-import io.netty.buffer.ByteBufInputStream;
-import net.machinemuse.numina.network.IMusePackager;
-import net.machinemuse.numina.network.MusePacket;
+import io.netty.buffer.ByteBuf;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.common.config.MPSServerSettings;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 /**
  * Sync settings between server and client
  */
-public class MPSPacketConfig extends MusePacket {
-    EntityPlayer player;
+public class MPSPacketConfig implements IMessage {
+    public MPSPacketConfig() {
 
-    public MPSPacketConfig(EntityPlayer playerIn) {
-        player = playerIn;
     }
 
-    public static MPSPacketConfigPackager getPackagerInstance() {
-        return MPSPacketConfigPackager.INSTANCE;
-    }
-
+    // read settings from packet
     @Override
-    public IMusePackager packager() {
-        return MPSPacketConfigPackager.INSTANCE;
+    public void fromBytes(ByteBuf buf) {
+        MPSServerSettings settings = new MPSServerSettings(buf);
+        MPSConfig.INSTANCE.setServerSettings(settings);
     }
 
+    // write values to packet to send to the client
     @Override
-    public void write() {
+    public void toBytes(ByteBuf buf) {
         if (MPSConfig.INSTANCE.getServerSettings() == null)
             MPSConfig.INSTANCE.setServerSettings(new MPSServerSettings());
-        // write values to packet to send to the client
-        MPSConfig.INSTANCE.getServerSettings().writeToBuffer(this);
+        MPSConfig.INSTANCE.getServerSettings().writeToBuffer(buf);
     }
 
-    public enum MPSPacketConfigPackager implements IMusePackager {
-        INSTANCE;
-
-        // The packet is read on the client side to copy the settings from the server to the client
-        MPSServerSettings settings;
-
+    public static class Handler implements IMessageHandler<MPSPacketConfig, IMessage> {
         @Override
-        public MusePacket read(ByteBufInputStream datain, EntityPlayer player) {
-            settings = new MPSServerSettings(datain);
-            MPSConfig.INSTANCE.setServerSettings(settings);
-            return new MPSPacketConfig(player);
+        public IMessage onMessage(MPSPacketConfig message, MessageContext ctx) {
+            return null;
         }
     }
 }

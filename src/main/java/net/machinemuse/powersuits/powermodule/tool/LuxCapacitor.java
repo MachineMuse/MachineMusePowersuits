@@ -1,14 +1,14 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
-import net.machinemuse.numina.api.module.EnumModuleCategory;
-import net.machinemuse.numina.api.module.EnumModuleTarget;
-import net.machinemuse.numina.api.module.IRightClickModule;
+import net.machinemuse.numina.module.EnumModuleCategory;
+import net.machinemuse.numina.module.EnumModuleTarget;
+import net.machinemuse.numina.module.IRightClickModule;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;

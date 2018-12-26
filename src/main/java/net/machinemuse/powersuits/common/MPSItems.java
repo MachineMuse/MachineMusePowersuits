@@ -75,8 +75,8 @@ public enum MPSItems {
     }
 
     private static Item initItem(Item item, String regName, String unlocalizedName) {
-        // including the ModID in the unlocalized name helps keep the names unique so they can be used as keys for maps
-        item.setUnlocalizedName(new StringBuilder(MODID).append(".").append(unlocalizedName).toString());
+        // including the ModID in the unlocalized id helps keep the names unique so they can be used as keys for maps
+        item.setTranslationKey(new StringBuilder(MODID).append(".").append(unlocalizedName).toString());
         item.setRegistryName(new ResourceLocation(MODID, regName));
         return item;
     }

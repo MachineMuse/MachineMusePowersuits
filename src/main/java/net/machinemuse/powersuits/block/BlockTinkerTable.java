@@ -42,7 +42,7 @@ public class BlockTinkerTable extends BlockHorizontal {
         setLightLevel(0.4f);
         setTickRandomly(false);
         setRegistryName(MPSModConstants.MODID, name.toLowerCase());
-        setUnlocalizedName(new StringBuilder(MPSModConstants.MODID).append(".").append(name).toString());
+        setTranslationKey(new StringBuilder(MPSModConstants.MODID).append(".").append(name).toString());
         setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
         GameRegistry.registerTileEntity(TileEntityTinkerTable.class, getRegistryName());
     }
@@ -54,7 +54,7 @@ public class BlockTinkerTable extends BlockHorizontal {
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
+        return this.getDefaultState().withProperty(FACING, EnumFacing.byHorizontalIndex(meta));
     }
 
     @Override

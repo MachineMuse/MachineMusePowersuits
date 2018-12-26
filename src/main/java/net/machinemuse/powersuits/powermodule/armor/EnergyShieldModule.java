@@ -1,16 +1,15 @@
 package net.machinemuse.powersuits.powermodule.armor;
 
-import net.machinemuse.numina.api.constants.NuminaNBTConstants;
-import net.machinemuse.numina.api.module.EnumModuleCategory;
-import net.machinemuse.numina.api.module.EnumModuleTarget;
+import net.machinemuse.numina.common.constants.NuminaNBTConstants;
+import net.machinemuse.numina.module.EnumModuleCategory;
+import net.machinemuse.numina.module.EnumModuleTarget;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.event.MuseIcon;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 
 public class EnergyShieldModule extends PowerModuleBase {

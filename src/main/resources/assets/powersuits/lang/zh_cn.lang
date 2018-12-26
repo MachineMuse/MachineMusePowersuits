@@ -164,6 +164,7 @@ powersuits.tradeoff.red=红
 powersuits.tradeoff.green=绿
 powersuits.tradeoff.blue=蓝
 powersuits.tradeoff.sprintAssist=冲刺辅助
+powersuits.tradeoff.alpha=Alpha
 powersuits.tradeoff.compensation=补偿
 powersuits.tradeoff.walkingAssist=步行辅助
 powersuits.tradeoff.vertically=垂直
@@ -373,6 +374,15 @@ gui.powersuits.equippedTotals=装备总计
 gui.powersuits.energyStorage=能量存储
 gui.powersuits.armor=护甲
 gui.powersuits.slotpoints=槽点
+gui.powersuits.load=Load
+gui.powersuits.save=Save
+gui.powersuits.reset=Reset
+gui.powersuits.cancel=Cancel
+gui.powersuits.colourPrefix=Color:
+gui.powersuits.saveAs=Save as:
+gui.powersuits.new=New
+gui.powersuits.savesuccessful=Save Successful
+
 
 # Toooltips
 tooltip.powersuits.pressShift=按下 Shift 显示更多内容。
@@ -436,7 +446,13 @@ model.armor2.armglow1.partName=肩灯
 model.armor2.armmain1.partName=手臂-肩部保护
 model.armor2.armgray1.partName=手臂基件
 model.armor2.armglow.partName=肩灯
-model.armor2.armmain.partName=手臂-肩部保护
+model.armor2.armmain.partName=手臂-肩部保护=======
+169
+ 
+powersuits.tradeoff.alpha=Alpha
+170
+ 
+powersuits.tradeoff.sprintAssist=Sprint Assist
 model.armor2.armgray.partName=手臂基件
 model.armor2.leggray.partName=左腿基件
 model.armor2.legbit.partName=左腿保护
@@ -522,6 +538,7 @@ model.powerfist_left.wristbottomleft.partName=左下腕部
 model.powerfist_left.fingerguard.partName=指套
 model.powerfist_left.crystalholder.partName=水晶固定器
 model.powerfist_left.crystal.partName=水晶
+
 model.powerfist_left.supportright1.partName=右部支架 1
 model.powerfist_left.supportright2.partName=右部支架 2
 model.powerfist_left.supportright3.partName=右部支架 3

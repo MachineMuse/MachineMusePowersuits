@@ -183,9 +183,9 @@ public class ModelHelper {
 //                    if (part.isPresent()) {
 //                        UnmodifiableIterator<String> parts = Models.getParts(part.get());
 //                        if (parts.hasNext()) {
-//                            String name = parts.next();
+//                            String id = parts.next();
 //                            // only interested in the root level
-//                            if (!parts.hasNext() && hiddenIn.contains(name)) return getValue;
+//                            if (!parts.hasNext() && hiddenIn.contains(id)) return getValue;
 //                        }
 //                    }
 //                    return java.util.Optional.empty();
@@ -202,8 +202,8 @@ public class ModelHelper {
 
 
     public static IModel getIModel(ResourceLocation location, int attempt) {
-        String domain = location.getResourceDomain();
-        String resourePath = location.getResourcePath().replaceFirst("^models/models", "models");
+        String domain = location.getNamespace();
+        String resourePath = location.getPath().replaceFirst("^models/models", "models");
 
         location = new ResourceLocation(domain, resourePath);
         IModel model;
@@ -216,7 +216,7 @@ public class ModelHelper {
                 model = getIModel(location, attempt + 1);
                 MuseLogger.logError("Model loading failed on attempt #" + attempt + "  :( " + location.toString());
             } else {
-                MuseLogger.logError("Failed to load model. " + e);
+                MuseLogger.logError("Failed to loadButton model. " + e);
                 return getOBJModel(location, 0);
             }
         }
@@ -224,8 +224,8 @@ public class ModelHelper {
     }
 
     public static IModel getOBJModel(ResourceLocation location, int attempt) {
-        String domain = location.getResourceDomain();
-        String resourePath = location.getResourcePath().replaceFirst("^models/models", "models");
+        String domain = location.getNamespace();
+        String resourePath = location.getPath().replaceFirst("^models/models", "models");
 
         location = new ResourceLocation(domain, resourePath);
         IModel model;
@@ -239,7 +239,7 @@ public class ModelHelper {
                 MuseLogger.logError("Model loading failed on attempt #" + attempt + "  :( " + location.toString());
             } else
                 return model;
-            MuseLogger.logError("Failed to load model. " + e);
+            MuseLogger.logError("Failed to loadButton model. " + e);
         }
         return model;
     }

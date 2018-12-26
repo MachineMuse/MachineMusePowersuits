@@ -1,13 +1,13 @@
 package net.machinemuse.powersuits.gui.tinker.clickable;
 
-import net.machinemuse.numina.api.gui.IClickable;
-import net.machinemuse.numina.network.PacketSender;
+import net.machinemuse.numina.gui.IClickable;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.KeybindManager;
+import net.machinemuse.powersuits.network.MPSPackets;
 import net.machinemuse.powersuits.network.packets.MusePacketToggleRequest;
 import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.minecraft.client.Minecraft;
@@ -72,8 +72,7 @@ public class ClickableKeybinding extends ClickableButton {
                 player.sendMessage(new TextComponentString("Toggled " + module.getModule().getDataName() + valstring));
             }
             ModuleManager.INSTANCE.toggleModuleForPlayer(player, module.getModule().getDataName(), toggleval);
-            MusePacketToggleRequest toggleRequest = new MusePacketToggleRequest(player, module.getModule().getDataName(), toggleval);
-            PacketSender.sendToServer(toggleRequest);
+            MPSPackets.sendToServer(new MusePacketToggleRequest(player, module.getModule().getDataName(), toggleval));
         }
         toggleval = !toggleval;
     }

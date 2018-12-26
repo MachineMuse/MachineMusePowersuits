@@ -1,15 +1,15 @@
 package net.machinemuse.powersuits.item;
 
-import net.machinemuse.numina.api.constants.NuminaNBTConstants;
-import net.machinemuse.numina.api.energy.adapter.IMuseElectricItem;
-import net.machinemuse.numina.api.item.IModularItem;
-import net.machinemuse.numina.api.module.IModuleManager;
+import net.machinemuse.numina.capabilities.energy.adapter.IMuseElectricItem;
+import net.machinemuse.numina.common.constants.NuminaNBTConstants;
+import net.machinemuse.numina.item.IModularItem;
+import net.machinemuse.numina.module.IModuleManager;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
-import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.client.render.modelspec.ModelRegistry;
 import net.machinemuse.powersuits.client.render.modelspec.TexturePartSpec;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
@@ -39,7 +39,8 @@ public interface IModularItemBase extends IModularItem, IMuseElectricItem {
                 NBTTagCompound specTag = renderTag.getCompoundTag(MPSNBTConstants.NBT_TEXTURESPEC_TAG);
                 int index = partSpec.getColourIndex(specTag);
                 int[] colours = renderTag.getIntArray(NuminaNBTConstants.TAG_COLOURS);
-                return new Colour(colours[index]);
+                if (colours.length > index)
+                    return new Colour(colours[index]);
             }
         } catch (Exception e) {
             MuseLogger.logException("something failed here: ", e);

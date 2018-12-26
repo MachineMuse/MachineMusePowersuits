@@ -99,7 +99,7 @@ public class NuminaShapedRecipe extends ShapedRecipes {
     private static int firstNonSpace(String str) {
         int i;
         for (i = 0; i < str.length() && str.charAt(i) == ' '; ++i) {
-            ;
+
         }
         return i;
     }
@@ -107,7 +107,7 @@ public class NuminaShapedRecipe extends ShapedRecipes {
     private static int lastNonSpace(String str) {
         int i;
         for (i = str.length() - 1; i >= 0 && str.charAt(i) == ' '; --i) {
-            ;
+
         }
         return i;
     }

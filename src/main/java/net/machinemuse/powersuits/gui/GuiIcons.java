@@ -45,7 +45,7 @@ public class GuiIcons {
             double s = size / 16.0;
             GL11.glScaled(s, s, s);
 
-            MuseIconUtils.drawIconPartialOccluded(x / s, y / s, new GuiIconDrawer(filepath) /* FIXME: this will need to be changed to a reference or name */, this.c, this.xmin / s, this.ymin / s, this.xmax / s, this.ymax / s);
+            MuseIconUtils.drawIconPartialOccluded(x / s, y / s, new GuiIconDrawer(filepath) /* FIXME: this will need to be changed to a reference or id */, this.c, this.xmin / s, this.ymin / s, this.xmax / s, this.ymax / s);
             RenderState.blendingOff();
             GL11.glPopMatrix();
             MuseTextureUtils.popTexture();

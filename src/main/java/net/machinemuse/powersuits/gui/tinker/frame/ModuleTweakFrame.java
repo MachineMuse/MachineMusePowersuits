@@ -1,10 +1,8 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
-import net.machinemuse.numina.api.module.IPowerModule;
-import net.machinemuse.numina.api.nbt.IPropertyModifier;
-import net.machinemuse.numina.api.nbt.PropertyModifierLinearAdditiveDouble;
-import net.machinemuse.numina.network.MusePacket;
-import net.machinemuse.numina.network.PacketSender;
+import net.machinemuse.numina.module.IPowerModule;
+import net.machinemuse.numina.nbt.IPropertyModifier;
+import net.machinemuse.numina.nbt.PropertyModifierLinearAdditiveDouble;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
@@ -13,6 +11,8 @@ import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableTinkerSlider;
+import net.machinemuse.numina.gui.scrollable.ScrollableFrame;
+import net.machinemuse.powersuits.network.MPSPackets;
 import net.machinemuse.powersuits.network.packets.MusePacketTweakRequestDouble;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.MuseStringUtils;
@@ -126,7 +126,8 @@ public class ModuleTweakFrame extends ScrollableFrame {
             ClickableTinkerSlider slider = new ClickableTinkerSlider(
                     center,
                     border.right() - border.left() - 8,
-                    moduleTag, tweak);
+                    moduleTag,
+                    tweak, I18n.format(MPSModuleConstants.MODULE_TRADEOFF_PREFIX + tweak));
             sliders.add(slider);
             if (selectedSlider != null && slider.hitBox(center.getX(), center.getY())) {
                 selectedSlider = slider;
@@ -154,8 +155,8 @@ public class ModuleTweakFrame extends ScrollableFrame {
         if (selectedSlider != null && itemTarget.getSelectedItem() != null && moduleTarget.getSelectedModule() != null) {
             ClickableItem item = itemTarget.getSelectedItem();
             IPowerModule module = moduleTarget.getSelectedModule().getModule();
-            MusePacket tweakRequest = new MusePacketTweakRequestDouble(player, item.inventorySlot, module.getDataName(), selectedSlider.name(), selectedSlider.getValue());
-            PacketSender.sendToServer(tweakRequest.getPacket131());
+            MPSPackets.sendToServer(
+                    new MusePacketTweakRequestDouble(player, item.inventorySlot, module.getDataName(), selectedSlider.id(), selectedSlider.getValue()));
         }
         if (button == 0) {
             selectedSlider = null;

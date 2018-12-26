@@ -1,6 +1,6 @@
 package net.machinemuse.numina.common;
 
-import net.machinemuse.numina.api.constants.NuminaConstants;
+import net.machinemuse.numina.common.constants.NuminaConstants;
 import net.machinemuse.numina.common.proxy.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -23,7 +23,8 @@ public enum Numina {
     INSTANCE;
 
     public static File configDir = null;
-    @SidedProxy(clientSide = "net.machinemuse.numina.common.proxy.ClientProxy", serverSide = "net.machinemuse.numina.common.proxy.ServerProxy")
+
+    @SidedProxy(clientSide = "net.machinemuse.numina.common.proxy.ClientProxy", serverSide = "net.machinemuse.numina.common.proxy.CommonProxy")
     static CommonProxy proxy;
 
     @Nonnull
@@ -35,13 +36,11 @@ public enum Numina {
     @Mod.EventHandler
     private void preInit(FMLPreInitializationEvent event) {
         proxy.preInit(event);
-
     }
 
     @Mod.EventHandler
     private void init(FMLInitializationEvent event) {
         proxy.init(event);
-
     }
 
     @Mod.EventHandler

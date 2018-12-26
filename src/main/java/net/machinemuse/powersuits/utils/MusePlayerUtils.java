@@ -1,15 +1,15 @@
 package net.machinemuse.powersuits.utils;
 
 import com.enderio.core.common.transform.EnderCoreMethods;
-import net.machinemuse.numina.api.item.IModularItem;
 import net.machinemuse.numina.common.ModCompatibility;
-import net.machinemuse.numina.general.MuseMathUtils;
+import net.machinemuse.numina.utils.math.MuseMathUtils;
+import net.machinemuse.numina.item.IModularItem;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.machinemuse.powersuits.control.PlayerInputMap;
+import net.machinemuse.numina.control.PlayerInputMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -171,7 +171,6 @@ public class MusePlayerUtils {
             double strafeZ = -desiredDirection.x;
             double flightVerticality = 0;
             ItemStack helm = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
-            ;
             if (!helm.isEmpty() && helm.getItem() instanceof IModularItem) {
                 flightVerticality = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(helm, MPSModuleConstants.FLIGHT_VERTICALITY);
             }
@@ -219,7 +218,7 @@ public class MusePlayerUtils {
                 thrustUsed -= 1 + player.motionY;
                 player.motionY = -1;
             }
-            if (Math.abs(player.motionX) > 0 && desiredDirection.lengthVector() == 0) {
+            if (Math.abs(player.motionX) > 0 && desiredDirection.length() == 0) {
                 if (Math.abs(player.motionX) > thrust) {
                     player.motionX -= Math.signum(player.motionX) * thrust;
                     thrustUsed += thrust;
@@ -230,7 +229,7 @@ public class MusePlayerUtils {
                     player.motionX = 0;
                 }
             }
-            if (Math.abs(player.motionZ) > 0 && desiredDirection.lengthVector() == 0) {
+            if (Math.abs(player.motionZ) > 0 && desiredDirection.length() == 0) {
                 if (Math.abs(player.motionZ) > thrust) {
                     player.motionZ -= Math.signum(player.motionZ) * thrust;
                     thrustUsed += thrust;
@@ -330,7 +329,7 @@ public class MusePlayerUtils {
     }
 
     public static Biome getBiome(EntityPlayer player) {
-        Chunk chunk = player.world.getChunkFromBlockCoords(player.getPosition());
+        Chunk chunk = player.world.getChunk(player.getPosition());
         return chunk.getBiome(player.getPosition(), player.world.getBiomeProvider());
     }
 

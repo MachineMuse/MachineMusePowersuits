@@ -1,6 +1,6 @@
 //package net.machinemuse.powersuits.gui.tinker.frame;
 //
-//import net.machinemuse.numina.api.item.IModularItem;
+//import net.machinemuse.numina.item.IModularItem;
 //import net.machinemuse.numina.utils.math.Colour;
 //import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 //import net.machinemuse.numina.utils.render.MuseRenderer;

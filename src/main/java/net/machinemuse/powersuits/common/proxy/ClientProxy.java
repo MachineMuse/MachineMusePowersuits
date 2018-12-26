@@ -8,10 +8,10 @@ import net.machinemuse.powersuits.client.event.ModelBakeEventHandler;
 import net.machinemuse.powersuits.client.model.item.armor.SMovingArmorModel;
 import net.machinemuse.powersuits.client.model.obj.OBJPlusLoader;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
+import net.machinemuse.powersuits.common.config.CosmeticPresetSaveLoad;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.KeybindKeyHandler;
 import net.machinemuse.powersuits.control.KeybindManager;
-import net.machinemuse.powersuits.event.PlayerUpdateHandler;
 import net.machinemuse.powersuits.event.RenderEventHandler;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
@@ -35,6 +35,9 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
+        // FIXME: delete? or leave it. Leaving it is harmless.
+        CosmeticPresetSaveLoad.copyPresetsFromJar();
+
         ModelLoaderRegistry.registerLoader(OBJPlusLoader.INSTANCE);
         OBJPlusLoader.INSTANCE.addDomain(MODID.toLowerCase());
     }
@@ -55,7 +58,7 @@ public class ClientProxy extends CommonProxy {
     public void registerEvents() {
         super.registerEvents();
         MinecraftForge.EVENT_BUS.register(new KeybindKeyHandler());
-        MinecraftForge.EVENT_BUS.register(new PlayerUpdateHandler());
+
         MinecraftForge.EVENT_BUS.register(new ClientTickHandler());
         MinecraftForge.EVENT_BUS.register(new SoundDictionary());
         MinecraftForge.EVENT_BUS.register(new RenderEventHandler());

@@ -1,8 +1,6 @@
 package net.machinemuse.powersuits.client.event;
 
-import net.machinemuse.numina.general.MuseMathUtils;
-import net.machinemuse.numina.network.MusePacket;
-import net.machinemuse.numina.network.PacketSender;
+import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
@@ -11,12 +9,13 @@ import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.KeybindManager;
-import net.machinemuse.powersuits.control.PlayerInputMap;
+import net.machinemuse.numina.control.PlayerInputMap;
 import net.machinemuse.powersuits.gui.hud.*;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorHelmet;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
+import net.machinemuse.powersuits.network.MPSPackets;
 import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
 import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.machinemuse.powersuits.utils.modulehelpers.AutoFeederHelper;
@@ -77,8 +76,7 @@ public class ClientTickHandler {
                 inputmap.motionZ = player.motionZ;
                 if (inputmap.hasChanged()) {
                     inputmap.refresh();
-                    MusePacket inputPacket = new MusePacketPlayerUpdate(player, inputmap);
-                    PacketSender.sendToServer(inputPacket);
+                    MPSPackets.sendToServer(new MusePacketPlayerUpdate(player, inputmap));
                 }
             }
         }

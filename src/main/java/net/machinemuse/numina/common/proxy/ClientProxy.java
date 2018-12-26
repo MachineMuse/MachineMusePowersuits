@@ -4,9 +4,9 @@ import net.machinemuse.numina.client.render.RenderGameOverlayEventHandler;
 import net.machinemuse.numina.event.FOVUpdateEventHandler;
 import net.machinemuse.numina.mouse.MouseEventHandler;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-
-//import net.machinemuse.numina.event.KeybindKeyHandler;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -14,10 +14,9 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
  * <p>
  * Ported to Java by lehjr on 10/26/16.
  */
+@Mod.EventBusSubscriber(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
-    @Override
     public void init(FMLInitializationEvent event) {
-        super.init(event);
         MinecraftForge.EVENT_BUS.register(new MouseEventHandler());
         MinecraftForge.EVENT_BUS.register(new RenderGameOverlayEventHandler());
         MinecraftForge.EVENT_BUS.register(new FOVUpdateEventHandler());

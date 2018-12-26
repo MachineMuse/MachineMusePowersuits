@@ -46,6 +46,48 @@ public class DrawableMuseRect extends MuseRect {
         this.outsideColour = outsideColour;
     }
 
+    @Override
+    public DrawableMuseRect copyOf() {
+        return new DrawableMuseRect(super.left(), super.top(), super.right(), super.bottom(),
+                this.lastRect != null, insideColour, outsideColour);
+    }
+
+    @Override
+    public DrawableMuseRect setLeft(double value) {
+        super.setLeft(value);
+        return this;
+    }
+
+    @Override
+    public DrawableMuseRect setRight(double value) {
+        super.setRight(value);
+        return this;
+    }
+
+    @Override
+    public DrawableMuseRect setTop(double value) {
+        super.setTop(value);
+        return this;
+    }
+
+    @Override
+    public DrawableMuseRect setBottom(double value) {
+        super.setBottom(value);
+        return this;
+    }
+
+    @Override
+    public DrawableMuseRect setWidth(double value) {
+        super.setWidth(value);
+        return this;
+    }
+
+    @Override
+    public DrawableMuseRect setHeight(double value) {
+        super.setHeight(value);
+        return this;
+    }
+
     public void draw() {
         if (vertices == null || coloursInside == null || coloursOutside == null
                 || (lastRect != null && !lastRect.equals(this))) {

@@ -1,9 +1,7 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import net.machinemuse.numina.api.constants.NuminaNBTConstants;
-import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
-import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
@@ -12,8 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -28,7 +24,11 @@ import java.util.List;
  * <p>
  * Special note: tried forEach() with a filter, but speed was up to 8 times slower
  */
-@SideOnly(Side.CLIENT)
+
+// FIXME: update to respect config settings...
+
+
+//@SideOnly(Side.CLIENT)
 public class DefaultModelSpec {
     public static NBTTagCompound makeModelPrefs(@Nonnull ItemStack stack) {
         if (!stack.isEmpty()) {
@@ -90,15 +90,15 @@ public class DefaultModelSpec {
 
                         for (PartSpecBase partSpec : spec.getPartSpecs()) {
                             if (partSpec.binding.getSlot() == slot) {
-
+                                /*
                                 // jet pack model not displayed by default
                                 if (partSpec.binding.getItemState().equals("all") ||
                                         (partSpec.binding.getItemState().equals("jetpack") &&
-                                                ModuleManager.INSTANCE.itemHasModule(stack, MPSModuleConstants.MODULE_JETPACK__DATANAME))) {
+                                                ModuleManager.INSTANCE.itemHasModule(stack, MPSModuleConstants.MODULE_JETPACK__DATANAME))) { */
                                     prefArray.add(((ModelPartSpec) partSpec).multiSet(new NBTTagCompound(),
                                             getNewColourIndex(colours, spec.getColours(), partSpec.defaultcolourindex),
                                             ((ModelPartSpec) partSpec).getGlow()));
-                                }
+                                /*} */
                             }
                         }
                     }
@@ -111,10 +111,10 @@ public class DefaultModelSpec {
             nbt.setTag(elem.getString(NuminaNBTConstants.TAG_MODEL) + "." + elem.getString(NuminaNBTConstants.TAG_PART), elem);
         }
 
-        if (!specList.hasNoTags())
+        if (!specList.isEmpty())
             nbt.setTag(MPSNBTConstants.NBT_SPECLIST_TAG, specList);
 
-        if (!texSpecTag.hasNoTags())
+        if (!texSpecTag.isEmpty())
             nbt.setTag(MPSNBTConstants.NBT_TEXTURESPEC_TAG, texSpecTag);
 
         nbt.setTag(NuminaNBTConstants.TAG_COLOURS, new NBTTagIntArray(colours));

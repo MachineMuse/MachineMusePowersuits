@@ -155,6 +155,7 @@ powersuits.tradeoff.efficiency=Efficacité
 powersuits.tradeoff.red=Rouge
 powersuits.tradeoff.green=Vert
 powersuits.tradeoff.blue=Bleu
+powersuits.tradeoff.alpha=Alpha
 powersuits.tradeoff.sprintAssist=Assistance de sprint
 powersuits.tradeoff.compensation=Compensation
 powersuits.tradeoff.walkingAssist=Aide à la marche
@@ -168,6 +169,7 @@ powersuits.tradeoff.diameter=Diamètre
 powersuits.tradeoff.enchLevel=Niveau d'enchantement
 powersuits.tradeoff.fortuneEnCon=Consommation d'énergie Fortune
 powersuits.tradeoff.fortuneLevel=Niveau de fortune
+
 
 # Armor
 module.powersuits.leatherPlating.name=Revetement en cuir
@@ -357,6 +359,15 @@ gui.powersuits.equippedTotals=Totaux équipés
 gui.powersuits.energyStorage=Stockage d'énergie
 gui.powersuits.armor=Armure
 gui.powersuits.slotpoints=Points d'emplacement
+gui.powersuits.load=Load
+gui.powersuits.save=Save
+gui.powersuits.reset=Reset
+gui.powersuits.cancel=Cancel
+gui.powersuits.colourPrefix=Color:
+gui.powersuits.saveAs=Save as:
+gui.powersuits.new=New
+gui.powersuits.savesuccessful=Save Successful
+
 
 tooltip.powersuits.pressShift=Appuyez sur Maj pour plus d'informations.
 tooltip.powersuits.componentTooltip=À utiliser dans la table de bricolage.

@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.control;
 
-import net.machinemuse.numina.api.module.IPowerModule;
+import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.powersuits.common.ModuleManager;
