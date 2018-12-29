@@ -446,13 +446,7 @@ model.armor2.armglow1.partName=肩灯
 model.armor2.armmain1.partName=手臂-肩部保护
 model.armor2.armgray1.partName=手臂基件
 model.armor2.armglow.partName=肩灯
-model.armor2.armmain.partName=手臂-肩部保护=======
-169
- 
-powersuits.tradeoff.alpha=Alpha
-170
- 
-powersuits.tradeoff.sprintAssist=Sprint Assist
+model.armor2.armmain.partName=手臂-肩部保护 
 model.armor2.armgray.partName=手臂基件
 model.armor2.leggray.partName=左腿基件
 model.armor2.legbit.partName=左腿保护
