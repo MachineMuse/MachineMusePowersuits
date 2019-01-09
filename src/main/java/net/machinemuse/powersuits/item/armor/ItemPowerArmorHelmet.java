@@ -1,6 +1,7 @@
 package net.machinemuse.powersuits.item.armor;
 
 import forestry.api.core.IArmorNaturalist;
+import micdoodle8.mods.galacticraft.api.item.IBreathableArmor;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,13 +20,15 @@ import thaumcraft.api.items.IVisDiscountGear;
         @Optional.Interface(iface = "forestry.api.core.IArmorNaturalist", modid = "forestry", striprefs = true),
         @Optional.Interface(iface = "thaumcraft.api.items.IGoggles", modid = "thaumcraft", striprefs = true),
         @Optional.Interface(iface = "thaumcraft.api.items.IRevealer", modid = "thaumcraft", striprefs = true),
-        @Optional.Interface(iface = "thaumcraft.api.items.IVisDiscountGear", modid = "thaumcraft", striprefs = true)
+        @Optional.Interface(iface = "thaumcraft.api.items.IVisDiscountGear", modid = "thaumcraft", striprefs = true),
+        @Optional.Interface(iface = "micdoodle8.mods.galacticraft.api.item.IBreathableArmor", modid = "galacticraftcore", striprefs = true)
 })
 public class ItemPowerArmorHelmet extends ItemPowerArmor implements
         IArmorNaturalist,
         IVisDiscountGear,
         IRevealer,
-        IGoggles {
+        IGoggles,
+        IBreathableArmor {
     public final EntityEquipmentSlot armorType;
 
     public ItemPowerArmorHelmet() {
@@ -53,4 +56,16 @@ public class ItemPowerArmorHelmet extends ItemPowerArmor implements
     public int getVisDiscount(ItemStack itemStack, EntityPlayer entityPlayer) {
         return ModuleManager.INSTANCE.itemHasModule(itemStack, MPSModuleConstants.MODULE_THAUM_GOGGLES__DATANAME) ? 5 : 0;
     }
+
+    @Optional.Method(modid = "galacticraftcore")
+    @Override
+    public boolean handleGearType(EnumGearType enumGearType) {
+        return enumGearType == EnumGearType.HELMET;
+    }
+
+    @Optional.Method(modid = "galacticraftcore")
+    @Override
+    public boolean canBreathe(ItemStack itemStack, EntityPlayer entityPlayer, EnumGearType enumGearType) {
+        return ModuleManager.INSTANCE.itemHasModule(itemStack, MPSModuleConstants.MODULE_AIRTIGHT_SEAL__DATANAME);
+   }
 }

@@ -67,15 +67,31 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
      */
     @Override
     public boolean handleUnblockableDamage(EntityLivingBase entity, @Nonnull ItemStack armor, DamageSource source, double damage, int slot) {
+        System.out.println("damage source: " + source.damageType);
+        System.out.println("slot: " + slot);
+
+
+
+
         if (source == null || source == MuseHeatUtils.overheatDamage)
             return false;
 
         if (source.damageType.equals("electricity") || source.damageType.equals("radiation") || source.damageType.equals("sulphuric_acid"))
             return ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.MODULE_HAZMAT__DATANAME);
 
-        // Galacticraft
-        if (slot == 3 && source.getDamageType().equals("oxygen_suffocation"))
-            return ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.MODULE_AIRTIGHT_SEAL__DATANAME);
+        // Fixme: needs to check for Oxygen... needs to check for
+
+//        // Galacticraft
+//        if (slot == 3 && source.getDamageType().equals("oxygen_suffocation"))
+//            return ModuleManager.INSTANCE.itemHasModule(armor, MPSModuleConstants.MODULE_AIRTIGHT_SEAL__DATANAME);
+
+
+
+
+
+
+
+
 
         // this still needs tweaking (extra planets)
         if (source.getDamageType().equals("pressure")) {

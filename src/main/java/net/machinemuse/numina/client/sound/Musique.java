@@ -24,10 +24,8 @@ import java.util.HashMap;
  */
 @SideOnly(Side.CLIENT)
 public class Musique {
-    @SideOnly(Side.CLIENT)
     private static HashMap<SoundEvent, MovingSoundPlayer> soundMap = new HashMap<>();
 
-    @SideOnly(value = Side.CLIENT)
     public static SoundHandler mcsound() {
         return Minecraft.getMinecraft().getSoundHandler();
     }
