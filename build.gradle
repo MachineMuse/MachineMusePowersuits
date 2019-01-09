@@ -56,7 +56,7 @@ repositories {
     maven { url = 'http://maven.mcmoddev.com' }                     //TESLA API
     maven { url = 'https://mod-buildcraft.com/maven/' }             //BuildCraft
     maven { url = 'http://maven.cil.li/' }                          //Scannable
-//    maven { url = 'https://repo.raoulvdberge.com/' }                //RefinedStorage
+    maven { url = 'https://repo.raoulvdberge.com/' }                //RefinedStorage
     maven { url = 'http://maven.thiakil.com/' }                     //Mekanism
     maven { url = "http://maven.blamejared.com" }                   //CraftTweaker - required by Mekanism
     maven { url = 'https://minecraft.curseforge.com/api/maven/' }   //Thaumcraft
@@ -71,7 +71,7 @@ dependencies {
     compileOnly "com.enderio.core:EnderCore:${minecraft_version}-${endercore_version}"              //Ender Core
     deobfCompile "net.sengir.forestry:forestry_${minecraft_version}:${forestry_version}"            //Forestry
     deobfCompile "thaumcraft:Thaumcraft:1.12.2:${thaumcraft_version}"                               //Thaumcraft
-//    deobfCompile "refinedstorage:refinedstorage:${refinedstorage_version}"                          //Refined Storage
+    deobfCompile "refinedstorage:refinedstorage:${refinedstorage_version}"                          //Refined Storage
     compile "net.darkhax.tesla:Tesla-${minecraft_version}:${tesla_version}"                         //Tesla
     compile "com.mod-buildcraft:buildcraft:${buildcraft_version}"                                   //BuildCraft
     compile "li.cil.scannable:Scannable:MC${minecraft_version}-${scannable_version}"                //Scannable
