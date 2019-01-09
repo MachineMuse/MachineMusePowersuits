@@ -2,6 +2,7 @@ package net.machinemuse.powersuits.common.config;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import net.machinemuse.numina.common.ModCompatibility;
 import net.machinemuse.numina.common.Numina;
 import net.machinemuse.numina.module.EnumModuleCategory;
 import net.machinemuse.powersuits.common.MPSCreativeTab;
@@ -169,6 +170,34 @@ public enum MPSConfig {
 
         return 0;
     }
+
+    /**
+     *  Recipes -----------------------------------------------------------------------------------
+     */
+    public boolean useThermalExpansionRecipes() {
+        return ModCompatibility.isThermalExpansionLoaded() &&
+                getServerSettings() != null ? getServerSettings().useThermalExpansionRecipes : MPSSettings.recipesAllowed.useThermalExpansionRecipes;
+    }
+
+    public boolean useEnderIORecipes() {
+        return ModCompatibility.isEnderIOLoaded() &&
+                getServerSettings() != null ? getServerSettings().useEnderIORecipes : MPSSettings.recipesAllowed.useEnderIORecipes;
+    }
+
+    public boolean useTechRebornRecipes() {
+        return ModCompatibility.isTechRebornLoaded() &&
+                getServerSettings() != null ? getServerSettings().useTechRebornRecipes : MPSSettings.recipesAllowed.useTechRebornRecipes;
+    }
+
+    public boolean useIC2Recipes() {
+        // IC2 classic and IC2 experimental, no check here because they have to be checked separately
+        return getServerSettings() != null ? getServerSettings().useIC2Recipes :  MPSSettings.recipesAllowed.useIC2Recipes;
+    }
+
+
+
+
+
 
     /**
      * Limits -------------------------------------------------------------------------------------

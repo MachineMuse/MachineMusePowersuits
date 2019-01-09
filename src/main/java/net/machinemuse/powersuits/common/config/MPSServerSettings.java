@@ -30,6 +30,14 @@ public class MPSServerSettings {
     public final double getSalvageChance;
 
     /**
+     * Recipes -----------------------------------------------------------------------------------
+     */
+    public final boolean useThermalExpansionRecipes;
+    public final boolean useEnderIORecipes;
+    public final boolean useTechRebornRecipes;
+    public static boolean useIC2Recipes;
+
+    /**
      * Heat ---------------------------------------------------------------------------------------
      */
     public final double baseMaxHeatPowerFist;
@@ -86,6 +94,14 @@ public class MPSServerSettings {
         getWeightCapacity = MPSSettings.general.getWeightCapacity;
         maximumArmorPerPiece = MPSSettings.general.getMaximumArmorPerPiece;
         getSalvageChance = MPSSettings.general.getSalvageChance;
+
+        /**
+         *  Recipes -------------------------------------------------------------------------------
+         */
+        useThermalExpansionRecipes = MPSSettings.recipesAllowed.useThermalExpansionRecipes;
+        useEnderIORecipes = MPSSettings.recipesAllowed.useEnderIORecipes;
+        useTechRebornRecipes = MPSSettings.recipesAllowed.useTechRebornRecipes;
+        useIC2Recipes = MPSSettings.recipesAllowed.useIC2Recipes;
 
         /**
          * Max Base Heat Heat --------------------------------------------------------------------
@@ -152,6 +168,14 @@ public class MPSServerSettings {
         baseMaxHeatFeet = datain.readDouble();
 
         /**
+         *  Recipes -------------------------------------------------------------------------------
+         */
+        useThermalExpansionRecipes = datain.readBoolean();
+        useEnderIORecipes = datain.readBoolean();
+        useTechRebornRecipes = datain.readBoolean();
+        useIC2Recipes = datain.readBoolean();
+
+        /**
          * Modules -------------------------------------------------------------------------------
          */
         allowedModules = MuseByteBufferUtils.readMap(datain, String.class, Boolean.class);
@@ -206,6 +230,14 @@ public class MPSServerSettings {
         packet.writeDouble(baseMaxHeatChest);
         packet.writeDouble(baseMaxHeatLegs);
         packet.writeDouble(baseMaxHeatFeet);
+
+        /**
+         *  Recipes -------------------------------------------------------------------------------
+         */
+        packet.writeBoolean(useThermalExpansionRecipes);
+        packet.writeBoolean(useEnderIORecipes);
+        packet.writeBoolean(useTechRebornRecipes);
+        packet.writeBoolean(useIC2Recipes);
 
         /**
          * Modules -------------------------------------------------------------------------------

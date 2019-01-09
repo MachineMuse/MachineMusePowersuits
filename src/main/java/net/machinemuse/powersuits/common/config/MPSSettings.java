@@ -50,6 +50,22 @@ public class MPSSettings {
         public double keybindHUDy = 32.0;
     }
 
+    public static RecipesAllowed recipesAllowed = new RecipesAllowed();
+    public static class RecipesAllowed {
+
+        @Config.Comment("Use recipes for Thermal Expansion")
+        public static boolean useThermalExpansionRecipes = true;
+
+        @Config.Comment("Use recipes for EnderIO")
+        public static boolean useEnderIORecipes = true;
+
+        @Config.Comment("Use recipes for TechReborn")
+        public static boolean useTechRebornRecipes = true;
+
+        @Config.Comment("Use recipes for IndustrialCraft 2")
+        public static boolean useIC2Recipes = true;
+    }
+
     /**
      * A mixture of client and server side settings
      */
