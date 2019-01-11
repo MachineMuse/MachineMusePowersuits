@@ -5,12 +5,12 @@ import com.raoulvdberge.refinedstorage.api.network.item.INetworkItemHandler;
 import com.raoulvdberge.refinedstorage.apiimpl.network.item.NetworkItemWirelessGrid;
 import net.machinemuse.numina.common.ModCompatibility;
 import net.machinemuse.numina.common.config.NuminaConfig;
-import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.numina.module.EnumModuleCategory;
 import net.machinemuse.numina.module.EnumModuleTarget;
 import net.machinemuse.numina.module.IRightClickModule;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
@@ -47,7 +47,7 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
     }
 
     public static NBTTagCompound getModululeTag(ItemStack itemStackIn) {
-        return itemStackIn.getTagCompound().getCompoundTag("mmmpsmod").getCompoundTag("Refined Storage Wireless Grid");
+        return itemStackIn.getCompound().getCompoundTag("mmmpsmod").getCompoundTag("Refined Storage Wireless Grid");
     }
 
     @Nonnull
@@ -96,7 +96,7 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
             tag.setInteger("Energy", energy);
             emulatedTool.setTagCompound(tag);
             ActionResult result = emulatedTool.getItem().onItemRightClick(worldIn, playerIn, hand);
-            double energyUsed = ((energy - emulatedTool.getTagCompound().getInteger("Energy")) * NuminaConfig.INSTANCE.getRSRatio());
+            double energyUsed = ((energy - emulatedTool.getCompound().getInteger("Energy")) * NuminaConfig.INSTANCE.getRSRatio());
             ElectricItemUtils.drainPlayerEnergy(playerIn, (int) energyUsed);
             return ActionResult.newResult(result.getType(), itemStackIn);
         }
@@ -113,7 +113,7 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
         ItemStack emulatedTool = getEmulatedTool();
         emulatedTool.setTagCompound(tag);
         EnumActionResult result = emulatedTool.onItemUse(playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
-        NBTTagCompound tag2 = emulatedTool.getTagCompound();
+        NBTTagCompound tag2 = emulatedTool.getCompound();
 
         // maybe loop through a set of string keys instead?
         if (tag2 != null) {
@@ -169,7 +169,7 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(getEmulatedTool()).getParticleTexture();
+        return Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(getEmulatedTool()).getParticleTexture();
     }
 
     private NBTTagCompound initializeDefaults(NBTTagCompound nbt) {

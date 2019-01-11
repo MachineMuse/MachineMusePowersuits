@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
+import net.machinemuse.numina.client.gui.scrollable.ScrollableFrame;
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
@@ -12,7 +13,6 @@ import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableButton;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableModule;
-import net.machinemuse.numina.client.gui.scrollable.ScrollableFrame;
 import net.machinemuse.powersuits.network.MPSPackets;
 import net.machinemuse.powersuits.network.packets.MusePacketInstallModuleRequest;
 import net.machinemuse.powersuits.network.packets.MusePacketSalvageModuleRequest;
@@ -22,12 +22,12 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class InstallSalvageFrame extends ScrollableFrame {
     protected ItemSelectionFrame targetItem;
     protected ModuleSelectionFrame targetModule;
@@ -130,7 +130,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
         IPowerModule module = targetModule.getSelectedModule().getModule();
         if (!ModuleManager.INSTANCE.itemHasModule(stack, module.getDataName())) {
             int installedModulesOfType = ModuleManager.INSTANCE.getNumberInstalledModulesOfType(stack, module.getCategory());
-            installButton.setEnabled(player.capabilities.isCreativeMode ||
+            installButton.setEnabled(player.abilities.isCreativeMode ||
                     (MuseItemUtils.hasInInventory(ModuleManager.INSTANCE.getInstallCost(module.getDataName()), player.inventory) &&
                     installedModulesOfType < MPSConfig.INSTANCE.getMaxModulesOfType(module.getCategory())));
             installButton.draw();
@@ -173,7 +173,7 @@ public class InstallSalvageFrame extends ScrollableFrame {
      */
     private void doInstall() {
         IPowerModule module = targetModule.getSelectedModule().getModule();
-        if (player.capabilities.isCreativeMode || MuseItemUtils.hasInInventory(ModuleManager.INSTANCE.getInstallCost(module.getDataName()), player.inventory)) {
+        if (player.abilities.isCreativeMode || MuseItemUtils.hasInInventory(ModuleManager.INSTANCE.getInstallCost(module.getDataName()), player.inventory)) {
             Musique.playClientSound(SoundDictionary.SOUND_EVENT_GUI_INSTALL, SoundCategory.BLOCKS, 1, null);
             // Now send request to server to make it legit
             MPSPackets.sendToServer(new MusePacketInstallModuleRequest(

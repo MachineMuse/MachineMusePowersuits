@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.entity.model.ModelBiped;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 
 import java.util.Arrays;

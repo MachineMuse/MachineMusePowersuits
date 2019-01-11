@@ -45,7 +45,7 @@ public class ModeChangingItemWrapper extends ModularItemWrapper implements IMode
     public TextureAtlasSprite getModeIcon(int modeIndex) {
         if (modeIndex == -1)
             return null;
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(getStackInSlot(modeIndex)).getParticleTexture();
+        return Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(getStackInSlot(modeIndex)).getParticleTexture();
     }
 
     @Override

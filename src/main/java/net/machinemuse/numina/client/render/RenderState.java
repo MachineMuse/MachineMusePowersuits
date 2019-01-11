@@ -89,7 +89,7 @@ public final class RenderState {
     public static void scissorsOn(double x, double y, double w, double h) {
         GL11.glPushAttrib(GL11.GL_ENABLE_BIT | GL11.GL_SCISSOR_BIT);
         GL11.glPushMatrix();
-        Minecraft mc = Minecraft.getMinecraft();
+        Minecraft mc = Minecraft.getInstance();
         int dw = mc.displayWidth;
         int dh = mc.displayHeight;
         ScaledResolution res = new ScaledResolution(mc);

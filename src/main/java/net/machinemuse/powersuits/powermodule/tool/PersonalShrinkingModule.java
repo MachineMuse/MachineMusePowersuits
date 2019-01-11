@@ -98,6 +98,6 @@ public class PersonalShrinkingModule extends PowerModuleBase implements IRightCl
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(cpmPSD).getParticleTexture();
+        return Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(cpmPSD).getParticleTexture();
     }
 }

@@ -40,7 +40,7 @@
 //import java.util.ArrayList;
 //import java.util.List;
 //
-//@SideOnly(Side.CLIENT)
+//@OnlyIn(Dist.CLIENT)
 //public class ModelHelper {
 //    static {
 //        new ModelHelper();
@@ -76,7 +76,7 @@
 //                    DefaultVertexFormats.ITEM,
 //                    new Function<ResourceLocation, TextureAtlasSprite>() {
 //                        public TextureAtlasSprite apply(ResourceLocation resourceLocation) {
-//                            return Minecraft.getMinecraft().getTextureMapBlocks().registerSprite(resourceLocation);
+//                            return Minecraft.getInstance().getTextureMapBlocks().registerSprite(resourceLocation);
 //                        }
 //                    });
 //            return bakedModel;
@@ -91,7 +91,7 @@
 //                    DefaultVertexFormats.ITEM,
 //                    new Function<ResourceLocation, TextureAtlasSprite>() {
 //                        public TextureAtlasSprite apply(ResourceLocation resourceLocation) {
-//                            return Minecraft.getMinecraft().getTextureMapBlocks().registerSprite(resourceLocation);
+//                            return Minecraft.getInstance().getTextureMapBlocks().registerSprite(resourceLocation);
 //                        }
 //                    });
 //            return bakedModel;
@@ -104,12 +104,12 @@
 //
 //        try {
 //            return model.bake(modelState, DefaultVertexFormats.ITEM,
-//                    location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString()));
+//                    location -> Minecraft.getInstance().getTextureMapBlocks().getAtlasSprite(location.toString()));
 //        } catch (Exception e) {
 //            MuseLogger.logError("Failed to bake model. " + e);
 //        }
 //        return ModelLoaderRegistry.getMissingModel().bake(ModelLoaderRegistry.getMissingModel().getDefaultState(), DefaultVertexFormats.ITEM,
-//                location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString()));
+//                location -> Minecraft.getInstance().getTextureMapBlocks().getAtlasSprite(location.toString()));
 //    }
 //
 //    /*

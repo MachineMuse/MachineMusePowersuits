@@ -1,15 +1,15 @@
 package net.machinemuse.powersuits.client.event;
 
-import net.machinemuse.numina.utils.math.MuseMathUtils;
+import net.machinemuse.numina.control.PlayerInputMap;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.KeybindManager;
-import net.machinemuse.numina.control.PlayerInputMap;
 import net.machinemuse.powersuits.gui.hud.*;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
@@ -30,8 +30,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -64,7 +62,7 @@ public class ClientTickHandler {
                 kb.doToggleTick();
             }
         } else {
-            EntityPlayerSP player = Minecraft.getMinecraft().player;
+            EntityPlayerSP player = Minecraft.getInstance().player;
             if (player != null && MuseItemUtils.getModularItemsInInventory(player).size() > 0) {
                 PlayerInputMap inputmap = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
                 inputmap.forwardKey = Math.signum(player.movementInput.moveForward);
@@ -118,7 +116,7 @@ public class ClientTickHandler {
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public void onRenderTickEvent(TickEvent.RenderTickEvent event) {
         ItemStack food = new ItemStack(Items.COOKED_BEEF);
@@ -140,11 +138,11 @@ public class ClientTickHandler {
         }
 
         if (event.phase == TickEvent.Phase.END) {
-            EntityPlayer player = Minecraft.getMinecraft().player;
+            EntityPlayer player = Minecraft.getInstance().player;
             modules = new ArrayList<>();
             findInstalledModules(player);
-            if (player != null && Minecraft.getMinecraft().isGuiEnabled() && MuseItemUtils.getModularItemsEquipped(player).size() > 0 && Minecraft.getMinecraft().currentScreen == null) {
-                Minecraft mc = Minecraft.getMinecraft();
+            if (player != null && Minecraft.getInstance().isGuiEnabled() && MuseItemUtils.getModularItemsEquipped(player).size() > 0 && Minecraft.getInstance().currentScreen == null) {
+                Minecraft mc = Minecraft.getInstance();
                 ScaledResolution screen = new ScaledResolution(mc);
                 for (int i = 0; i < modules.size(); i++) {
                     if (Objects.equals(modules.get(i), MPSModuleConstants.MODULE_AUTO_FEEDER__DATANAME)) {

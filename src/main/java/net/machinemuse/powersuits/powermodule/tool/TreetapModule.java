@@ -136,6 +136,6 @@ public class TreetapModule extends PowerModuleBase implements IRightClickModule 
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(emulatedTool).getParticleTexture();
+        return Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(emulatedTool).getParticleTexture();
     }
 }

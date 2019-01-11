@@ -1,9 +1,9 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
-import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.numina.client.gui.frame.IGuiFrame;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.numina.utils.math.geometry.DrawableMuseRect;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.powersuits.client.model.item.armor.ArmorModelInstance;
@@ -58,7 +58,7 @@ public class PlayerModelViewFrame implements IGuiFrame {
         if (selectedItem != null && selectedItem.getItem() instanceof ItemPowerArmor)
             return ((ItemPowerArmor) selectedItem.getItem()).armorType;
 
-        Minecraft mc = Minecraft.getMinecraft();
+        Minecraft mc = Minecraft.getInstance();
         EntityPlayer player = mc.player;
         ItemStack heldItem = player.getHeldItemOffhand();
 
@@ -129,7 +129,7 @@ public class PlayerModelViewFrame implements IGuiFrame {
 
     @Override
     public void draw() {
-        Minecraft mc = Minecraft.getMinecraft();
+        Minecraft mc = Minecraft.getInstance();
         border.draw();
         if (itemSelector.getSelectedItem() == null)
             return;
@@ -169,7 +169,7 @@ public class PlayerModelViewFrame implements IGuiFrame {
         mc.player.rotationYawHead = mc.player.rotationYaw;
         mc.player.prevRotationYawHead = mc.player.rotationYaw;
         GlStateManager.translate(0.0F, 0.0F, 0.0F);
-        RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+        RenderManager rendermanager = Minecraft.getInstance().getRenderManager();
         rendermanager.setPlayerViewY(180.0F);
         rendermanager.setRenderShadow(false);
         rendermanager.renderEntity(mc.player, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, false);

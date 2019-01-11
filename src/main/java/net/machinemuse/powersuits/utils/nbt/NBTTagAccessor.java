@@ -4,7 +4,7 @@
 package net.machinemuse.powersuits.utils.nbt;
 
 import net.machinemuse.numina.utils.MuseLogger;
-import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.INBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 
 import javax.annotation.Nullable;
@@ -69,7 +69,7 @@ public class NBTTagAccessor extends NBTTagCompound {
         Set<String> keyset = (Set<String>) nbt.getKeySet();
         ArrayList<NBTTagCompound> a = new ArrayList<>(keyset.size());
         for (String key : keyset) {
-            NBTBase c = nbt.getTag(key);
+            INBTBase c = nbt.getTag(key);
             if (c instanceof NBTTagCompound) {
                 a.add((NBTTagCompound) c);
             }

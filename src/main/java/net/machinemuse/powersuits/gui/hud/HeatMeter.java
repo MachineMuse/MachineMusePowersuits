@@ -23,7 +23,7 @@ public class HeatMeter {
     }
 
     public TextureAtlasSprite getTexture() {
-        return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/snow");
+        return Minecraft.getInstance().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/snow");
     }
 
     public void draw(double xpos, double ypos, double value) {

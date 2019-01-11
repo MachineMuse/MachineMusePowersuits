@@ -7,6 +7,7 @@ import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraftforge.common.capabilities.OptionalCapabilityInstance;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -88,8 +89,8 @@ public class MuseHeatUtils {
     }
 
     public static double getItemMaxHeat(@Nonnull ItemStack stack) {
-        IHeatStorage heatStorage = stack.getCapability(CapabilityHeat.HEAT, null);
-        if (heatStorage != null)
+        OptionalCapabilityInstance<IHeatStorage> heatStorage = stack.getCapability(CapabilityHeat.HEAT, null);
+         if (heatStorage != null)
             return heatStorage.getMaxHeatStored();
         return 0;
     }

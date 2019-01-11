@@ -10,8 +10,8 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.modulehelpers.FluidUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Particles;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumParticleTypes;
 
 import javax.annotation.Nonnull;
 
@@ -70,7 +70,7 @@ public abstract class CoolingSystemBase extends PowerModuleBase implements IPlay
 
                 if (usedEmergencyCooling)
                     for (int i = 0; i < 4; i++) {
-                        player.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, player.posX, player.posY + 0.5, player.posZ, 0.0D, 0.0D, 0.0D);
+                        player.world.spawnParticle(Particles.SMOKE, player.posX, player.posY + 0.5, player.posZ, 0.0D, 0.0D, 0.0D);
                     }
             }
         }

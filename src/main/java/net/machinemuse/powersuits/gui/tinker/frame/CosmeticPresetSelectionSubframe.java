@@ -1,13 +1,13 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
+import net.machinemuse.numina.client.gui.clickable.ClickableLabel;
+import net.machinemuse.numina.client.gui.scrollable.ScrollableLabel;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRect;
 import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
-import net.machinemuse.numina.client.gui.clickable.ClickableLabel;
-import net.machinemuse.numina.client.gui.scrollable.ScrollableLabel;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.machinemuse.powersuits.network.MPSPackets;
@@ -17,10 +17,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class CosmeticPresetSelectionSubframe extends ScrollableLabel {
     public MuseRelativeRect border;
     public boolean open;
@@ -38,7 +38,7 @@ public class CosmeticPresetSelectionSubframe extends ScrollableLabel {
     public boolean isValidItem(ClickableItem clickie, EntityEquipmentSlot slot) {
         if (clickie != null) {
             if (clickie.getItem().getItem() instanceof ItemPowerArmor)
-                return clickie.getItem().getItem().isValidArmor(clickie.getItem(), slot, Minecraft.getMinecraft().player);
+                return clickie.getItem().getItem().isValidArmor(clickie.getItem(), slot, Minecraft.getInstance().player);
             else if (clickie.getItem().getItem() instanceof ItemPowerFist && slot.getSlotType().equals(EntityEquipmentSlot.Type.HAND))
                 return true;
         }
@@ -57,7 +57,7 @@ public class CosmeticPresetSelectionSubframe extends ScrollableLabel {
         if (!selectedItem.isEmpty() && selectedItem.getItem() instanceof ItemPowerArmor)
             return ((ItemPowerArmor) selectedItem.getItem()).armorType;
 
-        Minecraft mc = Minecraft.getMinecraft();
+        Minecraft mc = Minecraft.getInstance();
         EntityPlayer player = mc.player;
         ItemStack heldItem = player.getHeldItemOffhand();
 
@@ -84,7 +84,7 @@ public class CosmeticPresetSelectionSubframe extends ScrollableLabel {
         // change the render tag to this ... keep in mind that the render tag for these are just a key to read from the config file
         if(super.hitbox(x, y) && this.getSelectedItem() != null) {
             if (isValidItem(getSelectedItem(), getEquipmentSlot())) {
-                MPSPackets.sendToServer(new MusePacketCosmeticPreset(Minecraft.getMinecraft().player, this.getSelectedItem().inventorySlot, this.name));
+                MPSPackets.sendToServer(new MusePacketCosmeticPreset(Minecraft.getInstance().player, this.getSelectedItem().inventorySlot, this.name));
             }
             return true;
         }

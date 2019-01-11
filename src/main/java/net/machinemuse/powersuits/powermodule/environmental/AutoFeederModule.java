@@ -20,8 +20,6 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.FoodStats;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class AutoFeederModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
     public AutoFeederModule(EnumModuleTarget moduleTarget) {
@@ -162,7 +160,7 @@ public class AutoFeederModule extends PowerModuleBase implements IToggleableModu
     public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
         return MuseIcon.autoFeeder;

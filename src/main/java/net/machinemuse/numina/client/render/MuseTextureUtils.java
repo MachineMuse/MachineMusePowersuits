@@ -35,6 +35,6 @@ public final class MuseTextureUtils {
     }
 
     public static void bindTexture(final String tex) {
-        Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(tex));
+        Minecraft.getInstance().renderEngine.bindTexture(new ResourceLocation(tex));
     }
 }

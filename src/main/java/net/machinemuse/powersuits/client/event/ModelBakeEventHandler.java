@@ -8,10 +8,10 @@ import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.registry.IRegistry;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.io.IOException;
 
@@ -19,7 +19,7 @@ import java.io.IOException;
 /**
  * Ported to Java by lehjr on 12/22/16.
  */
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public enum ModelBakeEventHandler {
     INSTANCE;
 
@@ -38,15 +38,15 @@ public enum ModelBakeEventHandler {
         modelRegistry = event.getModelRegistry();
 
         // New Lux Capacitor Model
-        event.getModelRegistry().putObject(ModelLuxCapacitor.modelResourceLocation, new ModelLuxCapacitor());
+        event.getModelRegistry().put(ModelLuxCapacitor.modelResourceLocation, new ModelLuxCapacitor());
 
-        for (EnumFacing facing : EnumFacing.VALUES) {
-            modelRegistry.putObject(ModelLuxCapacitor.getModelResourceLocation(facing), new ModelLuxCapacitor());
+        for (EnumFacing facing : EnumFacing.values()) {
+            modelRegistry.put(ModelLuxCapacitor.getModelResourceLocation(facing), new ModelLuxCapacitor());
         }
 
         // Power Fist
-        powerFistIconModel = modelRegistry.getObject(powerFistIconLocation);
-        modelRegistry.putObject(powerFistIconLocation, new ModelPowerFist(powerFistIconModel));
+        powerFistIconModel = modelRegistry.get(powerFistIconLocation);
+        modelRegistry.put(powerFistIconLocation, new ModelPowerFist(powerFistIconModel));
 
 //        // set up armor icon models for coloring because that's how it used to work
 //        IBakedModel powerArmorHeadModel = modelRegistry.getObject(powerArmorHeadModelLocation);

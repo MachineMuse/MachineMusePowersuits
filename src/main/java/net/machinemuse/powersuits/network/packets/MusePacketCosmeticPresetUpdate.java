@@ -82,7 +82,7 @@ public class MusePacketCosmeticPresetUpdate implements IMessage {
                     });
                 }
             } else {
-                Minecraft.getMinecraft().addScheduledTask(() -> {
+                Minecraft.getInstance().addScheduledTask(() -> {
                     ResourceLocation registryName = message.registryName;
                     String name = message.name;
                     NBTTagCompound cosmeticSettings = message.cosmeticSettings;

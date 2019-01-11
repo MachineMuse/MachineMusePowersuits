@@ -17,8 +17,6 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import java.util.List;
@@ -29,7 +27,7 @@ import java.util.List;
  * <p>
  * Ported to Java by lehjr on 11/6/16.
  */
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class RenderPart extends ModelRenderer {
     ModelRenderer parent;
 
@@ -69,7 +67,7 @@ public class RenderPart extends ModelRenderer {
                         GlStateManager.pushMatrix();
                         GlStateManager.scale(scale, scale, scale);
                         applyTransform();
-                        Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+                        Minecraft.getInstance().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
                         Tessellator tess = Tessellator.getInstance();
                         BufferBuilder buffer = tess.getBuffer();
                         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.ITEM);

@@ -7,13 +7,13 @@ import li.cil.scannable.common.config.Constants;
 import li.cil.scannable.common.config.Settings;
 import li.cil.scannable.common.init.Items;
 import net.machinemuse.numina.client.sound.Musique;
-import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.numina.module.EnumModuleCategory;
 import net.machinemuse.numina.module.EnumModuleTarget;
 import net.machinemuse.numina.module.IPlayerTickModule;
 import net.machinemuse.numina.module.IRightClickModule;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.capabilities.ItemHandlerPowerFist;
 import net.machinemuse.powersuits.client.event.MuseIcon;
@@ -129,7 +129,7 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
     public TextureAtlasSprite getIcon(ItemStack item) {
         try {
             if (!scanner.isEmpty())
-                return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(scanner).getParticleTexture();
+                return Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(scanner).getParticleTexture();
         } catch (Exception ignored) {
         }
         return MuseIcon.oreScanner;
@@ -157,7 +157,7 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
             final List<ItemStack> modules = new ArrayList<>();
             if (!collectModules(itemStackIn, modules)) {
                 if (worldIn.isRemote) {
-                    Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new TextComponentTranslation(Constants.MESSAGE_NO_SCAN_MODULES), Constants.CHAT_LINE_ID);
+                    Minecraft.getInstance().ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new TextComponentTranslation(Constants.MESSAGE_NO_SCAN_MODULES), Constants.CHAT_LINE_ID);
                 }
                 playerIn.getCooldownTracker().setCooldown(itemStackIn.getItem(), 10);
                 return new ActionResult<>(EnumActionResult.FAIL, itemStackIn);
@@ -165,7 +165,7 @@ public class OreScannerModule extends PowerModuleBase implements IRightClickModu
 
             if (!tryConsumeEnergy(playerIn, modules, true)) {
                 if (worldIn.isRemote) {
-                    Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new TextComponentTranslation(Constants.MESSAGE_NOT_ENOUGH_ENERGY), Constants.CHAT_LINE_ID);
+                    Minecraft.getInstance().ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new TextComponentTranslation(Constants.MESSAGE_NOT_ENOUGH_ENERGY), Constants.CHAT_LINE_ID);
                 }
                 playerIn.getCooldownTracker().setCooldown(itemStackIn.getItem(), 10);
                 return new ActionResult<>(EnumActionResult.FAIL, itemStackIn);

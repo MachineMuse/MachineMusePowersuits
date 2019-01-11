@@ -1,5 +1,11 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
+import net.machinemuse.numina.client.gui.clickable.ClickableLabel;
+import net.machinemuse.numina.client.gui.clickable.ClickableSlider;
+import net.machinemuse.numina.client.gui.scrollable.ScrollableFrame;
+import net.machinemuse.numina.client.gui.scrollable.ScrollableLabel;
+import net.machinemuse.numina.client.gui.scrollable.ScrollableRectangle;
+import net.machinemuse.numina.client.gui.scrollable.ScrollableSlider;
 import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.math.Colour;
@@ -8,12 +14,6 @@ import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.gui.GuiIcons;
-import net.machinemuse.numina.client.gui.clickable.ClickableLabel;
-import net.machinemuse.numina.client.gui.clickable.ClickableSlider;
-import net.machinemuse.numina.client.gui.scrollable.ScrollableFrame;
-import net.machinemuse.numina.client.gui.scrollable.ScrollableLabel;
-import net.machinemuse.numina.client.gui.scrollable.ScrollableRectangle;
-import net.machinemuse.numina.client.gui.scrollable.ScrollableSlider;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.network.MPSPackets;
 import net.machinemuse.powersuits.network.packets.MusePacketColourInfo;
@@ -123,7 +123,7 @@ public class ColourPickerFrame extends ScrollableFrame {
                 int[] intArray2 = new int[]{Colour.WHITE.getInt()};
                 renderSpec.setIntArray(NuminaNBTConstants.TAG_COLOURS, intArray2);
             }
-            EntityPlayerSP player = Minecraft.getMinecraft().player;
+            EntityPlayerSP player = Minecraft.getInstance().player;
             if (player.world.isRemote) {
                 MPSPackets.sendToServer(new MusePacketColourInfo(player, this.itemSelector.getSelectedItem().inventorySlot, this.colours()));
             }
@@ -137,7 +137,7 @@ public class ColourPickerFrame extends ScrollableFrame {
         }
         NBTTagCompound renderSpec = MPSNBTUtils.getMuseRenderTag(this.itemSelector.getSelectedItem().getItem());
         renderSpec.setTag(NuminaNBTConstants.TAG_COLOURS, new NBTTagIntArray(intList));
-        EntityPlayerSP player = Minecraft.getMinecraft().player;
+        EntityPlayerSP player = Minecraft.getInstance().player;
         if (player.world.isRemote) {
             MPSPackets.sendToServer(new MusePacketColourInfo(player, this.itemSelector.getSelectedItem().inventorySlot, this.colours()));
         }
@@ -177,7 +177,7 @@ public class ColourPickerFrame extends ScrollableFrame {
                 if (colours().length > selectedColour) {
                     colours()[selectedColour] = Colour.getInt(rslider.getValue(), gslider.getValue(), bslider.getValue(), aslider.getValue());
 
-                    EntityPlayerSP player = Minecraft.getMinecraft().player;
+                    EntityPlayerSP player = Minecraft.getInstance().player;
                     if (player.world.isRemote)
                         MPSPackets.sendToServer(new MusePacketColourInfo(player, itemSelector.getSelectedItem().inventorySlot, colours()));
                 }
@@ -294,7 +294,7 @@ public class ColourPickerFrame extends ScrollableFrame {
                         selectedColour = selectedColour - 1;
                     }
 
-                    EntityPlayerSP player = Minecraft.getMinecraft().player;
+                    EntityPlayerSP player = Minecraft.getInstance().player;
                     if (player.world.isRemote)
                         MPSPackets.sendToServer(new MusePacketColourInfo(player, itemSelector.getSelectedItem().inventorySlot, nbtTagIntArray.getIntArray()));
                 }

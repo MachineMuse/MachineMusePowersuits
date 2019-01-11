@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.gui.tinker.clickable;
 
+import net.machinemuse.numina.client.gui.clickable.Clickable;
 import net.machinemuse.numina.client.render.MuseIconUtils;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
-import net.machinemuse.numina.client.gui.clickable.Clickable;
 import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
@@ -65,7 +65,7 @@ public class ClickableModule extends Clickable {
     // TODO: switch to models in order to handle icons overrriden with resource packs or items with no icons
 
     public void drawPartial(double xmino, double ymino, double xmaxo, double ymaxo) {
-//         IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, world, null);
+//         IBakedModel model = Minecraft.getInstance().getItemRenderer().getItemModelWithOverrides(stack, world, null);
 
         double left = getPosition().getX() - 8;
         double top = getPosition().getY() - 8;

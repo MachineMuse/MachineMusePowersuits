@@ -38,6 +38,6 @@ public class GrafterModule extends PowerModuleBase {
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(grafter).getParticleTexture();
+        return Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(grafter).getParticleTexture();
     }
 }

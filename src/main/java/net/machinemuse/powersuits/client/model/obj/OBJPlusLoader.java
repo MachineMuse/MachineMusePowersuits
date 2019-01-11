@@ -43,7 +43,7 @@
 // * LIES!!! you cannot extend enum in java as they are treated as final.
 // *
 // */
-//@SideOnly(Side.CLIENT)
+//@OnlyIn(Dist.CLIENT)
 //public enum MPSOBJLoader implements ICustomModelLoader {
 //    INSTANCE;
 //
@@ -96,7 +96,7 @@
 //            if (model != null) {
 //                Collection<ResourceLocation> spriteList = model.getTextures();
 //                for (ResourceLocation spriteLocation: spriteList)
-//                    Minecraft.getMinecraft().getTextureMapBlocks().registerSprite(spriteLocation);
+//                    Minecraft.getInstance().getTextureMapBlocks().registerSprite(spriteLocation);
 //            }
 //        } catch (Exception e) {
 //            throw new ModelLoaderRegistry.LoaderException("Error loading model previously: " + modelLocation, errors.get(modelLocation));

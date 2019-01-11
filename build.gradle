@@ -3,16 +3,11 @@ buildscript {
         jcenter()
         maven {
             name = "forge"
-            url = "http://files.minecraftforge.net/maven"
+            url = 'https://files.minecraftforge.net/maven'
         }
         maven {
             url 'https://plugins.gradle.org/m2/'
         }
-
-        maven {
-            url 'https://mvnrepository.com/artifact/org.lz4/lz4-java'
-        }
-
         maven {
             url 'https://mvnrepository.com/artifact/org.json/json'
         }
@@ -24,14 +19,13 @@ buildscript {
         maven {
             url 'https://oss.sonatype.org/content/repositories/snapshots/'
         }
-
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
 }
-apply plugin: 'net.minecraftforge.gradle.forge'
-apply plugin: 'idea'
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'eclipse'
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {
@@ -47,6 +41,7 @@ archivesBaseName = mod_id
 def numina_version = (System.getenv("NUMINA_VERSION") ?: "0.5.0")
 
 repositories {
+/*
     //url                                                           //dependencies
     maven { url "http://dvs1.progwml6.com/files/maven" }            //JEI
     maven { url = "http://maven.covers1624.net/" }                  //CoFH
@@ -60,10 +55,15 @@ repositories {
     maven { url = 'http://maven.thiakil.com/' }                     //Mekanism
     maven { url = "http://maven.blamejared.com" }                   //CraftTweaker - required by Mekanism
     maven { url = 'https://minecraft.curseforge.com/api/maven/' }   //Thaumcraft
+    */
     mavenCentral()
 }
 
 dependencies {
+    minecraft 'net.minecraftforge.test:forge:1.13-24.0.64-1.13-pre'
+    compile 'net.minecraftforge.test:userdev:1.13-24.0.64-1.13-pre:launcher'
+
+/*
     deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}:api"                             //JEI API
     deobfCompile "cofh:CoFHCore:${minecraft_version}-${cofhcore_version}:universal"                 //CoFH Core
     deobfCompile "appeng:appliedenergistics2:${ae2api_version}"                                     //Applied Energetics 2
@@ -94,28 +94,57 @@ dependencies {
     compile group: 'org.json', name: 'json', version: '20180813' // probably get rid of this
 
     compile group: 'com.codesnippets4all', name: 'quick-json', version: '1.0.4'
+    */
 
 }
 
 minecraft {
-    version = minecraft_version + "-" + forge_version// + "-" + "1.10.0"
-    runDir = "run"
-    mappings = mcp_mappings
-    replace "@numina_version@", numina_version
-    replace "@VERSION@", project.version
-    useDepAts = true
+    //version = minecraft_version + "-" + forge_version
+    //runDir = "run"
+    
+        // default run configurations.
+    // these can be tweaked, removed, or duplicated as needed.
+    runs {
+        client = {
+            workingDirectory project.file('run').canonicalPath
+            source sourceSets.main
+        }
+        server = {
+            workingDirectory project.file('run').canonicalPath
+        }
+    }
+    
+    //mappings channel: mcp_channel, version: mcp_version
+    mappings channel: 'snapshot', version: '20180921-1.13'
+    
+    
+    //replace "@numina_version@", numina_version
+    //replace "@VERSION@", project.version
+    
+    
+
+    accessTransformer = file('numina_at.cfg')
+    
+    //useDepAts = true
 }
 
 processResources {
     // this will ensure that this task is redone when the versions change.
+    inputs.property 'version', project.version
+    inputs.property 'mcversion', '1.13'
+/*
+    // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
-
+*/
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
         // replace version and mcversion
-        expand 'version': project.version, 'mcversion': project.minecraft.version
+        //expand 'version': project.version, 'mcversion': minecraftVersion
+        
+        // replace version and mcversion
+        expand 'version':project.version, 'mcversion': '1.13'
     }
 
     // copy everything else, thats not the mcmod.info
@@ -139,26 +168,4 @@ task devJar(type: Jar) {
 
 artifacts {
     archives devJar
-}
-
-//task copyToLib(type: Copy) {
-//    into "$buildDir/libs"
-//    from(sourceSets.main.resources.srcDirs){
-////        include 'mps-vanilla.recipes'
-//////        include 'mps-thermalexpansion.recipes'
-////        include 'mps-ic2.recipes'
-////        include 'mps-enderio.recipes'
-//    }
-//}
-
-//build.dependsOn(copyToLib)
-
-idea {
-    module {
-        inheritOutputDirs = true
-    }
-}
-
-runClient {
-    jvmArgs "-Xmx3G"
 }

@@ -26,7 +26,7 @@ public class KeyConfigGui extends MuseGui {
 //        this.ySize = 226;
 //        this.xSize = 400;
 //        this.ySize = 244;
-        ScaledResolution screen = new ScaledResolution(Minecraft.getMinecraft());
+        ScaledResolution screen = new ScaledResolution(Minecraft.getInstance());
         this.xSize = screen.getScaledWidth() - 50;
         this.ySize = screen.getScaledHeight() - 50;
 

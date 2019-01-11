@@ -13,8 +13,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -34,14 +32,14 @@ public class MPSItemElectricTool extends ItemTool implements IModularItemBase, I
         super(attackDamageIn, attackSpeedIn, material, blocksEffectiveOn);
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @Override
     public String getToolTip(ItemStack itemStack) {
         return null;
-//        return itemStack.getTooltip(Minecraft.getMinecraft().player, ITooltipFlag.TooltipFlags.NORMAL).toString();
+//        return itemStack.getTooltip(Minecraft.getInstance().player, ITooltipFlag.TooltipFlags.NORMAL).toString();
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> currentTipList, ITooltipFlag flagIn) {
         MuseCommonStrings.addInformation(stack, worldIn, currentTipList, flagIn);
     }

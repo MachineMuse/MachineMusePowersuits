@@ -54,7 +54,7 @@ public class TerminalHandler implements
     }
 
     public static NBTTagCompound openNbtData(@Nonnull ItemStack item) {
-        NBTTagCompound compound = item.getTagCompound();
+        NBTTagCompound compound = item.getCompound();
         if (compound == null)
             item.setTagCompound(compound = new NBTTagCompound());
         return compound;
@@ -98,7 +98,7 @@ public class TerminalHandler implements
         config.registerSetting(Settings.VIEW_MODE, ViewItems.ALL);
         config.registerSetting(Settings.SORT_DIRECTION, SortDir.ASCENDING);
 
-        config.readFromNBT(itemStack.getTagCompound());
+        config.readFromNBT(itemStack.getCompound());
         return config;
     }
 
@@ -161,7 +161,7 @@ public class TerminalHandler implements
         @Override
         public Enum<?> putSetting(Settings settings, Enum<?> anEnum) {
             enums.put(settings, anEnum);
-            writeToNBT(stack.getTagCompound());
+            writeToNBT(stack.getCompound());
             return anEnum;
         }
 

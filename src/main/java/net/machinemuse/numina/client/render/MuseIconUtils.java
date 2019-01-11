@@ -1,7 +1,7 @@
 package net.machinemuse.numina.client.render;
 
-import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
@@ -45,7 +45,7 @@ public class MuseIconUtils {
      * @param colour
      */
     public static void drawIconPartial(double x, double y, TextureAtlasSprite icon, Colour colour, double left, double top, double right, double bottom) {
-        TextureAtlasSprite icon1 = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
+        TextureAtlasSprite icon1 = Minecraft.getInstance().getTextureMapBlocks().getMissingSprite();
         if (icon != null)
             icon1 = icon;
 

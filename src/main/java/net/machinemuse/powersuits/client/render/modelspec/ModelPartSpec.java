@@ -3,8 +3,6 @@ package net.machinemuse.powersuits.client.render.modelspec;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,7 +10,7 @@ import java.util.Objects;
 /**
  * Ported to Java by lehjr on 11/8/16.
  */
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ModelPartSpec extends PartSpecBase {
     private final boolean defaultglow;
 

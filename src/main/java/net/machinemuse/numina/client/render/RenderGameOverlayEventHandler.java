@@ -70,7 +70,7 @@ public class RenderGameOverlayEventHandler {
     }
 
     public void drawModeChangeIcons() {
-        Minecraft mc = Minecraft.getMinecraft();
+        Minecraft mc = Minecraft.getInstance();
         EntityPlayerSP player = mc.player;
         int i = player.inventory.currentItem;
         ItemStack stack = player.inventory.getCurrentItem();

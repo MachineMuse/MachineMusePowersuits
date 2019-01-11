@@ -36,8 +36,8 @@ public class CosmeticGui extends MuseGui {
         this.worldx = worldx;
         this.worldy = worldy;
         this.worldz = worldz;
-        ScaledResolution screen = new ScaledResolution(Minecraft.getMinecraft());
-        this.xSize = Math.min(screen.getScaledWidth() - 50, 500);
+        ScaledResolution screen = new ScaledResolution(Minecraft.getInstance());
+        this.xSize = Math.min(screen.width - 50, 500);
         this.ySize = Math.min(screen.getScaledHeight() - 50, 300);
 
         usingCosmeticPresets = !MPSConfig.INSTANCE.useLegacyCosmeticSystem();

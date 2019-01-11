@@ -10,11 +10,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class KeybindKeyHandler {
     public static final String mps = "Modular Powersuits";
     public static final KeyBinding openKeybindGUI = new KeyBinding("Open MPS Keybind GUI", -1, mps);
@@ -35,7 +33,7 @@ public class KeybindKeyHandler {
     public void onKeyInput(InputEvent.KeyInputEvent e) {
         int key = Keyboard.getEventKey();
         boolean pressed = Keyboard.getEventKeyState();
-        Minecraft mc = Minecraft.getMinecraft();
+        Minecraft mc = Minecraft.getInstance();
         EntityPlayerSP player = mc.player;
         KeyBinding[] hotbarKeys = mc.gameSettings.keyBindsHotbar;
 

@@ -16,7 +16,7 @@ public class GuiModeSelector extends MuseGui {
 
     public GuiModeSelector(EntityPlayer player) {
         this.player = player;
-        ScaledResolution screen = new ScaledResolution(Minecraft.getMinecraft());
+        ScaledResolution screen = new ScaledResolution(Minecraft.getInstance());
         this.xSize = Math.min(screen.getScaledWidth() - 50, 500);
         this.ySize = Math.min(screen.getScaledHeight() - 50, 300);
     }
@@ -42,7 +42,7 @@ public class GuiModeSelector extends MuseGui {
     @Override
     public void update() {
         super.update();
-        if (!Keyboard.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindsHotbar[player.inventory.currentItem].getKeyCode())) {
+        if (!Keyboard.isKeyDown(Minecraft.getInstance().gameSettings.keyBindsHotbar[player.inventory.currentItem].getKeyCode())) {
             //close animation
             //TODO
             //close Gui

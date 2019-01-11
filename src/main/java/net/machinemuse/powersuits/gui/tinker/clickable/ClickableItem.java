@@ -5,7 +5,7 @@ import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 
@@ -21,7 +21,7 @@ import java.util.List;
 public class ClickableItem extends Clickable {
     public static final int offsetx = 8;
     public static final int offsety = 8;
-    public static RenderItem itemRenderer;
+    public static ItemRenderer itemRenderer;
     public int inventorySlot;
     protected ItemStack item;
 
@@ -45,7 +45,7 @@ public class ClickableItem extends Clickable {
 
     @Override
     public List<String> getToolTip() {
-        return item.getTooltip(Minecraft.getMinecraft().player, ITooltipFlag.TooltipFlags.NORMAL);
+        return item.getTooltip(Minecraft.getInstance().player, ITooltipFlag.TooltipFlags.NORMAL);
     }
 
     /**
@@ -57,7 +57,7 @@ public class ClickableItem extends Clickable {
         MuseRenderer.drawItemAt(
                 getPosition().getX() - offsetx,
                 getPosition().getY() - offsety, item);
-        if (inventorySlot > 35 || Minecraft.getMinecraft().player.inventory.getCurrentItem() == item) {
+        if (inventorySlot > 35 || Minecraft.getInstance().player.inventory.getCurrentItem() == item) {
             MuseRenderer.drawString("e", getPosition().getX() + 3, getPosition().getY() + 1, Colour.DARKGREEN);
         }
     }

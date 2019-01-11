@@ -5,7 +5,7 @@
 //import net.minecraftforge.fml.relauncher.SideOnly;
 //import org.lwjgl.input.Keyboard;
 //
-//@SideOnly(Side.CLIENT)
+//@OnlyIn(Dist.CLIENT)
 //public class ModelTransformCalibration {
 //    public static int xtap;
 //    public static int ytap;

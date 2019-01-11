@@ -28,7 +28,7 @@ public class CompassModule extends PowerModuleBase implements IToggleableModule 
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(compass).getParticleTexture();
+        return Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(compass).getParticleTexture();
     }
 
     @Override

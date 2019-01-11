@@ -57,7 +57,7 @@ public class MADModule extends PowerModuleBase implements IToggleableModule, IMi
     @Override
     public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
         // set mode for the device
-        NBTTagCompound nbt = emulatedTool.getTagCompound();
+        NBTTagCompound nbt = emulatedTool.getCompound();
         if (nbt == null) {
             nbt = new NBTTagCompound();
             NBTTagCompound nbt2 = new NBTTagCompound();

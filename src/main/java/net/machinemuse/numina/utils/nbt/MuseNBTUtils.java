@@ -13,7 +13,7 @@ public class MuseNBTUtils {
 
 
     /**
-     * Gets or creates stack.getTagCompound().getTag(TAG_ITEM_PREFIX)
+     * Gets or creates stack.getCompound().getTag(TAG_ITEM_PREFIX)
      *
      * @param stack
      * @return an NBTTagCompound, may be newly created. If stack is null,
@@ -25,7 +25,7 @@ public class MuseNBTUtils {
             return null;
 
         NBTTagCompound stackTag = getNBTTag(stack);
-        NBTTagCompound properties = (stackTag.hasKey(TAG_ITEM_PREFIX)) ? stackTag.getCompoundTag(TAG_ITEM_PREFIX) : new NBTTagCompound();
+        NBTTagCompound properties = (stackTag.hasKey(TAG_ITEM_PREFIX)) ? stackTag.getCompound(TAG_ITEM_PREFIX) : new NBTTagCompound();
         stackTag.setTag(TAG_ITEM_PREFIX, properties);
         return properties;
     }
@@ -39,7 +39,7 @@ public class MuseNBTUtils {
         NBTTagCompound itemTag = getMuseItemTag(stack);
         NBTTagCompound valuesTag;
         if (itemTag.hasKey(NuminaNBTConstants.TAG_VALUES)) {
-            valuesTag = itemTag.getCompoundTag(NuminaNBTConstants.TAG_VALUES);
+            valuesTag = itemTag.getCompound(NuminaNBTConstants.TAG_VALUES);
         } else {
             valuesTag = new NBTTagCompound();
             itemTag.setTag(NuminaNBTConstants.TAG_VALUES, valuesTag);
@@ -53,11 +53,11 @@ public class MuseNBTUtils {
     }
 
     public static NBTTagCompound getNBTTag(@Nonnull ItemStack itemStack) {
-        if (!itemStack.isEmpty() && itemStack.hasTagCompound()) {
-            return itemStack.getTagCompound();
+        if (!itemStack.isEmpty() && itemStack.hasTag()) {
+            return itemStack.getTag();
         } else {
             NBTTagCompound tag = new NBTTagCompound();
-            itemStack.setTagCompound(tag);
+            itemStack.setTag(tag);
             return tag;
         }
     }

@@ -41,7 +41,7 @@ public class FortuneModule extends PowerModuleBase implements IEnchantmentModule
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(book).getParticleTexture();
+        return Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(book).getParticleTexture();
     }
 
     /**

@@ -22,8 +22,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Ported to Java by lehjr on 10/24/16.
@@ -37,23 +35,23 @@ public class RenderEventHandler {
         this.ownFly = false;
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public void preTextureStitch(TextureStitchEvent.Pre event) {
         MuseIcon.registerIcons(event);
         ModelHelper.loadArmorModels(event);
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public void onTextureStitch(TextureStitchEvent.Post event) {
 
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public void renderLast(RenderWorldLastEvent event) {
-        Minecraft mc = Minecraft.getMinecraft();
+        Minecraft mc = Minecraft.getInstance();
         ScaledResolution screen = new ScaledResolution(mc);
     }
 
@@ -88,7 +86,7 @@ public class RenderEventHandler {
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public void onPostRenderGameOverlayEvent(RenderGameOverlayEvent.Post e) {
         RenderGameOverlayEvent.ElementType elementType = e.getType();
@@ -97,10 +95,10 @@ public class RenderEventHandler {
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public void drawKeybindToggles() {
         if (config.keybindHUDon()) {
-            Minecraft mc = Minecraft.getMinecraft();
+            Minecraft mc = Minecraft.getInstance();
             EntityPlayerSP player = mc.player;
             ScaledResolution screen = new ScaledResolution(mc);
             frame.setLeft(config.keybindHUDx());

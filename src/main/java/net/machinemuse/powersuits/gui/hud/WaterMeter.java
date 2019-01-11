@@ -20,6 +20,6 @@ public class WaterMeter extends HeatMeter {
     }
 
     public TextureAtlasSprite getTexture() {
-        return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(FluidRegistry.WATER.getStill().toString());
+        return Minecraft.getInstance().getTextureMapBlocks().getAtlasSprite(FluidRegistry.WATER.getStill().toString());
     }
 }

@@ -1,8 +1,5 @@
 package net.machinemuse.numina.capabilities.energy.adapter;
 
-import cofh.redstoneflux.api.IEnergyContainerItem;
-import ic2.api.item.IElectricItem;
-import net.darkhax.tesla.capability.TeslaCapabilities;
 import net.machinemuse.numina.common.ModCompatibility;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -32,16 +29,16 @@ public abstract class ElectricAdapter {
         if (itemStack.hasCapability(CapabilityEnergy.ENERGY, null)) {
             return new ForgeEnergyAdapter(itemStack);
 
-            // TESLA (need all 3 in order to get power in and out)
-        } else if (ModCompatibility.isTeslaLoaded() &&
-                itemStack.hasCapability(TeslaCapabilities.CAPABILITY_HOLDER, null) &&
-                itemStack.hasCapability(TeslaCapabilities.CAPABILITY_CONSUMER, null) &&
-                itemStack.hasCapability(TeslaCapabilities.CAPABILITY_PRODUCER, null)) {
-            return new TeslaEnergyAdapter(itemStack);
-
-            // RF API
-        } else if (ModCompatibility.isRFAPILoaded() && i instanceof IEnergyContainerItem) {
-            return new TEElectricAdapter(itemStack);
+//            // TESLA (need all 3 in order to get power in and out)
+//        } else if (ModCompatibility.isTeslaLoaded() &&
+//                itemStack.hasCapability(TeslaCapabilities.CAPABILITY_HOLDER, null) &&
+//                itemStack.hasCapability(TeslaCapabilities.CAPABILITY_CONSUMER, null) &&
+//                itemStack.hasCapability(TeslaCapabilities.CAPABILITY_PRODUCER, null)) {
+//            return new TeslaEnergyAdapter(itemStack);
+//
+//            // RF API
+//        } else if (ModCompatibility.isRFAPILoaded() && i instanceof IEnergyContainerItem) {
+//            return new TEElectricAdapter(itemStack);
 
             // Industrialcraft
         } else if (ModCompatibility.isIndustrialCraftLoaded() && i instanceof IElectricItem) {

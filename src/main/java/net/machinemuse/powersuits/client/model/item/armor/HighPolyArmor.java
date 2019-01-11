@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.client.model.item.armor;
 
 import net.machinemuse.powersuits.client.render.modelspec.RenderPart;
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.entity.model.ModelBiped;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -133,7 +133,7 @@ public class HighPolyArmor extends ModelBiped implements IArmorModel {
             isRiding = entLive.isRiding();
             EntityPlayer entPlayer = (EntityPlayer) entLive;
             if ((!stack.isEmpty()) && (entPlayer.getItemInUseCount() > 0)) {
-                EnumAction enumaction = stack.getItemUseAction();
+                EnumAction enumaction = stack.getUseAction();
                 if (enumaction == EnumAction.BLOCK) {
                     if (getMainHand(entLive) == EnumHandSide.LEFT)
                         this.leftArmPose = ArmPose.BLOCK;

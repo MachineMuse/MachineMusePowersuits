@@ -1,20 +1,20 @@
 package net.machinemuse.numina.utils.render;
 
+import net.machinemuse.numina.client.gui.IClickable;
 import net.machinemuse.numina.client.render.BillboardHelper;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
 import net.machinemuse.numina.client.render.RenderState;
-import net.machinemuse.numina.client.gui.IClickable;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.SwirlyMuseCircle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.model.PositionTextureVertex;
-import net.minecraft.client.model.TexturedQuad;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.ModelManager;
+import net.minecraft.client.renderer.entity.model.PositionTextureVertex;
+import net.minecraft.client.renderer.entity.model.TexturedQuad;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Vec3d;
@@ -31,7 +31,7 @@ import static net.machinemuse.numina.common.constants.NuminaConstants.LIGHTNING_
  */
 public abstract class MuseRenderer {
 
-    protected static RenderItem renderItem;
+    protected static ItemRenderer renderItem;
 
     protected static SwirlyMuseCircle selectionCircle;
     static boolean messagedAboutSlick = false;
@@ -54,8 +54,8 @@ public abstract class MuseRenderer {
      */
     public static void drawItemAt(double x, double y, ItemStack item) {
         RenderState.on2D();
-        Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(item, (int) x, (int) y);
-        Minecraft.getMinecraft().getRenderItem().renderItemOverlayIntoGUI(getFontRenderer(), item, (int) x, (int) y, (String) null);
+        Minecraft.getInstance().getItemRenderer().renderItemAndEffectIntoGUI(item, (int) x, (int) y);
+        Minecraft.getInstance().getItemRenderer().renderItemOverlayIntoGUI(getFontRenderer(), item, (int) x, (int) y, (String) null);
         RenderState.off2D();
     }
 
@@ -184,14 +184,14 @@ public abstract class MuseRenderer {
      * Singleton pattern for FontRenderer
      */
     public static FontRenderer getFontRenderer() {
-        return Minecraft.getMinecraft().fontRenderer;
+        return Minecraft.getInstance().fontRenderer;
     }
 
     /**
      * Singleton pattern for RenderEngine
      */
     public static TextureManager getRenderEngine() {
-        return Minecraft.getMinecraft().renderEngine;
+        return Minecraft.getInstance().getTextureManager();
     }
 
     /**
@@ -199,9 +199,9 @@ public abstract class MuseRenderer {
      *
      * @return the static renderItem instance
      */
-    public static RenderItem getRenderItem(TextureManager textureManager, ModelManager modelManager) {
+    public static ItemRenderer getRenderItem(TextureManager textureManager, ModelManager modelManager) {
         if (renderItem == null) {
-            renderItem = new RenderItem(textureManager, modelManager, null); // FIXME!!!! this shoudl be an item color but might be good enough to get running
+            renderItem = new ItemRenderer(textureManager, modelManager, null); // FIXME!!!! this shoudl be an item color but might be good enough to get running
         }
         return renderItem;
     }

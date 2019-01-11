@@ -33,7 +33,7 @@ public class EntityRendererLuxCapacitorEntity extends MuseEntityRenderer<EntityL
                     withProperty(BlockDirectional.FACING, EnumFacing.DOWN)).withProperty(COLOR, entity.color);
             GL11.glPushMatrix();
             GL11.glTranslated(x, y, z);
-            Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+            Minecraft.getInstance().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             Tessellator tess = Tessellator.getInstance();
             BufferBuilder buffer = tess.getBuffer();
             buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.ITEM);

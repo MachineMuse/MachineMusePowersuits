@@ -12,8 +12,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 
@@ -38,10 +36,10 @@ public enum MPSGuiHandler implements IGuiHandler {
         return null;
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        //        Minecraft.getMinecraft().player.addStat(AchievementList.OPEN_INVENTORY, 1);
+        //        Minecraft.getInstance().player.addStat(AchievementList.OPEN_INVENTORY, 1);
         switch (ID) {
             case 0:
                 return new GuiTinkerTable(player, x, y, z);

@@ -15,7 +15,7 @@ public class PersonalShrinkingModuleHelper {
 
     public static boolean getCanShrink(@Nonnull ItemStack stack) {
         if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = stack.getTagCompound();
+            NBTTagCompound itemTag = stack.getCompound();
             NBTTagCompound cmTag = ((itemTag.hasKey(TAG_COMPACT_MACHINES)) ? itemTag.getCompoundTag(TAG_COMPACT_MACHINES) : null);
             if (cmTag != null && cmTag.hasKey(TAG_CAN_SHRINK)) {
                 return cmTag.getBoolean(TAG_CAN_SHRINK);
@@ -26,7 +26,7 @@ public class PersonalShrinkingModuleHelper {
 
     public static void setCanShrink(@Nonnull ItemStack stack, boolean b) {
         if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-            NBTTagCompound itemTag = stack.getTagCompound();
+            NBTTagCompound itemTag = stack.getCompound();
             NBTTagCompound cmTag = ((itemTag.hasKey(TAG_COMPACT_MACHINES)) ? itemTag.getCompoundTag(TAG_COMPACT_MACHINES) : (new NBTTagCompound()));
             cmTag.setBoolean(TAG_CAN_SHRINK, b);
             itemTag.setTag(TAG_COMPACT_MACHINES, cmTag);

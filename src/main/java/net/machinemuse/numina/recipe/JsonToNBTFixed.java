@@ -59,7 +59,7 @@ public class JsonToNBTFixed {
         return new NBTException(message, this.string, this.cursor);
     }
 
-    protected NBTBase readTypedValue() throws NBTException {
+    protected INBTBase readTypedValue() throws NBTException {
         this.skipWhitespace();
         String s;
 
@@ -74,7 +74,7 @@ public class JsonToNBTFixed {
             return this.type(s);
     }
 
-    private NBTBase type(String stringIn) {
+    private INBTBase type(String stringIn) {
         try {
             if (FLOAT_PATTERN.matcher(stringIn).matches())
                 return new NBTTagFloat(Float.parseFloat(stringIn.substring(0, stringIn.length() - 1)));
@@ -149,7 +149,7 @@ public class JsonToNBTFixed {
         return this.string.substring(i, this.cursor);
     }
 
-    protected NBTBase readValue() throws NBTException {
+    protected INBTBase readValue() throws NBTException {
         this.skipWhitespace();
 
         if (!this.canRead()) {
@@ -164,7 +164,7 @@ public class JsonToNBTFixed {
         }
     }
 
-    protected NBTBase readList() throws NBTException {
+    protected INBTBase readList() throws NBTException {
         return this.canRead(2) && this.peek(1) != '"' && this.peek(2) == ';' ? this.readArrayTag() : this.readListTag();
     }
 
@@ -196,7 +196,7 @@ public class JsonToNBTFixed {
         return nbttagcompound;
     }
 
-    private NBTBase readListTag() throws NBTException {
+    private INBTBase readListTag() throws NBTException {
         this.expect('[');
         this.skipWhitespace();
 
@@ -207,16 +207,16 @@ public class JsonToNBTFixed {
             int i = -1;
 
             while (this.peek() != ']') {
-                NBTBase nbtbase = this.readValue();
-                int j = nbtbase.getId();
+                INBTBase INBTBase = this.readValue();
+                int j = INBTBase.getId();
 
                 if (i < 0) {
                     i = j;
                 } else if (j != i) {
-                    throw this.exception("Unable to insert " + NBTBase.getTypeName(j) + " into ListTag of type " + NBTBase.getTypeName(i));
+                    throw this.exception("Unable to insert " + INBTBase.getTypeName(j) + " into ListTag of type " + INBTBase.getTypeName(i));
                 }
 
-                nbttaglist.appendTag(nbtbase);
+                nbttaglist.appendTag(INBTBase);
 
                 if (!this.hasElementSeparator()) {
                     break;
@@ -232,7 +232,7 @@ public class JsonToNBTFixed {
         }
     }
 
-    private NBTBase readArrayTag() throws NBTException {
+    private INBTBase readArrayTag() throws NBTException {
         this.expect('[');
         char c0 = this.pop();
         this.pop();
@@ -256,19 +256,19 @@ public class JsonToNBTFixed {
 
         while (true) {
             if (this.peek() != ']') {
-                NBTBase nbtbase = this.readValue();
-                int i = nbtbase.getId();
+                INBTBase INBTBase = this.readValue();
+                int i = INBTBase.getId();
 
                 if (i != p_193603_2_) {
-                    throw this.exception("Unable to insert " + NBTBase.getTypeName(i) + " into " + NBTBase.getTypeName(p_193603_1_));
+                    throw this.exception("Unable to insert " + INBTBase.getTypeName(i) + " into " + INBTBase.getTypeName(p_193603_1_));
                 }
 
                 if (p_193603_2_ == 1) {
-                    list.add((T) Byte.valueOf(((NBTPrimitive) nbtbase).getByte()));
+                    list.add((T) Byte.valueOf(((NBTPrimitive) INBTBase).getByte()));
                 } else if (p_193603_2_ == 4) {
-                    list.add((T) Long.valueOf(((NBTPrimitive) nbtbase).getLong()));
+                    list.add((T) Long.valueOf(((NBTPrimitive) INBTBase).getLong()));
                 } else {
-                    list.add((T) Integer.valueOf(((NBTPrimitive) nbtbase).getInt()));
+                    list.add((T) Integer.valueOf(((NBTPrimitive) INBTBase).getInt()));
                 }
 
                 if (this.hasElementSeparator()) {

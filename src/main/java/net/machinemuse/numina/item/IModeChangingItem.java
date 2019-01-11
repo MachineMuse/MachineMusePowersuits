@@ -11,8 +11,8 @@ import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,7 +26,7 @@ import java.util.List;
  * Ported to Java by lehjr on 11/1/16.
  */
 public interface IModeChangingItem extends IModularItem {
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @Nullable
     default TextureAtlasSprite getModeIcon(String mode, @Nonnull ItemStack stack, EntityPlayer player) {
         if (stack.getItem() instanceof IModularItem) {

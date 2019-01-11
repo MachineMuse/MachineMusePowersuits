@@ -29,8 +29,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
@@ -41,7 +39,7 @@ import java.util.List;
 /**
  * Created by lehjr on 12/19/16.
  */
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ModelPowerFist implements IBakedModel {
     static ItemCameraTransforms.TransformType modelcameraTransformType;
     static ItemStack itemStack;

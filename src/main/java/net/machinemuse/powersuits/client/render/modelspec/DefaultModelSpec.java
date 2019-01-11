@@ -28,7 +28,7 @@ import java.util.List;
 // FIXME: update to respect config settings...
 
 
-//@SideOnly(Side.CLIENT)
+//@OnlyIn(Dist.CLIENT)
 public class DefaultModelSpec {
     public static NBTTagCompound makeModelPrefs(@Nonnull ItemStack stack) {
         if (!stack.isEmpty()) {

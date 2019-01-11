@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+  <stringAttribute value="net.minecraftforge.userdev.UserdevLauncher" key="org.eclipse.jdt.launching.MAIN_TYPE"/>
+  <stringAttribute value="MachineMusePowersuits" key="org.eclipse.jdt.launching.PROJECT_ATTR"/>
+  <stringAttribute value="/home/leon/Development/Minecraft/1.13/MachineMusePowersuits/run" key="org.eclipse.jdt.launching.WORKING_DIRECTORY"/>
+  <mapAttribute key="org.eclipse.debug.core.environmentVariables">
+    <mapEntry value="/home/leon/.gradle/caches/forge_gradle/assets" key="assetDirectory"/>
+    <mapEntry value="/home/leon/Development/Minecraft/1.13/MachineMusePowersuits/build/resources/main:/home/leon/Development/Minecraft/1.13/MachineMusePowersuits/build/classes/java/main" key="MOD_CLASSES"/>
+    <mapEntry value="snapshot_20180921-1.13" key="MCP_MAPPINGS"/>
+    <mapEntry value="2018.09.12.04.11.00" key="MCP_VERSION"/>
+    <mapEntry value="24.0.64-1.13-pre" key="FORGE_VERSION"/>
+    <mapEntry value="/home/leon/.gradle/caches/forge_gradle/assets" key="assetDirectory"/>
+    <mapEntry value="/home/leon/Development/Minecraft/1.13/MachineMusePowersuits/build/natives" key="nativesDirectory"/>
+    <mapEntry value="net.minecraftforge.test" key="FORGE_GROUP"/>
+    <mapEntry value="fmluserdevclient" key="target"/>
+    <mapEntry value="1.13" key="MC_VERSION"/>
+  </mapAttribute>
+</launchConfiguration>

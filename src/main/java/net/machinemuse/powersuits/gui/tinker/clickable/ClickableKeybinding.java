@@ -61,7 +61,7 @@ public class ClickableKeybinding extends ClickableButton {
     }
 
     public void toggleModules() {
-        EntityPlayerSP player = Minecraft.getMinecraft().player;
+        EntityPlayerSP player = Minecraft.getInstance().player;
         if (player == null) {
             return;
         }

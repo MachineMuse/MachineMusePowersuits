@@ -2,14 +2,14 @@ package net.machinemuse.powersuits.utils;
 
 import com.enderio.core.common.transform.EnderCoreMethods;
 import net.machinemuse.numina.common.ModCompatibility;
-import net.machinemuse.numina.utils.math.MuseMathUtils;
+import net.machinemuse.numina.control.PlayerInputMap;
 import net.machinemuse.numina.item.IModularItem;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.machinemuse.numina.control.PlayerInputMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

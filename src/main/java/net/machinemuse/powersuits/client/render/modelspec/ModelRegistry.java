@@ -14,8 +14,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.model.IModelState;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 
@@ -27,7 +25,7 @@ import javax.annotation.Nullable;
  * <p>
  * Note: make sure to have null checks in place.
  */
-//@SideOnly(Side.CLIENT)
+//@OnlyIn(Dist.CLIENT)
 public class ModelRegistry extends MuseRegistry<SpecBase> {
     private static volatile ModelRegistry INSTANCE;
 
@@ -72,7 +70,7 @@ public class ModelRegistry extends MuseRegistry<SpecBase> {
 
         try {
             return (OBJModelPlus.OBJBakedModelPus) model.bake(modelState, DefaultVertexFormats.ITEM,
-                    location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString()));
+                    location -> Minecraft.getInstance().getTextureMapBlocks().getAtlasSprite(location.toString()));
         } catch (Exception e) {
             MuseLogger.logError("Failed to bake model. " + e);
         }

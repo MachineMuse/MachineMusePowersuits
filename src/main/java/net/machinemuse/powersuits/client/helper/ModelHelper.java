@@ -31,8 +31,6 @@ import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import javax.vecmath.Vector3f;
@@ -42,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class ModelHelper {
     static {
         new ModelHelper();
@@ -119,7 +117,7 @@ public class ModelHelper {
                     DefaultVertexFormats.ITEM,
                     new Function<ResourceLocation, TextureAtlasSprite>() {
                         public TextureAtlasSprite apply(ResourceLocation resourceLocation) {
-                            return Minecraft.getMinecraft().getTextureMapBlocks().registerSprite(resourceLocation);
+                            return Minecraft.getInstance().getTextureMapBlocks().registerSprite(resourceLocation);
                         }
                     });
             return bakedModel;
@@ -134,7 +132,7 @@ public class ModelHelper {
                     DefaultVertexFormats.ITEM,
                     new Function<ResourceLocation, TextureAtlasSprite>() {
                         public TextureAtlasSprite apply(ResourceLocation resourceLocation) {
-                            return Minecraft.getMinecraft().getTextureMapBlocks().registerSprite(resourceLocation);
+                            return Minecraft.getInstance().getTextureMapBlocks().registerSprite(resourceLocation);
                         }
                     });
             return bakedModel;
@@ -147,12 +145,12 @@ public class ModelHelper {
 //
 //        try {
 //            return model.bake(modelState, DefaultVertexFormats.ITEM,
-//                    location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString()));
+//                    location -> Minecraft.getInstance().getTextureMapBlocks().getAtlasSprite(location.toString()));
 //        } catch (Exception e) {
 //            MuseLogger.logError("Failed to bake model. " + e);
 //        }
 //        return ModelLoaderRegistry.getMissingModel().bake(ModelLoaderRegistry.getMissingModel().getDefaultState(), DefaultVertexFormats.ITEM,
-//                location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString()));
+//                location -> Minecraft.getInstance().getTextureMapBlocks().getAtlasSprite(location.toString()));
 //    }
 //
 //    /*
@@ -249,12 +247,12 @@ public class ModelHelper {
 
         try {
             return model.bake(modelState, DefaultVertexFormats.ITEM,
-                    location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString()));
+                    location -> Minecraft.getInstance().getTextureMapBlocks().getAtlasSprite(location.toString()));
         } catch (Exception e) {
             MuseLogger.logError("Failed to bake model. " + e);
         }
         return ModelLoaderRegistry.getMissingModel().bake(ModelLoaderRegistry.getMissingModel().getDefaultState(), DefaultVertexFormats.ITEM,
-                location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString()));
+                location -> Minecraft.getInstance().getTextureMapBlocks().getAtlasSprite(location.toString()));
     }
 
     /*

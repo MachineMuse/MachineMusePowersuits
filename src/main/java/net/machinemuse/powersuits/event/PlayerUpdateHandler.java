@@ -2,11 +2,11 @@ package net.machinemuse.powersuits.event;
 
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.common.config.NuminaConfig;
-import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.numina.module.IPlayerTickModule;
 import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.utils.MusePlayerUtils;
@@ -43,7 +43,7 @@ public class PlayerUpdateHandler {
 //                if (tagList != null && !tagList.isEmpty()) {
 //                    if (tagList.tagCount() == 1) {
 //                        if (!(tagList.getCompoundTagAt(0).getShort("id") == 128))
-//                            stack.getTagCompound().removeTag("ench");
+//                            stack.getCompound().removeTag("ench");
 //                    } else {
 //                        NBTTagCompound ar = null;
 //                        for (int i = 0; i < tagList.tagCount(); i++) {
@@ -52,9 +52,9 @@ public class PlayerUpdateHandler {
 //                                ar = nbtTag;
 //                            }
 //                        }
-//                        stack.getTagCompound().removeTag("ench");
+//                        stack.getCompound().removeTag("ench");
 //                        if (ar != null) {
-//                            stack.getTagCompound().setTag("ench", ar);
+//                            stack.getCompound().setTag("ench", ar);
 //                        }
 //                    }
 //                }

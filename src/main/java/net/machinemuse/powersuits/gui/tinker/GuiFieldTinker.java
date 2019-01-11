@@ -35,7 +35,7 @@ public class GuiFieldTinker extends MuseGui {
 //        this.xSize = 400;
 //        this.ySize = 244;
 
-        ScaledResolution screen = new ScaledResolution(Minecraft.getMinecraft());
+        ScaledResolution screen = new ScaledResolution(Minecraft.getInstance());
         this.xSize = Math.min(screen.getScaledWidth() - 50, 500);
         this.ySize = Math.min(screen.getScaledHeight() - 50, 300);
     }

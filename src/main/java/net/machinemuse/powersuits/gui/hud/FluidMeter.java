@@ -13,6 +13,6 @@ public class FluidMeter extends HeatMeter {
 
     @Override
     public TextureAtlasSprite getTexture() {
-        return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(fluid.getStill().toString());
+        return Minecraft.getInstance().getTextureMapBlocks().getAtlasSprite(fluid.getStill().toString());
     }
 }

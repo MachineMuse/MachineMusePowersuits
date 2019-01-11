@@ -79,6 +79,6 @@ public class ChiselModule extends PowerModuleBase implements IBlockBreakingModul
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(emulatedTool).getParticleTexture();
+        return Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(emulatedTool).getParticleTexture();
     }
 }

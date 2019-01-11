@@ -31,7 +31,7 @@ public class LeatherPlatingModule extends PowerModuleBase {
 
     @Override
     public TextureAtlasSprite getIcon(ItemStack item) {
-        return Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(leather).getParticleTexture();
+        return Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(leather).getParticleTexture();
     }
 
     @Override

@@ -67,8 +67,8 @@ package net.machinemuse.powersuits.powermodule.tool;// package andrew.powersuits
 // @Override
 // public void onRightClick(EntityPlayer player, World world, ItemStack stack) {
 // /*        if (!player.isSneaking() && stack.hasTagCompound()) {
-//       String key = stack.getTagCompound().getString("oc:key");
-//       String server = stack.getTagCompound().getString("oc:server");
+//       String key = stack.getCompound().getString("oc:key");
+//       String server = stack.getCompound().getString("oc:server");
 //
 //       if (key != null && !key.isEmpty() && server != null && !server.isEmpty()) {
 //           if (world.isRemote) {
@@ -98,7 +98,7 @@ package net.machinemuse.powersuits.powermodule.tool;// package andrew.powersuits
 //                         if (! stack.hasTagCompound()) {
 //                             stack.setTagCompound(new NBTTagCompound());
 //                         } else {
-//                             term.keys().$minus$eq(stack.getTagCompound().getString("oc:key"));
+//                             term.keys().$minus$eq(stack.getCompound().getString("oc:key"));
 //                         }
 //
 //                         int maxSize = Settings.get().terminalsPerTier()[(Math.min(2, server.tier()))];
@@ -112,8 +112,8 @@ package net.machinemuse.powersuits.powermodule.tool;// package andrew.powersuits
 //                         term.connect(machine.node());
 //
 //                         PacketSender.sendServerState(rack, slot, scala.Option.apply((EntityPlayerMP) player));
-//       stack.getTagCompound().setString("oc:key", key);
-//                         stack.getTagCompound().setString("oc:server", machine.node().address());
+//       stack.getCompound().setString("oc:key", key);
+//                         stack.getCompound().setString("oc:server", machine.node().address());
 //                         player.inventory.markDirty();
 //         }
 //     }
@@ -139,7 +139,7 @@ package net.machinemuse.powersuits.powermodule.tool;// package andrew.powersuits
 //                                         if (!stack.hasTagCompound()) {
 //                                                 stack.setTagCompound(new NBTTagCompound());
 //                                         } else {
-//                                                 term.keys().$minus$eq(stack.getTagCompound().getString("oc:key"));
+//                                                 term.keys().$minus$eq(stack.getCompound().getString("oc:key"));
 //                                         }
 //
 //                                         int maxSize = Settings.get().terminalsPerTier()[(Math.min(2, server.tier()))];
@@ -153,16 +153,16 @@ package net.machinemuse.powersuits.powermodule.tool;// package andrew.powersuits
 //                                         term.connect(machine.node());
 //
 //                                         PacketSender.sendServerState(rack, slot, scala.Option.apply((EntityPlayerMP) player));
-//                                         stack.getTagCompound().setString("oc:key", key);
-//                                         stack.getTagCompound().setString("oc:server", machine.node().address());
+//                                         stack.getCompound().setString("oc:key", key);
+//                                         stack.getCompound().setString("oc:server", machine.node().address());
 //                                         player.inventory.markDirty();
 //                                 }
 //                         }
 //                 }
 //         }
 //         if (!player.isSneaking() && stack.hasTagCompound()) {
-//                 String key = stack.getTagCompound().getString("oc:key");
-//                 String server = stack.getTagCompound().getString("oc:server");
+//                 String key = stack.getCompound().getString("oc:key");
+//                 String server = stack.getCompound().getString("oc:server");
 //
 //                 if (key != null && !key.isEmpty() && server != null && !server.isEmpty()) {
 //                         if (world.isRemote) {

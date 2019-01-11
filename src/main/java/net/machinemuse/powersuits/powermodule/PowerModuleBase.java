@@ -10,8 +10,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -45,7 +43,7 @@ public abstract class PowerModuleBase implements IPowerModule {
         addBasePropertyDouble(MPSModuleConstants.SLOT_POINTS, 1);
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public static String getUnit(String propertyName) {
         String unit = units.get(propertyName);
         if (unit != null && unit.startsWith(MPSModuleConstants.MODULE_TRADEOFF_PREFIX))

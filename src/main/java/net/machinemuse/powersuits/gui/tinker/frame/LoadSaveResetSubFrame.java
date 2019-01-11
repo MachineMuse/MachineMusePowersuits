@@ -1,8 +1,9 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
 import com.google.common.collect.BiMap;
-import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.numina.client.gui.frame.IGuiFrame;
+import net.machinemuse.numina.client.gui.scrollable.ScrollableLabel;
+import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.DrawableMuseRect;
@@ -16,7 +17,6 @@ import net.machinemuse.powersuits.common.config.CosmeticPresetSaveLoad;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableButton;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
-import net.machinemuse.numina.client.gui.scrollable.ScrollableLabel;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.machinemuse.powersuits.network.MPSPackets;
@@ -194,7 +194,7 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
         if (!selectedItem.isEmpty() && selectedItem.getItem() instanceof ItemPowerArmor)
             return ((ItemPowerArmor) selectedItem.getItem()).armorType;
 
-        Minecraft mc = Minecraft.getMinecraft();
+        Minecraft mc = Minecraft.getInstance();
         EntityPlayer player = mc.player;
         ItemStack heldItem = player.getHeldItemOffhand();
 
@@ -211,9 +211,9 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
                 BiMap<String, NBTTagCompound> presetMap = MPSConfig.INSTANCE.getCosmeticPresets(itemStack);
                 if (presetMap.containsValue(itemNBT.getCompoundTag(NuminaNBTConstants.TAG_RENDER))) {
                     String name = presetMap.inverse().get(itemNBT.getCompoundTag(NuminaNBTConstants.TAG_RENDER));
-                    MPSPackets.sendToServer(new MusePacketCosmeticPreset(Minecraft.getMinecraft().player, clickie.inventorySlot, name));
+                    MPSPackets.sendToServer(new MusePacketCosmeticPreset(Minecraft.getInstance().player, clickie.inventorySlot, name));
                 } else
-                    MPSPackets.sendToServer(new MusePacketCosmeticPreset(Minecraft.getMinecraft().player, clickie.inventorySlot, "Default"));
+                    MPSPackets.sendToServer(new MusePacketCosmeticPreset(Minecraft.getInstance().player, clickie.inventorySlot, "Default"));
             }
         }
     }
@@ -252,7 +252,7 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
     public boolean isValidItem(ClickableItem clickie, EntityEquipmentSlot slot) {
         if (clickie != null) {
             if (clickie.getItem().getItem() instanceof ItemPowerArmor)
-                return clickie.getItem().getItem().isValidArmor(clickie.getItem(), slot, Minecraft.getMinecraft().player);
+                return clickie.getItem().getItem().isValidArmor(clickie.getItem(), slot, Minecraft.getInstance().player);
             else if (clickie.getItem().getItem() instanceof ItemPowerFist && slot.getSlotType().equals(EntityEquipmentSlot.Type.HAND))
                 return true;
         }
@@ -311,7 +311,7 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
                         // cancel creation
                     } else if (loadButton.hitBox(x, y)) {
                         if (isValidItem(getSelectedItem(), getEquipmentSlot())) {
-                            MPSPackets.sendToServer(new MusePacketCosmeticPreset(Minecraft.getMinecraft().player, this.getSelectedItem().inventorySlot, "Default"));
+                            MPSPackets.sendToServer(new MusePacketCosmeticPreset(Minecraft.getInstance().player, this.getSelectedItem().inventorySlot, "Default"));
                         }
                         isEditing = false;
                     }
@@ -320,18 +320,18 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
                         if (isValidItem(getSelectedItem(), getEquipmentSlot())) {
                             isEditing = true;
                             NBTTagCompound nbt = MPSNBTUtils.getMuseRenderTag(getSelectedItem().getItem(), getEquipmentSlot());
-                            MPSPackets.sendToServer(new MusePacketCosmeticInfo(Minecraft.getMinecraft().player, this.getSelectedItem().inventorySlot, NuminaNBTConstants.TAG_RENDER, nbt));
+                            MPSPackets.sendToServer(new MusePacketCosmeticInfo(Minecraft.getInstance().player, this.getSelectedItem().inventorySlot, NuminaNBTConstants.TAG_RENDER, nbt));
                         }
                     } else if (resetButton.hitBox(x, y)) {
                         if (isValidItem(getSelectedItem(), getEquipmentSlot())) {
-                            MPSPackets.sendToServer(new MusePacketCosmeticPreset(Minecraft.getMinecraft().player, this.getSelectedItem().inventorySlot, "Default"));
+                            MPSPackets.sendToServer(new MusePacketCosmeticPreset(Minecraft.getInstance().player, this.getSelectedItem().inventorySlot, "Default"));
                         }
                     }
                 }
             } else {
                 if (resetButton.hitBox(x, y)) {
                     if (isValidItem(getSelectedItem(), getEquipmentSlot())) {
-                        MPSPackets.sendToServer(new MusePacketCosmeticPreset(Minecraft.getMinecraft().player, this.getSelectedItem().inventorySlot, "Default"));
+                        MPSPackets.sendToServer(new MusePacketCosmeticPreset(Minecraft.getInstance().player, this.getSelectedItem().inventorySlot, "Default"));
                     }
                 }
             }

@@ -1,13 +1,12 @@
 package net.machinemuse.numina.capabilities.heat;
 
 import net.machinemuse.numina.common.constants.NuminaNBTConstants;
-import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.INBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.util.Constants;
 
 /**
  * Forge Energy, but with Heat
@@ -19,7 +18,7 @@ public class CapabilityHeat {
     public static void register() {
         CapabilityManager.INSTANCE.register(IHeatStorage.class, new Capability.IStorage<IHeatStorage>() {
                     @Override
-                    public NBTBase writeNBT(Capability<IHeatStorage> capability, IHeatStorage instance, EnumFacing side) {
+                    public INBTBase writeNBT(Capability<IHeatStorage> capability, IHeatStorage instance, EnumFacing side) {
                         NBTTagCompound nbtOut = new NBTTagCompound();
                         if (instance.getHeatStored() > 0)
                             nbtOut.setDouble(NuminaNBTConstants.CURRENT_HEAT, ((HeatStorage) instance).heat);
@@ -28,11 +27,11 @@ public class CapabilityHeat {
                     }
 
                     @Override
-                    public void readNBT(Capability<IHeatStorage> capability, IHeatStorage instance, EnumFacing side, NBTBase nbt) {
+                    public void readNBT(Capability<IHeatStorage> capability, IHeatStorage instance, EnumFacing side, INBTBase nbt) {
                         if (!(instance instanceof HeatStorage))
                             throw new IllegalArgumentException("Can not deserialize to an instance that isn't the default implementation");
 
-                        if (((NBTTagCompound) nbt).hasKey(NuminaNBTConstants.CURRENT_HEAT, Constants.NBT.TAG_DOUBLE))
+                        if (((NBTTagCompound) nbt).hasKey(NuminaNBTConstants.CURRENT_HEAT))
                             ((HeatStorage) instance).heat = ((NBTTagCompound) nbt).getDouble(NuminaNBTConstants.CURRENT_HEAT);
                         else
                             ((HeatStorage) instance).heat = 0;
