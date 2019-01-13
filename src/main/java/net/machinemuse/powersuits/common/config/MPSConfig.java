@@ -176,28 +176,23 @@ public enum MPSConfig {
      */
     public boolean useThermalExpansionRecipes() {
         return ModCompatibility.isThermalExpansionLoaded() &&
-                getServerSettings() != null ? getServerSettings().useThermalExpansionRecipes : MPSSettings.recipesAllowed.useThermalExpansionRecipes;
+                ( getServerSettings() != null ? getServerSettings().useThermalExpansionRecipes : MPSSettings.recipesAllowed.useThermalExpansionRecipes );
     }
 
     public boolean useEnderIORecipes() {
         return ModCompatibility.isEnderIOLoaded() &&
-                getServerSettings() != null ? getServerSettings().useEnderIORecipes : MPSSettings.recipesAllowed.useEnderIORecipes;
+                ( getServerSettings() != null ? getServerSettings().useEnderIORecipes : MPSSettings.recipesAllowed.useEnderIORecipes );
     }
 
     public boolean useTechRebornRecipes() {
         return ModCompatibility.isTechRebornLoaded() &&
-                getServerSettings() != null ? getServerSettings().useTechRebornRecipes : MPSSettings.recipesAllowed.useTechRebornRecipes;
+                ( getServerSettings() != null ? getServerSettings().useTechRebornRecipes : MPSSettings.recipesAllowed.useTechRebornRecipes );
     }
 
     public boolean useIC2Recipes() {
         // IC2 classic and IC2 experimental, no check here because they have to be checked separately
         return getServerSettings() != null ? getServerSettings().useIC2Recipes :  MPSSettings.recipesAllowed.useIC2Recipes;
     }
-
-
-
-
-
 
     /**
      * Limits -------------------------------------------------------------------------------------

@@ -34,9 +34,6 @@ public enum ModularPowersuits {
 
     static {
         FluidRegistry.enableUniversalBucket();
-//        // FIXME: testing
-//        Launch.classLoader.addTransformerExclusion("javafx.");
-//        Launch.classLoader.addTransformerExclusion("com.sun.javafx.");
     }
 
     @Nonnull
