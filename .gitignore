@@ -2,7 +2,7 @@
 /.gradle
 /build
 /run
-/libs
+#/libs
 
 #Backup files
 /BU
