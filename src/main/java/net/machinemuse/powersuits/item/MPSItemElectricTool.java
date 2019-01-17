@@ -142,7 +142,7 @@ public class MPSItemElectricTool extends ItemTool implements IModularItemBase, I
     @SideOnly(Side.CLIENT)
     @Override
     public String getToolTip(ItemStack itemStack) {
-        return itemStack.getTooltip(Minecraft.getMinecraft().thePlayer, false).toString();
+        return null;
     }
 
     /**

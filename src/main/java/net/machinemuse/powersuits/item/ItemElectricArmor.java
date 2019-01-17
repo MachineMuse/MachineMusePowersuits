@@ -128,7 +128,7 @@ public abstract class ItemElectricArmor extends ItemArmor implements IModularIte
     @SideOnly(Side.CLIENT)
     @Override
     public String getToolTip(ItemStack itemStack) {
-        return itemStack.getTooltip(Minecraft.getMinecraft().thePlayer, false).toString();
+        return null;
     }
 
     /**

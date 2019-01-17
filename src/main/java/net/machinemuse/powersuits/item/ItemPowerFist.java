@@ -354,6 +354,7 @@ public class ItemPowerFist extends MPSItemElectricTool implements
     }
 
     /* ProjectRed Screwdriver */
+    @Optional.Method(modid = "ProjRed|Core")
     @Override
     public void damageScrewdriver(EntityPlayer entityPlayer, ItemStack itemStack) {}
 
