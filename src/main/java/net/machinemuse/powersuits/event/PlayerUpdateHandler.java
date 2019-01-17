@@ -7,10 +7,15 @@ import net.machinemuse.numina.module.IPlayerTickModule;
 import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.common.ModuleManager;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorLeggings;
 import net.machinemuse.powersuits.utils.MusePlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -86,8 +91,18 @@ public class PlayerUpdateHandler {
                         Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_GLIDER);
                     }
                 }
-            } else if (player.world.isRemote && NuminaConfig.useSounds())
+            } else if (player.world.isRemote && NuminaConfig.useSounds()) {
                 Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_GLIDER);
+            }
+
+            if (!(player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() instanceof ItemPowerArmorBoots))
+                Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_JETBOOTS);
+
+            if (!(player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemPowerArmorChestplate))
+                Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_JETPACK);
+
+            if (!(player.getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem() instanceof ItemPowerArmorLeggings))
+                Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST);
 
             // Done this way so players can let their stuff cool in their inventory without having to equip it.
             List<ItemStack> modularItemsInInventory = MuseItemUtils.getModularItemsInInventory(player);

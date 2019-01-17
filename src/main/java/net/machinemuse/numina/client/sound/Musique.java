@@ -97,12 +97,12 @@ public class Musique {
     public static void stopPlayerSound(EntityPlayer player, SoundEvent soundEvt) {
         if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
             MovingSoundPlayer sound = soundMap.get(soundEvt);
-//            MuseLogger.logDebug("Sound stopped: " + soundEvt.getSoundName());
             if (sound != null) {
                 sound.stopPlaying();
                 mcsound().stopSound(sound);
             }
             soundMap.remove(soundEvt);
+//             MuseLogger.logDebug("Sound stopped: " + soundEvt.getSoundName());
         }
     }
 
