@@ -2,12 +2,14 @@ package net.machinemuse.powersuits.entity;
 
 import io.netty.buffer.ByteBuf;
 import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.TileEntityLuxCapacitor;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -23,15 +25,13 @@ public class EntityLuxCapacitor extends EntityThrowable implements IEntityAdditi
 
     public EntityLuxCapacitor(World par1World) {
         super(par1World);
+        if (color == null)
+            color = Colour.WHITE;
     }
 
     public EntityLuxCapacitor(World world, EntityLivingBase shootingEntity, Colour color) {
-        this(world, shootingEntity);
-        this.color = color;
-    }
-
-    public EntityLuxCapacitor(World par1World, EntityLivingBase shootingEntity) {
-        super(par1World, shootingEntity);
+        super(world, shootingEntity);
+        this.color = color != null ? color : BlockLuxCapacitor.defaultColor;
         Vec3d direction = shootingEntity.getLookVec().normalize();
         double speed = 1.0;
         this.motionX = direction.x * speed;
@@ -68,6 +68,9 @@ public class EntityLuxCapacitor extends EntityThrowable implements IEntityAdditi
 
     @Override
     protected void onImpact(RayTraceResult hitResult) {
+        if (color == null)
+            color = Colour.WHITE;
+
         if (!this.isDead && hitResult.typeOfHit == RayTraceResult.Type.BLOCK) {
             EnumFacing dir = hitResult.sideHit.getOpposite();
             int x = hitResult.getBlockPos().getX() - dir.getXOffset();
@@ -76,13 +79,13 @@ public class EntityLuxCapacitor extends EntityThrowable implements IEntityAdditi
             if (y > 0) {
                 BlockPos blockPos = new BlockPos(x, y, z);
                 if (MPSItems.INSTANCE.luxCapacitor.canPlaceAt(world, blockPos, dir)) {
-                    IBlockState blockState = MPSItems.INSTANCE.luxCapacitor.getStateForPlacement(world, blockPos, dir, hitResult.getBlockPos().getX(), hitResult.getBlockPos().getY(), hitResult.getBlockPos().getZ(), 0, null);
+                    IBlockState blockState = MPSItems.INSTANCE.luxCapacitor.getStateForPlacement(world, blockPos, dir, hitResult.getBlockPos().getX(), hitResult.getBlockPos().getY(), hitResult.getBlockPos().getZ(), 0, null, EnumHand.MAIN_HAND);
                     world.setBlockState(blockPos, ((IExtendedBlockState) blockState).withProperty(COLOR, color));
                     world.setTileEntity(blockPos, new TileEntityLuxCapacitor(color));
                 } else {
                     for (EnumFacing facing : EnumFacing.values()) {
                         if (MPSItems.INSTANCE.luxCapacitor.canPlaceAt(world, blockPos, facing)) {
-                            IBlockState blockState = MPSItems.INSTANCE.luxCapacitor.getStateForPlacement(world, blockPos, facing, hitResult.getBlockPos().getX(), hitResult.getBlockPos().getY(), hitResult.getBlockPos().getZ(), 0, null);
+                            IBlockState blockState = MPSItems.INSTANCE.luxCapacitor.getStateForPlacement(world, blockPos, facing, hitResult.getBlockPos().getX(), hitResult.getBlockPos().getY(), hitResult.getBlockPos().getZ(), 0, null, EnumHand.MAIN_HAND);
                             world.setBlockState(blockPos, ((IExtendedBlockState) blockState).withProperty(COLOR, color));
                             world.setTileEntity(blockPos, new TileEntityLuxCapacitor(color));
                             break;
@@ -97,8 +100,9 @@ public class EntityLuxCapacitor extends EntityThrowable implements IEntityAdditi
     /* using these to sync color between client and server, since without this, color isn't initialized */
     @Override
     public void writeSpawnData(ByteBuf buffer) {
-        if (color != null)
-            buffer.writeInt(color.getInt());
+        if (color == null)
+            color = Colour.WHITE;
+        buffer.writeInt(color.getInt());
     }
 
     @Override
