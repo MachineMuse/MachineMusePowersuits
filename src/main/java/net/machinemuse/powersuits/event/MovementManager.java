@@ -51,13 +51,16 @@ public class MovementManager {
     }
 
     // moved here so it is still accessible if sprint assist module isn't installed.
-    public static void setMovementModifier(ItemStack itemStack, double multiplier) {
+    public static void setMovementModifier(ItemStack itemStack, double multiplier, EntityPlayer player) {
         // reduce player speed according to Kinetic Energy Generator setting
         if (ModuleManager.INSTANCE.itemHasActiveModule(itemStack, MPSModuleConstants.MODULE_KINETIC_GENERATOR__DATANAME)) {
             double movementResistance = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.KINETIC_ENERGY_MOVEMENT_RESISTANCE);
             multiplier -= movementResistance;
         }
 
+        // player walking speed: 0.10000000149011612
+        // player sprintint speed: 0.13000001
+        double additive = multiplier * (player.isSprinting() ? 0.13 : 0.1)/2;
         NBTTagCompound itemNBT = MuseNBTUtils.getNBTTag(itemStack);
         boolean hasAttribute = false;
         if (itemNBT.hasKey("AttributeModifiers", Constants.NBT.TAG_LIST)) {
@@ -66,17 +69,15 @@ public class MovementManager {
             for (int i = 0; i < nbttaglist.tagCount(); ++i) {
                 NBTTagCompound attributeTag = nbttaglist.getCompoundTagAt(i);
                 if (attributeTag.getString("Name").equals(SharedMonsterAttributes.MOVEMENT_SPEED.getName())) {
-                    attributeTag.setDouble("Amount", multiplier);
+                    attributeTag.setDouble("Amount", additive);
                     hasAttribute = true;
                     break;
                 }
             }
         }
-        if (!hasAttribute && multiplier > 0)
-            itemStack.addAttributeModifier(SharedMonsterAttributes.MOVEMENT_SPEED.getName(), new AttributeModifier(SharedMonsterAttributes.MOVEMENT_SPEED.getName(), multiplier, 0), EntityEquipmentSlot.LEGS);
+        if (!hasAttribute && additive != 0)
+            itemStack.addAttributeModifier(SharedMonsterAttributes.MOVEMENT_SPEED.getName(), new AttributeModifier(SharedMonsterAttributes.MOVEMENT_SPEED.getName(), additive, 0), EntityEquipmentSlot.LEGS);
     }
-
-
 
     @SubscribeEvent
     public void handleLivingJumpEvent(LivingJumpEvent event) {

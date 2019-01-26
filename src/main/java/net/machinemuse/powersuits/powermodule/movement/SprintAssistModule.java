@@ -18,6 +18,7 @@ import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -36,7 +37,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
         addBasePropertyDouble(MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 0, "RF");
         addTradeoffPropertyDouble(MPSModuleConstants.SPRINT_ASSIST, MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 100);
         addBasePropertyDouble(MPSModuleConstants.SPRINT_SPEED_MULTIPLIER, .01, "%");
-        addTradeoffPropertyDouble(MPSModuleConstants.SPRINT_ASSIST, MPSModuleConstants.SPRINT_SPEED_MULTIPLIER, 1.49);
+        addTradeoffPropertyDouble(MPSModuleConstants.SPRINT_ASSIST, MPSModuleConstants.SPRINT_SPEED_MULTIPLIER, 2.49);
 
         addBasePropertyDouble(MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 0, "RF");
         addTradeoffPropertyDouble(MPSModuleConstants.COMPENSATION, MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 20);
@@ -46,11 +47,14 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
         addBasePropertyDouble(MPSModuleConstants.WALKING_ENERGY_CONSUMPTION, 0, "RF");
         addTradeoffPropertyDouble(MPSModuleConstants.WALKING_ASSISTANCE, MPSModuleConstants.WALKING_ENERGY_CONSUMPTION, 100);
         addBasePropertyDouble(MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 0.01, "%");
-        addTradeoffPropertyDouble(MPSModuleConstants.WALKING_ASSISTANCE, MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 0.69);
+        addTradeoffPropertyDouble(MPSModuleConstants.WALKING_ASSISTANCE, MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 1.99);
     }
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack itemStack) {
+        if (player.capabilities.isFlying || player.isRiding() || player.isElytraFlying())
+            onPlayerTickInactive(player, itemStack);
+
         ItemStack armorLeggings = player.getItemStackFromSlot(EntityEquipmentSlot.LEGS);
         // now you actually have to wear these to get the speed boost
         if (!armorLeggings.isEmpty() && armorLeggings.getItem() instanceof ItemPowerArmorLeggings) {
@@ -64,7 +68,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
                         double sprintMultiplier = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.SPRINT_SPEED_MULTIPLIER);
                         double exhaustionComp = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.SPRINT_FOOD_COMPENSATION);
                         ElectricItemUtils.drainPlayerEnergy(player, (int) (sprintCost * horzMovement * 5));
-                        MovementManager.setMovementModifier(itemStack, sprintMultiplier);
+                        MovementManager.setMovementModifier(itemStack, sprintMultiplier, player);
                         player.getFoodStats().addExhaustion((float) (-0.01 * exhaustion * exhaustionComp));
                         player.jumpMovementFactor = player.getAIMoveSpeed() * .2f;
                     }
@@ -73,7 +77,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
                     if (cost < totalEnergy) {
                         double walkMultiplier = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.WALKING_SPEED_MULTIPLIER);
                         ElectricItemUtils.drainPlayerEnergy(player, (int) (cost * horzMovement * 5));
-                        MovementManager.setMovementModifier(itemStack, walkMultiplier);
+                        MovementManager.setMovementModifier(itemStack, walkMultiplier, player);
                         player.jumpMovementFactor = player.getAIMoveSpeed() * .2f;
                     }
                 }
@@ -84,11 +88,8 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack itemStack) {
-        MovementManager.setMovementModifier(itemStack, 0);
+        MovementManager.setMovementModifier(itemStack, 0, player);
     }
-
-
-
 
     @Override
     public EnumModuleCategory getCategory() {
