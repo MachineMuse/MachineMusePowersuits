@@ -39,8 +39,6 @@ public class PlayerUpdateHandler {
             List<ItemStack> modularItemsEquipped = MuseItemUtils.getModularItemsEquipped(player);
 
 
-
-
 //            // FIXME: is this really nescessary... apparently it is
 //            for (ItemStack stack : modularItemsEquipped) {
 //                // Temporary Advanced Rocketry hack Not the best way but meh.
@@ -65,12 +63,11 @@ public class PlayerUpdateHandler {
 //                }
 //            }
 
-
 //            Enchantment.getEnchantmentID(AdvancedRocketryAPI.enchantmentSpaceProtection);
 
             for (ItemStack itemStack : modularItemsEquipped) {
                 for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IPlayerTickModule.class)) {
-                    if ( ModuleManager.INSTANCE.isValidForItem(itemStack, module) && ModuleManager.INSTANCE.itemHasModule(itemStack, module.getDataName())) {
+                    if (ModuleManager.INSTANCE.isValidForItem(itemStack, module) && ModuleManager.INSTANCE.itemHasModule(itemStack, module.getDataName())) {
                         if (ModuleManager.INSTANCE.isModuleOnline(itemStack, module.getDataName()))
                             ((IPlayerTickModule) module).onPlayerTickActive(player, itemStack);
                         else
@@ -79,30 +76,30 @@ public class PlayerUpdateHandler {
                 }
             }
 
-            if (modularItemsEquipped.size() > 0) {
-                player.fallDistance = (float) MovementManager.computeFallHeightFromVelocity(MuseMathUtils.clampDouble(player.motionY, -1000.0, 0.0));
+            player.fallDistance = (float) MovementManager.computeFallHeightFromVelocity(MuseMathUtils.clampDouble(player.motionY, -1000.0, 0.0));
 
-                // Sound update
-                double velsq2 = MuseMathUtils.sumsq(player.motionX, player.motionY, player.motionZ) - 0.5;
-                if (player.world.isRemote && NuminaConfig.useSounds()) {
+            // Sound update
+            if (player.world.isRemote && NuminaConfig.useSounds()) {
+                if (modularItemsEquipped.size() > 0) {
+                    double velsq2 = MuseMathUtils.sumsq(player.motionX, player.motionY, player.motionZ) - 0.5;
                     if (player.isAirBorne && velsq2 > 0) {
                         Musique.playerSound(player, SoundDictionary.SOUND_EVENT_GLIDER, SoundCategory.PLAYERS, (float) (velsq2 / 3), 1.0f, true);
                     } else {
                         Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_GLIDER);
                     }
+                } else if (player.world.isRemote && NuminaConfig.useSounds()) {
+                    Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_GLIDER);
                 }
-            } else if (player.world.isRemote && NuminaConfig.useSounds()) {
-                Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_GLIDER);
+
+                if (!(player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() instanceof ItemPowerArmorBoots))
+                    Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_JETBOOTS);
+
+                if (!(player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemPowerArmorChestplate))
+                    Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_JETPACK);
+
+                if (!(player.getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem() instanceof ItemPowerArmorLeggings))
+                    Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST);
             }
-
-            if (!(player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() instanceof ItemPowerArmorBoots))
-                Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_JETBOOTS);
-
-            if (!(player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemPowerArmorChestplate))
-                Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_JETPACK);
-
-            if (!(player.getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem() instanceof ItemPowerArmorLeggings))
-                Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST);
 
             // Done this way so players can let their stuff cool in their inventory without having to equip it.
             List<ItemStack> modularItemsInInventory = MuseItemUtils.getModularItemsInInventory(player);

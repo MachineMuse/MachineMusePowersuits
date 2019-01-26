@@ -11,6 +11,7 @@ import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.ModuleManager;
+import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorLeggings;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -35,7 +36,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
         addBasePropertyDouble(MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 0, "RF");
         addTradeoffPropertyDouble(MPSModuleConstants.SPRINT_ASSIST, MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 100);
         addBasePropertyDouble(MPSModuleConstants.SPRINT_SPEED_MULTIPLIER, .01, "%");
-        addTradeoffPropertyDouble(MPSModuleConstants.SPRINT_ASSIST, MPSModuleConstants.SPRINT_SPEED_MULTIPLIER, 2.49);
+        addTradeoffPropertyDouble(MPSModuleConstants.SPRINT_ASSIST, MPSModuleConstants.SPRINT_SPEED_MULTIPLIER, 1.49);
 
         addBasePropertyDouble(MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 0, "RF");
         addTradeoffPropertyDouble(MPSModuleConstants.COMPENSATION, MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION, 20);
@@ -45,7 +46,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
         addBasePropertyDouble(MPSModuleConstants.WALKING_ENERGY_CONSUMPTION, 0, "RF");
         addTradeoffPropertyDouble(MPSModuleConstants.WALKING_ASSISTANCE, MPSModuleConstants.WALKING_ENERGY_CONSUMPTION, 100);
         addBasePropertyDouble(MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 0.01, "%");
-        addTradeoffPropertyDouble(MPSModuleConstants.WALKING_ASSISTANCE, MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 1.99);
+        addTradeoffPropertyDouble(MPSModuleConstants.WALKING_ASSISTANCE, MPSModuleConstants.WALKING_SPEED_MULTIPLIER, 0.69);
     }
 
     @Override
@@ -63,7 +64,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
                         double sprintMultiplier = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.SPRINT_SPEED_MULTIPLIER);
                         double exhaustionComp = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.SPRINT_FOOD_COMPENSATION);
                         ElectricItemUtils.drainPlayerEnergy(player, (int) (sprintCost * horzMovement * 5));
-                        setMovementModifier(itemStack, sprintMultiplier);
+                        MovementManager.setMovementModifier(itemStack, sprintMultiplier);
                         player.getFoodStats().addExhaustion((float) (-0.01 * exhaustion * exhaustionComp));
                         player.jumpMovementFactor = player.getAIMoveSpeed() * .2f;
                     }
@@ -72,7 +73,7 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
                     if (cost < totalEnergy) {
                         double walkMultiplier = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.WALKING_SPEED_MULTIPLIER);
                         ElectricItemUtils.drainPlayerEnergy(player, (int) (cost * horzMovement * 5));
-                        setMovementModifier(itemStack, walkMultiplier);
+                        MovementManager.setMovementModifier(itemStack, walkMultiplier);
                         player.jumpMovementFactor = player.getAIMoveSpeed() * .2f;
                     }
                 }
@@ -83,28 +84,11 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
 
     @Override
     public void onPlayerTickInactive(EntityPlayer player, ItemStack itemStack) {
-        setMovementModifier(itemStack, 0);
+        MovementManager.setMovementModifier(itemStack, 0);
     }
 
-    public void setMovementModifier(ItemStack itemStack, double multiplier) {
-        NBTTagCompound itemNBT = MuseNBTUtils.getNBTTag(itemStack);
-        boolean hasAttribute = false;
-        if (itemNBT.hasKey("AttributeModifiers", Constants.NBT.TAG_LIST)) {
-            HashMultimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
-            NBTTagList nbttaglist = itemNBT.getTagList("AttributeModifiers", Constants.NBT.TAG_COMPOUND);
 
-            for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-                NBTTagCompound attributeTag = nbttaglist.getCompoundTagAt(i);
-                if (attributeTag.getString("Name").equals(SharedMonsterAttributes.MOVEMENT_SPEED.getName())) {
-                    attributeTag.setDouble("Amount", multiplier);
-                    hasAttribute = true;
-                    break;
-                }
-            }
-        }
-        if (!hasAttribute && multiplier > 0)
-            itemStack.addAttributeModifier(SharedMonsterAttributes.MOVEMENT_SPEED.getName(), new AttributeModifier(SharedMonsterAttributes.MOVEMENT_SPEED.getName(), multiplier, 0), EntityEquipmentSlot.LEGS);
-    }
+
 
     @Override
     public EnumModuleCategory getCategory() {

@@ -3,14 +3,20 @@ package net.machinemuse.powersuits.event;
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.common.config.NuminaConfig;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
+import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.SoundCategory;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -43,6 +49,34 @@ public class MovementManager {
         double ticks = velocity / DEFAULT_GRAVITY;
         return -0.5 * DEFAULT_GRAVITY * ticks * ticks;
     }
+
+    // moved here so it is still accessible if sprint assist module isn't installed.
+    public static void setMovementModifier(ItemStack itemStack, double multiplier) {
+        // reduce player speed according to Kinetic Energy Generator setting
+        if (ModuleManager.INSTANCE.itemHasActiveModule(itemStack, MPSModuleConstants.MODULE_KINETIC_GENERATOR__DATANAME)) {
+            double movementResistance = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.KINETIC_ENERGY_MOVEMENT_RESISTANCE);
+            multiplier -= movementResistance;
+        }
+
+        NBTTagCompound itemNBT = MuseNBTUtils.getNBTTag(itemStack);
+        boolean hasAttribute = false;
+        if (itemNBT.hasKey("AttributeModifiers", Constants.NBT.TAG_LIST)) {
+            NBTTagList nbttaglist = itemNBT.getTagList("AttributeModifiers", Constants.NBT.TAG_COMPOUND);
+
+            for (int i = 0; i < nbttaglist.tagCount(); ++i) {
+                NBTTagCompound attributeTag = nbttaglist.getCompoundTagAt(i);
+                if (attributeTag.getString("Name").equals(SharedMonsterAttributes.MOVEMENT_SPEED.getName())) {
+                    attributeTag.setDouble("Amount", multiplier);
+                    hasAttribute = true;
+                    break;
+                }
+            }
+        }
+        if (!hasAttribute && multiplier > 0)
+            itemStack.addAttributeModifier(SharedMonsterAttributes.MOVEMENT_SPEED.getName(), new AttributeModifier(SharedMonsterAttributes.MOVEMENT_SPEED.getName(), multiplier, 0), EntityEquipmentSlot.LEGS);
+    }
+
+
 
     @SubscribeEvent
     public void handleLivingJumpEvent(LivingJumpEvent event) {

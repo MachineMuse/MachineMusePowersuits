@@ -75,10 +75,10 @@ public class MusePacketCosmeticPresetUpdate implements IMessage {
                         } else {
                             MPSSettings.cosmetics.updateCosmeticInfo(registryName, name, cosmeticSettings);
                         }
-                        if (CosmeticPresetSaveLoad.savePreset(registryName, name, cosmeticSettings));
-
-                        System.out.println("nbt here: " + cosmeticSettings);
-                        player.sendMessage(new TextComponentTranslation("gui.powersuits.savesuccessful"));
+                        if (CosmeticPresetSaveLoad.savePreset(registryName, name, cosmeticSettings))
+                            player.sendMessage(new TextComponentTranslation("gui.powersuits.savesuccessful"));
+//                        else
+//                            player.sendMessage(new TextComponentTranslation("gui.powersuits.fail"));
                     });
                 }
             } else {
