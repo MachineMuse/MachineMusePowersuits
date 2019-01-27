@@ -44,7 +44,7 @@ version = "${minecraft_version}-${mod_version}.${buildnumber ?: travisbuildnumbe
 group = group_id // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = mod_id
 
-def numina_version = (System.getenv("NUMINA_VERSION") ?: "0.5.0")
+def numina_version = (System.getenv("NUMINA_VERSION") ?: "${version}")
 
 repositories {
     //url                                                           //dependencies

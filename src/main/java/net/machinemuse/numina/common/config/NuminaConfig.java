@@ -12,19 +12,19 @@ public enum NuminaConfig {
     private static NuminaServerSettings serverSettings;
 
     public static boolean useSounds() {
-        return NuminaSettings.useSounds;
+        return NuminaSettings.general.useSounds;
     }
 
     public static boolean isDebugging() {
-        return NuminaSettings.isDebugging;
+        return NuminaSettings.general.isDebugging;
     }
 
     public static boolean useFOVFix() {
-        return NuminaSettings.useFOVFix;
+        return NuminaSettings.general.useFOVFix;
     }
 
     public static boolean fovFixDefaultState() {
-        return NuminaSettings.fovFixDefaultState;
+        return NuminaSettings.general.fovFixDefaultState;
     }
 
     /**
@@ -32,38 +32,38 @@ public enum NuminaConfig {
      */
     // 1 RF = 0.1 MJ (Mekanism)
     public static double getMekRatio() {
-        return getServerSettings() != null ? getServerSettings().mekRatio : NuminaSettings.mekRatio;
+        return getServerSettings() != null ? getServerSettings().mekRatio : NuminaSettings.general.mekRatio;
     }
 
     // 1 RF = 0.25 EU
     public static double getIC2Ratio() {
-        return getServerSettings() != null ? getServerSettings().ic2Ratio : NuminaSettings.ic2Ratio;
+        return getServerSettings() != null ? getServerSettings().ic2Ratio : NuminaSettings.general.ic2Ratio;
     }
 
     // (Refined Storage) 1 RS = 1 RF
     public static double getRSRatio() {
-        return getServerSettings() != null ? getServerSettings().rsRatio : NuminaSettings.rsRatio;
+        return getServerSettings() != null ? getServerSettings().rsRatio : NuminaSettings.general.rsRatio;
     }
 
     // 1 RF = 0.5 AE
     public static double getAE2Ratio() {
-        return getServerSettings() != null ? getServerSettings().ae2Ratio : NuminaSettings.ae2Ratio;
+        return getServerSettings() != null ? getServerSettings().ae2Ratio : NuminaSettings.general.ae2Ratio;
     }
 
     public static int getTier1MaxRF() {
-        return getServerSettings() != null ? getServerSettings().maxTier1 : NuminaSettings.maxTier1;
+        return getServerSettings() != null ? getServerSettings().maxTier1 : NuminaSettings.general.maxTier1;
     }
 
     public static int getTier2MaxRF() {
-        return getServerSettings() != null ? getServerSettings().maxTier2 : NuminaSettings.maxTier2;
+        return getServerSettings() != null ? getServerSettings().maxTier2 : NuminaSettings.general.maxTier2;
     }
 
     public static int getTier3MaxRF() {
-        return getServerSettings() != null ? getServerSettings().maxTier3 : NuminaSettings.maxTier3;
+        return getServerSettings() != null ? getServerSettings().maxTier3 : NuminaSettings.general.maxTier3;
     }
 
     public static int getTier4MaxRF() {
-        return getServerSettings() != null ? getServerSettings().maxTier4 : NuminaSettings.maxTier4;
+        return getServerSettings() != null ? getServerSettings().maxTier4 : NuminaSettings.general.maxTier4;
     }
 
     /**

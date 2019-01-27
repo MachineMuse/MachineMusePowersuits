@@ -54,16 +54,16 @@ public class MPSSettings {
     public static class RecipesAllowed {
 
         @Config.Comment("Use recipes for Thermal Expansion")
-        public static boolean useThermalExpansionRecipes = true;
+        public boolean useThermalExpansionRecipes = true;
 
         @Config.Comment("Use recipes for EnderIO")
-        public static boolean useEnderIORecipes = true;
+        public boolean useEnderIORecipes = true;
 
         @Config.Comment("Use recipes for TechReborn")
-        public static boolean useTechRebornRecipes = true;
+        public boolean useTechRebornRecipes = true;
 
         @Config.Comment("Use recipes for IndustrialCraft 2")
-        public static boolean useIC2Recipes = true;
+        public boolean useIC2Recipes = true;
     }
 
     /**
@@ -74,11 +74,11 @@ public class MPSSettings {
         // Server side settings -----------------------------------------------
         @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_USE_OLD_AUTOFEEDER)
         @Config.Comment("Use Old Auto Feeder Method")
-        public static boolean useOldAutoFeeder = false;
+        public boolean useOldAutoFeeder = false;
         //TODO: eleiminate
         @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_WEIGHT_LIMIT)
         @Config.Comment("Weight Limit (grams)")
-        public static double getWeightCapacity = 25000.0;
+        public double getWeightCapacity = 25000.0;
         // Client side settings ------------------------------------------------------
         @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_USE_24_HOUR_CLOCK)
         @Config.Comment("Use a 24h clock instead of 12h")
@@ -464,57 +464,57 @@ public class MPSSettings {
     public static class Limits {
         @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_MAX_ARMOR_MODULES)
         @Config.Comment("Max number of Armor modules per armor item")
-        @Config.RangeDouble(min = 0, max = 99)
+        @Config.RangeInt(min = 0, max = 99)
         public int maxArmorModules = 1;
 
         @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_MAX_ENERGY_STORAGE_MODULES)
         @Config.Comment("Max number of Energy Storage modules per item")
-        @Config.RangeDouble(min = 0, max = 99)
+        @Config.RangeInt(min = 0, max = 99)
         public int maxEnergyStorageModules = 1;
 
         @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_MAX_ENERGY_GENERATION_MODULES)
         @Config.Comment("Max number of Energy Storage modules per item")
-        @Config.RangeDouble(min = 0, max = 99)
+        @Config.RangeInt(min = 0, max = 99)
         public int maxEnergyGenModules = 1;
 
         @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_MAX_TOOL_MODULES)
         @Config.Comment("Max number of Tool modules per Power Fist")
-        @Config.RangeDouble(min = 0, max = 99)
+        @Config.RangeInt(min = 0, max = 99)
         public int maxToolModules = 99;
 
         @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_MAX_WEAPON_MODULES)
         @Config.Comment("Max number of Weapon modules per Power Fist")
-        @Config.RangeDouble(min = 0, max = 99)
+        @Config.RangeInt(min = 0, max = 99)
         public int maxWeaponModules = 99;
 
         @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_MAX_MOVEMENT_MODULES)
         @Config.Comment("Max number of Movement modules per item")
-        @Config.RangeDouble(min = 0, max = 99)
+        @Config.RangeInt(min = 0, max = 99)
         public int maxMovementModules = 99;
 
         @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_COSMETIC_MODULES)
         @Config.Comment("Max number of Cosmetic modules per item")
-        @Config.RangeDouble(min = 0, max = 99)
+        @Config.RangeInt(min = 0, max = 99)
         public int maxCosmeticModules = 99;
 
         @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_MAX_VISION_MODULES)
         @Config.Comment("Max number of Vision modules per item")
-        @Config.RangeDouble(min = 0, max = 99)
+        @Config.RangeInt(min = 0, max = 99)
         public int maxVisionModules = 99;
 
         @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_MAX_ENVIRONMENTAL_MODULES)
         @Config.Comment("Max number of Environmental modules per item")
-        @Config.RangeDouble(min = 0, max = 99)
+        @Config.RangeInt(min = 0, max = 99)
         public int maxEnvironmentalModules = 99;
 
         @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_MAX_SPECIAL_MODULES)
         @Config.Comment("Max number of Special modules per item")
-        @Config.RangeDouble(min = 0, max = 99)
+        @Config.RangeInt(min = 0, max = 99)
         public int maxSpecialModules = 99;
 
         @Config.LangKey(MPSConfigConstants.CONFIG_LIMITS_MAX_MINING_ENHANCEMENT_MODULES)
         @Config.Comment("Max number of Mining Enhancement modules per Power Fist")
-        @Config.RangeDouble(min = 0, max = 99)
+        @Config.RangeInt(min = 0, max = 99)
         public int maxMiningEnhancementModules = 99;
     }
 

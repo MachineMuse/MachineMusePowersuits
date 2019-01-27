@@ -1,4 +1,19 @@
-[{
+[
+    {
+        "modid": "numina",
+        "name": "Numina",
+        "description": "A common library of useful functions and utilities for dealing with Minecraft's source code.",
+        "version": "${version}",
+        "mcversion": "${mcversion}",
+        "url": "http://machinemuse.net/",
+        "updateUrl": "",
+        "authorList": ["MachineMuse"],
+        "credits": "Written by MachineMuse.",
+        "logoFile": "",
+        "screenshots": [],
+        "dependencies": []
+    },
+    {
     "modid": "powersuits",
     "name": "MachineMuse's Modular Powersuits",
     "description": "A mod which adds modular power armor, power tool, and a tinker table to configure them. Uses EU (IndustrialCraft 2) or RF (Thermal Expansion 4).",
@@ -35,4 +50,5 @@
         "gregtech"
         ],
     "useDependencyInformation": true
-}]
+}
+]

@@ -17,15 +17,15 @@ public class NuminaServerSettings {
      * Server side initialization
      */
     public NuminaServerSettings() {
-        mekRatio = NuminaSettings.mekRatio;
-        ic2Ratio = NuminaSettings.ic2Ratio;
-        rsRatio = NuminaSettings.rsRatio;
-        ae2Ratio = NuminaSettings.ae2Ratio;
+        mekRatio = NuminaSettings.general.mekRatio;
+        ic2Ratio = NuminaSettings.general.ic2Ratio;
+        rsRatio = NuminaSettings.general.rsRatio;
+        ae2Ratio = NuminaSettings.general.ae2Ratio;
 
-        maxTier1 = NuminaSettings.maxTier1;
-        maxTier2 = NuminaSettings.maxTier2;
-        maxTier3 = NuminaSettings.maxTier3;
-        maxTier4 = NuminaSettings.maxTier4;
+        maxTier1 = NuminaSettings.general.maxTier1;
+        maxTier2 = NuminaSettings.general.maxTier2;
+        maxTier3 = NuminaSettings.general.maxTier3;
+        maxTier4 = NuminaSettings.general.maxTier4;
     }
 
     /**

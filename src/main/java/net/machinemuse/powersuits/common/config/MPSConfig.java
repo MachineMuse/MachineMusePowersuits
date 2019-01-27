@@ -75,8 +75,8 @@ public enum MPSConfig {
         return getServerSettings() != null ? getServerSettings().maximumFlyingSpeedmps : MPSSettings.general.getMaximumFlyingSpeedmps;
     }
 
-    public static boolean useOldAutoFeeder() {
-        return getServerSettings() != null ? getServerSettings().useOldAutoFeeder : MPSSettings.General.useOldAutoFeeder;
+    public boolean useOldAutoFeeder() {
+        return getServerSettings() != null ? getServerSettings().useOldAutoFeeder : MPSSettings.general.useOldAutoFeeder;
     }
 
     public static double getMaximumArmorPerPiece() {
