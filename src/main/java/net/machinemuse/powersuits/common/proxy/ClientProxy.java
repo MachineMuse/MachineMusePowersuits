@@ -58,7 +58,6 @@ public class ClientProxy extends CommonProxy {
     public void registerEvents() {
         super.registerEvents();
         MinecraftForge.EVENT_BUS.register(new KeybindKeyHandler());
-
         MinecraftForge.EVENT_BUS.register(new ClientTickHandler());
         MinecraftForge.EVENT_BUS.register(new SoundDictionary());
         MinecraftForge.EVENT_BUS.register(new RenderEventHandler());
@@ -69,9 +68,5 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerRenderers() {
         super.registerRenderers();
-
-        if (ModCompatibility.isRenderPlayerAPILoaded()) {
-            ModelPlayerAPI.register(MODID, SMovingArmorModel.class);
-        }
     }
 }

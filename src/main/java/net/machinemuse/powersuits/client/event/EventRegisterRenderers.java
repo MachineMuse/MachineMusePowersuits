@@ -58,10 +58,6 @@ public class EventRegisterRenderers {
             }
         }
 
-        if (ModCompatibility.isRenderPlayerAPILoaded()) {
-            ModelPlayerAPI.register(MODID, SMovingArmorModel.class);
-        }
-
         RenderingRegistry.registerEntityRenderingHandler(EntitySpinningBlade.class, EntityRendererSpinningBlade::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityPlasmaBolt.class, EntityRendererPlasmaBolt::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityLuxCapacitor.class, EntityRendererLuxCapacitorEntity::new);
