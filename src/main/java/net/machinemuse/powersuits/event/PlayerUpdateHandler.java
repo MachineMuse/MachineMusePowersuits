@@ -2,12 +2,11 @@ package net.machinemuse.powersuits.event;
 
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.common.config.NuminaConfig;
-import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.numina.module.IPlayerTickModule;
 import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
-import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;

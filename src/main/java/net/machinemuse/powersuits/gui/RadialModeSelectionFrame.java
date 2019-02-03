@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.gui;
 
+import net.machinemuse.numina.client.gui.frame.IGuiFrame;
 import net.machinemuse.numina.item.IModeChangingItem;
 import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.module.IRightClickModule;
@@ -9,7 +10,6 @@ import net.machinemuse.numina.utils.math.geometry.SpiralPointToPoint2D;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableModule;
-import net.machinemuse.numina.client.gui.frame.IGuiFrame;
 import net.machinemuse.powersuits.network.MPSPackets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

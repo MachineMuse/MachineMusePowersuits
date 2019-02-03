@@ -1,7 +1,6 @@
 package net.machinemuse.powersuits.common;
 
 import net.machinemuse.powersuits.common.proxy.CommonProxy;
-import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;

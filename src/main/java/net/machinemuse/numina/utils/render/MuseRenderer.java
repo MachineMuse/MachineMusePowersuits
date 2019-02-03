@@ -1,9 +1,9 @@
 package net.machinemuse.numina.utils.render;
 
+import net.machinemuse.numina.client.gui.IClickable;
 import net.machinemuse.numina.client.render.BillboardHelper;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
 import net.machinemuse.numina.client.render.RenderState;
-import net.machinemuse.numina.client.gui.IClickable;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.SwirlyMuseCircle;

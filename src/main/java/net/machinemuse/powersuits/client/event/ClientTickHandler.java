@@ -1,15 +1,15 @@
 package net.machinemuse.powersuits.client.event;
 
-import net.machinemuse.numina.utils.math.MuseMathUtils;
+import net.machinemuse.numina.control.PlayerInputMap;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.numina.utils.math.MuseMathUtils;
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.KeybindManager;
-import net.machinemuse.numina.control.PlayerInputMap;
 import net.machinemuse.powersuits.gui.hud.*;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;

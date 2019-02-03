@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
+import net.machinemuse.numina.client.gui.scrollable.ScrollableFrame;
 import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.nbt.IPropertyModifier;
 import net.machinemuse.numina.nbt.PropertyModifierLinearAdditiveDouble;
@@ -11,7 +12,6 @@ import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableTinkerSlider;
-import net.machinemuse.numina.client.gui.scrollable.ScrollableFrame;
 import net.machinemuse.powersuits.network.MPSPackets;
 import net.machinemuse.powersuits.network.packets.MusePacketTweakRequestDouble;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;

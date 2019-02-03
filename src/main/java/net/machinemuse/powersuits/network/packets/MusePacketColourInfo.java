@@ -5,7 +5,6 @@ import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.numina.item.IModularItem;
 import net.machinemuse.numina.network.MuseByteBufferUtils;
 import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
-import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;

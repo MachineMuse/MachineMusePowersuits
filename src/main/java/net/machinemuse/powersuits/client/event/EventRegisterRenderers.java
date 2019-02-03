@@ -1,10 +1,7 @@
 package net.machinemuse.powersuits.client.event;
 
-import api.player.model.ModelPlayerAPI;
-import net.machinemuse.numina.common.ModCompatibility;
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.machinemuse.powersuits.client.model.block.ModelLuxCapacitor;
-import net.machinemuse.powersuits.client.model.item.armor.SMovingArmorModel;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererLuxCapacitorEntity;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererPlasmaBolt;
 import net.machinemuse.powersuits.client.render.entity.EntityRendererSpinningBlade;
@@ -24,8 +21,6 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
-
-import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
 
 public class EventRegisterRenderers {
     @SubscribeEvent

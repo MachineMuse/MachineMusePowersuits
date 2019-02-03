@@ -1,8 +1,9 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
 import com.google.common.collect.BiMap;
-import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.numina.client.gui.frame.IGuiFrame;
+import net.machinemuse.numina.client.gui.scrollable.ScrollableLabel;
+import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.numina.utils.math.Colour;
 import net.machinemuse.numina.utils.math.geometry.DrawableMuseRect;
@@ -16,7 +17,6 @@ import net.machinemuse.powersuits.common.config.CosmeticPresetSaveLoad;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableButton;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
-import net.machinemuse.numina.client.gui.scrollable.ScrollableLabel;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.machinemuse.powersuits.network.MPSPackets;

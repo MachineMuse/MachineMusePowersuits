@@ -1,5 +1,11 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
+import net.machinemuse.numina.client.gui.clickable.ClickableLabel;
+import net.machinemuse.numina.client.gui.clickable.ClickableSlider;
+import net.machinemuse.numina.client.gui.scrollable.ScrollableFrame;
+import net.machinemuse.numina.client.gui.scrollable.ScrollableLabel;
+import net.machinemuse.numina.client.gui.scrollable.ScrollableRectangle;
+import net.machinemuse.numina.client.gui.scrollable.ScrollableSlider;
 import net.machinemuse.numina.common.constants.NuminaNBTConstants;
 import net.machinemuse.numina.utils.MuseLogger;
 import net.machinemuse.numina.utils.math.Colour;
@@ -8,12 +14,6 @@ import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
 import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.gui.GuiIcons;
-import net.machinemuse.numina.client.gui.clickable.ClickableLabel;
-import net.machinemuse.numina.client.gui.clickable.ClickableSlider;
-import net.machinemuse.numina.client.gui.scrollable.ScrollableFrame;
-import net.machinemuse.numina.client.gui.scrollable.ScrollableLabel;
-import net.machinemuse.numina.client.gui.scrollable.ScrollableRectangle;
-import net.machinemuse.numina.client.gui.scrollable.ScrollableSlider;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.network.MPSPackets;
 import net.machinemuse.powersuits.network.packets.MusePacketColourInfo;
