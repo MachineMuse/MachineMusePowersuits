@@ -42,7 +42,7 @@ public class KineticGeneratorModule extends PowerModuleBase implements IPlayerTi
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack itemStack) {
-        if (player.capabilities.isFlying || player.isRiding() || player.isElytraFlying())
+        if (player.capabilities.isFlying || player.isRiding() || player.isElytraFlying() || !player.onGround)
             onPlayerTickInactive(player, itemStack);
 
         // really hate running this check on every tick but needed for player speed adjustments

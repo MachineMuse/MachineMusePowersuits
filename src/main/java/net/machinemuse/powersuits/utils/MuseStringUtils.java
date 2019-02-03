@@ -2,8 +2,7 @@ package net.machinemuse.powersuits.utils;
 
 import net.machinemuse.numina.utils.render.MuseRenderer;
 import net.minecraft.util.ResourceLocation;
-import org.apache.commons.lang3.SystemUtils;
-import org.apache.commons.lang3.text.WordUtils;
+import org.apache.commons.text.WordUtils;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -192,8 +191,11 @@ public abstract class MuseStringUtils {
      *                         </pre>
      */
     public static List<String> wrapStringToLength(String str, int length) {
+        if (str == null)
+            str = "";
+
         String wrapped = WordUtils.wrap(str, length);
-        String[] stringArray = wrapped.split(SystemUtils.LINE_SEPARATOR);
+        String[] stringArray = wrapped.split(System.lineSeparator());
         List<String> strlist = Arrays.asList(stringArray);
 
 

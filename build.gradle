@@ -64,6 +64,9 @@ repositories {
 }
 
 dependencies {
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-text
+    compile group: 'org.apache.commons', name: 'commons-text', version: '1.6'
+
     deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}:api"                             //JEI API
     deobfCompile "cofh:CoFHCore:${minecraft_version}-${cofhcore_version}:universal"                 //CoFH Core
     deobfCompile "appeng:appliedenergistics2:${ae2api_version}"                                     //Applied Energetics 2

@@ -1,5 +1,9 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import net.machinemuse.numina.module.EnumModuleCategory;
 import net.machinemuse.numina.module.EnumModuleTarget;
 import net.machinemuse.numina.module.IPowerModule;
@@ -27,8 +31,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.annotation.Nonnull;
+import java.io.IOException;
+import java.net.URL;
+import java.text.ParseException;
+import java.util.UUID;
 
 public class HoeModule extends PowerModuleBase implements IPowerModule, IRightClickModule {
     public HoeModule(EnumModuleTarget moduleTarget) {
