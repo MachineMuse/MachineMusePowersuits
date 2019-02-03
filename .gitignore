@@ -3,6 +3,7 @@
 /build
 /run
 #/libs
+/libs/journeymap*
 
 #Backup files
 /BU
