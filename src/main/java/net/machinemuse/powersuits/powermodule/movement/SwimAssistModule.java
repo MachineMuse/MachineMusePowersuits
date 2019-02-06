@@ -2,7 +2,6 @@ package net.machinemuse.powersuits.powermodule.movement;
 
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.common.config.NuminaConfig;
-import net.machinemuse.numina.control.PlayerInputMap;
 import net.machinemuse.numina.module.EnumModuleCategory;
 import net.machinemuse.numina.module.EnumModuleTarget;
 import net.machinemuse.numina.module.IPlayerTickModule;
@@ -13,9 +12,10 @@ import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.common.ModuleManager;
+import net.machinemuse.powersuits.control.PlayerMovementInputWrapper;
+import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.powersuits.utils.MusePlayerUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -43,20 +43,16 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
         if (player.isInWater() && !(player.isRiding())) {
-            PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
-            boolean jumpkey = movementInput.jumpKey;
-            boolean sneakkey = movementInput.sneakKey;
-            float forwardkey = movementInput.forwardKey;
-            float strafekey = movementInput.strafeKey;
-            if (forwardkey != 0 || strafekey != 0 || jumpkey || sneakkey) {
+            PlayerMovementInputWrapper.PlayerMovementInput playerInput = PlayerMovementInputWrapper.get(player);
+            if (playerInput.moveForward != 0 || playerInput.moveStrafe != 0 || playerInput.jumpKey || playerInput.sneakKey) {
                 double moveRatio = 0;
-                if (forwardkey != 0) {
-                    moveRatio += forwardkey * forwardkey;
+                if (playerInput.moveForward != 0) {
+                    moveRatio += playerInput.moveForward * playerInput.moveForward;
                 }
-                if (strafekey != 0) {
-                    moveRatio += strafekey * strafekey;
+                if (playerInput.moveStrafe != 0) {
+                    moveRatio += playerInput.moveStrafe * playerInput.moveStrafe;
                 }
-                if (jumpkey || sneakkey) {
+                if (playerInput.jumpKey || playerInput.sneakKey) {
                     moveRatio += 0.2 * 0.2;
                 }
                 double swimAssistRate = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.SWIM_BOOST_AMOUNT) * 0.05 * moveRatio;
@@ -65,7 +61,7 @@ public class SwimAssistModule extends PowerModuleBase implements IToggleableModu
                     if (player.world.isRemote && NuminaConfig.useSounds()) {
                         Musique.playerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST, SoundCategory.PLAYERS, 1.0f, 1.0f, true);
                     }
-                    MusePlayerUtils.thrust(player, swimAssistRate, true);
+                    MovementManager.thrust(player, swimAssistRate, true);
                 } else {
                     if (player.world.isRemote && NuminaConfig.useSounds()) {
                         Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_SWIM_ASSIST);

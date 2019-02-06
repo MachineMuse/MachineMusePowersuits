@@ -24,7 +24,7 @@ import java.util.HashMap;
  */
 @SideOnly(Side.CLIENT)
 public class Musique {
-    private static HashMap<SoundEvent, MovingSoundPlayer> soundMap = new HashMap<>();
+    private static HashMap<String, MovingSoundPlayer> soundMap = new HashMap<>();
 
     public static SoundHandler mcsound() {
         return Minecraft.getMinecraft().getSoundHandler();
@@ -40,9 +40,12 @@ public class Musique {
         }
     }
 
-    public static String makeSoundString(EntityPlayer player, String soundname) {
-        String soundprefix = "numina";
-        return soundprefix + player.getCommandSenderEntity().getName() + soundname;
+    public static String makeSoundString(EntityPlayer player, SoundEvent soundEvt) {
+                return makeSoundString(player, soundEvt.getSoundName());
+    }
+
+    public static String makeSoundString(EntityPlayer player, ResourceLocation soundname) {
+        return player.getUniqueID().toString() + soundname;
     }
 
     public static void playerSound(EntityPlayer player, ResourceLocation location, SoundCategory categoryIn, float volume, Float pitch, Boolean continuous) {
@@ -63,7 +66,8 @@ public class Musique {
         pitch = (pitch != null) ? pitch : 1.0F;
         continuous = (continuous != null) ? continuous : true;
         if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds() && soundEvt != null) {
-            MovingSoundPlayer sound = soundMap.get(soundEvt);
+            String soundID = makeSoundString(player, soundEvt);
+            MovingSoundPlayer sound = soundMap.get(soundID);
 
             if (sound != null && (sound.isDonePlaying() || !sound.canRepeat())) {
                 stopPlayerSound(player, soundEvt);
@@ -75,7 +79,7 @@ public class Musique {
 //                MuseLogger.logDebug("New sound: " + soundEvt.getSoundName());
                 MovingSoundPlayer newsound = new MovingSoundPlayer(soundEvt, categoryIn, player, volume * 2.0f, pitch, continuous);
                 mcsound().playSound(newsound);
-                soundMap.put(soundEvt, newsound);
+                soundMap.put(soundID, newsound);
             }
         }
     }
@@ -96,12 +100,13 @@ public class Musique {
 
     public static void stopPlayerSound(EntityPlayer player, SoundEvent soundEvt) {
         if ((FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) && NuminaConfig.useSounds()) {
-            MovingSoundPlayer sound = soundMap.get(soundEvt);
+            String soundID = makeSoundString(player, soundEvt);
+            MovingSoundPlayer sound = soundMap.get(soundID);
             if (sound != null) {
                 sound.stopPlaying();
                 mcsound().stopSound(sound);
             }
-            soundMap.remove(soundEvt);
+            soundMap.remove(soundID);
 //             MuseLogger.logDebug("Sound stopped: " + soundEvt.getSoundName());
         }
     }

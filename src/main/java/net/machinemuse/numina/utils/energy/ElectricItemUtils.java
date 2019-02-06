@@ -78,9 +78,8 @@ public class ElectricItemUtils {
      * returns the total amount of energy drained from the player's equipped items
      */
     public static int drainPlayerEnergy(EntityPlayer player, int drainAmount) {
-        if (player.world.isRemote)
+        if (player.world.isRemote || player.capabilities.isCreativeMode)
             return 0;
-
         int drainleft = drainAmount;
         for (ElectricAdapter adapter : electricItemsEquipped(player)) {
             if (drainleft > 0)

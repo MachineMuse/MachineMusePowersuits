@@ -18,10 +18,6 @@ public class ShockAbsorberModule extends PowerModuleBase implements IToggleableM
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.servoMotor, 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), new ItemStack(Blocks.WOOL, 2));
-
-//
-//        addSimpleTradeoffDouble(this, "Power", SHOCK_ABSORB_ENERGY_CONSUMPTION, "RF/m", 0, 100, SHOCK_ABSORB_MULTIPLIER, "%", 0, 1);
-
         addBasePropertyDouble(MPSModuleConstants.SHOCK_ABSORB_ENERGY_CONSUMPTION, 0, "RF/m");
         addTradeoffPropertyDouble(MPSModuleConstants.POWER, MPSModuleConstants.SHOCK_ABSORB_ENERGY_CONSUMPTION, 100);
         addBasePropertyDouble(MPSModuleConstants.SHOCK_ABSORB_MULTIPLIER, 0, "%");

@@ -18,17 +18,16 @@ public class MovingSoundPlayer extends MovingSound {
      */
     public MovingSoundPlayer(SoundEvent soundIn,
                              SoundCategory categoryIn,
-                             EntityPlayer player,
+                             EntityPlayer playerIn,
                              float newvolume,
-                             float newpitch,
-                             boolean newrepeat) {
+                             float pitchIn,
+                             boolean repeatIn) {
 
         super(soundIn, categoryIn);
-        this.player = player;
-
-        this.pitch = newpitch;
+        this.player = playerIn;
+        this.pitch = pitchIn;
         this.volume = newvolume;
-        this.repeat = newrepeat;
+        this.repeat = repeatIn;
     }
 
     public EntityPlayer player() {

@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
-import net.machinemuse.numina.control.PlayerInputMap;
 import net.machinemuse.numina.module.EnumModuleCategory;
 import net.machinemuse.numina.module.EnumModuleTarget;
 import net.machinemuse.numina.module.IPlayerTickModule;
@@ -10,6 +9,7 @@ import net.machinemuse.numina.utils.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.ModuleManager;
+import net.machinemuse.powersuits.control.PlayerMovementInputWrapper;
 import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
@@ -45,9 +45,8 @@ public class JumpAssistModule extends PowerModuleBase implements IToggleableModu
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
-        boolean jumpkey = movementInput.jumpKey;
-        if (jumpkey) {
+        PlayerMovementInputWrapper.PlayerMovementInput playerInput = PlayerMovementInputWrapper.get(player);
+        if (playerInput.jumpKey) {
             double multiplier = MovementManager.getPlayerJumpMultiplier(player);
             if (multiplier > 0) {
                 player.motionY += 0.15 * Math.min(multiplier, 1);

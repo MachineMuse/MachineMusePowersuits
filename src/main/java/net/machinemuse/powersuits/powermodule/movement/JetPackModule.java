@@ -2,8 +2,6 @@ package net.machinemuse.powersuits.powermodule.movement;
 
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.common.config.NuminaConfig;
-import net.machinemuse.numina.control.PlayerInputMap;
-import net.machinemuse.numina.item.IModularItem;
 import net.machinemuse.numina.module.EnumModuleCategory;
 import net.machinemuse.numina.module.EnumModuleTarget;
 import net.machinemuse.numina.module.IPlayerTickModule;
@@ -14,9 +12,10 @@ import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.common.ModuleManager;
+import net.machinemuse.powersuits.control.PlayerMovementInputWrapper;
+import net.machinemuse.powersuits.event.MovementManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
-import net.machinemuse.powersuits.utils.MusePlayerUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -45,14 +44,12 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        if (player.isInWater()) {
+        if (player.isInWater())
             return;
-        }
-        PlayerInputMap movementInput = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
-        boolean jumpkey = movementInput.jumpKey;
+
+        PlayerMovementInputWrapper.PlayerMovementInput playerInput = PlayerMovementInputWrapper.get(player);
         ItemStack helmet = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
-        boolean hasFlightControl = !helmet.isEmpty() && helmet.getItem() instanceof IModularItem
-                && ModuleManager.INSTANCE.itemHasActiveModule(helmet, MPSModuleConstants.MODULE_FLIGHT_CONTROL__DATANAME);
+        boolean hasFlightControl = ModuleManager.INSTANCE.itemHasActiveModule(helmet, MPSModuleConstants.MODULE_FLIGHT_CONTROL__DATANAME);
         double jetEnergy = 0;
         double thrust = 0;
         jetEnergy += ModuleManager.INSTANCE.getOrSetModularPropertyDouble(item, MPSModuleConstants.JETPACK_ENERGY_CONSUMPTION);
@@ -60,15 +57,14 @@ public class JetPackModule extends PowerModuleBase implements IToggleableModule,
 
         if (jetEnergy < ElectricItemUtils.getPlayerEnergy(player)) {
             if (hasFlightControl && thrust > 0) {
-                thrust = MusePlayerUtils.thrust(player, thrust, true);
+                thrust = MovementManager.thrust(player, thrust, true);
                 if (player.world.isRemote && NuminaConfig.useSounds()) {
                     Musique.playerSound(player, SoundDictionary.SOUND_EVENT_JETPACK, SoundCategory.PLAYERS, (float) (thrust * 6.25), 1.0f, true);
                 }
                 ElectricItemUtils.drainPlayerEnergy(player, (int) (thrust * jetEnergy));
-            } else if (jumpkey) {//&& player.motionY < 0.5) {
-                thrust = MusePlayerUtils.thrust(player, thrust, false);
+            } else if (playerInput.jumpKey) {//&& player.motionY < 0.5) {
+                thrust = MovementManager.thrust(player, thrust, false);
                 if (player.world.isRemote && NuminaConfig.useSounds()) {
-
                     Musique.playerSound(player, SoundDictionary.SOUND_EVENT_JETPACK, SoundCategory.PLAYERS, (float) (thrust * 6.25), 1.0f, true);
                 }
                 ElectricItemUtils.drainPlayerEnergy(player, (int) (thrust * jetEnergy));

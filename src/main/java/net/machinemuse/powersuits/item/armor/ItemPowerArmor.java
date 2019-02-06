@@ -67,11 +67,8 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
      */
     @Override
     public boolean handleUnblockableDamage(EntityLivingBase entity, @Nonnull ItemStack armor, DamageSource source, double damage, int slot) {
-        System.out.println("damage source: " + source.damageType);
-        System.out.println("slot: " + slot);
-
-
-
+//            System.out.println("damage source: " + source.damageType);
+//            System.out.println("slot: " + slot);
 
         if (source == null || source == MuseHeatUtils.overheatDamage)
             return false;

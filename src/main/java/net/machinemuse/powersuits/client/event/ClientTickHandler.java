@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.client.event;
 
-import net.machinemuse.numina.control.PlayerInputMap;
 import net.machinemuse.numina.utils.energy.ElectricItemUtils;
 import net.machinemuse.numina.utils.heat.MuseHeatUtils;
 import net.machinemuse.numina.utils.item.MuseItemUtils;
@@ -15,14 +14,11 @@ import net.machinemuse.powersuits.gui.tinker.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorHelmet;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
-import net.machinemuse.powersuits.network.MPSPackets;
-import net.machinemuse.powersuits.network.packets.MusePacketPlayerUpdate;
 import net.machinemuse.powersuits.utils.MuseStringUtils;
 import net.machinemuse.powersuits.utils.modulehelpers.AutoFeederHelper;
 import net.machinemuse.powersuits.utils.modulehelpers.FluidUtils;
 import net.machinemuse.powersuits.utils.modulehelpers.PlasmaCannonHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -63,22 +59,6 @@ public class ClientTickHandler {
             for (ClickableKeybinding kb : KeybindManager.getKeybindings()) {
                 kb.doToggleTick();
             }
-        } else {
-            EntityPlayerSP player = Minecraft.getMinecraft().player;
-            if (player != null && MuseItemUtils.getModularItemsInInventory(player).size() > 0) {
-                PlayerInputMap inputmap = PlayerInputMap.getInputMapFor(player.getCommandSenderEntity().getName());
-                inputmap.forwardKey = Math.signum(player.movementInput.moveForward);
-                inputmap.strafeKey = Math.signum(player.movementInput.moveStrafe);
-                inputmap.jumpKey = player.movementInput.jump;
-                inputmap.sneakKey = player.movementInput.sneak;
-                inputmap.motionX = player.motionX;
-                inputmap.motionY = player.motionY;
-                inputmap.motionZ = player.motionZ;
-                if (inputmap.hasChanged()) {
-                    inputmap.refresh();
-                    MPSPackets.sendToServer(new MusePacketPlayerUpdate(player, inputmap));
-                }
-            }
         }
     }
 
@@ -99,8 +79,6 @@ public class ClientTickHandler {
 
             ItemStack chest = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
             if (!chest.isEmpty() && chest.getItem() instanceof ItemPowerArmorChestplate) {
-
-                // FIXME: do these really need to be here?
                 if (ModuleManager.INSTANCE.itemHasActiveModule(chest, MPSModuleConstants.MODULE_BASIC_COOLING_SYSTEM__DATANAME)) {
                     modules.add(MPSModuleConstants.MODULE_BASIC_COOLING_SYSTEM__DATANAME);
                 }

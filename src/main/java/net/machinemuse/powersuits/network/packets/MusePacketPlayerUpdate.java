@@ -1,9 +1,8 @@
 package net.machinemuse.powersuits.network.packets;
 
 import io.netty.buffer.ByteBuf;
-import net.machinemuse.numina.control.PlayerInputMap;
-import net.machinemuse.numina.network.MuseByteBufferUtils;
-import net.machinemuse.powersuits.network.MPSPackets;
+import net.machinemuse.numina.capabilities.player.CapabilityPlayerValues;
+import net.machinemuse.numina.capabilities.player.IPlayerValues;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -13,29 +12,36 @@ import net.minecraftforge.fml.relauncher.Side;
 
 public class MusePacketPlayerUpdate implements IMessage {
     EntityPlayer player;
-    PlayerInputMap inputMap;
-    String username;
+    boolean downkeyState;
+    boolean jumpKeyState;
 
     public MusePacketPlayerUpdate() {
     }
 
-    public MusePacketPlayerUpdate(EntityPlayer player, PlayerInputMap inputMap) {
+    public MusePacketPlayerUpdate(EntityPlayer player, boolean downKeyState, boolean jumpkeyState) {
         this.player = player;
-        this.username = player.getCommandSenderEntity().getName();
-        this.inputMap = inputMap;
+        this.downkeyState = downKeyState;
+        this.jumpKeyState = jumpkeyState;
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        this.username = MuseByteBufferUtils.readUTF8String(buf);
-        this.inputMap = PlayerInputMap.getInputMapFor(username);
-        this.inputMap = this.inputMap.readFromByteBuf(buf);
+        this.downkeyState = buf.readBoolean();
+        this.jumpKeyState = buf.readBoolean();
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        MuseByteBufferUtils.writeUTF8String(buf, player.getCommandSenderEntity().getName());
-        this.inputMap.writeToByteBuf(buf);
+        buf.writeBoolean(downkeyState);
+        buf.writeBoolean(jumpKeyState);
+    }
+
+    public boolean getDownKeyState() {
+        return downkeyState;
+    }
+
+    public boolean getJumpKeyState() {
+        return jumpKeyState;
     }
 
     public static class Handler implements IMessageHandler<MusePacketPlayerUpdate, IMessage> {
@@ -44,12 +50,11 @@ public class MusePacketPlayerUpdate implements IMessage {
             if (ctx.side == Side.SERVER) {
                 EntityPlayerMP player = ctx.getServerHandler().player;
                 player.getServerWorld().addScheduledTask(() -> {
-                    PlayerInputMap inputMap = message.inputMap;
-                    MusePacketPlayerUpdate updatePacket = new MusePacketPlayerUpdate(player, inputMap);
-                    player.motionX = inputMap.motionX;
-                    player.motionY = inputMap.motionY;
-                    player.motionZ = inputMap.motionZ;
-                    MPSPackets.sendToAllAround(updatePacket, player,128); // <-- test me
+                    IPlayerValues playerCap = player.getCapability(CapabilityPlayerValues.PLAYER_VALUES, null);
+                    if (playerCap != null) {
+                        playerCap.setDownKeyState(message.getDownKeyState());
+                        playerCap.setJumpKeyState(message.getJumpKeyState());
+                    }
                 });
             }
             return null;

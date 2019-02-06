@@ -35,6 +35,7 @@ public class PlayerUpdateHandler {
         if (e.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) e.getEntity();
 
+            // only MPS modular items in this list
             List<ItemStack> modularItemsEquipped = MuseItemUtils.getModularItemsEquipped(player);
 
 
@@ -75,7 +76,14 @@ public class PlayerUpdateHandler {
                 }
             }
 
-            player.fallDistance = (float) MovementManager.computeFallHeightFromVelocity(MuseMathUtils.clampDouble(player.motionY, -1000.0, 0.0));
+//            System.out.println("player fall distance before: [ player: " + player.getName() + " ], [ distance : " + player.fallDistance + " ]"  );
+//
+//            // FIXME: check to see if this is correct
+//            player.fallDistance = (float) MovementManager.computeFallHeightFromVelocity(MuseMathUtils.clampDouble(player.motionY, -1000.0, 0.0));
+//
+//            System.out.println("player fall distance after: [ player: " + player.getName() + " ], [ distance : " + player.fallDistance + " ]"  );
+
+
 
             // Sound update
             if (player.world.isRemote && NuminaConfig.useSounds()) {
@@ -86,7 +94,7 @@ public class PlayerUpdateHandler {
                     } else {
                         Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_GLIDER);
                     }
-                } else if (player.world.isRemote && NuminaConfig.useSounds()) {
+                } else {
                     Musique.stopPlayerSound(player, SoundDictionary.SOUND_EVENT_GLIDER);
                 }
 

@@ -1,5 +1,6 @@
 package net.machinemuse.powersuits.common.proxy;
 
+import net.machinemuse.powersuits.capabilities.CapabilityHandler;
 import net.machinemuse.powersuits.common.MPSGuiHandler;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.common.MPSModules;
@@ -46,6 +47,8 @@ public class CommonProxy {
         NetworkRegistry.INSTANCE.registerGuiHandler(ModularPowersuits.getInstance(), MPSGuiHandler.INSTANCE);
         TerminalHandler.registerHandler();
         MinecraftForge.EVENT_BUS.register(new PlayerLoginHandlerThingy()); // doesn't seem to work if fired preinit
+
+        MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
 
 
 

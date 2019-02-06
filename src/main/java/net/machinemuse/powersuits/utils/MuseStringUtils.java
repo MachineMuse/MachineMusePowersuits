@@ -91,7 +91,6 @@ public abstract class MuseStringUtils {
         format.setMinimumIntegerDigits(1);
         format.setMaximumFractionDigits(2);
         format.applyPattern("##0.##");
-
         return format.format(number * 100);
     }
 
@@ -197,23 +196,6 @@ public abstract class MuseStringUtils {
         String wrapped = WordUtils.wrap(str, length);
         String[] stringArray = wrapped.split(System.lineSeparator());
         List<String> strlist = Arrays.asList(stringArray);
-
-
-//        if (str != null && !str.isEmpty()) {
-//            int i = 0;
-//            while (i + length < str.length()) {
-//                int j = str.lastIndexOf(' ', i + length);
-//                if (j == -1) {
-//                    j = str.indexOf(' ', i + length);
-//                }
-//                if (j == -1) {
-//                    break;
-//                }
-//                strlist.add(str.substring(i, j));
-//                i = j + 1;
-//            }
-//            strlist.add(str.substring(i));
-//        }
         return strlist;
     }
 
@@ -242,10 +224,7 @@ public abstract class MuseStringUtils {
             return null;
         }
 
-        int line = 0;
-
         String currLine = words[0];
-
         for (int i = 1; i < words.length; i++) {
             String approxLine = currLine + " " + words[i];
             if (MuseRenderer.getStringWidth(approxLine) > length) {
