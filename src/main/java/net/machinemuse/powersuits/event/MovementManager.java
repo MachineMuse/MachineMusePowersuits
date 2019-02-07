@@ -147,13 +147,44 @@ public class MovementManager {
                 }
             }
 
+//            System.out.println("final thrust: " + thrust );
+//
+//            double motionX = player.motionX + thrust * desiredDirection.x;
+//            double motionY = player.motionY += thrust * desiredDirection.y;
+//            double motionZ = player.motionZ += thrust * desiredDirection.z;
+//
+//
+//            System.out.println("final velocity squared: " + (motionX * motionX + motionY * motionY + motionZ * motionZ));
+
+
             // Thrusting, finally :V
-            double vx = thrust * desiredDirection.x;
-            double vy = thrust * desiredDirection.y;
-            double vz = thrust * desiredDirection.z;
-            player.motionX += vx;
-            player.motionY += vy;
-            player.motionZ += vz;
+            player.motionX += thrust * desiredDirection.x;
+            player.motionY += thrust * desiredDirection.y;
+            player.motionZ += thrust * desiredDirection.z;
+
+            /*
+                single player:
+
+                up :
+
+
+
+             */
+
+
+
+
+//            System.out.println("player.motionX: " + player.motionX);
+//            System.out.println("player.motionY: " + player.motionY);
+//            System.out.println("player.motionZ: " + player.motionZ);
+
+
+
+
+
+
+
+
             thrustUsed += thrust;
 
         } else {
@@ -172,7 +203,20 @@ public class MovementManager {
 
         // Slow the player if they are going too fast
         double horzm2 = player.motionX * player.motionX + player.motionZ * player.motionZ;
+
+        // currently comes out to 0.0625
         double horizontalLimit = MPSConfig.INSTANCE.getMaximumFlyingSpeedmps() * MPSConfig.INSTANCE.getMaximumFlyingSpeedmps() / 400;
+
+        double playerVelocity = Math.abs(player.motionX) + Math.abs(player.motionY) + Math.abs(player.motionZ);
+
+
+//        double playerVelocity = horzm2 + player.motionY * player.motionY;
+//        System.out.println("mps flying speed limit: " + MPSConfig.INSTANCE.getMaximumFlyingSpeedmps());
+//        System.out.println("mps flying speed limit calc: " + horizontalLimit);
+//        System.out.println("actual player speed horzm2: " + horzm2);
+        System.out.println("player velocity: " + playerVelocity);
+
+
         if (playerInput.sneakKey && horizontalLimit > 0.05) {
             horizontalLimit = 0.05;
         }

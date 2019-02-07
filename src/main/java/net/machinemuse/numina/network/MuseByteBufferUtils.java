@@ -247,7 +247,6 @@ public class MuseByteBufferUtils extends ByteBufUtils {
     }
 
     /** Compression/Decompression ----------------------------------------------------------------- */
-    // https://stackoverflow.com/questions/37204975/decompressing-byte-using-lz4
     public static byte[] compressBytesGZip(final byte[] data) {
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         byte[] bytes = new byte[0];

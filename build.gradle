@@ -10,10 +10,6 @@ buildscript {
         }
 
         maven {
-            url 'https://mvnrepository.com/artifact/org.lz4/lz4-java'
-        }
-
-        maven {
             url 'https://mvnrepository.com/artifact/org.json/json'
         }
 
@@ -24,14 +20,19 @@ buildscript {
         maven {
             url 'https://oss.sonatype.org/content/repositories/snapshots/'
         }
-
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
     }
 }
+
+plugins {
+    id "com.github.johnrengelman.shadow" version "4.0.4"
+    id 'idea'
+}
 apply plugin: 'net.minecraftforge.gradle.forge'
-apply plugin: 'idea'
+
+
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {
@@ -64,9 +65,8 @@ repositories {
 }
 
 dependencies {
-    // https://mvnrepository.com/artifact/org.apache.commons/commons-text
     compile group: 'org.apache.commons', name: 'commons-text', version: '1.6'
-
+    shadow group: 'org.apache.commons', name: 'commons-text', version: '1.6'
     deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}:api"                             //JEI API
     deobfCompile "cofh:CoFHCore:${minecraft_version}-${cofhcore_version}:universal"                 //CoFH Core
     deobfCompile "appeng:appliedenergistics2:${ae2api_version}"                                     //Applied Energetics 2
@@ -78,8 +78,8 @@ dependencies {
     compile "net.darkhax.tesla:Tesla-${minecraft_version}:${tesla_version}"                         //Tesla
     compile "com.mod-buildcraft:buildcraft:${buildcraft_version}"                                   //BuildCraft
     compile "li.cil.scannable:Scannable:MC${minecraft_version}-${scannable_version}"                //Scannable
-    compile fileTree(dir: 'src/libs', include: 'RenderPlayerAPI-1.12.1-1.0.jar')                    //RenderPlayerAPI
-    compile fileTree(dir: 'src/libs', include: 'ExtraCells-1.12.2-2.6.1a.jar')                      //ExtraCells
+    compile fileTree(dir: '/libs', include: 'RenderPlayerAPI-1.12.1-1.0.jar')                    //RenderPlayerAPI
+    compile fileTree(dir: '/libs', include: 'ExtraCells-1.12.2-2.6.1a.jar')                      //ExtraCells
     compile("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")                           //Mekanism
             { exclude group: 'mezz.jei' }//Mek has implemented a duplicated and out date JEI
     compileOnly ("com.enderio:EnderIO:${minecraft_version}-${enderio_version}:api")                 //EnderIO API
@@ -95,10 +95,25 @@ dependencies {
     
     // https://mvnrepository.com/artifact/org.json/json
     compile group: 'org.json', name: 'json', version: '20180813' // probably get rid of this
-
     compile group: 'com.codesnippets4all', name: 'quick-json', version: '1.0.4'
-
 }
+
+shadowJar {
+    archiveName = tasks.jar.archiveName
+    classifier = ""
+    exclude 'org.apache.commons.lang*'
+    relocate 'org.apache.commons.text', "net.machinemuse.repack.org.apache.commons.text"
+    configurations = [project.configurations.shadow]
+}
+
+reobf {
+    shadowJar {
+                mappingType = "SEARGE"
+            }
+}
+
+tasks.reobfShadowJar.mustRunAfter shadowJar
+
 
 minecraft {
     version = minecraft_version + "-" + forge_version// + "-" + "1.10.0"
@@ -107,6 +122,7 @@ minecraft {
     replace "@numina_version@", numina_version
     replace "@VERSION@", project.version
     useDepAts = true
+
 }
 
 processResources {
@@ -135,26 +151,14 @@ jar {
     }
 }
 
-task devJar(type: Jar) {
-    from sourceSets.main.output
-    classifier = 'dev'
-}
-
-artifacts {
-    archives devJar
-}
-
-//task copyToLib(type: Copy) {
-//    into "$buildDir/libs"
-//    from(sourceSets.main.resources.srcDirs){
-////        include 'mps-vanilla.recipes'
-//////        include 'mps-thermalexpansion.recipes'
-////        include 'mps-ic2.recipes'
-////        include 'mps-enderio.recipes'
-//    }
+//task devJar(type: Jar) {
+//    from sourceSets.main.output
+//    classifier = 'dev'
 //}
-
-//build.dependsOn(copyToLib)
+//
+//artifacts {
+//    archives devJar
+//}
 
 idea {
     module {

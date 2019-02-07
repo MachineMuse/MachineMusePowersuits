@@ -32,6 +32,12 @@ public class PlayerUpdateHandler {
     @SuppressWarnings("unchecked")
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public void onPlayerUpdate(LivingEvent.LivingUpdateEvent e) {
+       // @SubscribeEvent
+        //	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
+
+
+
+
         if (e.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) e.getEntity();
 
