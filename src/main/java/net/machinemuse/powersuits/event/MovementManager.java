@@ -214,7 +214,7 @@ public class MovementManager {
 //        System.out.println("mps flying speed limit: " + MPSConfig.INSTANCE.getMaximumFlyingSpeedmps());
 //        System.out.println("mps flying speed limit calc: " + horizontalLimit);
 //        System.out.println("actual player speed horzm2: " + horzm2);
-        System.out.println("player velocity: " + playerVelocity);
+//        System.out.println("player velocity: " + playerVelocity);
 
 
         if (playerInput.sneakKey && horizontalLimit > 0.05) {

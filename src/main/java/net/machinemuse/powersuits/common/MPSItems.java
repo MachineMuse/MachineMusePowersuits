@@ -7,10 +7,7 @@ import net.machinemuse.powersuits.block.itemblock.ItemBlockTinkerTable;
 import net.machinemuse.powersuits.fluid.BlockFluidLiquidNitrogen;
 import net.machinemuse.powersuits.fluid.LiquidNitrogen;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
-import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
-import net.machinemuse.powersuits.item.armor.ItemPowerArmorHelmet;
-import net.machinemuse.powersuits.item.armor.ItemPowerArmorLeggings;
+import net.machinemuse.powersuits.item.armor.*;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -63,8 +60,6 @@ public enum MPSItems {
                 powerArmorFeet,
                 powerFist,
                 components,
-
-
                 itemTinkerTable,
                 itemLuxCapacitor
         );
