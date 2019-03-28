@@ -1,12 +1,12 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
 import com.google.common.collect.ImmutableMap;
-import net.machinemuse.numina.common.constants.NuminaNBTConstants;
-import net.machinemuse.numina.utils.MuseLogger;
-import net.machinemuse.numina.utils.math.Colour;
-import net.machinemuse.powersuits.client.model.obj.OBJModelPlus;
+import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
+import net.machinemuse.numina.basemod.MuseLogger;
+import net.machinemuse.numina.math.Colour;
+import net.machinemuse.numina.client.model.obj.MuseOBJModel;
 import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.machinemuse.powersuits.utils.MuseStringUtils;
+import net.machinemuse.numina.string.MuseStringUtils;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.ResourceLocation;
@@ -86,10 +86,10 @@ public enum ModelSpecXMLReader {
                             boolean isDefault = (eElement.hasAttribute("default") ? Boolean.parseBoolean(eElement.getAttribute("default")) : false);
 
                             switch (specType) {
-                                case POWER_FIST:
+                                case WIELDABLE:
                                     // only allow custom models if allowed by config
 //                                    if (isDefault || MPSConfig.INSTANCE.allowCustomPowerFistModels())
-                                    parseModelSpec(specNode, event, EnumSpecType.POWER_FIST, specName, isDefault);
+                                    parseModelSpec(specNode, event, EnumSpecType.WIELDABLE, specName, isDefault);
                                     break;
 
                                 case ARMOR_MODEL:
@@ -174,9 +174,9 @@ public enum ModelSpecXMLReader {
                             modelState = TRSRTransformation.identity();
                     }
 
-                    OBJModelPlus.OBJBakedModelPus bakedModel = ModelRegistry.getInstance().loadBakedModel(new ResourceLocation(modelLocation), modelState);
+                    MuseOBJModel.MuseOBJBakedModel bakedModel = ModelRegistry.getInstance().loadBakedModel(new ResourceLocation(modelLocation), modelState);
                     // ModelSpec stuff
-                    if (bakedModel != null && bakedModel instanceof OBJModelPlus.OBJBakedModelPus) {
+                    if (bakedModel != null && bakedModel instanceof MuseOBJModel.MuseOBJBakedModel) {
                         ModelSpec modelspec = new ModelSpec(bakedModel, modelState, specName, isDefault, specType);
 
                         NodeList bindingNodeList = ((Element) modelNode).getElementsByTagName("binding");

@@ -2,9 +2,9 @@ package net.machinemuse.powersuits.gui;
 
 import net.machinemuse.numina.client.gui.IClickable;
 import net.machinemuse.numina.client.gui.frame.IGuiFrame;
-import net.machinemuse.numina.utils.math.Colour;
-import net.machinemuse.numina.utils.math.geometry.DrawableMuseRect;
-import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.numina.math.Colour;
+import net.machinemuse.numina.math.geometry.DrawableMuseRect;
+import net.machinemuse.numina.client.render.MuseRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;

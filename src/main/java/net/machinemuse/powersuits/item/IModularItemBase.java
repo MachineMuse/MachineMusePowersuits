@@ -1,17 +1,17 @@
 package net.machinemuse.powersuits.item;
 
 import net.machinemuse.numina.capabilities.energy.adapter.IMuseElectricItem;
-import net.machinemuse.numina.common.constants.NuminaNBTConstants;
+import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
 import net.machinemuse.numina.item.IModularItem;
 import net.machinemuse.numina.module.IModuleManager;
-import net.machinemuse.numina.utils.MuseLogger;
-import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.numina.basemod.MuseLogger;
+import net.machinemuse.numina.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
 import net.machinemuse.powersuits.client.render.modelspec.ModelRegistry;
 import net.machinemuse.powersuits.client.render.modelspec.TexturePartSpec;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.machinemuse.powersuits.utils.MuseStringUtils;
+import net.machinemuse.numina.string.MuseStringUtils;
 import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

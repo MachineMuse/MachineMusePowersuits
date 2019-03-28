@@ -66,10 +66,15 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-text', version: '1.6'
     shadow group: 'org.apache.commons', name: 'commons-text', version: '1.6'
     deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}:api"                             //JEI API
+    deobfCompile "cofh:RedstoneFlux:1.12-${rf_version}:universal"                                   // RF API
     deobfCompile "cofh:CoFHCore:${minecraft_version}-${cofhcore_version}:universal"                 //CoFH Core
+    compileOnly "com.enderio.core:EnderCore:${minecraft_version}-${endercore_version}"              //Ender Core
+    
+    
+    
     deobfCompile "appeng:appliedenergistics2:${ae2api_version}"                                     //Applied Energetics 2
     deobfCompile "net.industrial-craft:industrialcraft-2:${ic2api_version}-ex112"                   //IC2 API
-    compileOnly "com.enderio.core:EnderCore:${minecraft_version}-${endercore_version}"              //Ender Core
+
     deobfCompile "net.sengir.forestry:forestry_${minecraft_version}:${forestry_version}"            //Forestry
     deobfCompile "thaumcraft:Thaumcraft:1.12.2:${thaumcraft_version}"                               //Thaumcraft
     deobfCompile "refinedstorage:refinedstorage:${refinedstorage_version}"                          //Refined Storage
@@ -80,8 +85,11 @@ dependencies {
     compile fileTree(dir: '/libs', include: 'ExtraCells-1.12.2-2.6.1a.jar')                      //ExtraCells
     compile("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")                           //Mekanism
             { exclude group: 'mezz.jei' }//Mek has implemented a duplicated and out date JEI
-    compileOnly ("com.enderio:EnderIO:${minecraft_version}-${enderio_version}:api")                 //EnderIO API
-            { exclude group: "deobf.com.enderio.core"}//Another duplicated and (dirty words) dependency
+            
+     compileOnly ("com.enderio:EnderIO:${minecraft_version}-${enderio_version}")        
+            
+//    compileOnly ("com.enderio:EnderIO:${minecraft_version}-${enderio_version}:api")                 //EnderIO API
+//            { exclude group: "deobf.com.enderio.core"}//Another duplicated and (dirty words) dependency
     
     //in fact,if you want run with EnderIO,you had to manually add EnderCore and EnderIO to your run/mods
     //or you can help to add some lines below that can help the "runClient" works properly while also load EnderIO

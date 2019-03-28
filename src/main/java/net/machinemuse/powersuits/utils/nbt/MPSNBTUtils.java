@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.utils.nbt;
 
-import net.machinemuse.numina.common.constants.NuminaNBTConstants;
-import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
+import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
+import net.machinemuse.numina.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec;

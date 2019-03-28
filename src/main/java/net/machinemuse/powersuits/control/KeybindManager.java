@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.control;
 
 import net.machinemuse.numina.module.IPowerModule;
-import net.machinemuse.numina.utils.MuseLogger;
-import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
+import net.machinemuse.numina.basemod.MuseLogger;
+import net.machinemuse.numina.math.geometry.MusePoint2D;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableModule;

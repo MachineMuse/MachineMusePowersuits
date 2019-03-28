@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.network.packets;
 
 import io.netty.buffer.ByteBuf;
-import net.machinemuse.numina.common.constants.NuminaNBTConstants;
+import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
 import net.machinemuse.numina.item.IModularItem;
 import net.machinemuse.numina.network.MuseByteBufferUtils;
-import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
+import net.machinemuse.numina.nbt.MuseNBTUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;

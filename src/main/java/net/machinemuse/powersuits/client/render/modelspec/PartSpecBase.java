@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import net.machinemuse.numina.common.constants.NuminaNBTConstants;
+import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
 import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.Objects;

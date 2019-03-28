@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.item.armor;
 
-import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.numina.math.Colour;
 import net.machinemuse.powersuits.item.IModularItemBase;
 import net.machinemuse.powersuits.utils.MuseCommonStrings;
 import net.minecraft.client.util.ITooltipFlag;

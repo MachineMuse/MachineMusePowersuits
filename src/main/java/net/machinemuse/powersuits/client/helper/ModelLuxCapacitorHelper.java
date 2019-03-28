@@ -5,7 +5,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableList;
-import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.numina.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.minecraft.block.BlockDirectional;

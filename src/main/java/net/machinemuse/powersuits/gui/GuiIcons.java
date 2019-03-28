@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.gui;
 import net.machinemuse.numina.client.render.MuseIconUtils;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
 import net.machinemuse.numina.client.render.RenderState;
-import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.numina.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import org.lwjgl.opengl.GL11;

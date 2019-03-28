@@ -1,11 +1,12 @@
 package net.machinemuse.powersuits.utils;
 
 import net.machinemuse.numina.capabilities.energy.adapter.ElectricAdapter;
-import net.machinemuse.numina.common.constants.NuminaNBTConstants;
+import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
 import net.machinemuse.numina.item.IModeChangingItem;
 import net.machinemuse.numina.module.IPowerModule;
-import net.machinemuse.numina.utils.item.MuseItemUtils;
-import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
+import net.machinemuse.numina.item.MuseItemUtils;
+import net.machinemuse.numina.nbt.MuseNBTUtils;
+import net.machinemuse.numina.string.MuseStringUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;

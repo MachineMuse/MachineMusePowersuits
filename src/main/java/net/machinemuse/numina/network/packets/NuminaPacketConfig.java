@@ -1,8 +1,8 @@
 package net.machinemuse.numina.network.packets;
 
 import io.netty.buffer.ByteBuf;
-import net.machinemuse.numina.common.config.NuminaConfig;
-import net.machinemuse.numina.common.config.NuminaServerSettings;
+import net.machinemuse.numina.config.NuminaConfig;
+import net.machinemuse.numina.config.NuminaServerSettings;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;

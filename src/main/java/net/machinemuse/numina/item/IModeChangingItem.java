@@ -1,13 +1,13 @@
 package net.machinemuse.numina.item;
 
-import net.machinemuse.numina.common.constants.NuminaNBTConstants;
+import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
 import net.machinemuse.numina.module.IEnchantmentModule;
 import net.machinemuse.numina.module.IModuleManager;
 import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.module.IRightClickModule;
 import net.machinemuse.numina.network.NuminaPackets;
 import net.machinemuse.numina.network.packets.MusePacketModeChangeRequest;
-import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
+import net.machinemuse.numina.nbt.MuseNBTUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

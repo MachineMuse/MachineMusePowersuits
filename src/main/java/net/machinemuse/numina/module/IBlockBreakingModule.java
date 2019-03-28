@@ -1,6 +1,6 @@
 package net.machinemuse.numina.module;
 
-import net.machinemuse.numina.utils.helper.ToolHelpers;
+import net.machinemuse.numina.helper.ToolHelpers;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

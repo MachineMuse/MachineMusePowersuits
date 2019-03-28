@@ -1,7 +1,7 @@
 package net.machinemuse.numina.client.sound;
 
-import net.machinemuse.numina.common.config.NuminaConfig;
-import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.config.NuminaConfig;
+import net.machinemuse.numina.basemod.MuseLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;

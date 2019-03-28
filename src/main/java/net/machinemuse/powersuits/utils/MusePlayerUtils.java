@@ -1,7 +1,5 @@
 package net.machinemuse.powersuits.utils;
 
-import com.enderio.core.common.transform.EnderCoreMethods;
-import net.machinemuse.numina.common.ModCompatibility;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -144,13 +142,13 @@ public class MusePlayerUtils {
 
     public static double getPlayerCoolingBasedOnMaterial(@Nonnull EntityPlayer player) {
         // cheaper method of checking if player is in lava. Described as "non-chunkloading copy of Entity.isInLava()"
-        if (ModCompatibility.isEnderCoreLoaded()) {
-            if (EnderCoreMethods.isInLavaSafe(player))
-                return 0;
-        } else {
+//        if (ModCompatibility.isEnderCoreLoaded()) {
+//            if (EnderCoreMethods.isInLavaSafe(player))
+//                return 0;
+//        } else {
             if (player.isInLava()) // not a cheap
                 return 0;
-        }
+//        }
 
         double cool = ((2.0 - getBiome(player).getTemperature(new BlockPos((int) player.posX, (int) player.posY, (int) player.posZ)) / 2)); // Algorithm that returns a getValue from 0.0 -> 1.0. Biome temperature is from 0.0 -> 2.0
 

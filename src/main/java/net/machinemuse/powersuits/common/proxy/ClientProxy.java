@@ -3,7 +3,7 @@ package net.machinemuse.powersuits.common.proxy;
 import net.machinemuse.powersuits.client.event.ClientTickHandler;
 import net.machinemuse.powersuits.client.event.EventRegisterRenderers;
 import net.machinemuse.powersuits.client.event.ModelBakeEventHandler;
-import net.machinemuse.powersuits.client.model.obj.OBJPlusLoader;
+import net.machinemuse.numina.client.model.obj.MuseOBJLoader;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.common.config.CosmeticPresetSaveLoad;
 import net.machinemuse.powersuits.common.config.MPSConfig;
@@ -34,9 +34,7 @@ public class ClientProxy extends CommonProxy {
         super.preInit(event);
         // FIXME: delete? or leave it. Leaving it is harmless.
         CosmeticPresetSaveLoad.copyPresetsFromJar();
-
-        ModelLoaderRegistry.registerLoader(OBJPlusLoader.INSTANCE);
-        OBJPlusLoader.INSTANCE.addDomain(MODID.toLowerCase());
+        MuseOBJLoader.INSTANCE.addDomain(MODID.toLowerCase());
     }
 
     @Override

@@ -1,7 +1,7 @@
 package net.machinemuse.numina.capabilities.inventory;
 
-import net.machinemuse.numina.common.constants.NuminaNBTConstants;
-import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
+import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
+import net.machinemuse.numina.nbt.MuseNBTUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;

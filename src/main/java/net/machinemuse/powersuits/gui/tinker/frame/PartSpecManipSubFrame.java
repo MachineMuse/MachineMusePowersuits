@@ -1,15 +1,15 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
 import net.machinemuse.numina.client.render.RenderState;
-import net.machinemuse.numina.common.constants.NuminaNBTConstants;
-import net.machinemuse.numina.utils.MuseLogger;
-import net.machinemuse.numina.utils.item.MuseItemUtils;
-import net.machinemuse.numina.utils.math.Colour;
-import net.machinemuse.numina.utils.math.MuseMathUtils;
-import net.machinemuse.numina.utils.math.geometry.MuseRect;
-import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
-import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
-import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
+import net.machinemuse.numina.basemod.MuseLogger;
+import net.machinemuse.numina.item.MuseItemUtils;
+import net.machinemuse.numina.math.Colour;
+import net.machinemuse.numina.math.MuseMathUtils;
+import net.machinemuse.numina.math.geometry.MuseRect;
+import net.machinemuse.numina.math.geometry.MuseRelativeRect;
+import net.machinemuse.numina.nbt.MuseNBTUtils;
+import net.machinemuse.numina.client.render.MuseRenderer;
 import net.machinemuse.powersuits.client.render.modelspec.*;
 import net.machinemuse.powersuits.gui.GuiIcons;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;

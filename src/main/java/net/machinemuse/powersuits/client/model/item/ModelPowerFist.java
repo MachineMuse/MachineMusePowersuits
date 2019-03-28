@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.client.model.item;
 
 import com.google.common.collect.ImmutableList;
-import net.machinemuse.numina.common.constants.NuminaNBTConstants;
-import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
+import net.machinemuse.numina.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.client.event.ModelBakeEventHandler;
 import net.machinemuse.powersuits.client.helper.ModelHelper;

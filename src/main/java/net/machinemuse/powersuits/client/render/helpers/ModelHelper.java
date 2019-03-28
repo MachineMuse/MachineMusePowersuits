@@ -7,8 +7,8 @@
 //import com.google.common.collect.UnmodifiableIterator;
 //import net.machinemuse.numina.utils.MuseLogger;
 //import net.machinemuse.numina.utils.math.Colour;
-//import net.machinemuse.powersuits.client.model.obj.OBJPlusLoader;
-//import net.machinemuse.powersuits.client.model.obj.OBJModelPlus;
+//import net.machinemuse.powersuits.client.model.obj.MuseOBJLoader;
+//import net.machinemuse.powersuits.client.model.obj.MuseOBJModel;
 //import net.machinemuse.powersuits.client.render.modelspec.ModelSpecXMLReader;
 //import net.minecraft.block.properties.IProperty;
 //import net.minecraft.block.state.BlockStateContainer;
@@ -60,8 +60,8 @@
 //    public static IModel getIModel(ResourceLocation resource){
 //        IModel model = null;
 //        try {
-//            model = (OBJModelPlus) OBJPlusLoader.INSTANCE.loadModel(resource);
-//            model = ((OBJModelPlus) model).process(ImmutableMap.of("flip-v", "true"));
+//            model = (MuseOBJModel) MuseOBJLoader.INSTANCE.loadModel(resource);
+//            model = ((MuseOBJModel) model).process(ImmutableMap.of("flip-v", "true"));
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //            MuseLogger.logError("Model loading failed :( " + resource);
@@ -121,7 +121,7 @@
 //     * The biggest issue with this setup is that the code. There is a better way out there
 //     */
 //    @Nullable
-//    public static IExtendedBlockState getStateForPart(String shownIn, OBJModelPlus.OBJBakedModelPus objBakedModelIn) {
+//    public static IExtendedBlockState getStateForPart(String shownIn, MuseOBJModel.MuseOBJBakedModel objBakedModelIn) {
 //        List<String> hidden = new ArrayList<>(objBakedModelIn.getIModel().getMatLib().getGroups().keySet());
 //        return getStateForPart(shownIn, hidden);
 //    }

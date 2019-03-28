@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import net.machinemuse.numina.common.constants.NuminaNBTConstants;
+import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
 import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
@@ -63,7 +63,7 @@ public class DefaultModelSpec {
             if (spec.isDefault()) {
 
                 /** Power Fist -------------------------------------------------------------------- */
-                if (stack.getItem() instanceof ItemPowerFist && spec.getSpecType().equals(EnumSpecType.POWER_FIST)) {
+                if (stack.getItem() instanceof ItemPowerFist && spec.getSpecType().equals(EnumSpecType.WIELDABLE)) {
                     colours = addNewColourstoList(colours, spec.getColours()); // merge new color int arrays in
 
                     for (PartSpecBase partSpec : spec.getPartSpecs()) {

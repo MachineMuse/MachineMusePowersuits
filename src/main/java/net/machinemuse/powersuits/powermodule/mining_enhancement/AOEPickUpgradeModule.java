@@ -2,8 +2,8 @@ package net.machinemuse.powersuits.powermodule.mining_enhancement;
 
 import mekanism.common.HashList;
 import net.machinemuse.numina.module.*;
-import net.machinemuse.numina.utils.energy.ElectricItemUtils;
-import net.machinemuse.numina.utils.item.MuseItemUtils;
+import net.machinemuse.numina.energy.ElectricItemUtils;
+import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.ModuleManager;

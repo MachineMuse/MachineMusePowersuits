@@ -5,7 +5,8 @@ import java.util.Arrays;
 public enum EnumSpecType {
     ARMOR_MODEL("ARMORMODEL"),
     ARMOR_SKIN("ARMORSKIN"),
-    POWER_FIST("POWERFIST");
+    WIELDABLE("WIELDABLE"),
+    NONE("NONE");
 
     String name;
 

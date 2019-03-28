@@ -4,11 +4,11 @@ import net.machinemuse.numina.client.gui.clickable.Clickable;
 import net.machinemuse.numina.client.render.MuseIconUtils;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
 import net.machinemuse.numina.module.IPowerModule;
-import net.machinemuse.numina.utils.math.Colour;
-import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
-import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.numina.math.Colour;
+import net.machinemuse.numina.math.geometry.MusePoint2D;
+import net.machinemuse.numina.client.render.MuseRenderer;
 import net.machinemuse.powersuits.gui.GuiIcons;
-import net.machinemuse.powersuits.utils.MuseStringUtils;
+import net.machinemuse.numina.string.MuseStringUtils;
 import net.minecraft.client.resources.I18n;
 
 import java.util.ArrayList;

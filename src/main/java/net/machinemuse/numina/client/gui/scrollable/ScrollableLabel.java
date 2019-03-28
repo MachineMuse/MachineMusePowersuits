@@ -1,8 +1,8 @@
 package net.machinemuse.numina.client.gui.scrollable;
 
 import net.machinemuse.numina.client.gui.clickable.ClickableLabel;
-import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
-import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
+import net.machinemuse.numina.math.geometry.MusePoint2D;
+import net.machinemuse.numina.math.geometry.MuseRelativeRect;
 
 public class ScrollableLabel extends ScrollableRectangle {
     ClickableLabel label;

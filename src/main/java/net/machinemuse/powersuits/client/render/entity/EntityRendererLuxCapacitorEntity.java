@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.client.render.entity;
 
-import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.numina.math.Colour;
 import net.machinemuse.powersuits.client.model.block.ModelLuxCapacitor;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.machinemuse.powersuits.entity.EntityLuxCapacitor;

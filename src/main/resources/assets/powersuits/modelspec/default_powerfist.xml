@@ -1,4 +1,4 @@
-<modelSpec specName="default_powerfist" type="power fist" default="true">
+<modelSpec specName="default_powerfist" type="wieldable" default="true">
     <models>
         <model file="powersuits:models/item/powerfist/powerfist.obj" localizedName="PowerFist" textures="powersuits:models/powerfist">
             <itemCameraTransforms>

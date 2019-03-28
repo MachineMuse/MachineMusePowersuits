@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.client.event;
 
-import net.machinemuse.numina.utils.energy.ElectricItemUtils;
-import net.machinemuse.numina.utils.heat.MuseHeatUtils;
-import net.machinemuse.numina.utils.item.MuseItemUtils;
-import net.machinemuse.numina.utils.math.MuseMathUtils;
-import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.numina.energy.ElectricItemUtils;
+import net.machinemuse.numina.heat.MuseHeatUtils;
+import net.machinemuse.numina.item.MuseItemUtils;
+import net.machinemuse.numina.math.MuseMathUtils;
+import net.machinemuse.numina.client.render.MuseRenderer;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
@@ -14,7 +14,7 @@ import net.machinemuse.powersuits.gui.tinker.clickable.ClickableKeybinding;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorHelmet;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
-import net.machinemuse.powersuits.utils.MuseStringUtils;
+import net.machinemuse.numina.string.MuseStringUtils;
 import net.machinemuse.powersuits.utils.modulehelpers.AutoFeederHelper;
 import net.machinemuse.powersuits.utils.modulehelpers.FluidUtils;
 import net.machinemuse.powersuits.utils.modulehelpers.PlasmaCannonHelper;

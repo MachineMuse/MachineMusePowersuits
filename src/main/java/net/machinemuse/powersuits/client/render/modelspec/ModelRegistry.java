@@ -1,12 +1,12 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
 import com.google.common.collect.ImmutableMap;
-import net.machinemuse.numina.common.constants.NuminaNBTConstants;
-import net.machinemuse.numina.utils.MuseLogger;
-import net.machinemuse.numina.utils.map.MuseRegistry;
-import net.machinemuse.powersuits.client.model.obj.OBJModelPlus;
-import net.machinemuse.powersuits.client.model.obj.OBJPlusLoader;
-import net.machinemuse.powersuits.utils.MuseStringUtils;
+import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
+import net.machinemuse.numina.basemod.MuseLogger;
+import net.machinemuse.numina.map.MuseRegistry;
+import net.machinemuse.numina.client.model.obj.MuseOBJModel;
+import net.machinemuse.numina.client.model.obj.MuseOBJLoader;
+import net.machinemuse.numina.string.MuseStringUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.nbt.NBTTagCompound;
@@ -43,33 +43,33 @@ public class ModelRegistry extends MuseRegistry<SpecBase> {
         return INSTANCE;
     }
 
-    public static OBJModelPlus getIModel(ResourceLocation location, int attempt) {
+    public static MuseOBJModel getIModel(ResourceLocation location, int attempt) {
         String domain = location.getNamespace();
         String resourePath = location.getPath().replaceFirst("^models/models", "models");
 
         location = new ResourceLocation(domain, resourePath);
         IModel model;
         try {
-            model = OBJPlusLoader.INSTANCE.loadModel(location);
-            model = ((OBJModelPlus) model).process(ImmutableMap.of("flip-v", "true"));
+            model = MuseOBJLoader.INSTANCE.loadModel(location);
+            model = ((MuseOBJModel) model).process(ImmutableMap.of("flip-v", "true"));
         } catch (Exception e) {
             model = ModelLoaderRegistry.getMissingModel();
             if (attempt < 6) {
                 getIModel(location, attempt + 1);
                 MuseLogger.logError("Model loading failed on attempt #" + attempt + "  :( " + location.toString());
             } else
-                return (OBJModelPlus) model;
+                return (MuseOBJModel) model;
             MuseLogger.logError("Failed to loadButton model. " + e);
         }
-        return (OBJModelPlus) model;
+        return (MuseOBJModel) model;
     }
 
     @Nullable
-    public static OBJModelPlus.OBJBakedModelPus wrap(ResourceLocation modellocation, IModelState modelState) {
-        OBJModelPlus model = getIModel(modellocation, 0);
+    public static MuseOBJModel.MuseOBJBakedModel wrap(ResourceLocation modellocation, IModelState modelState) {
+        MuseOBJModel model = getIModel(modellocation, 0);
 
         try {
-            return (OBJModelPlus.OBJBakedModelPus) model.bake(modelState, DefaultVertexFormats.ITEM,
+            return (MuseOBJModel.MuseOBJBakedModel) model.bake(modelState, DefaultVertexFormats.ITEM,
                     location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString()));
         } catch (Exception e) {
             MuseLogger.logError("Failed to bake model. " + e);
@@ -80,7 +80,7 @@ public class ModelRegistry extends MuseRegistry<SpecBase> {
     /**
      * TextureSpec does not have an IModelState so this is relatively safe
      */
-    public OBJModelPlus.OBJBakedModelPus loadBakedModel(ResourceLocation resource, IModelState modelState) {
+    public MuseOBJModel.MuseOBJBakedModel loadBakedModel(ResourceLocation resource, IModelState modelState) {
         String name = MuseStringUtils.extractName(resource);
         SpecBase spec = get(name);
         if (spec == null)

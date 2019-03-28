@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.gui.tinker.clickable;
 
 import net.machinemuse.numina.client.gui.clickable.ClickableSlider;
-import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
+import net.machinemuse.numina.math.geometry.MusePoint2D;
 import net.minecraft.nbt.NBTTagCompound;
 
 /**

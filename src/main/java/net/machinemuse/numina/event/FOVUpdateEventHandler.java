@@ -1,6 +1,6 @@
 package net.machinemuse.numina.event;
 
-import net.machinemuse.numina.common.config.NuminaConfig;
+import net.machinemuse.numina.config.NuminaConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.resources.I18n;

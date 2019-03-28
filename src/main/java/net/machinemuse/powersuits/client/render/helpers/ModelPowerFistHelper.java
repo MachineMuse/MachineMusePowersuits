@@ -6,7 +6,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.numina.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.machinemuse.powersuits.client.event.ModelBakeEventHandler;
 import net.machinemuse.powersuits.client.helper.ModelHelper;
@@ -84,13 +84,13 @@ public enum ModelPowerFistHelper {
         if (event != null) {
             try {
                 // FIXME: register textures from XML loader
-//                OBJPlusLoader.INSTANCE.registerModelSprites(powerFistLocation);
-//                OBJPlusLoader.INSTANCE.registerModelSprites(powerFistFingersNormalLocation);
-//                OBJPlusLoader.INSTANCE.registerModelSprites(powerFistFingersFiringLocation);
+//                MuseOBJLoader.INSTANCE.registerModelSprites(powerFistLocation);
+//                MuseOBJLoader.INSTANCE.registerModelSprites(powerFistFingersNormalLocation);
+//                MuseOBJLoader.INSTANCE.registerModelSprites(powerFistFingersFiringLocation);
 //
-//                OBJPlusLoader.INSTANCE.registerModelSprites(powerFistLeftLocation);
-//                OBJPlusLoader.INSTANCE.registerModelSprites(powerFistFingersLeftNormalLocation);
-//                OBJPlusLoader.INSTANCE.registerModelSprites(powerFistFingersLeftFiringLocation);
+//                MuseOBJLoader.INSTANCE.registerModelSprites(powerFistLeftLocation);
+//                MuseOBJLoader.INSTANCE.registerModelSprites(powerFistFingersLeftNormalLocation);
+//                MuseOBJLoader.INSTANCE.registerModelSprites(powerFistFingersLeftFiringLocation);
             } catch (Exception ignored) {
             }
         } else {

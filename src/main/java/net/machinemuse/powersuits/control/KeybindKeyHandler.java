@@ -25,12 +25,13 @@ public class KeybindKeyHandler {
     public static final KeyBinding cycleToolBackward = new KeyBinding("Cycle Tool Backward (MPS)", Keyboard.KEY_NONE, mps);
     public static final KeyBinding cycleToolForward = new KeyBinding("Cycle Tool Forward (MPS)", Keyboard.KEY_NONE, mps);
     public static final KeyBinding openCosmeticGUI = new KeyBinding("Cosmetic (MPS)", Keyboard.KEY_NONE, mps);
-    public static final KeyBinding[] keybindArray = new KeyBinding[]{openKeybindGUI, goDownKey, cycleToolBackward, cycleToolForward, openCosmeticGUI};
 
     public KeybindKeyHandler() {
-        for (KeyBinding key : keybindArray) {
-            ClientRegistry.registerKeyBinding(key);
-        }
+            ClientRegistry.registerKeyBinding(openKeybindGUI);
+            ClientRegistry.registerKeyBinding(goDownKey);
+            ClientRegistry.registerKeyBinding(cycleToolBackward);
+            ClientRegistry.registerKeyBinding(cycleToolForward);
+            ClientRegistry.registerKeyBinding(openCosmeticGUI);
     }
 
     void updatePlayerValues(EntityPlayerSP clientPlayer, Boolean downKeyState, Boolean jumpKeyState) {
@@ -65,7 +66,7 @@ public class KeybindKeyHandler {
         KeyBinding[] hotbarKeys = mc.gameSettings.keyBindsHotbar;
 
         // Only activate if there is a player to work with
-        if (player == null) {
+        if (player == null || mc.inGameHasFocus) {
             return;
         }
 
@@ -73,47 +74,41 @@ public class KeybindKeyHandler {
             if (player.inventory.getCurrentItem().getItem() instanceof IModeChangingItem) {
                 IModeChangingItem mci = (IModeChangingItem) player.inventory.getCurrentItem().getItem();
 
-                /* cycleToolBackward/cycleToolForward only seem to be used if actual keys are assigned instead of mouse-wheel */
-                if (key == cycleToolBackward.getKeyCode()) {
-                    mc.playerController.updateController();
-                    mci.cycleMode(player.inventory.getStackInSlot(player.inventory.currentItem), player, 1);
-                }
-
-                if (key == cycleToolForward.getKeyCode()) {
-                    mc.playerController.updateController();
-                    mci.cycleMode(player.inventory.getStackInSlot(player.inventory.currentItem), player, -1);
-                }
-
                 if (player.inventory.currentItem < hotbarKeys.length && key == hotbarKeys[player.inventory.currentItem].getKeyCode()) {
                     World world = mc.world;
                     if (mc.inGameHasFocus) {
                         player.openGui(ModularPowersuits.getInstance(), 5, world, 0, 0, 0);
                     }
+                    // cycleToolBackward/cycleToolForward aren't related to the mouse wheel unless bound to that
+                } else if (cycleToolBackward.isPressed()) {
+                    mc.playerController.updateController();
+                    mci.cycleMode(player.inventory.getStackInSlot(player.inventory.currentItem), player, 1);
+                } else if (cycleToolForward.isPressed()) {
+                    mc.playerController.updateController();
+                    mci.cycleMode(player.inventory.getStackInSlot(player.inventory.currentItem), player, -1);
                 }
             }
 
-            if (key == openKeybindGUI.getKeyCode()) {
+            if (openKeybindGUI.isPressed()) {
                 World world = mc.world;
                 if (mc.inGameHasFocus) {
                     player.openGui(ModularPowersuits.getInstance(), 1, world, 0, 0, 0);
                 }
-            }
-            if (key == openCosmeticGUI.getKeyCode()) {
+            } else if (openCosmeticGUI.isPressed()) {
                 World world = mc.world;
                 if (mc.inGameHasFocus) {
                     player.openGui(ModularPowersuits.getInstance(), 3, world, 0, 0, 0);
                 }
-            }
-            // update down key on server side
-            if (key == goDownKey.getKeyCode()) {
+                // update down key on server side
+            } else if (key == goDownKey.getKeyCode()) {
                 updatePlayerValues(player, true, null);
 
                 // update jump key on server side
-            } else if (key == mc.gameSettings.keyBindJump.getKeyCode())
+            } else if (mc.gameSettings.keyBindJump.isPressed())
                 updatePlayerValues(player, null, true);
         } else {
-            // update down key and jump key on server side
-            if (key == goDownKey.getKeyCode() || key == mc.gameSettings.keyBindJump.getKeyCode()) {
+            // update down key and jump key on server side to unpressed state
+            if (!goDownKey.isKeyDown() || !mc.gameSettings.keyBindJump.isKeyDown()) {
                 updatePlayerValues(player, false, false);
             }
         }

@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.powermodule.vision;
 
-import net.machinemuse.numina.common.ModCompatibility;
+import net.machinemuse.numina.basemod.ModCompatibility;
 import net.machinemuse.numina.module.EnumModuleCategory;
 import net.machinemuse.numina.module.EnumModuleTarget;
 import net.machinemuse.numina.module.IToggleableModule;

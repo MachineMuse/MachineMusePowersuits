@@ -2,8 +2,8 @@ package net.machinemuse.powersuits.common.config;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import net.machinemuse.numina.common.ModCompatibility;
-import net.machinemuse.numina.common.Numina;
+import net.machinemuse.numina.basemod.ModCompatibility;
+import net.machinemuse.numina.basemod.Numina;
 import net.machinemuse.numina.module.EnumModuleCategory;
 import net.machinemuse.powersuits.common.MPSCreativeTab;
 import net.machinemuse.powersuits.item.ItemComponent;

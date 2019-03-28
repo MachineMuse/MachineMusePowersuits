@@ -3,7 +3,7 @@
  */
 package net.machinemuse.powersuits.utils.nbt;
 
-import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.basemod.MuseLogger;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 

@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.recipe;
 
 import com.google.gson.JsonObject;
-import net.machinemuse.numina.common.ModCompatibility;
+import net.machinemuse.numina.basemod.ModCompatibility;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.minecraft.util.JsonUtils;
 import net.minecraftforge.common.crafting.IConditionFactory;

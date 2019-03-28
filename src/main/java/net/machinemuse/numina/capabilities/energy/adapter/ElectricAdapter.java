@@ -3,7 +3,7 @@ package net.machinemuse.numina.capabilities.energy.adapter;
 import cofh.redstoneflux.api.IEnergyContainerItem;
 import ic2.api.item.IElectricItem;
 import net.darkhax.tesla.capability.TeslaCapabilities;
-import net.machinemuse.numina.common.ModCompatibility;
+import net.machinemuse.numina.basemod.ModCompatibility;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.energy.CapabilityEnergy;

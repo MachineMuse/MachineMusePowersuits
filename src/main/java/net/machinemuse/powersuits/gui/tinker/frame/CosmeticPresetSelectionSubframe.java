@@ -2,11 +2,11 @@ package net.machinemuse.powersuits.gui.tinker.frame;
 
 import net.machinemuse.numina.client.gui.clickable.ClickableLabel;
 import net.machinemuse.numina.client.gui.scrollable.ScrollableLabel;
-import net.machinemuse.numina.utils.item.MuseItemUtils;
-import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
-import net.machinemuse.numina.utils.math.geometry.MuseRect;
-import net.machinemuse.numina.utils.math.geometry.MuseRelativeRect;
-import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
+import net.machinemuse.numina.item.MuseItemUtils;
+import net.machinemuse.numina.math.geometry.MusePoint2D;
+import net.machinemuse.numina.math.geometry.MuseRect;
+import net.machinemuse.numina.math.geometry.MuseRelativeRect;
+import net.machinemuse.numina.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;

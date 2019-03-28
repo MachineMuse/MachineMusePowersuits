@@ -1,9 +1,9 @@
 package net.machinemuse.powersuits.common;
 
-import net.machinemuse.numina.common.ModCompatibility;
+import net.machinemuse.numina.basemod.ModCompatibility;
 import net.machinemuse.numina.module.EnumModuleTarget;
 import net.machinemuse.numina.module.IPowerModule;
-import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.basemod.MuseLogger;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.powermodule.armor.DiamondPlatingModule;
 import net.machinemuse.powersuits.powermodule.armor.EnergyShieldModule;

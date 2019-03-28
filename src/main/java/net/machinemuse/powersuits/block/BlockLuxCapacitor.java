@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.block;
 
 
-import net.machinemuse.numina.utils.math.Colour;
+import net.machinemuse.numina.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSModConstants;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.SoundType;

@@ -1,6 +1,6 @@
 package net.machinemuse.numina.capabilities.energy;
 
-import net.machinemuse.numina.common.config.NuminaConfig;
+import net.machinemuse.numina.config.NuminaConfig;
 import net.minecraft.item.ItemStack;
 
 /**

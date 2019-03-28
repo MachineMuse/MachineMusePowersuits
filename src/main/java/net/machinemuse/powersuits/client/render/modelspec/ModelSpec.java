@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import net.machinemuse.powersuits.client.model.obj.OBJModelPlus;
+import net.machinemuse.numina.client.model.obj.MuseOBJModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.common.model.IModelState;
@@ -16,10 +16,10 @@ import java.util.Optional;
  * Ported to Java by lehjr on 11/8/16.
  */
 public class ModelSpec extends SpecBase {
-    private final OBJModelPlus.OBJBakedModelPus model;
+    private final MuseOBJModel.MuseOBJBakedModel model;
     private final IModelState modelState;
 
-    public ModelSpec(final OBJModelPlus.OBJBakedModelPus model, final IModelState state, final String name, final boolean isDefault, final EnumSpecType specType) {
+    public ModelSpec(final MuseOBJModel.MuseOBJBakedModel model, final IModelState state, final String name, final boolean isDefault, final EnumSpecType specType) {
         super(name, isDefault, specType);
         this.modelState = state;
         this.model = model;
@@ -44,7 +44,7 @@ public class ModelSpec extends SpecBase {
         return (name != null) ? name : "";
     }
 
-    public OBJModelPlus.OBJBakedModelPus getModel() {
+    public MuseOBJModel.MuseOBJBakedModel getModel() {
         return model;
     }
 

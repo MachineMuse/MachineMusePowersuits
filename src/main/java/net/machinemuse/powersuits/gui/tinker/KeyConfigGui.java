@@ -1,6 +1,6 @@
 package net.machinemuse.powersuits.gui.tinker;
 
-import net.machinemuse.numina.utils.math.geometry.MusePoint2D;
+import net.machinemuse.numina.math.geometry.MusePoint2D;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.gui.MuseGui;
 import net.machinemuse.powersuits.gui.tinker.frame.KeybindConfigFrame;

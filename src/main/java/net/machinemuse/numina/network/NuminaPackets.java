@@ -1,6 +1,6 @@
 package net.machinemuse.numina.network;
 
-import net.machinemuse.numina.common.constants.NuminaConstants;
+import net.machinemuse.numina.basemod.constants.NuminaConstants;
 import net.machinemuse.numina.network.packets.MusePacketModeChangeRequest;
 import net.machinemuse.numina.network.packets.NuminaPacketConfig;
 import net.minecraft.entity.Entity;

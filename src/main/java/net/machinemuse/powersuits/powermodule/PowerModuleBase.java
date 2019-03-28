@@ -2,7 +2,7 @@ package net.machinemuse.powersuits.powermodule;
 
 import net.machinemuse.numina.module.EnumModuleTarget;
 import net.machinemuse.numina.module.IPowerModule;
-import net.machinemuse.numina.nbt.*;
+import net.machinemuse.numina.nbt.properties.*;
 import net.machinemuse.powersuits.api.constants.MPSModConstants;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.config.MPSConfig;
@@ -18,7 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static net.machinemuse.numina.common.constants.NuminaNBTConstants.TAG_ONLINE;
+import static net.machinemuse.numina.basemod.constants.NuminaNBTConstants.TAG_ONLINE;
 
 public abstract class PowerModuleBase implements IPowerModule {
     protected static Map<String, String> units = new HashMap<>();

@@ -3,7 +3,7 @@ package net.machinemuse.numina.network;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufInputStream;
 import io.netty.buffer.ByteBufOutputStream;
-import net.machinemuse.numina.utils.MuseLogger;
+import net.machinemuse.numina.basemod.MuseLogger;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
