@@ -1,8 +1,8 @@
 package net.machinemuse.numina.proxy;
 
+import net.machinemuse.numina.client.event.FOVUpdateEventHandler;
 import net.machinemuse.numina.client.model.obj.MuseOBJLoader;
 import net.machinemuse.numina.client.render.RenderGameOverlayEventHandler;
-import net.machinemuse.numina.event.FOVUpdateEventHandler;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;

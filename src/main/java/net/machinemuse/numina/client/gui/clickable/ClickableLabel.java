@@ -1,8 +1,8 @@
 package net.machinemuse.numina.client.gui.clickable;
 
 import net.machinemuse.numina.client.gui.IClickable;
-import net.machinemuse.numina.math.geometry.MusePoint2D;
 import net.machinemuse.numina.client.render.MuseRenderer;
+import net.machinemuse.numina.math.geometry.MusePoint2D;
 
 import java.util.List;
 

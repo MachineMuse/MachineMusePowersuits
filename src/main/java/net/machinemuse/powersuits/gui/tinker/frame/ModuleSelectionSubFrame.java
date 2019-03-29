@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
-import net.machinemuse.numina.module.IPowerModule;
+import net.machinemuse.numina.client.render.MuseRenderer;
 import net.machinemuse.numina.math.geometry.MusePoint2D;
 import net.machinemuse.numina.math.geometry.MuseRect;
 import net.machinemuse.numina.math.geometry.MuseRelativeRect;
-import net.machinemuse.numina.client.render.MuseRenderer;
+import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableModule;
 
 import java.util.ArrayList;

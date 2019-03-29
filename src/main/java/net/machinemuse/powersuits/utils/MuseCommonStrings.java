@@ -1,10 +1,10 @@
 package net.machinemuse.powersuits.utils;
 
 import net.machinemuse.numina.capabilities.energy.adapter.ElectricAdapter;
-import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
+import net.machinemuse.numina.constants.ModelSpecTags;
 import net.machinemuse.numina.item.IModeChangingItem;
-import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.item.MuseItemUtils;
+import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.nbt.MuseNBTUtils;
 import net.machinemuse.numina.string.MuseStringUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
@@ -49,7 +49,7 @@ public abstract class MuseCommonStrings {
 
         // Mode changing item such as power fist
         if (stack.getItem() instanceof IModeChangingItem) {
-            String moduleDataName = MuseItemUtils.getStringOrNull(stack, NuminaNBTConstants.TAG_MODE);
+            String moduleDataName = MuseItemUtils.getStringOrNull(stack, ModelSpecTags.TAG_MODE);
             if (moduleDataName != null) {
                 String localizedName = I18n.format("module.powersuits." + moduleDataName + ".name");
                 currentTipList.add(I18n.format("tooltip.powersuits.mode") + " " + MuseStringUtils.wrapFormatTags(localizedName, MuseStringUtils.FormatCodes.Red));

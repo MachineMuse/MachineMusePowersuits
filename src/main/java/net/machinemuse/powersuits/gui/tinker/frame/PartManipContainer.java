@@ -1,11 +1,11 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
 import net.machinemuse.numina.client.gui.scrollable.ScrollableFrame;
+import net.machinemuse.numina.client.render.modelspec.ModelRegistry;
+import net.machinemuse.numina.client.render.modelspec.SpecBase;
 import net.machinemuse.numina.math.Colour;
 import net.machinemuse.numina.math.geometry.MusePoint2D;
 import net.machinemuse.numina.math.geometry.MuseRelativeRect;
-import net.machinemuse.powersuits.client.render.modelspec.ModelRegistry;
-import net.machinemuse.powersuits.client.render.modelspec.SpecBase;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 

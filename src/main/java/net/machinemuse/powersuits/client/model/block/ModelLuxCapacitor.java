@@ -3,11 +3,12 @@ package net.machinemuse.powersuits.client.model.block;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import net.machinemuse.numina.client.model.helper.MuseModelHelper;
 import net.machinemuse.numina.math.Colour;
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.client.event.MuseIcon;
-import net.machinemuse.powersuits.client.helper.ModelHelper;
-import net.machinemuse.powersuits.client.helper.ModelLuxCapacitorHelper;
+import net.machinemuse.powersuits.client.model.helper.ColoredQuadHelperThingie;
+import net.machinemuse.powersuits.client.model.helper.ModelLuxCapacitorHelper;
 import net.machinemuse.powersuits.common.MPSItems;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.*;
@@ -38,7 +39,7 @@ import static net.minecraft.block.BlockDirectional.FACING;
 
 @SideOnly(Side.CLIENT)
 public class ModelLuxCapacitor implements IBakedModel {
-    public static final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(MPSItems.INSTANCE.luxCapacitor.getRegistryName().toString());
+    public static final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(MPSItems.INSTANCE.luxCapaRegName);
     final IModelState modelState;
     public IBakedModel wrapper;
     protected Function<ResourceLocation, TextureAtlasSprite> textureGetter;
@@ -52,31 +53,31 @@ public class ModelLuxCapacitor implements IBakedModel {
     }
 
     public static ModelResourceLocation getModelResourceLocation(EnumFacing facing) {
-        return new ModelResourceLocation(MPSItems.INSTANCE.luxCapacitor.getRegistryName().toString(), "facing=" + facing.getName());
+        return new ModelResourceLocation(MPSItems.INSTANCE.luxCapaRegName, "facing=" + facing.getName());
     }
 
     IModelState getModelState() {
         ImmutableMap.Builder<IModelPart, TRSRTransformation> builder = ImmutableMap.builder();
         builder.put(ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND,
-                ModelHelper.get(1.13F, 3.2F, 1.13F, -25F, -90F, 0F, 0.41F));
+                MuseModelHelper.get(1.13F, 3.2F, 1.13F, -25F, -90F, 0F, 0.41F));
 
         builder.put(ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND,
-                ModelHelper.get(0F, 2F, 3F, 0F, 0F, 45F, 0.5F));
+                MuseModelHelper.get(0F, 2F, 3F, 0F, 0F, 45F, 0.5F));
 
         builder.put(ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND,
-                ModelHelper.get(1.13F, 3.2F, 1.13F, -25F, -90F, 0F, 0.41F));
+                MuseModelHelper.get(1.13F, 3.2F, 1.13F, -25F, -90F, 0F, 0.41F));
 
         builder.put(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND,
-                ModelHelper.get(0F, 2F, 3F, 0F, 0F, 45F, 0.5F));
+                MuseModelHelper.get(0F, 2F, 3F, 0F, 0F, 45F, 0.5F));
 
         builder.put(ItemCameraTransforms.TransformType.GUI,
-                ModelHelper.get(0F, 2.75F, 0F, -45F, 0F, 45F, 0.75F));
+                MuseModelHelper.get(0F, 2.75F, 0F, -45F, 0F, 45F, 0.75F));
 
         builder.put(ItemCameraTransforms.TransformType.GROUND,
-                ModelHelper.get(0F, 2F, 0F, -90F, -0F, 0F, 0.5F));
+                MuseModelHelper.get(0F, 2F, 0F, -90F, -0F, 0F, 0.5F));
 
         builder.put(ItemCameraTransforms.TransformType.FIXED,
-                ModelHelper.get(0F, 0F, -7.5F, 0F, 180F, 0F, 1F));
+                MuseModelHelper.get(0F, 0F, -7.5F, 0F, 180F, 0F, 1F));
         return new SimpleModelState(builder.build());
     }
 
@@ -96,7 +97,7 @@ public class ModelLuxCapacitor implements IBakedModel {
         }
         if (colour == null)
             colour = BlockLuxCapacitor.defaultColor;
-        net.machinemuse.powersuits.client.helper.ColoredQuadHelperThingie helperThingie = new net.machinemuse.powersuits.client.helper.ColoredQuadHelperThingie(colour, facing);
+        ColoredQuadHelperThingie helperThingie = new ColoredQuadHelperThingie(colour, facing);
 
         try {
             return ModelLuxCapacitorHelper.INSTANCE.luxCapColoredQuadMap.get(helperThingie);

@@ -1,6 +1,6 @@
 package net.machinemuse.numina.capabilities.inventory;
 
-import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
+import net.machinemuse.numina.constants.NuminaNBTConstants;
 import net.machinemuse.numina.module.IRightClickModule;
 import net.machinemuse.numina.nbt.MuseNBTUtils;
 import net.minecraft.client.Minecraft;

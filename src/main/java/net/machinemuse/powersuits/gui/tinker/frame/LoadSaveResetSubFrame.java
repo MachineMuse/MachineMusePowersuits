@@ -3,7 +3,8 @@ package net.machinemuse.powersuits.gui.tinker.frame;
 import com.google.common.collect.BiMap;
 import net.machinemuse.numina.client.gui.frame.IGuiFrame;
 import net.machinemuse.numina.client.gui.scrollable.ScrollableLabel;
-import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
+import net.machinemuse.numina.client.render.MuseRenderer;
+import net.machinemuse.numina.constants.ModelSpecTags;
 import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.numina.math.Colour;
 import net.machinemuse.numina.math.geometry.DrawableMuseRect;
@@ -11,7 +12,6 @@ import net.machinemuse.numina.math.geometry.MusePoint2D;
 import net.machinemuse.numina.math.geometry.MuseRect;
 import net.machinemuse.numina.math.geometry.MuseRelativeRect;
 import net.machinemuse.numina.nbt.MuseNBTUtils;
-import net.machinemuse.numina.client.render.MuseRenderer;
 import net.machinemuse.powersuits.client.render.modelspec.DefaultModelSpec;
 import net.machinemuse.powersuits.common.config.CosmeticPresetSaveLoad;
 import net.machinemuse.powersuits.common.config.MPSConfig;
@@ -207,10 +207,10 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
         if (clickie != null) {
             ItemStack itemStack = clickie.getItem();
             NBTTagCompound itemNBT = MuseNBTUtils.getMuseItemTag(itemStack);
-            if (itemNBT.hasKey(NuminaNBTConstants.TAG_RENDER,Constants.NBT.TAG_COMPOUND)) {
+            if (itemNBT.hasKey(ModelSpecTags.TAG_RENDER,Constants.NBT.TAG_COMPOUND)) {
                 BiMap<String, NBTTagCompound> presetMap = MPSConfig.INSTANCE.getCosmeticPresets(itemStack);
-                if (presetMap.containsValue(itemNBT.getCompoundTag(NuminaNBTConstants.TAG_RENDER))) {
-                    String name = presetMap.inverse().get(itemNBT.getCompoundTag(NuminaNBTConstants.TAG_RENDER));
+                if (presetMap.containsValue(itemNBT.getCompoundTag(ModelSpecTags.TAG_RENDER))) {
+                    String name = presetMap.inverse().get(itemNBT.getCompoundTag(ModelSpecTags.TAG_RENDER));
                     MPSPackets.sendToServer(new MusePacketCosmeticPreset(Minecraft.getMinecraft().player, clickie.inventorySlot, name));
                 } else
                     MPSPackets.sendToServer(new MusePacketCosmeticPreset(Minecraft.getMinecraft().player, clickie.inventorySlot, "Default"));
@@ -306,7 +306,7 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
                     } else if (resetButton.hitBox(x, y)) {
                         if (isValidItem(getSelectedItem(), getEquipmentSlot())) {
                             NBTTagCompound nbt = getDefaultPreset(itemSelector.getSelectedItem().getItem());
-                            MPSPackets.sendToServer(new MusePacketCosmeticInfo(player, itemSelector.getSelectedItem().inventorySlot, NuminaNBTConstants.TAG_RENDER, nbt));
+                            MPSPackets.sendToServer(new MusePacketCosmeticInfo(player, itemSelector.getSelectedItem().inventorySlot, ModelSpecTags.TAG_RENDER, nbt));
                         }
                         // cancel creation
                     } else if (loadButton.hitBox(x, y)) {
@@ -320,7 +320,7 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
                         if (isValidItem(getSelectedItem(), getEquipmentSlot())) {
                             isEditing = true;
                             NBTTagCompound nbt = MPSNBTUtils.getMuseRenderTag(getSelectedItem().getItem(), getEquipmentSlot());
-                            MPSPackets.sendToServer(new MusePacketCosmeticInfo(Minecraft.getMinecraft().player, this.getSelectedItem().inventorySlot, NuminaNBTConstants.TAG_RENDER, nbt));
+                            MPSPackets.sendToServer(new MusePacketCosmeticInfo(Minecraft.getMinecraft().player, this.getSelectedItem().inventorySlot, ModelSpecTags.TAG_RENDER, nbt));
                         }
                     } else if (resetButton.hitBox(x, y)) {
                         if (isValidItem(getSelectedItem(), getEquipmentSlot())) {
@@ -340,7 +340,7 @@ public class LoadSaveResetSubFrame implements IGuiFrame {
             if (resetButton.hitBox(x, y)) {
                 if (isValidItem(getSelectedItem(), getEquipmentSlot())) {
                     NBTTagCompound nbt = DefaultModelSpec.makeModelPrefs(itemSelector.getSelectedItem().getItem());
-                    MPSPackets.sendToServer(new MusePacketCosmeticInfo(player, itemSelector.getSelectedItem().inventorySlot, NuminaNBTConstants.TAG_RENDER, nbt));
+                    MPSPackets.sendToServer(new MusePacketCosmeticInfo(player, itemSelector.getSelectedItem().inventorySlot, ModelSpecTags.TAG_RENDER, nbt));
                 }
             }
         }

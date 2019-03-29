@@ -14,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -29,10 +30,12 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  * Ported to Java by lehjr on 10/21/16.
  */
 public class BlockTinkerTable extends BlockHorizontal {
-    public static final String name = "tinkerTable";
+    public static final String translationKey = new StringBuilder(MPSModConstants.MODID).append(".").append("tinkerTable").toString();
 
-    public BlockTinkerTable() {
+    public BlockTinkerTable(ResourceLocation regName) {
         super(Material.IRON);
+        setRegistryName(regName);
+        setTranslationKey(translationKey);
         setHardness(1.5F);
         setResistance(1000.0F);
         setHarvestLevel("pickaxe", 2);
@@ -41,10 +44,8 @@ public class BlockTinkerTable extends BlockHorizontal {
         setLightOpacity(0);
         setLightLevel(0.4f);
         setTickRandomly(false);
-        setRegistryName(MPSModConstants.MODID, name.toLowerCase());
-        setTranslationKey(new StringBuilder(MPSModConstants.MODID).append(".").append(name).toString());
         setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
-        GameRegistry.registerTileEntity(TileEntityTinkerTable.class, getRegistryName());
+        GameRegistry.registerTileEntity(TileEntityTinkerTable.class, regName);
     }
 
     @Override

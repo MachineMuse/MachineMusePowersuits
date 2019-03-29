@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.capabilities;
 
 import com.google.common.collect.Lists;
-import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
+import net.machinemuse.numina.constants.NuminaNBTConstants;
 import net.machinemuse.numina.module.IModuleManager;
 import net.machinemuse.numina.nbt.MuseNBTUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;

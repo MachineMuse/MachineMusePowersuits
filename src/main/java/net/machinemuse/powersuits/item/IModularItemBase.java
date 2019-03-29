@@ -1,17 +1,16 @@
 package net.machinemuse.powersuits.item;
 
-import net.machinemuse.numina.capabilities.energy.adapter.IMuseElectricItem;
-import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
-import net.machinemuse.numina.item.IModularItem;
-import net.machinemuse.numina.module.IModuleManager;
 import net.machinemuse.numina.basemod.MuseLogger;
+import net.machinemuse.numina.capabilities.energy.adapter.IMuseElectricItem;
+import net.machinemuse.numina.client.render.modelspec.ModelRegistry;
+import net.machinemuse.numina.client.render.modelspec.TexturePartSpec;
+import net.machinemuse.numina.constants.ModelSpecTags;
+import net.machinemuse.numina.item.IModularItem;
 import net.machinemuse.numina.math.Colour;
-import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
-import net.machinemuse.powersuits.client.render.modelspec.ModelRegistry;
-import net.machinemuse.powersuits.client.render.modelspec.TexturePartSpec;
+import net.machinemuse.numina.module.IModuleManager;
+import net.machinemuse.numina.string.MuseStringUtils;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.machinemuse.numina.string.MuseStringUtils;
 import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -34,11 +33,11 @@ public interface IModularItemBase extends IModularItem, IMuseElectricItem {
     default Colour getColorFromItemStack(ItemStack stack) {
         try {
             NBTTagCompound renderTag = MPSNBTUtils.getMuseRenderTag(stack);
-            if (renderTag.hasKey(MPSNBTConstants.NBT_TEXTURESPEC_TAG)) {
-                TexturePartSpec partSpec = (TexturePartSpec) ModelRegistry.getInstance().getPart(renderTag.getCompoundTag(MPSNBTConstants.NBT_TEXTURESPEC_TAG));
-                NBTTagCompound specTag = renderTag.getCompoundTag(MPSNBTConstants.NBT_TEXTURESPEC_TAG);
+            if (renderTag.hasKey(ModelSpecTags.NBT_TEXTURESPEC_TAG)) {
+                TexturePartSpec partSpec = (TexturePartSpec) ModelRegistry.getInstance().getPart(renderTag.getCompoundTag(ModelSpecTags.NBT_TEXTURESPEC_TAG));
+                NBTTagCompound specTag = renderTag.getCompoundTag(ModelSpecTags.NBT_TEXTURESPEC_TAG);
                 int index = partSpec.getColourIndex(specTag);
-                int[] colours = renderTag.getIntArray(NuminaNBTConstants.TAG_COLOURS);
+                int[] colours = renderTag.getIntArray(ModelSpecTags.TAG_COLOURS);
                 if (colours.length > index)
                     return new Colour(colours[index]);
             }

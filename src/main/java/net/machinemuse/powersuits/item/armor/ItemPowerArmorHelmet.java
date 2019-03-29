@@ -31,9 +31,8 @@ public class ItemPowerArmorHelmet extends ItemPowerArmor implements
         IBreathableArmor {
     public final EntityEquipmentSlot armorType;
 
-    public ItemPowerArmorHelmet() {
-        super(0, EntityEquipmentSlot.HEAD);
-        this.setTranslationKey("powerArmorHelmet");
+    public ItemPowerArmorHelmet(String regName) {
+        super(regName, "powerArmorHelmet", 0, EntityEquipmentSlot.HEAD);
         this.armorType = EntityEquipmentSlot.HEAD;
     }
 

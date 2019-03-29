@@ -14,6 +14,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -48,7 +49,7 @@ public class BlockLuxCapacitor extends BlockDirectional {
             return (value != null) ? value.hexColour() : defaultColor.hexColour();
         }
     };
-    public static final String name = "luxCapacitor";
+
     protected static final AxisAlignedBB LUXCAPACITOR_EAST_AABB = new AxisAlignedBB(0.75, 0.0625, 0.0625, 1.0, 0.9375, 0.9375);
     protected static final AxisAlignedBB LUXCAPACITOR_WEST_AABB = new AxisAlignedBB(0.0, 0.0625, 0.0625, 0.25, 0.9375, 0.9375);
     protected static final AxisAlignedBB LUXCAPACITOR_SOUTH_AABB = new AxisAlignedBB(0.0625, 0.0625, 0.75, 0.9375, 0.9375, 1.0);
@@ -56,11 +57,13 @@ public class BlockLuxCapacitor extends BlockDirectional {
     protected static final AxisAlignedBB LUXCAPACITOR_UP_AABB = new AxisAlignedBB(0.0625, 0.75, 0.0625, 0.9375, 1.0, 0.9375);
     protected static final AxisAlignedBB LUXCAPACITOR_DOWN_AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.25, 0.9375);
 
-    public BlockLuxCapacitor() {
+    public static final String translationKey = new StringBuilder(MPSModConstants.MODID).append(".").append("luxCapacitor").toString();
+
+    public BlockLuxCapacitor(ResourceLocation regName) {
         super(Material.CIRCUITS);
+        setRegistryName(regName);
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN));
-        setRegistryName(MPSModConstants.MODID, name.toLowerCase());
-        setTranslationKey(new StringBuilder(MPSModConstants.MODID).append(".").append(name).toString());
+        setTranslationKey(translationKey);
         setHardness(0.05F);
         setResistance(10.0F);
         setSoundType(SoundType.METAL);
@@ -68,7 +71,7 @@ public class BlockLuxCapacitor extends BlockDirectional {
         setLightLevel(1.0f);
         setTickRandomly(false);
         setHarvestLevel("pickaxe", 0);
-        GameRegistry.registerTileEntity(TileEntityLuxCapacitor.class, this.getRegistryName());
+        GameRegistry.registerTileEntity(TileEntityLuxCapacitor.class, regName);
     }
 
     @SuppressWarnings("deprecation")

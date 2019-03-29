@@ -1,15 +1,14 @@
 package net.machinemuse.powersuits.item;
 
+import net.machinemuse.numina.string.MuseStringUtils;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.utils.MuseCommonStrings;
-import net.machinemuse.numina.string.MuseStringUtils;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -21,7 +20,6 @@ import java.util.Map;
 import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
 
 public class ItemComponent extends Item {
-    public static Map<Integer, String> descriptions = new HashMap<>();
     public static Map<Integer, String> names = new HashMap<>();
     public static ItemStack wiring;
     public static ItemStack solenoid;
@@ -45,25 +43,17 @@ public class ItemComponent extends Item {
     public static ItemStack solarPanel;
     public static ItemStack computerChip;
     public static ItemStack rubberHose;
-    private volatile static ItemComponent INSTANCE;
-    private ItemComponent() {
+
+
+    public ItemComponent(String regName) {
         this.maxStackSize = 64;
-        String name = "powerArmorComponent";
-        this.setRegistryName(new ResourceLocation(MODID, name.toLowerCase()));
-        this.setTranslationKey(new StringBuilder(MODID).append(".").append(name).toString());
+
+        this.setRegistryName(regName);
+        this.setTranslationKey(new StringBuilder(MODID).append(".").append("powerArmorComponent").toString());
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setCreativeTab(MPSConfig.INSTANCE.mpsCreativeTab);
         this.populate();
-    }
-
-    public static ItemComponent getInstance() {
-        if (INSTANCE == null) {
-            synchronized (ItemComponent.class) {
-                if (INSTANCE == null) INSTANCE = new ItemComponent();
-            }
-        }
-        return INSTANCE;
     }
 
     public ItemStack addComponent(int meta, String oredictName) {

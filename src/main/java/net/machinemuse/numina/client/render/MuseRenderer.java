@@ -19,7 +19,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.List;
 
-import static net.machinemuse.numina.basemod.constants.NuminaConstants.LIGHTNING_TEXTURE;
+import static net.machinemuse.numina.constants.NuminaConstants.LIGHTNING_TEXTURE;
 
 /**
  * Contains a bunch of random OpenGL-related functions, accessed statically.

@@ -1,9 +1,9 @@
 package net.machinemuse.powersuits.item.armor;
 
 import com.google.common.collect.Multimap;
-import net.machinemuse.numina.item.IArmorTraits;
 import net.machinemuse.numina.energy.ElectricItemUtils;
 import net.machinemuse.numina.heat.MuseHeatUtils;
+import net.machinemuse.numina.item.IArmorTraits;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.machinemuse.powersuits.capabilities.MPSCapProvider;
@@ -34,6 +34,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 import java.util.UUID;
 
+import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
+
 /**
  * Describes the 4 different modular armor pieces - head, torso, legs, feet.
  *
@@ -48,8 +50,10 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
             UUID.randomUUID(),
             UUID.randomUUID()};
 
-    public ItemPowerArmor(int renderIndex, EntityEquipmentSlot entityEquipmentSlot) {
+    public ItemPowerArmor(String regName, String unlocalizedName, int renderIndex, EntityEquipmentSlot entityEquipmentSlot) {
         super(ItemArmor.ArmorMaterial.IRON, renderIndex, entityEquipmentSlot);
+        this.setRegistryName(regName);
+        this.setTranslationKey(new StringBuilder(MODID).append(".").append(unlocalizedName).toString());
         this.setMaxStackSize(1);
         this.setCreativeTab(MPSConfig.INSTANCE.mpsCreativeTab);
         this.setMaxDamage(0);

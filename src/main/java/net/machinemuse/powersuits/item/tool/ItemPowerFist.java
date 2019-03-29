@@ -10,16 +10,16 @@ import com.raoulvdberge.refinedstorage.api.network.item.INetworkItemProvider;
 import crazypants.enderio.api.tool.ITool;
 import forestry.api.arboriculture.IToolGrafter;
 import mekanism.api.IMekWrench;
-import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
+import net.machinemuse.numina.constants.NuminaNBTConstants;
+import net.machinemuse.numina.energy.ElectricItemUtils;
+import net.machinemuse.numina.heat.MuseHeatUtils;
 import net.machinemuse.numina.item.IModeChangingItem;
 import net.machinemuse.numina.item.IModularItem;
+import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.numina.module.IBlockBreakingModule;
 import net.machinemuse.numina.module.IMiningEnhancementModule;
 import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.module.IRightClickModule;
-import net.machinemuse.numina.energy.ElectricItemUtils;
-import net.machinemuse.numina.heat.MuseHeatUtils;
-import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.capabilities.MPSCapProvider;
 import net.machinemuse.powersuits.common.ModuleManager;
@@ -47,6 +47,8 @@ import net.minecraftforge.fml.common.Optional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
 
 //import mods.railcraft.api.core.items.IToolCrowbar;
 
@@ -83,8 +85,10 @@ public class ItemPowerFist extends MPSItemElectricTool
         IModularItem,
         IModeChangingItem {
 
-    public ItemPowerFist() {
+    public ItemPowerFist(String regName) {
         super(0.0f, 0.0f, ToolMaterial.IRON); // FIXME
+        this.setRegistryName(regName);
+        this.setTranslationKey(new StringBuilder(MODID).append(".").append("powerFist").toString());
         this.setMaxStackSize(1);
         this.setMaxDamage(0);
         this.setCreativeTab(MPSConfig.INSTANCE.mpsCreativeTab);

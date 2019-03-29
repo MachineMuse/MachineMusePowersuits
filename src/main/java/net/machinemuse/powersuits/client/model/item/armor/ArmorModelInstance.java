@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.model.item.armor;
 
-import net.machinemuse.numina.basemod.ModCompatibility;
 import net.machinemuse.numina.basemod.MuseLogger;
+import net.machinemuse.numina.misc.ModCompatibility;
 import net.minecraft.client.model.ModelBiped;
 
 /**

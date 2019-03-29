@@ -1,11 +1,12 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
+import net.machinemuse.numina.item.IModularItem;
+import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.numina.module.EnumModuleCategory;
 import net.machinemuse.numina.module.EnumModuleTarget;
 import net.machinemuse.numina.module.IPlayerTickModule;
 import net.machinemuse.numina.module.IToggleableModule;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
-import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.ModuleManager;
@@ -14,7 +15,10 @@ import net.machinemuse.powersuits.item.ItemComponent;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+
+import javax.annotation.Nonnull;
 
 public class ParachuteModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
     public ParachuteModule(EnumModuleTarget moduleTarget) {
@@ -33,9 +37,16 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
     }
 
     @Override
-    public void onPlayerTickActive(EntityPlayer player, ItemStack itemStack) {
+    public void onPlayerTickActive(EntityPlayer player, @Nonnull ItemStack itemStack) {
         PlayerMovementInputWrapper.PlayerMovementInput playerInput = PlayerMovementInputWrapper.get(player);
         boolean hasGlider = false;
+
+        ItemStack torso = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+        NuminaPlayerUtils.resetFloatKickTicks(player);
+        if (!torso.isEmpty() && torso.getItem() instanceof IModularItem) {
+            hasGlider = ModuleManager.INSTANCE.itemHasActiveModule(torso, MPSModuleConstants.MODULE_GLIDER__DATANAME);
+        }
+
         NuminaPlayerUtils.resetFloatKickTicks(player);
         if (playerInput.sneakKey && player.motionY < -0.1 && (!hasGlider || playerInput.moveForward <= 0)) {
             double totalVelocity = Math.sqrt(player.motionX * player.motionX + player.motionZ * player.motionZ + player.motionY * player.motionY);
@@ -48,7 +59,7 @@ public class ParachuteModule extends PowerModuleBase implements IToggleableModul
     }
 
     @Override
-    public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
+    public void onPlayerTickInactive(EntityPlayer player, @Nonnull ItemStack item) {
     }
 
     @Override

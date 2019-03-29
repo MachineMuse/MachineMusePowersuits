@@ -1,16 +1,16 @@
 package net.machinemuse.powersuits.client.model.item;
 
 import com.google.common.collect.ImmutableList;
-import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
+import net.machinemuse.numina.client.model.helper.ModelTransformCalibration;
+import net.machinemuse.numina.client.model.helper.MuseModelHelper;
+import net.machinemuse.numina.client.render.modelspec.ModelPartSpec;
+import net.machinemuse.numina.client.render.modelspec.ModelRegistry;
+import net.machinemuse.numina.client.render.modelspec.ModelSpec;
+import net.machinemuse.numina.client.render.modelspec.PartSpecBase;
+import net.machinemuse.numina.constants.ModelSpecTags;
 import net.machinemuse.numina.math.Colour;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.client.event.ModelBakeEventHandler;
-import net.machinemuse.powersuits.client.helper.ModelHelper;
-import net.machinemuse.powersuits.client.helper.ModelTransformCalibration;
-import net.machinemuse.powersuits.client.render.modelspec.ModelPartSpec;
-import net.machinemuse.powersuits.client.render.modelspec.ModelRegistry;
-import net.machinemuse.powersuits.client.render.modelspec.ModelSpec;
-import net.machinemuse.powersuits.client.render.modelspec.PartSpecBase;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.item.IModularItemBase;
 import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
@@ -180,7 +180,7 @@ public class ModelPowerFist implements IBakedModel {
         }
 
         ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
-        int[] colours = renderSpec.getIntArray(NuminaNBTConstants.TAG_COLOURS);
+        int[] colours = renderSpec.getIntArray(ModelSpecTags.TAG_COLOURS);
         Colour partColor;
         TRSRTransformation transform;
 
@@ -206,7 +206,7 @@ public class ModelPowerFist implements IBakedModel {
 
                     if ((!isFiring && (itemState.equals("all") || itemState.equals("normal"))) ||
                             (isFiring && (itemState.equals("all") || itemState.equals("firing"))))
-                        builder.addAll(ModelHelper.getColouredQuadsWithGlowAndTransform(((ModelPartSpec) partSpec).getQuads(), partColor, transform, glow));
+                        builder.addAll(MuseModelHelper.getColouredQuadsWithGlowAndTransform(((ModelPartSpec) partSpec).getQuads(), partColor, transform, glow));
                 }
             }
         }

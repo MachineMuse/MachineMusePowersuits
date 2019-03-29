@@ -1,13 +1,13 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
+import net.machinemuse.numina.basemod.MuseLogger;
 import net.machinemuse.numina.client.gui.clickable.ClickableLabel;
 import net.machinemuse.numina.client.gui.clickable.ClickableSlider;
 import net.machinemuse.numina.client.gui.scrollable.ScrollableFrame;
 import net.machinemuse.numina.client.gui.scrollable.ScrollableLabel;
 import net.machinemuse.numina.client.gui.scrollable.ScrollableRectangle;
 import net.machinemuse.numina.client.gui.scrollable.ScrollableSlider;
-import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
-import net.machinemuse.numina.basemod.MuseLogger;
+import net.machinemuse.numina.constants.ModelSpecTags;
 import net.machinemuse.numina.math.Colour;
 import net.machinemuse.numina.math.geometry.DrawableMuseRect;
 import net.machinemuse.numina.math.geometry.MusePoint2D;
@@ -111,23 +111,23 @@ public class ColourPickerFrame extends ScrollableFrame {
         }
 
         NBTTagCompound renderSpec = MPSNBTUtils.getMuseRenderTag(this.itemSelector.getSelectedItem().getItem());
-        if (renderSpec.hasKey(NuminaNBTConstants.TAG_COLOURS) && renderSpec.getTag(NuminaNBTConstants.TAG_COLOURS) instanceof NBTTagIntArray) {
-            return (NBTTagIntArray) renderSpec.getTag(NuminaNBTConstants.TAG_COLOURS);
+        if (renderSpec.hasKey(ModelSpecTags.TAG_COLOURS) && renderSpec.getTag(ModelSpecTags.TAG_COLOURS) instanceof NBTTagIntArray) {
+            return (NBTTagIntArray) renderSpec.getTag(ModelSpecTags.TAG_COLOURS);
         } else {
             Item item = this.itemSelector.getSelectedItem().getItem().getItem();
             if (item instanceof ItemPowerArmor) {
                 ItemPowerArmor itemPowerArmor = (ItemPowerArmor) item;
                 int[] intArray = {itemPowerArmor.getColorFromItemStack(this.itemSelector.getSelectedItem().getItem()).getInt()};
-                renderSpec.setIntArray(NuminaNBTConstants.TAG_COLOURS, intArray);
+                renderSpec.setIntArray(ModelSpecTags.TAG_COLOURS, intArray);
             } else {
                 int[] intArray2 = new int[]{Colour.WHITE.getInt()};
-                renderSpec.setIntArray(NuminaNBTConstants.TAG_COLOURS, intArray2);
+                renderSpec.setIntArray(ModelSpecTags.TAG_COLOURS, intArray2);
             }
             EntityPlayerSP player = Minecraft.getMinecraft().player;
             if (player.world.isRemote) {
                 MPSPackets.sendToServer(new MusePacketColourInfo(player, this.itemSelector.getSelectedItem().inventorySlot, this.colours()));
             }
-            return (NBTTagIntArray) renderSpec.getTag(NuminaNBTConstants.TAG_COLOURS);
+            return (NBTTagIntArray) renderSpec.getTag(ModelSpecTags.TAG_COLOURS);
         }
     }
 
@@ -136,12 +136,12 @@ public class ColourPickerFrame extends ScrollableFrame {
             return null;
         }
         NBTTagCompound renderSpec = MPSNBTUtils.getMuseRenderTag(this.itemSelector.getSelectedItem().getItem());
-        renderSpec.setTag(NuminaNBTConstants.TAG_COLOURS, new NBTTagIntArray(intList));
+        renderSpec.setTag(ModelSpecTags.TAG_COLOURS, new NBTTagIntArray(intList));
         EntityPlayerSP player = Minecraft.getMinecraft().player;
         if (player.world.isRemote) {
             MPSPackets.sendToServer(new MusePacketColourInfo(player, this.itemSelector.getSelectedItem().inventorySlot, this.colours()));
         }
-        return (NBTTagIntArray) renderSpec.getTag(NuminaNBTConstants.TAG_COLOURS);
+        return (NBTTagIntArray) renderSpec.getTag(ModelSpecTags.TAG_COLOURS);
     }
 
     public ArrayList<Integer> importColours() {

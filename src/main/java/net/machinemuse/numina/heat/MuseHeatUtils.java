@@ -2,7 +2,7 @@ package net.machinemuse.numina.heat;
 
 import net.machinemuse.numina.capabilities.heat.CapabilityHeat;
 import net.machinemuse.numina.capabilities.heat.IHeatStorage;
-import net.machinemuse.numina.basemod.constants.NuminaConstants;
+import net.machinemuse.numina.constants.NuminaConstants;
 import net.machinemuse.numina.item.MuseItemUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

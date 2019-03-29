@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static net.machinemuse.numina.basemod.constants.NuminaNBTConstants.TAG_ONLINE;
+import static net.machinemuse.numina.constants.NuminaNBTConstants.TAG_ONLINE;
 
 public interface IModuleManager {
     void addModule(IPowerModule module);

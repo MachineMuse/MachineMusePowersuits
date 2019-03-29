@@ -8,9 +8,8 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 public class ItemPowerArmorChestplate extends ItemPowerArmor {
     public final EntityEquipmentSlot armorType;
 
-    public ItemPowerArmorChestplate() {
-        super(0, EntityEquipmentSlot.CHEST);
-        this.setTranslationKey("powerArmorChestplate");
+    public ItemPowerArmorChestplate(String regName) {
+        super(regName, "powerArmorChestplate", 0, EntityEquipmentSlot.CHEST);
         this.armorType = EntityEquipmentSlot.CHEST;
     }
 }

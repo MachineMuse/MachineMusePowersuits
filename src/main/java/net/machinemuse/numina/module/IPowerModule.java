@@ -1,6 +1,6 @@
 package net.machinemuse.numina.module;
 
-import net.machinemuse.numina.nbt.properties.IPropertyModifier;
+import net.machinemuse.numina.nbt.propertymodifier.IPropertyModifier;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

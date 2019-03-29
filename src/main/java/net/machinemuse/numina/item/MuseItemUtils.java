@@ -2,7 +2,6 @@ package net.machinemuse.numina.item;
 
 import net.machinemuse.numina.math.MuseMathUtils;
 import net.machinemuse.numina.nbt.MuseNBTUtils;
-import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -16,8 +15,6 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-// FIXME: eliminate references to MPS
 
 public class MuseItemUtils {
 
@@ -36,7 +33,7 @@ public class MuseItemUtils {
             if (!itemStack.isEmpty() && itemStack.getItem() instanceof IModularItem) {
                 if (slot.getSlotType() == EntityEquipmentSlot.Type.ARMOR ||
                         // eliminates having held armor count as equipped item
-                        (slot.getSlotType() == EntityEquipmentSlot.Type.HAND && itemStack.getItem() instanceof ItemPowerFist)) {
+                        (slot.getSlotType() == EntityEquipmentSlot.Type.HAND && itemStack.getItem() instanceof IModeChangingItem)) {
                     modulars.add(itemStack);
                 }
             }

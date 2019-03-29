@@ -1,16 +1,16 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
-import net.machinemuse.numina.client.render.RenderState;
-import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
 import net.machinemuse.numina.basemod.MuseLogger;
+import net.machinemuse.numina.client.render.MuseRenderer;
+import net.machinemuse.numina.client.render.RenderState;
+import net.machinemuse.numina.client.render.modelspec.*;
+import net.machinemuse.numina.constants.ModelSpecTags;
 import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.numina.math.Colour;
 import net.machinemuse.numina.math.MuseMathUtils;
 import net.machinemuse.numina.math.geometry.MuseRect;
 import net.machinemuse.numina.math.geometry.MuseRelativeRect;
 import net.machinemuse.numina.nbt.MuseNBTUtils;
-import net.machinemuse.numina.client.render.MuseRenderer;
-import net.machinemuse.powersuits.client.render.modelspec.*;
 import net.machinemuse.powersuits.gui.GuiIcons;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
@@ -32,8 +32,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import static net.machinemuse.powersuits.api.constants.MPSNBTConstants.NBT_TEXTURESPEC_TAG;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -122,10 +120,10 @@ public class PartSpecManipSubFrame {
             return this.getRenderTag().hasKey(name) ? this.getRenderTag().getCompoundTag(name) : null;
         }
         // Only one TexturePartSpec is allowed at a time, so figure out if this one is enabled
-        if (partSpec instanceof TexturePartSpec && this.getRenderTag().hasKey(NBT_TEXTURESPEC_TAG)) {
-            NBTTagCompound texSpecTag = this.getRenderTag().getCompoundTag(NBT_TEXTURESPEC_TAG);
-            if (partSpec.spec.getOwnName().equals(texSpecTag.getString(NuminaNBTConstants.TAG_MODEL))) {
-                return getRenderTag().getCompoundTag(NBT_TEXTURESPEC_TAG);
+        if (partSpec instanceof TexturePartSpec && this.getRenderTag().hasKey(ModelSpecTags.NBT_TEXTURESPEC_TAG)) {
+            NBTTagCompound texSpecTag = this.getRenderTag().getCompoundTag(ModelSpecTags.NBT_TEXTURESPEC_TAG);
+            if (partSpec.spec.getOwnName().equals(texSpecTag.getString(ModelSpecTags.TAG_MODEL))) {
+                return getRenderTag().getCompoundTag(ModelSpecTags.NBT_TEXTURESPEC_TAG);
             }
         }
         // if no match found
@@ -145,7 +143,7 @@ public class PartSpecManipSubFrame {
                 name = ModelRegistry.getInstance().makeName(partSpec);
                 ((ModelPartSpec) partSpec).multiSet(nbt, null, null);
             } else {
-                name = NBT_TEXTURESPEC_TAG;
+                name = ModelSpecTags.NBT_TEXTURESPEC_TAG;
                 partSpec.multiSet(nbt, null);
             }
             this.getRenderTag().setTag(name, nbt);
@@ -266,7 +264,7 @@ public class PartSpecManipSubFrame {
                 // removes the associated tag from the render tag making the part not isEnabled
                 case 0: {
                     if (spec instanceof TexturePartSpec)
-                        tagname = NBT_TEXTURESPEC_TAG;
+                        tagname = ModelSpecTags.NBT_TEXTURESPEC_TAG;
                     else
                         tagname = ModelRegistry.getInstance().makeName(spec);
                     if (player.world.isRemote)
@@ -278,7 +276,7 @@ public class PartSpecManipSubFrame {
                 // set part to isEnabled
                 case 1: {
                     if (spec instanceof TexturePartSpec)
-                        tagname = NBT_TEXTURESPEC_TAG;
+                        tagname = ModelSpecTags.NBT_TEXTURESPEC_TAG;
                     else
                         tagname = ModelRegistry.getInstance().makeName(spec);
                     tagdata = this.getOrMakeSpecTag(spec);
@@ -314,7 +312,7 @@ public class PartSpecManipSubFrame {
             PartSpecBase spec = partSpecs.get(Math.max(Math.min(lineNumber, partSpecs.size() - 1), 0));
 
             if (spec instanceof TexturePartSpec)
-                tagname = NBT_TEXTURESPEC_TAG;
+                tagname = ModelSpecTags.NBT_TEXTURESPEC_TAG;
             else
                 tagname = ModelRegistry.getInstance().makeName(spec);
 

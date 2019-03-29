@@ -1,13 +1,13 @@
 package net.machinemuse.numina.item;
 
-import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
+import net.machinemuse.numina.constants.ModelSpecTags;
 import net.machinemuse.numina.module.IEnchantmentModule;
 import net.machinemuse.numina.module.IModuleManager;
 import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.module.IRightClickModule;
+import net.machinemuse.numina.nbt.MuseNBTUtils;
 import net.machinemuse.numina.network.NuminaPackets;
 import net.machinemuse.numina.network.packets.MusePacketModeChangeRequest;
-import net.machinemuse.numina.nbt.MuseNBTUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -54,7 +54,7 @@ public interface IModeChangingItem extends IModularItem {
     }
 
     default String getActiveMode(@Nonnull ItemStack stack) {
-        String modeFromNBT = MuseNBTUtils.getMuseItemTag(stack).getString(NuminaNBTConstants.TAG_MODE);
+        String modeFromNBT = MuseNBTUtils.getMuseItemTag(stack).getString(ModelSpecTags.TAG_MODE);
         if (modeFromNBT.isEmpty()) {
             List<String> validModes = getValidModes(stack);
             return (validModes != null && (validModes.size() > 0) ? validModes.get(0) : "");
@@ -67,7 +67,7 @@ public interface IModeChangingItem extends IModularItem {
         IPowerModule oldModule = getModuleManager().getModule(activeMode);
         if (oldModule instanceof IEnchantmentModule)
             ((IEnchantmentModule) oldModule).removeEnchantment(stack);
-        MuseNBTUtils.getMuseItemTag(stack).setString(NuminaNBTConstants.TAG_MODE, newMode);
+        MuseNBTUtils.getMuseItemTag(stack).setString(ModelSpecTags.TAG_MODE, newMode);
         IPowerModule module = getModuleManager().getModule(newMode);
         if (module instanceof IEnchantmentModule)
             ((IEnchantmentModule) module).addEnchantment(stack);

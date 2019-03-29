@@ -27,11 +27,11 @@ public class KeybindKeyHandler {
     public static final KeyBinding openCosmeticGUI = new KeyBinding("Cosmetic (MPS)", Keyboard.KEY_NONE, mps);
 
     public KeybindKeyHandler() {
-            ClientRegistry.registerKeyBinding(openKeybindGUI);
-            ClientRegistry.registerKeyBinding(goDownKey);
-            ClientRegistry.registerKeyBinding(cycleToolBackward);
-            ClientRegistry.registerKeyBinding(cycleToolForward);
-            ClientRegistry.registerKeyBinding(openCosmeticGUI);
+        ClientRegistry.registerKeyBinding(openKeybindGUI);
+        ClientRegistry.registerKeyBinding(goDownKey);
+        ClientRegistry.registerKeyBinding(cycleToolBackward);
+        ClientRegistry.registerKeyBinding(cycleToolForward);
+        ClientRegistry.registerKeyBinding(openCosmeticGUI);
     }
 
     void updatePlayerValues(EntityPlayerSP clientPlayer, Boolean downKeyState, Boolean jumpKeyState) {
@@ -39,7 +39,7 @@ public class KeybindKeyHandler {
 
         IPlayerValues playerCap = clientPlayer.getCapability(CapabilityPlayerValues.PLAYER_VALUES, null);
         if (playerCap != null) {
-            if(downKeyState != null)
+            if (downKeyState != null)
                 if (playerCap.getDownKeyState() != downKeyState) {
                     playerCap.setDownKeyState(downKeyState);
                     markForSync = true;
@@ -66,7 +66,7 @@ public class KeybindKeyHandler {
         KeyBinding[] hotbarKeys = mc.gameSettings.keyBindsHotbar;
 
         // Only activate if there is a player to work with
-        if (player == null || mc.inGameHasFocus) {
+        if (player == null || !mc.inGameHasFocus) {
             return;
         }
 

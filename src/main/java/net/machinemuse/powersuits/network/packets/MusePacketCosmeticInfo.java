@@ -1,11 +1,11 @@
 package net.machinemuse.powersuits.network.packets;
 
 import io.netty.buffer.ByteBuf;
-import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
-import net.machinemuse.numina.item.IModularItem;
-import net.machinemuse.numina.network.MuseByteBufferUtils;
 import net.machinemuse.numina.basemod.MuseLogger;
+import net.machinemuse.numina.constants.ModelSpecTags;
+import net.machinemuse.numina.item.IModularItem;
 import net.machinemuse.numina.nbt.MuseNBTUtils;
+import net.machinemuse.numina.network.MuseByteBufferUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -66,19 +66,19 @@ public class MusePacketCosmeticInfo implements IMessage {
 
                     if (tagName != null && stack.getItem() instanceof IModularItem) {
                         NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
-                        itemTag.removeTag(NuminaNBTConstants.TAG_COSMETIC_PRESET);
+                        itemTag.removeTag(ModelSpecTags.TAG_COSMETIC_PRESET);
 
-                        if (Objects.equals(tagName, NuminaNBTConstants.TAG_RENDER)) {
-                            itemTag.removeTag(NuminaNBTConstants.TAG_RENDER);
+                        if (Objects.equals(tagName, ModelSpecTags.TAG_RENDER)) {
+                            itemTag.removeTag(ModelSpecTags.TAG_RENDER);
                             if (!tagData.isEmpty())
-                                itemTag.setTag(NuminaNBTConstants.TAG_RENDER, tagData);
+                                itemTag.setTag(ModelSpecTags.TAG_RENDER, tagData);
                         } else {
                             NBTTagCompound renderTag;
-                            if (!itemTag.hasKey(NuminaNBTConstants.TAG_RENDER)) {
+                            if (!itemTag.hasKey(ModelSpecTags.TAG_RENDER)) {
                                 renderTag = new NBTTagCompound();
-                                itemTag.setTag(NuminaNBTConstants.TAG_RENDER, renderTag);
+                                itemTag.setTag(ModelSpecTags.TAG_RENDER, renderTag);
                             } else {
-                                renderTag = itemTag.getCompoundTag(NuminaNBTConstants.TAG_RENDER);
+                                renderTag = itemTag.getCompoundTag(ModelSpecTags.TAG_RENDER);
                             }
                             if (tagData.isEmpty()) {
                                 MuseLogger.logDebug("Removing tag " + tagName);

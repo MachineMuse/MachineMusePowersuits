@@ -2,12 +2,12 @@ package net.machinemuse.powersuits.network.packets;
 
 import io.netty.buffer.ByteBuf;
 import net.machinemuse.numina.item.IModeChangingItem;
+import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.numina.module.IEnchantmentModule;
 import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.module.IRightClickModule;
-import net.machinemuse.numina.network.MuseByteBufferUtils;
-import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.numina.nbt.MuseNBTUtils;
+import net.machinemuse.numina.network.MuseByteBufferUtils;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.minecraft.entity.player.EntityPlayer;

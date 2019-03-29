@@ -1,14 +1,14 @@
 package net.machinemuse.numina.config;
 
-import net.machinemuse.numina.basemod.constants.NuminaConstants;
 import net.machinemuse.numina.basemod.MuseLogger;
+import net.machinemuse.numina.constants.NuminaConstants;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import static net.machinemuse.numina.basemod.constants.NuminaConstants.*;
+import static net.machinemuse.numina.constants.NuminaConstants.*;
 
 @Config(modid = NuminaConstants.MODID, name = CONFIG_FILE)
 public class NuminaSettings {

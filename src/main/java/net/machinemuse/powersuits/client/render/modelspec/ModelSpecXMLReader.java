@@ -1,12 +1,13 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
 import com.google.common.collect.ImmutableMap;
-import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
 import net.machinemuse.numina.basemod.MuseLogger;
-import net.machinemuse.numina.math.Colour;
 import net.machinemuse.numina.client.model.obj.MuseOBJModel;
-import net.machinemuse.powersuits.common.config.MPSConfig;
+import net.machinemuse.numina.client.render.modelspec.*;
+import net.machinemuse.numina.constants.ModelSpecTags;
+import net.machinemuse.numina.math.Colour;
 import net.machinemuse.numina.string.MuseStringUtils;
+import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.ResourceLocation;
@@ -141,7 +142,7 @@ public enum ModelSpecXMLReader {
      * Biggest difference between the ModelSpec for Armor vs PowerFist is that the armor models don't need item camera transforms
      */
     public static void parseModelSpec(Node specNode, TextureStitchEvent event, EnumSpecType specType, String specName, boolean isDefault) {
-        NodeList models = specNode.getOwnerDocument().getElementsByTagName(NuminaNBTConstants.TAG_MODEL);
+        NodeList models = specNode.getOwnerDocument().getElementsByTagName(ModelSpecTags.TAG_MODEL);
         java.util.List<String> textures = new ArrayList<>();
         IModelState modelState = null;
 
@@ -174,7 +175,7 @@ public enum ModelSpecXMLReader {
                             modelState = TRSRTransformation.identity();
                     }
 
-                    MuseOBJModel.MuseOBJBakedModel bakedModel = ModelRegistry.getInstance().loadBakedModel(new ResourceLocation(modelLocation), modelState);
+                    MuseOBJModel.MuseOBJBakedModel bakedModel = ModelRegistry.getInstance().wrap(new ResourceLocation(modelLocation), modelState);
                     // ModelSpec stuff
                     if (bakedModel != null && bakedModel instanceof MuseOBJModel.MuseOBJBakedModel) {
                         ModelSpec modelspec = new ModelSpec(bakedModel, modelState, specName, isDefault, specType);
@@ -184,7 +185,7 @@ public enum ModelSpecXMLReader {
                             for (int k = 0; k < bindingNodeList.getLength(); k++) {
                                 Node bindingNode = bindingNodeList.item(k);
                                 SpecBinding binding = getBinding(bindingNode);
-                                NodeList partNodeList = ((Element) bindingNode).getElementsByTagName(NuminaNBTConstants.TAG_PART);
+                                NodeList partNodeList = ((Element) bindingNode).getElementsByTagName(ModelSpecTags.TAG_PART);
                                 for (int j = 0; j < partNodeList.getLength(); j++) {
                                     getModelPartSpec(modelspec, partNodeList.item(j), binding);
                                 }

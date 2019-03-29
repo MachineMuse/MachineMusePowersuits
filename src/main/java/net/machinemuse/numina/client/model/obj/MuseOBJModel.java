@@ -28,7 +28,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import net.machinemuse.powersuits.client.helper.ModelTransformCalibration;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BakedQuadRetextured;
@@ -1054,7 +1053,7 @@ public class MuseOBJModel implements IModel {
     public class MuseOBJBakedModel implements IBakedModel {
         private final MuseOBJModel model;
         private final VertexFormat format;
-        ModelTransformCalibration calibration;
+//        ModelTransformCalibration calibration;
         private IModelState state;
         private ImmutableList<BakedQuad> quads;
         private Map<String, List<BakedQuad>> partQuadMap;

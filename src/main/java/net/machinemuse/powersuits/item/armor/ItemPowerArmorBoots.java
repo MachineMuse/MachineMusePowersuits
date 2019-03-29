@@ -13,9 +13,8 @@ import net.minecraftforge.fml.common.Optional;
 public class ItemPowerArmorBoots extends ItemPowerArmor implements IMetalArmor {
     public final EntityEquipmentSlot armorType;
 
-    public ItemPowerArmorBoots() {
-        super(0, EntityEquipmentSlot.FEET);
-        this.setTranslationKey("powerArmorBoots");
+    public ItemPowerArmorBoots(String regName) {
+        super(regName, "powerArmorBoots",0, EntityEquipmentSlot.FEET);
         this.armorType = EntityEquipmentSlot.FEET;
     }
 

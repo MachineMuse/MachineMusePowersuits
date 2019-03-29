@@ -2,20 +2,23 @@ package net.machinemuse.powersuits.common;
 
 import net.machinemuse.powersuits.block.BlockLuxCapacitor;
 import net.machinemuse.powersuits.block.BlockTinkerTable;
-import net.machinemuse.powersuits.block.itemblock.ItemBlockLuxCapacitor;
-import net.machinemuse.powersuits.block.itemblock.ItemBlockTinkerTable;
 import net.machinemuse.powersuits.fluid.BlockFluidLiquidNitrogen;
 import net.machinemuse.powersuits.fluid.LiquidNitrogen;
 import net.machinemuse.powersuits.item.ItemComponent;
-import net.machinemuse.powersuits.item.armor.*;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorHelmet;
+import net.machinemuse.powersuits.item.armor.ItemPowerArmorLeggings;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
 
@@ -29,63 +32,82 @@ public enum MPSItems {
     INSTANCE;
 
     // Armor --------------------------------------------------------------------------------------
-    public static Item powerArmorHead = initItem(new ItemPowerArmorHelmet(), "powerarmor_head", "powerArmorHelmet");
-    public static Item powerArmorTorso = initItem(new ItemPowerArmorChestplate(), "powerarmor_torso", "powerArmorChestplate");
-    public static Item powerArmorLegs = initItem(new ItemPowerArmorLeggings(), "powerarmor_legs", "powerArmorLeggings");
-    public static Item powerArmorFeet = initItem(new ItemPowerArmorBoots(), "powerarmor_feet", "powerArmorBoots");
+    public static final String powerArmorHelmetRegName = MODID + ":powerarmor_head";
+    public static final String powerArmorChestPlateRegName = MODID + ":powerarmor_torso";
+    public static final String powerArmorLeggingsRegName = MODID + ":powerarmor_legs";
+    public static final String powerArmorBootsRegName = MODID + ":powerarmor_feet";
+
+    @GameRegistry.ObjectHolder(powerArmorHelmetRegName)
+    public static final ItemPowerArmorHelmet powerArmorHead = null;
+    @GameRegistry.ObjectHolder(powerArmorChestPlateRegName)
+    public static final ItemPowerArmorChestplate powerArmorTorso = null;
+    @GameRegistry.ObjectHolder(powerArmorLeggingsRegName)
+    public static final ItemPowerArmorLeggings powerArmorLegs = null;
+    @GameRegistry.ObjectHolder(powerArmorBootsRegName)
+    public static final ItemPowerArmorBoots powerArmorFeet = null;
+
     // HandHeld -----------------------------------------------------------------------------------
-    public static Item powerFist = initItem(new ItemPowerFist(), "power_fist", "powerFist");
+    public static final String powerFistRegName = MODID + ":power_fist";
+
+    @GameRegistry.ObjectHolder(powerFistRegName)
+    public static final ItemPowerFist powerFist = null;
 
     // Components ---------------------------------------------------------------------------------
-    public static Item components = ItemComponent.getInstance();
+    public static final String componentsRegname = MODID + ":powerarmorcomponent";
+
+    @GameRegistry.ObjectHolder(componentsRegname)
+    public static final ItemComponent components = null;
 
     // Blocks -------------------------------------------------------------------------------------
-    public static BlockTinkerTable tinkerTable = new BlockTinkerTable();
-    public static ItemBlockTinkerTable itemTinkerTable = new ItemBlockTinkerTable();
+    public static final String tinkerTableRegName = MODID + ":tinkertable";
+    public static final String luxCapaRegName = MODID + ":luxcapacitor";
 
-    public static BlockLuxCapacitor luxCapacitor = new BlockLuxCapacitor();
-    public static ItemBlockLuxCapacitor itemLuxCapacitor = new ItemBlockLuxCapacitor();
+    @GameRegistry.ObjectHolder(tinkerTableRegName)
+    public static final BlockTinkerTable tinkerTable = null;
+
+    @GameRegistry.ObjectHolder(luxCapaRegName)
+    public static final BlockLuxCapacitor luxCapacitor = null;
 
     // Fluid --------------------------------------------------------------------------------------
-    public static LiquidNitrogen liquidNitrogen = new LiquidNitrogen();
-    public static BlockFluidLiquidNitrogen blockLiquidNitrogen = new BlockFluidLiquidNitrogen();
+    public static final LiquidNitrogen liquidNitrogen = new LiquidNitrogen();
 
+    public static final String blockLiquidNitrogenName = MODID + ":liquid_nitrogen";
+    @GameRegistry.ObjectHolder(blockLiquidNitrogenName)
+    public static final BlockFluidLiquidNitrogen blockLiquidNitrogen = null;
 
     @SubscribeEvent
     public static void regigisterItems(RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(
-                powerArmorHead,
-                powerArmorTorso,
-                powerArmorLegs,
-                powerArmorFeet,
-                powerFist,
-                components,
-                itemTinkerTable,
-                itemLuxCapacitor
+                // Armor --------------------------------------------------------------------------------------
+                new ItemPowerArmorHelmet(powerArmorHelmetRegName),
+                new ItemPowerArmorChestplate(powerArmorChestPlateRegName),
+                new ItemPowerArmorLeggings(powerArmorLeggingsRegName),
+                new ItemPowerArmorBoots(powerArmorBootsRegName),
+
+                // HandHeld -----------------------------------------------------------------------------------
+                new ItemPowerFist(powerFistRegName),
+
+                // Components ---------------------------------------------------------------------------------
+                new ItemComponent(componentsRegname),
+
+//                // ItemBlocks ---------------------------------------------------------------------------------
+                new ItemBlock(tinkerTable).setRegistryName(new ResourceLocation(tinkerTableRegName)),
+                new ItemBlock(luxCapacitor).setRegistryName(new ResourceLocation(luxCapaRegName))
         );
 
-
-        ((ItemComponent) components).populate();
-        ((ItemComponent) components).registerOres();
-    }
-
-    private static Item initItem(Item item, String regName, String unlocalizedName) {
-        // including the ModID in the unlocalized id helps keep the names unique so they can be used as keys for maps
-        item.setTranslationKey(new StringBuilder(MODID).append(".").append(unlocalizedName).toString());
-        item.setRegistryName(new ResourceLocation(MODID, regName));
-        return item;
+        ItemComponent temp = (ItemComponent) event.getRegistry().getValue(new ResourceLocation(componentsRegname));
+        if (temp != null)
+            temp.registerOres();
     }
 
     @SubscribeEvent
     public static void initBlocks(RegistryEvent.Register<Block> event) {
-        event.getRegistry().register(tinkerTable);
-        event.getRegistry().register(luxCapacitor);
-        event.getRegistry().register(blockLiquidNitrogen);
+        event.getRegistry().register(new BlockTinkerTable( new ResourceLocation(tinkerTableRegName)));
+        event.getRegistry().register(new BlockLuxCapacitor(new ResourceLocation(luxCapaRegName)));
+        event.getRegistry().register(new BlockFluidLiquidNitrogen(new ResourceLocation(blockLiquidNitrogenName)));
     }
 
-
     public static void initFluids() {
-//        FluidRegistry.enableUniversalBucket();
         FluidRegistry.registerFluid(liquidNitrogen);
         FluidRegistry.addBucketForFluid(liquidNitrogen);
     }

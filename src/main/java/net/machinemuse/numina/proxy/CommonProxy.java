@@ -3,7 +3,7 @@ package net.machinemuse.numina.proxy;
 import net.machinemuse.numina.basemod.Numina;
 import net.machinemuse.numina.capabilities.heat.CapabilityHeat;
 import net.machinemuse.numina.capabilities.player.CapabilityPlayerValues;
-import net.machinemuse.numina.basemod.constants.NuminaConstants;
+import net.machinemuse.numina.constants.NuminaConstants;
 import net.machinemuse.numina.event.NuminaPlayerTracker;
 import net.machinemuse.numina.network.NuminaPackets;
 import net.minecraftforge.common.MinecraftForge;

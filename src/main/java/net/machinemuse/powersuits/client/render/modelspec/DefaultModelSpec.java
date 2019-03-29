@@ -1,7 +1,7 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
-import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
-import net.machinemuse.powersuits.api.constants.MPSNBTConstants;
+import net.machinemuse.numina.client.render.modelspec.*;
+import net.machinemuse.numina.constants.ModelSpecTags;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
@@ -69,7 +69,7 @@ public class DefaultModelSpec {
                     for (PartSpecBase partSpec : spec.getPartSpecs()) {
                         if (partSpec instanceof ModelPartSpec) {
                             prefArray.add(((ModelPartSpec) partSpec).multiSet(new NBTTagCompound(),
-                                    getNewColourIndex(colours, spec.getColours(), partSpec.defaultcolourindex),
+                                    getNewColourIndex(colours, spec.getColours(), partSpec.getDefaultColourIndex()),
                                     ((ModelPartSpec) partSpec).getGlow()));
                         }
                     }
@@ -82,21 +82,21 @@ public class DefaultModelSpec {
                     if (spec.getSpecType().equals(EnumSpecType.ARMOR_SKIN) && spec.get(slot.getName()) != null) {
                         // only a single texture per equipment slot can be used at a time
                         texSpecTag = spec.get(slot.getName()).multiSet(new NBTTagCompound(),
-                                getNewColourIndex(colours, spec.getColours(), spec.get(slot.getName()).defaultcolourindex));
+                                getNewColourIndex(colours, spec.getColours(), spec.get(slot.getName()).getDefaultColourIndex()));
                     }
 
                     // Armor models
                     else if (spec.getSpecType().equals(EnumSpecType.ARMOR_MODEL) && MPSConfig.INSTANCE.allowHighPollyArmorModels()) {
 
                         for (PartSpecBase partSpec : spec.getPartSpecs()) {
-                            if (partSpec.binding.getSlot() == slot) {
+                            if (partSpec.getBinding().getSlot() == slot) {
                                 /*
                                 // jet pack model not displayed by default
                                 if (partSpec.binding.getItemState().equals("all") ||
                                         (partSpec.binding.getItemState().equals("jetpack") &&
                                                 ModuleManager.INSTANCE.itemHasModule(stack, MPSModuleConstants.MODULE_JETPACK__DATANAME))) { */
                                     prefArray.add(((ModelPartSpec) partSpec).multiSet(new NBTTagCompound(),
-                                            getNewColourIndex(colours, spec.getColours(), partSpec.defaultcolourindex),
+                                            getNewColourIndex(colours, spec.getColours(), partSpec.getDefaultColourIndex()),
                                             ((ModelPartSpec) partSpec).getGlow()));
                                 /*} */
                             }
@@ -108,16 +108,16 @@ public class DefaultModelSpec {
 
         NBTTagCompound nbt = new NBTTagCompound();
         for (NBTTagCompound elem : prefArray) {
-            nbt.setTag(elem.getString(NuminaNBTConstants.TAG_MODEL) + "." + elem.getString(NuminaNBTConstants.TAG_PART), elem);
+            nbt.setTag(elem.getString(ModelSpecTags.TAG_MODEL) + "." + elem.getString(ModelSpecTags.TAG_PART), elem);
         }
 
         if (!specList.isEmpty())
-            nbt.setTag(MPSNBTConstants.NBT_SPECLIST_TAG, specList);
+            nbt.setTag(ModelSpecTags.NBT_SPECLIST_TAG, specList);
 
         if (!texSpecTag.isEmpty())
-            nbt.setTag(MPSNBTConstants.NBT_TEXTURESPEC_TAG, texSpecTag);
+            nbt.setTag(ModelSpecTags.NBT_TEXTURESPEC_TAG, texSpecTag);
 
-        nbt.setTag(NuminaNBTConstants.TAG_COLOURS, new NBTTagIntArray(colours));
+        nbt.setTag(ModelSpecTags.TAG_COLOURS, new NBTTagIntArray(colours));
 
         return nbt;
     }

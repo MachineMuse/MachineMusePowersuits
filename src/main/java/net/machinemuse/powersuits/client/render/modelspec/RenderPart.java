@@ -1,7 +1,10 @@
 package net.machinemuse.powersuits.client.render.modelspec;
 
 import net.machinemuse.numina.client.render.RenderState;
-import net.machinemuse.numina.basemod.constants.NuminaNBTConstants;
+import net.machinemuse.numina.client.render.modelspec.ModelPartSpec;
+import net.machinemuse.numina.client.render.modelspec.ModelRegistry;
+import net.machinemuse.numina.client.render.modelspec.PartSpecBase;
+import net.machinemuse.numina.constants.ModelSpecTags;
 import net.machinemuse.numina.math.Colour;
 import net.machinemuse.powersuits.client.model.item.armor.ArmorModelInstance;
 import net.machinemuse.powersuits.client.model.item.armor.IArmorModel;
@@ -44,7 +47,7 @@ public class RenderPart extends ModelRenderer {
         if (renderSpec == null)
             return;
 
-        int[] colours = renderSpec.getIntArray(NuminaNBTConstants.TAG_COLOURS);
+        int[] colours = renderSpec.getIntArray(ModelSpecTags.TAG_COLOURS);
         if (colours.length == 0)
             colours = new int[]{Colour.WHITE.getInt()};
 
@@ -52,8 +55,8 @@ public class RenderPart extends ModelRenderer {
         for (NBTTagCompound nbt : NBTTagAccessor.getValues(renderSpec)) {
             PartSpecBase part = ModelRegistry.getInstance().getPart(nbt);
             if (part != null && part instanceof ModelPartSpec) {
-                if (part.binding.getSlot() == ((IArmorModel) (ArmorModelInstance.getInstance())).getVisibleSection()
-                        && part.binding.getTarget().apply(ArmorModelInstance.getInstance()) == parent) {
+                if (part.getBinding().getSlot() == ((IArmorModel) (ArmorModelInstance.getInstance())).getVisibleSection()
+                        && part.getBinding().getTarget().apply(ArmorModelInstance.getInstance()) == parent) {
                     List<BakedQuad> quadList = ((ModelPartSpec) part).getQuads();
                     if (!quadList.isEmpty()) {
                         int ix = part.getColourIndex(nbt);
