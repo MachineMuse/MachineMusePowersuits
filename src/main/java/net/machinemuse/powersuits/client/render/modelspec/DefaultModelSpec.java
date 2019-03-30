@@ -69,7 +69,7 @@ public class DefaultModelSpec {
                     for (PartSpecBase partSpec : spec.getPartSpecs()) {
                         if (partSpec instanceof ModelPartSpec) {
                             prefArray.add(((ModelPartSpec) partSpec).multiSet(new NBTTagCompound(),
-                                    getNewColourIndex(colours, spec.getColours(), partSpec.getDefaultColourIndex()),
+                                    getNewColourIndex(colours, spec.getColours(), partSpec.getDefaultColourtIndex()),
                                     ((ModelPartSpec) partSpec).getGlow()));
                         }
                     }
@@ -82,7 +82,7 @@ public class DefaultModelSpec {
                     if (spec.getSpecType().equals(EnumSpecType.ARMOR_SKIN) && spec.get(slot.getName()) != null) {
                         // only a single texture per equipment slot can be used at a time
                         texSpecTag = spec.get(slot.getName()).multiSet(new NBTTagCompound(),
-                                getNewColourIndex(colours, spec.getColours(), spec.get(slot.getName()).getDefaultColourIndex()));
+                                getNewColourIndex(colours, spec.getColours(), spec.get(slot.getName()).getDefaultColourtIndex()));
                     }
 
                     // Armor models
@@ -96,7 +96,7 @@ public class DefaultModelSpec {
                                         (partSpec.binding.getItemState().equals("jetpack") &&
                                                 ModuleManager.INSTANCE.itemHasModule(stack, MPSModuleConstants.MODULE_JETPACK__DATANAME))) { */
                                     prefArray.add(((ModelPartSpec) partSpec).multiSet(new NBTTagCompound(),
-                                            getNewColourIndex(colours, spec.getColours(), partSpec.getDefaultColourIndex()),
+                                            getNewColourIndex(colours, spec.getColours(), partSpec.getDefaultColourtIndex()),
                                             ((ModelPartSpec) partSpec).getGlow()));
                                 /*} */
                             }

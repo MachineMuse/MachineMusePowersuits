@@ -1,16 +1,18 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
-import net.machinemuse.numina.basemod.MuseLogger;
-import net.machinemuse.numina.client.render.MuseRenderer;
 import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.numina.client.render.modelspec.*;
 import net.machinemuse.numina.constants.ModelSpecTags;
+import net.machinemuse.numina.constants.NuminaNBTConstants;
+import net.machinemuse.numina.basemod.MuseLogger;
 import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.numina.math.Colour;
 import net.machinemuse.numina.math.MuseMathUtils;
 import net.machinemuse.numina.math.geometry.MuseRect;
 import net.machinemuse.numina.math.geometry.MuseRelativeRect;
 import net.machinemuse.numina.nbt.MuseNBTUtils;
+import net.machinemuse.numina.client.render.MuseRenderer;
+import net.machinemuse.powersuits.client.render.modelspec.*;
 import net.machinemuse.powersuits.gui.GuiIcons;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableItem;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmor;
@@ -32,6 +34,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 
 /**
  * Author: MachineMuse (Claire Semple)

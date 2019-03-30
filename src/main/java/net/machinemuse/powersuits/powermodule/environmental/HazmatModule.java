@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.powermodule.environmental;
 
-import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.numina.module.EnumModuleCategory;
 import net.machinemuse.numina.module.EnumModuleTarget;
+import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.ModuleManager;

@@ -4,10 +4,10 @@
 package net.machinemuse.powersuits.gui.tinker.clickable;
 
 import net.machinemuse.numina.client.gui.clickable.Clickable;
-import net.machinemuse.numina.client.render.MuseRenderer;
 import net.machinemuse.numina.math.Colour;
 import net.machinemuse.numina.math.geometry.DrawableMuseRect;
 import net.machinemuse.numina.math.geometry.MusePoint2D;
+import net.machinemuse.numina.client.render.MuseRenderer;
 
 import java.util.List;
 

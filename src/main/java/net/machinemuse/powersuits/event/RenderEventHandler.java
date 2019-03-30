@@ -1,11 +1,11 @@
 package net.machinemuse.powersuits.event;
 
 import net.machinemuse.numina.client.render.MuseIconUtils;
-import net.machinemuse.numina.client.render.MuseRenderer;
 import net.machinemuse.numina.client.render.MuseTextureUtils;
 import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.numina.math.Colour;
 import net.machinemuse.numina.math.geometry.DrawableMuseRect;
+import net.machinemuse.numina.client.render.MuseRenderer;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.client.model.helper.ModelHelper;

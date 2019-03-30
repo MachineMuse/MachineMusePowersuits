@@ -2,11 +2,11 @@ package net.machinemuse.powersuits.event;
 
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.config.NuminaConfig;
+import net.machinemuse.numina.module.IPlayerTickModule;
+import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.heat.MuseHeatUtils;
 import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.numina.math.MuseMathUtils;
-import net.machinemuse.numina.module.IPlayerTickModule;
-import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
@@ -32,6 +32,12 @@ public class PlayerUpdateHandler {
     @SuppressWarnings("unchecked")
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public void onPlayerUpdate(LivingEvent.LivingUpdateEvent e) {
+       // @SubscribeEvent
+        //	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
+
+
+
+
         if (e.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) e.getEntity();
 
@@ -78,11 +84,10 @@ public class PlayerUpdateHandler {
 
 //            System.out.println("player fall distance before: [ player: " + player.getName() + " ], [ distance : " + player.fallDistance + " ]"  );
 //
-//            // FIXME: check to see if this is correct
             player.fallDistance = (float) MovementManager.computeFallHeightFromVelocity(MuseMathUtils.clampDouble(player.motionY, -1000.0, 0.0));
-////
-//            System.out.println("player fall distance after: [ player: " + player.getName() + " ], [ distance : " + player.fallDistance + " ]"  );
 //
+//            System.out.println("player fall distance after: [ player: " + player.getName() + " ], [ distance : " + player.fallDistance + " ]"  );
+
 
 
             // Sound update

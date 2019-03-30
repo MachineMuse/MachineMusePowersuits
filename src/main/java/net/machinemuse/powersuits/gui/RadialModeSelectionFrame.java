@@ -1,13 +1,13 @@
 package net.machinemuse.powersuits.gui;
 
 import net.machinemuse.numina.client.gui.frame.IGuiFrame;
-import net.machinemuse.numina.client.render.MuseRenderer;
 import net.machinemuse.numina.item.IModeChangingItem;
-import net.machinemuse.numina.math.geometry.MusePoint2D;
-import net.machinemuse.numina.math.geometry.SpiralPointToPoint2D;
 import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.module.IRightClickModule;
 import net.machinemuse.numina.network.packets.MusePacketModeChangeRequest;
+import net.machinemuse.numina.math.geometry.MusePoint2D;
+import net.machinemuse.numina.math.geometry.SpiralPointToPoint2D;
+import net.machinemuse.numina.client.render.MuseRenderer;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.gui.tinker.clickable.ClickableModule;
 import net.machinemuse.powersuits.network.MPSPackets;

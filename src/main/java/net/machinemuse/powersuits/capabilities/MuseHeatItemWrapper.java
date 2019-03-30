@@ -2,8 +2,8 @@ package net.machinemuse.powersuits.capabilities;
 
 import net.machinemuse.numina.capabilities.heat.HeatStorage;
 import net.machinemuse.numina.constants.NuminaNBTConstants;
-import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.numina.module.IModuleManager;
+import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.numina.nbt.MuseNBTUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

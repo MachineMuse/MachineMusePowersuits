@@ -1,6 +1,6 @@
 <modelSpec specName="armor2" type="armor model">
     <models>
-        <model file="powersuits:models/item/armor/armor2.obj" textures="powersuits:items/armor/armor2diffuse">
+        <model file="powersuits:item/armor/armor2.obj" textures="powersuits:items/armor/armor2diffuse">
             <binding slot="legs" target="LeftLeg">
                 <part partName="leggray"/>
                 <part partName="legbit"/>

@@ -5,6 +5,7 @@ import net.machinemuse.numina.client.render.modelspec.ModelPartSpec;
 import net.machinemuse.numina.client.render.modelspec.ModelRegistry;
 import net.machinemuse.numina.client.render.modelspec.PartSpecBase;
 import net.machinemuse.numina.constants.ModelSpecTags;
+import net.machinemuse.numina.constants.NuminaNBTConstants;
 import net.machinemuse.numina.math.Colour;
 import net.machinemuse.powersuits.client.model.item.armor.ArmorModelInstance;
 import net.machinemuse.powersuits.client.model.item.armor.IArmorModel;

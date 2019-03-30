@@ -1,11 +1,11 @@
 package net.machinemuse.powersuits.powermodule.environmental;
 
-import net.machinemuse.numina.energy.ElectricItemUtils;
-import net.machinemuse.numina.heat.MuseHeatUtils;
 import net.machinemuse.numina.module.EnumModuleCategory;
 import net.machinemuse.numina.module.EnumModuleTarget;
 import net.machinemuse.numina.module.IPlayerTickModule;
 import net.machinemuse.numina.module.IToggleableModule;
+import net.machinemuse.numina.energy.ElectricItemUtils;
+import net.machinemuse.numina.heat.MuseHeatUtils;
 import net.machinemuse.powersuits.powermodule.PowerModuleBase;
 import net.machinemuse.powersuits.utils.modulehelpers.FluidUtils;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;

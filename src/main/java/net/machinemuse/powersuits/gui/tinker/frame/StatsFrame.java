@@ -1,11 +1,11 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
 import net.machinemuse.numina.client.gui.scrollable.ScrollableFrame;
-import net.machinemuse.numina.client.render.MuseRenderer;
 import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.numina.math.Colour;
 import net.machinemuse.numina.math.geometry.MusePoint2D;
 import net.machinemuse.numina.nbt.MuseNBTUtils;
+import net.machinemuse.numina.client.render.MuseRenderer;
 import net.machinemuse.powersuits.utils.nbt.NBTTagAccessor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

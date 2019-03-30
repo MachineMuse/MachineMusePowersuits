@@ -39,7 +39,7 @@ import static net.minecraft.block.BlockDirectional.FACING;
 
 @SideOnly(Side.CLIENT)
 public class ModelLuxCapacitor implements IBakedModel {
-    public static final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(MPSItems.INSTANCE.luxCapaRegName);
+    public static final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(MPSItems.INSTANCE.luxCapacitor.getRegistryName().toString());
     final IModelState modelState;
     public IBakedModel wrapper;
     protected Function<ResourceLocation, TextureAtlasSprite> textureGetter;
@@ -53,7 +53,7 @@ public class ModelLuxCapacitor implements IBakedModel {
     }
 
     public static ModelResourceLocation getModelResourceLocation(EnumFacing facing) {
-        return new ModelResourceLocation(MPSItems.INSTANCE.luxCapaRegName, "facing=" + facing.getName());
+        return new ModelResourceLocation(MPSItems.INSTANCE.luxCapacitor.getRegistryName().toString(), "facing=" + facing.getName());
     }
 
     IModelState getModelState() {

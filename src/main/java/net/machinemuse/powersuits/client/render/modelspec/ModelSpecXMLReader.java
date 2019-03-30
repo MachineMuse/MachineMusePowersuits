@@ -2,12 +2,12 @@ package net.machinemuse.powersuits.client.render.modelspec;
 
 import com.google.common.collect.ImmutableMap;
 import net.machinemuse.numina.basemod.MuseLogger;
-import net.machinemuse.numina.client.model.obj.MuseOBJModel;
 import net.machinemuse.numina.client.render.modelspec.*;
 import net.machinemuse.numina.constants.ModelSpecTags;
 import net.machinemuse.numina.math.Colour;
-import net.machinemuse.numina.string.MuseStringUtils;
+import net.machinemuse.numina.client.model.obj.MuseOBJModel;
 import net.machinemuse.powersuits.common.config.MPSConfig;
+import net.machinemuse.numina.string.MuseStringUtils;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.ResourceLocation;
@@ -175,7 +175,7 @@ public enum ModelSpecXMLReader {
                             modelState = TRSRTransformation.identity();
                     }
 
-                    MuseOBJModel.MuseOBJBakedModel bakedModel = ModelRegistry.getInstance().wrap(new ResourceLocation(modelLocation), modelState);
+                    MuseOBJModel.MuseOBJBakedModel bakedModel = ModelRegistry.getInstance().loadBakedModel(new ResourceLocation(modelLocation), modelState);
                     // ModelSpec stuff
                     if (bakedModel != null && bakedModel instanceof MuseOBJModel.MuseOBJBakedModel) {
                         ModelSpec modelspec = new ModelSpec(bakedModel, modelState, specName, isDefault, specType);

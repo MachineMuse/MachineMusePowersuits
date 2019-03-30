@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.gui.hud;
 
-import net.machinemuse.numina.client.render.MuseRenderer;
 import net.machinemuse.numina.client.render.RenderState;
 import net.machinemuse.numina.math.Colour;
+import net.machinemuse.numina.client.render.MuseRenderer;
 import org.lwjgl.opengl.GL11;
 
 public class EnergyMeter extends HeatMeter {

@@ -1,11 +1,11 @@
 package net.machinemuse.powersuits.powermodule.movement;
 
-import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.numina.module.EnumModuleCategory;
 import net.machinemuse.numina.module.EnumModuleTarget;
 import net.machinemuse.numina.module.IPlayerTickModule;
 import net.machinemuse.numina.module.IToggleableModule;
 import net.machinemuse.numina.player.NuminaPlayerUtils;
+import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.common.ModuleManager;
@@ -16,8 +16,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Vec3d;
-
-import javax.annotation.Nonnull;
 
 public class GliderModule extends PowerModuleBase implements IToggleableModule, IPlayerTickModule {
     public GliderModule(EnumModuleTarget moduleTarget) {
@@ -36,7 +34,7 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
     }
 
     @Override
-    public void onPlayerTickActive(EntityPlayer player, @Nonnull ItemStack itemStack) {
+    public void onPlayerTickActive(EntityPlayer player, ItemStack itemStack) {
         Vec3d playerHorzFacing = player.getLookVec();
         playerHorzFacing = new Vec3d(playerHorzFacing.x, 0, playerHorzFacing.z);
         playerHorzFacing.normalize();
@@ -55,12 +53,11 @@ public class GliderModule extends PowerModuleBase implements IToggleableModule, 
                 // sprinting speed
                 player.jumpMovementFactor += 0.03f;
             }
-            player.fallDistance = 0;
         }
     }
 
     @Override
-    public void onPlayerTickInactive(EntityPlayer player, @Nonnull ItemStack item) {
+    public void onPlayerTickInactive(EntityPlayer player, ItemStack item) {
     }
 
     @Override

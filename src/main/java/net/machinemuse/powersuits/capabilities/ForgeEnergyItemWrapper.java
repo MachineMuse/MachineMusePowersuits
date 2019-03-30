@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.capabilities;
 
 import net.machinemuse.numina.constants.NuminaNBTConstants;
-import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.numina.module.IModuleManager;
+import net.machinemuse.numina.item.MuseItemUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.Constants;

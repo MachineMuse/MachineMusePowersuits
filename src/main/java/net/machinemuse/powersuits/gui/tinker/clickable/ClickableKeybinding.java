@@ -1,15 +1,15 @@
 package net.machinemuse.powersuits.gui.tinker.clickable;
 
 import net.machinemuse.numina.client.gui.IClickable;
-import net.machinemuse.numina.client.render.MuseRenderer;
 import net.machinemuse.numina.math.Colour;
 import net.machinemuse.numina.math.geometry.MusePoint2D;
-import net.machinemuse.numina.string.MuseStringUtils;
+import net.machinemuse.numina.client.render.MuseRenderer;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.network.MPSPackets;
 import net.machinemuse.powersuits.network.packets.MusePacketToggleRequest;
+import net.machinemuse.numina.string.MuseStringUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.settings.KeyBinding;

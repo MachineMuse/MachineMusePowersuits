@@ -5,6 +5,7 @@ import net.machinemuse.numina.client.gui.frame.IGuiFrame;
 import net.machinemuse.numina.client.gui.scrollable.ScrollableLabel;
 import net.machinemuse.numina.client.render.MuseRenderer;
 import net.machinemuse.numina.constants.ModelSpecTags;
+import net.machinemuse.numina.constants.NuminaNBTConstants;
 import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.numina.math.Colour;
 import net.machinemuse.numina.math.geometry.DrawableMuseRect;
