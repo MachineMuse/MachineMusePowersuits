@@ -1,0 +1,28 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:tech_reborn_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "CCC",
+    "SSS",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item" : "techreborn:cable",
+      "data": 0
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore" : "ingotSilver"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentWiring",
+    "count": 8
+  }
+}

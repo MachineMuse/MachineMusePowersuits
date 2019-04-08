@@ -1,0 +1,26 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:ic2_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "WCW",
+    "W W"
+  ],
+  "key": {
+    "C": {
+      "item": "ic2:energy_crystal",
+      "data": 26
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentMVCapacitor"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:thermal_expansion_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "SES",
+    "EFE",
+    "SES"
+  ],
+  "key": {
+    "E": {
+      "type": "forge:ore_dict",
+      "ore": "enderpearl"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "componentSolenoid"
+    },
+    "F": {
+     "item": "thermalexpansion:frame",
+      "data": 128,
+      "comment" : "energy cell frame"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentFieldEmitter"
+  }
+}

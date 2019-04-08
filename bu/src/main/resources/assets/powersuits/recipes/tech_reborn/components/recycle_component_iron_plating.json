@@ -1,0 +1,22 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:tech_reborn_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "P"
+  ],
+  "key": {
+    "P": {
+      "type": "forge:ore_dict",
+      "ore": "componentPlatingIron"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "ingotSteel",
+    "count": 5
+  }
+}

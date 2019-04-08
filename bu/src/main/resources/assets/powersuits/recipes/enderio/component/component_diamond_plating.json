@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:enderio_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "DD",
+    "BD",
+    "DD"
+  ],
+  "key": {
+    "B": {
+      "item": "enderio:item_basic_capacitor",
+      "data": 1
+    },
+    "D": {
+      "type": "forge:ore_dict",
+      "ore": "gemDiamond"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentPlatingDiamond"
+  }
+}

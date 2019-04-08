@@ -1,0 +1,26 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:ic2_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    " M ",
+    "IMI",
+    "IMI"
+  ],
+  "key": {
+    "M": {
+      "item": "minecraft:magma_cream"
+    },
+    "I": {
+      "item": "ic2:crafting",
+      "data": 15
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentMyofiberGel"
+  }
+}

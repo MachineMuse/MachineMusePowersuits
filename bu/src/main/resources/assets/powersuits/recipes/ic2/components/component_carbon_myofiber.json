@@ -1,0 +1,23 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:ic2_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "CCC",
+    "CCC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "ic2:crafting",
+      "data": 15
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentCarbonMyofiber"
+  }
+}

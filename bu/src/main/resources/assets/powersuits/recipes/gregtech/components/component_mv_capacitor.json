@@ -1,0 +1,31 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:gregtech_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "NWN",
+    "NBN",
+    "NBN"
+  ],
+  "key": {
+    "N": {
+      "type": "forge:ore_dict",
+      "ore" : "ingotNickel"
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "B": {
+      "type": "forge:ore_dict",
+      "ore" : "batteryMaster"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentMVCapacitor"
+  }
+}

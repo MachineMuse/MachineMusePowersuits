@@ -1,0 +1,47 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:thermal_expansion_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "RSR",
+    "WMW",
+    "CSD"
+  ],
+  "key": {
+    "R": {
+      "item": "thermalfoundation:material",
+      "data" : 514,
+      "comment" : "redstone transmission coil"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "componentSolenoid"
+    },
+    "M": {
+      "item": "thermalfoundation:meter",
+      "data": 0
+    },
+    "W": {
+      "item" : "thermalfoundation:rockwool",
+      "data" : 7,
+      "comment" : "gray rockwool"
+    },
+    "C": {
+      "item": "thermalfoundation:material",
+      "data" : 513,
+      "comment" : "reception coil"
+    },
+    "D": {
+      "item": "thermalfoundation:material",
+      "data" : 515,
+      "comment" : "conductance coil"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentComputerChip"
+  }
+}

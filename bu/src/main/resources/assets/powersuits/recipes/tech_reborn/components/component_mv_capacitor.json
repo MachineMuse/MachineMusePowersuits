@@ -1,0 +1,31 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:tech_reborn_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "TWT",
+    "TET",
+    "TET"
+  ],
+  "key": {
+    "T": {
+      "type": "forge:ore_dict",
+      "ore": "ingotTitanium"
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "E": {
+      "type": "forge:ore_dict",
+      "ore" : "energyCrystal"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentMVCapacitor"
+  }
+}

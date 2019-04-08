@@ -1,0 +1,30 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:gregtech_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    " M ",
+    "PIP",
+    "PMP"
+  ],
+  "key": {
+    "M": {
+      "item": "minecraft:magma_cream"
+    },
+    "P": {
+      "type": "forge:ore_dict",
+      "ore" : "plateAlloyCarbon"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore" : "blockCarbon"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentMyofiberGel"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:gregtech_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "II",
+    "BI",
+    "II"
+  ],
+  "key": {
+    "B": {
+      "type": "forge:ore_dict",
+      "ore" : "circuitBasic"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore" : "ingotNickel"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentPlatingIron"
+  }
+}

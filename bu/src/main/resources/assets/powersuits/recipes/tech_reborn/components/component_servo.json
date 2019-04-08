@@ -1,0 +1,35 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:tech_reborn_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "SBS",
+    "ACA",
+    "SBS"
+  ],
+  "key": {
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "ingotSteel"
+    },
+    "B": {
+      "type": "forge:ore_dict",
+      "ore" : "ingotBrass"
+    },
+    "A": {
+      "type": "forge:ore_dict",
+      "ore" : "circuitAdvanced"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore" : "componentSolenoid"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentServo"
+  }
+}

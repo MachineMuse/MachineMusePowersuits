@@ -1,0 +1,40 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:ic2_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "W!W",
+    "R@!",
+    "GRW"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "!": {
+      "type": "forge:ore_dict",
+      "ore": "dyeGreen"
+    },
+    "@": {
+      "type": "forge:ore_dict",
+      "ore": "circuitBasic"
+    },
+    "R": {
+      "type": "forge:ore_dict",
+      "ore": "dustRedstone"
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "ingotGold"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentControlCircuit"
+  }
+}
+

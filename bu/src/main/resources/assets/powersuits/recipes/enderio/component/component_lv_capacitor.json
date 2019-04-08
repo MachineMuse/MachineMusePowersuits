@@ -1,0 +1,26 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:enderio_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "WBW",
+    "W W"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "B": {
+      "item": "enderio:item_basic_capacitor",
+      "data": 0
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentLVCapacitor"
+  }
+}

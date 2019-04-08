@@ -1,0 +1,31 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:tech_reborn_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "RWR",
+    "RBR",
+    "RBR"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "R": {
+      "type": "forge:ore_dict",
+      "ore" : "ingotRefinedIron"
+    },
+    "B": {
+      "type": "forge:ore_dict",
+      "ore" : "reBattery"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentLVCapacitor"
+  }
+}

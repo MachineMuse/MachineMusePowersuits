@@ -1,0 +1,28 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:vanilla_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "WWW",
+    "G G",
+    "WWW"
+  ],
+  "key": {
+    "W": {
+      "item" : "minecraft:wool",
+      "data" : 15,
+      "_comment" : "no vanilla oredict entries at all for wool"
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "blockGlass"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentRubberHose"
+  }
+}

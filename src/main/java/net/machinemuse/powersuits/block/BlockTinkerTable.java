@@ -1,85 +1,52 @@
 package net.machinemuse.powersuits.block;
 
-import net.machinemuse.powersuits.api.constants.MPSModConstants;
-import net.machinemuse.powersuits.common.ModularPowersuits;
-import net.machinemuse.powersuits.common.config.MPSConfig;
+import net.machinemuse.powersuits.tileentity.TileEntityTinkerTable;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.common.ToolType;
 
-/**
- * This is the tinkertable block. It doesn't do much except look pretty
- * (eventually) and provide a way for the player to access the TinkerTable GUI.
- *
- * @author MachineMuse
- * <p>
- * <p>
- * Ported to Java by lehjr on 10/21/16.
- */
+import javax.annotation.Nullable;
+
 public class BlockTinkerTable extends BlockHorizontal {
-    public static final String name = "tinkerTable";
-
-    public BlockTinkerTable() {
-        super(Material.IRON);
-        setHardness(1.5F);
-        setResistance(1000.0F);
-        setHarvestLevel("pickaxe", 2);
-        setCreativeTab(MPSConfig.INSTANCE.mpsCreativeTab);
-        setSoundType(SoundType.METAL);
-        setLightOpacity(0);
-        setLightLevel(0.4f);
-        setTickRandomly(false);
-        setRegistryName(MPSModConstants.MODID, name.toLowerCase());
-        setTranslationKey(new StringBuilder(MPSModConstants.MODID).append(".").append(name).toString());
-        setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
-        GameRegistry.registerTileEntity(TileEntityTinkerTable.class, getRegistryName());
+    public BlockTinkerTable(String regName) {
+        super(Block.Properties.create(Material.IRON)
+                .hardnessAndResistance(1.5F, 1000.0F)
+                .sound(SoundType.METAL)
+                .variableOpacity()
+                .lightValue(1));
+        setRegistryName(regName);
+        setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, EnumFacing.NORTH));
     }
 
     @Override
-    public boolean isOpaqueCube(IBlockState state) {
-        return false;
+    public int getHarvestLevel(IBlockState blockState) {
+        return 2;
+    }
+
+    @Nullable
+    @Override
+    public ToolType getHarvestTool(IBlockState p_getHarvestTool_1_) {
+        return ToolType.PICKAXE;
     }
 
     @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.byHorizontalIndex(meta));
-    }
-
-    @Override
-    public IBlockState withRotation(IBlockState state, Rotation rot) {
-        return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
-    }
-
-    @Override
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
-    }
-
-    @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (playerIn.isSneaking())
-            return false;
-        if (worldIn.isRemote)
-            playerIn.openGui(ModularPowersuits.getInstance(), 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
-        return true;
-    }
-
-    @SuppressWarnings("deprecation")
-    @Override
-    public boolean isFullBlock(IBlockState state) {
-        return false;
+    protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+        builder.add(HORIZONTAL_FACING);
     }
 
     @Override
@@ -87,18 +54,53 @@ public class BlockTinkerTable extends BlockHorizontal {
         return true;
     }
 
+    @Nullable
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
-        return new TileEntityTinkerTable(state.getValue(FACING));
+    public TileEntity createTileEntity(IBlockState state, IBlockReader world) {
+        return new TileEntityTinkerTable();
+    }
+
+    /**
+     * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
+     * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
+     * @deprecated call via {@link IBlockState#getRenderType()} whenever possible. Implementing/overriding is fine.
+     */
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.MODEL;
+    }
+
+    @SuppressWarnings( "deprecation" )
+    @Override
+    public BlockFaceShape getBlockFaceShape(IBlockReader worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+        return BlockFaceShape.UNDEFINED;
     }
 
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[]{FACING});
+    public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+//        if (!worldIn.isRemote && !player.isSneaking())
+//            NetworkHooks.openGui((EntityPlayerMP) player,new GuiTinkerTable(player, hitX, hitY, hitZ));
+//
+//            // see also minecraft.addScheduledTask(() -> minecraft.displayGuiScreen(gui));
+//
+//            ﻿
+        return true;
+    }
+
+    @Nullable
+    @Override
+    public IBlockState getStateForPlacement(BlockItemUseContext context) {
+        return this.getDefaultState().with(HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite());
     }
 
     @Override
-    public int getMetaFromState(IBlockState state) {
-        return state.getValue(FACING).getHorizontalIndex();
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
+    }
+
+    @SuppressWarnings( "deprecation" )
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
     }
 }

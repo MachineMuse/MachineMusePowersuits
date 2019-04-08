@@ -1,19 +1,20 @@
 package net.machinemuse.powersuits.client.render.entity;
 
+import net.machinemuse.numina.client.render.MuseRenderer;
 import net.machinemuse.numina.client.render.RenderState;
-import net.machinemuse.numina.utils.math.Colour;
-import net.machinemuse.numina.utils.math.geometry.DrawableMuseCircle;
-import net.machinemuse.numina.utils.render.MuseRenderer;
+import net.machinemuse.numina.client.render.entity.MuseEntityRenderer;
+import net.machinemuse.numina.math.Colour;
+import net.machinemuse.numina.math.geometry.DrawableMuseCircle;
 import net.machinemuse.powersuits.entity.EntityPlasmaBolt;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import java.nio.DoubleBuffer;
 
-import static net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND;
-import static net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND;
+import static net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND;
+import static net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND;
 
 public class EntityRendererPlasmaBolt extends MuseEntityRenderer<EntityPlasmaBolt> {
     public static DoubleBuffer unrotatebuffer;
@@ -58,6 +59,7 @@ public class EntityRendererPlasmaBolt extends MuseEntityRenderer<EntityPlasmaBol
         GL11.glPopMatrix();
     }
 
+    @SuppressWarnings( "deprecation" )
     public static void doRender(double boltSizeIn, ItemCameraTransforms.TransformType cameraTransformTypeIn) {
         if (boltSizeIn != 0) {
             GL11.glPushMatrix();

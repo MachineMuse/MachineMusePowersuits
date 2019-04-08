@@ -1,0 +1,35 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:gregtech_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "ISI",
+    "WEW",
+    "ISI"
+  ],
+  "key": {
+    "I": {
+      "type": "forge:ore_dict",
+      "ore" : "plateIridium"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "componentSolenoid"
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore" : "wireGt01Superconductor"
+    },
+    "E": {
+      "type": "forge:ore_dict",
+      "ore" : "circuitElite"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentFieldEmitter"
+  }
+}

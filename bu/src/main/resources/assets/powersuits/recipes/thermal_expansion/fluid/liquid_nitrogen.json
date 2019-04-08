@@ -1,0 +1,37 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:thermal_expansion_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "DDD",
+    "FFF",
+    " B "
+  ],
+  "key": {
+    "D": {
+      "type": "forge:ore_dict",
+      "ore": "dustCryotheum"
+    },
+    "F": {
+      "type": "minecraft:item_nbt",
+      "item": "forge:bucketfilled",
+      "nbt": {
+        "FluidName": "cryotheum",
+        "Amount": 1000
+      }
+    },
+    "B": {
+      "item": "minecraft:bucket"
+    }
+  },
+  "result": {
+    "item": "forge:bucketfilled",
+    "nbt": {
+      "FluidName": "liquid_nitrogen",
+      "Amount": 1000
+    }
+  }
+}

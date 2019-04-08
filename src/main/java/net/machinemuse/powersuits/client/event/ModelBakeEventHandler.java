@@ -1,69 +1,114 @@
 package net.machinemuse.powersuits.client.event;
 
-import net.machinemuse.powersuits.client.helper.ModelHelper;
+
+import com.google.common.collect.ImmutableMap;
+import net.machinemuse.numina.client.model.helper.MuseModelHelper;
+import net.machinemuse.powersuits.basemod.MPSItems;
+import net.machinemuse.powersuits.basemod.ModularPowersuits;
 import net.machinemuse.powersuits.client.model.block.ModelLuxCapacitor;
-import net.machinemuse.powersuits.client.model.item.ModelPowerFist;
-import net.machinemuse.powersuits.common.MPSItems;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.machinemuse.powersuits.client.model.block.TinkerTableModel;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.registry.IRegistry;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.SimpleModelState;
+import net.minecraftforge.common.model.IModelPart;
+import net.minecraftforge.common.model.IModelState;
+import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-import java.io.IOException;
+import java.util.Map;
 
-
-/**
- * Ported to Java by lehjr on 12/22/16.
- */
-@OnlyIn(Dist.CLIENT)
 public enum ModelBakeEventHandler {
     INSTANCE;
 
     public static final ModelResourceLocation powerFistIconLocation = new ModelResourceLocation(MPSItems.INSTANCE.powerFist.getRegistryName().toString(), "inventory");
     public static IBakedModel powerFistIconModel;
-    private static IRegistry<ModelResourceLocation, IBakedModel> modelRegistry;
-//
-//    // Armor icons
-//    public static final ModelResourceLocation powerArmorHeadModelLocation = new ModelResourceLocation(MPSItems.INSTANCE.powerArmorHead.getRegistryName(), "inventory");
-//    public static final ModelResourceLocation powerArmorChestModelLocation = new ModelResourceLocation(MPSItems.INSTANCE.powerArmorTorso.getRegistryName(), "inventory");
-//    public static final ModelResourceLocation powerArmorLegsModelLocation = new ModelResourceLocation(MPSItems.INSTANCE.powerArmorLegs.getRegistryName(), "inventory");
-//    public static final ModelResourceLocation powerArmorFeetModelLocation = new ModelResourceLocation(MPSItems.INSTANCE.powerArmorFeet.getRegistryName(), "inventory");
+
+    final IModelState modelState = getModelState();
+
+
+
+
+    private static Map<ModelResourceLocation, IBakedModel> modelRegistry;
+
+
+    //    ModelResourceLocation tinkerTableLocation = new ModelResourceLocation(new ResourceLocation(ModularPowersuits.MODID, BlockTinkerTable.name).toString());
+
 
     @SubscribeEvent
-    public void onModelBake(ModelBakeEvent event) throws IOException {
+    public void onModelBake(ModelBakeEvent event) {
         modelRegistry = event.getModelRegistry();
+        IModel tinkertableUnbaked = MuseModelHelper.getModel(new ResourceLocation(ModularPowersuits.MODID,
+                "models/block/powerarmor_workbench.obj"));
 
-        // New Lux Capacitor Model
-        event.getModelRegistry().put(ModelLuxCapacitor.modelResourceLocation, new ModelLuxCapacitor());
+        // New Lux Capacitor Inventory Model
+        modelRegistry.put(ModelLuxCapacitor.modelResourceLocation, new ModelLuxCapacitor());
+
+        // new Tinker Table Inventory Model
+        modelRegistry.put(
+                new ModelResourceLocation(MPSItems.INSTANCE.tinkerTableRegName, "inventory"),
+                new TinkerTableModel(tinkertableUnbaked.bake(ModelLoader.defaultModelGetter(),
+                        MuseModelHelper.defaultTextureGetter(),
+                        modelState,
+                        true, DefaultVertexFormats.ITEM)));
 
         for (EnumFacing facing : EnumFacing.values()) {
             modelRegistry.put(ModelLuxCapacitor.getModelResourceLocation(facing), new ModelLuxCapacitor());
+
+            if (facing.equals(EnumFacing.DOWN) || facing.equals(EnumFacing.UP))
+                continue;
+
+            modelRegistry.put(
+                new ModelResourceLocation(
+                        MPSItems.INSTANCE.luxCapaRegName, "facing=" + facing.getName()),
+                        tinkertableUnbaked.bake(ModelLoader.defaultModelGetter(),
+                            MuseModelHelper.defaultTextureGetter(), TRSRTransformation.from(facing), true, DefaultVertexFormats.ITEM));
         }
 
-        // Power Fist
-        powerFistIconModel = modelRegistry.get(powerFistIconLocation);
-        modelRegistry.put(powerFistIconLocation, new ModelPowerFist(powerFistIconModel));
-
-//        // set up armor icon models for coloring because that's how it used to work
-//        IBakedModel powerArmorHeadModel = modelRegistry.getObject(powerArmorHeadModelLocation);
-//        IBakedModel powerArmorChestModel = modelRegistry.getObject(powerArmorChestModelLocation);
-//        IBakedModel powerArmorLegsModel = modelRegistry.getObject(powerArmorLegsModelLocation);
-//        IBakedModel powerArmorFeetModel = modelRegistry.getObject(powerArmorFeetModelLocation);
+//        for (ResourceLocation location : modelRegistry.keySet()) {
+////            MuseLogger.logInfo("model location namespace: " + location.getNamespace());
 //
-//        IBakedModel powerArmorIconModel = new ArmorIcon(powerArmorHeadModel,
-//                                                        powerArmorChestModel,
-//                                                        powerArmorLegsModel,
-//                                                        powerArmorFeetModel);
 //
-//        modelRegistry.putObject(powerArmorHeadModelLocation, powerArmorIconModel);
-//        modelRegistry.putObject(powerArmorChestModelLocation, powerArmorIconModel);
-//        modelRegistry.putObject(powerArmorLegsModelLocation, powerArmorIconModel);
-//        modelRegistry.putObject(powerArmorFeetModelLocation, powerArmorIconModel);
+//            if (location.getNamespace().equals(ModularPowersuits.MODID)) {
+//                Numina.LOGGER.info("MPS model location: " + location.toString());
+//            }
+//        }
 
-        ModelHelper.loadArmorModels(null);
+
+
+    }
+
+    public IModelState getModelState() {
+        ImmutableMap.Builder<IModelPart, TRSRTransformation> builder = ImmutableMap.builder();
+
+        // first person and third person models rotated to so that the side away from the player is the same as when it is placed
+        builder.put(ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND,
+                MuseModelHelper.get(0, 0, 0, 0, 135, 0, 0.4f));
+
+        builder.put(ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND,
+                MuseModelHelper.get(0, 0, 0, 0, 135, 0, 0.4f));
+
+        builder.put(ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND,
+                MuseModelHelper.get(0, 2.5f, 0, 75, -135, 0, 0.375f));
+
+        builder.put(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND,
+                MuseModelHelper.get(0, 2.5f, 0, 75, -135, 0, 0.375f));
+
+        builder.put(ItemCameraTransforms.TransformType.GUI,
+                MuseModelHelper.get(-0.0625F, 0.25F, 0, 30, 225, 0, 0.625f));
+
+        builder.put(ItemCameraTransforms.TransformType.GROUND,
+                MuseModelHelper.get(0, 3, 0, 0, 0, 0, 0.25f));
+
+        builder.put(ItemCameraTransforms.TransformType.FIXED,
+                MuseModelHelper.get(0, 0, 0, 0, 0, 0, 0.5f));
+
+        return new SimpleModelState(builder.build());
     }
 }

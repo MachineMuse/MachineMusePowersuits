@@ -1,0 +1,26 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:enderio_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    " W ",
+    "WP ",
+    " PW"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "P": {
+      "type": "forge:ore_dict",
+      "ore": "ingotPulsatingIron"
+    }
+  },
+  "result": {
+    "item": "powersuits:power_fist"
+  }
+}

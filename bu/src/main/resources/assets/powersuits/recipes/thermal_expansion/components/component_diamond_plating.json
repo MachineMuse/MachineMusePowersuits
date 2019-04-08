@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:thermal_expansion_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "DD",
+    "WD",
+    "DD"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "gearElectrum"
+    },
+    "D": {
+      "type": "forge:ore_dict",
+      "ore": "gemDiamond"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentPlatingDiamond"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:thermal_expansion_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "WHW",
+    "WCW",
+    "WHW"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "H": {
+      "type": "forge:ore_dict",
+      "ore": "componentHVCapacitor"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "componentComputerChip"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentEVCapacitor"
+  }
+}

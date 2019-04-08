@@ -1,0 +1,21 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:vanilla_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "P"
+  ],
+  "key": {
+    "P": {
+      "type": "forge:ore_dict",
+      "ore": "componentPlatingIron"
+    }
+  },
+  "result": {
+    "item": "minecraft:iron_ingot",
+    "count": 5
+  }
+}

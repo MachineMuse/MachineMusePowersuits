@@ -1,0 +1,31 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:gregtech_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "WWW",
+    "S S",
+    "C C"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "blockWool"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "string"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore" : "plateAlloyCarbon"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentParachute"
+  }
+}

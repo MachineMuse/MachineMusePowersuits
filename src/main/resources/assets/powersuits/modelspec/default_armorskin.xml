@@ -1,16 +1,16 @@
 <modelSpec specName="default_armorskin" type="armor skin" default="true">
     <textures>
         <texture file="powersuits:textures/items/armor/sebkarmor.png">
-            <binding slot="head"/>
+            <binding itemSlot="head"/>
         </texture>
         <texture file="powersuits:textures/items/armor/sebkarmor.png">
-            <binding slot="chest"/>
+            <binding itemSlot="chest"/>
         </texture>
         <texture file="powersuits:textures/items/armor/sebkarmorpants.png">
-            <binding slot="legs"/>
+            <binding itemSlot="legs"/>
         </texture>
         <texture file="powersuits:textures/items/armor/sebkarmor.png">
-            <binding slot="feet"/>
+            <binding itemSlot="feet"/>
         </texture>
     </textures>
 </modelSpec>

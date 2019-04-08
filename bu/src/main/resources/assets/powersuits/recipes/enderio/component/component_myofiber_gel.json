@@ -1,0 +1,30 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:enderio_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    " M ",
+    "IBI",
+    "IMI"
+  ],
+  "key": {
+    "M": {
+      "item": "minecraft:magma_cream"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotDarkSteel"
+    },
+    "B": {
+      "type": "forge:ore_dict",
+      "ore": "ballDarkSteel"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentMyofiberGel"
+  }
+}

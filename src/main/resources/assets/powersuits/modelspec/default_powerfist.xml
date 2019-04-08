@@ -6,7 +6,7 @@
                 <trsrTransformation type="first_person_right_hand" translation="11.8, 8, 7" rotation="-16, -162, 0" scale="0.5, 0.5, 0.5"/>
                 <trsrTransformation type="ground" translation="0, 5, 0" rotation="0,0,0" scale="0.630, 0.630, 0.630"/>
             </itemCameraTransforms>
-            <binding slot="mainhand" target="RightHand">
+            <binding itemSlot="mainhand" target="RightHand">
                 <part partName="mainarm"/>
                 <part partName="armorright"/>
                 <part partName="armorleft"/>
@@ -40,7 +40,7 @@
                 <trsrTransformation type="first_person_right_hand" translation="11.8, 8, 7" rotation="-16, -162, 0" scale="0.5, 0.5, 0.5"/>
                 <trsrTransformation type="ground" translation="0, 5, 0" rotation="0,0,0" scale="0.630, 0.630, 0.630"/>
             </itemCameraTransforms>
-            <binding slot="mainhand" target="RightHand" itemState="normal">
+            <binding itemSlot="mainhand" target="RightHand" itemState="normal">
                 <part partName="index1"/>
                 <part partName="index2"/>
                 <part partName="middlefinger1"/>
@@ -59,7 +59,7 @@
                 <trsrTransformation type="first_person_right_hand" translation="8.8, 8, 7" rotation="-16, -162, 0" scale="0.5, 0.5, 0.5"/>
                 <trsrTransformation type="ground" translation="0, 5, 0" rotation="0,0,0" scale="0.630, 0.630, 0.630"/>
             </itemCameraTransforms>
-            <binding slot="mainhand" target="RightHand" itemState="firing">
+            <binding itemSlot="mainhand" target="RightHand" itemState="firing">
                 <part partName="index1"/>
                 <part partName="index2"/>
                 <part partName="middlefinger1"/>
@@ -77,7 +77,7 @@
                 <trsrTransformation type="third_person_left_hand" translation="13.2, 8.01, 9" rotation="-15, 180, 0" scale="0.630, 0.630, 0.630"/>
                 <trsrTransformation type="first_person_left_hand" translation="6.8, 8, 7" rotation="344, 162, 0" scale="0.5, 0.5, 0.5"/>
             </itemCameraTransforms>
-            <binding slot="offhand" target="LeftHand">
+            <binding itemSlot="offhand" target="LeftHand">
                 <part partName="mainarm"/>
                 <part partName="armorright"/>
                 <part partName="armorleft"/>
@@ -110,7 +110,7 @@
                 <trsrTransformation type="third_person_left_hand" translation="13.2, 8.01, 9" rotation="-15, 180, 0" scale="0.630, 0.630, 0.630"/>
                 <trsrTransformation type="first_person_left_hand" translation="6.8, 8, 7" rotation="344, 162, 0" scale="0.5, 0.5, 0.5"/>
             </itemCameraTransforms>
-            <binding slot="offhand" target="LeftHand" itemState="normal">
+            <binding itemSlot="offhand" target="LeftHand" itemState="normal">
                 <part partName="index1"/>
                 <part partName="index2"/>
                 <part partName="middlefinger1"/>
@@ -128,7 +128,7 @@
                 <trsrTransformation type="third_person_left_hand" translation="13.2, 8.01, 9" rotation="-15, 180, 0" scale="0.630, 0.630, 0.630"/>
                 <trsrTransformation type="first_person_left_hand" translation="6.8, 8, 7" rotation="344, 162, 0" scale="0.5, 0.5, 0.5"/>
             </itemCameraTransforms>
-            <binding slot="offhand" target="LeftHand" itemState="firing">
+            <binding itemSlot="offhand" target="LeftHand" itemState="firing">
                 <part partName="index1"/>
                 <part partName="index2"/>
                 <part partName="middlefinger1"/>

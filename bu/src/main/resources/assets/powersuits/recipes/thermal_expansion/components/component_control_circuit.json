@@ -1,0 +1,40 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:thermal_expansion_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "W!I",
+    "RD!",
+    "IRW"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "!": {
+      "type": "forge:ore_dict",
+      "ore": "dyeGreen"
+    },
+    "I" : {
+      "type": "forge:ore_dict",
+      "ore": "ingotElectrum"
+    },
+    "R": {
+      "type": "forge:ore_dict",
+      "ore": "dustRedstone"
+    },
+    "D": {
+      "item": "thermalfoundation:material",
+      "data" : 515,
+      "comment" : "conductance coil"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentControlCircuit"
+  }
+}

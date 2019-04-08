@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:enderio_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "CDC",
+    "CCC",
+    "CCC"
+  ],
+  "key": {
+    "D": {
+      "type": "forge:ore_dict",
+      "ore": "ballDarkSteel"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "componentCarbonMyofiber"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore": "componentArtificialMuscle"
+  }
+}

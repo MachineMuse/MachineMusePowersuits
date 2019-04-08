@@ -1,0 +1,30 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:tech_reborn_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    " M ",
+    "PSP",
+    "PMP"
+  ],
+  "key": {
+    "M": {
+      "item": "minecraft:magma_cream"
+    },
+    "P": {
+      "type": "forge:ore_dict",
+      "ore" : "plateCarbon"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore" : "dustSulfur"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentMyofiberGel"
+  }
+}

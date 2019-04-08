@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:enderio_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "IBI",
+    "BIB",
+    "IBI"
+  ],
+  "key": {
+    "B": {
+      "type": "forge:ore_dict",
+      "ore": "ballDarkSteel"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotDarkSteel"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentCarbonMyofiber"
+  }
+}

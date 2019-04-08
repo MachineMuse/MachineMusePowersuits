@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:gregtech_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    " CC",
+    "CCS",
+    "C  "
+  ],
+  "key": {
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "componentSolenoid"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore" : "plateAlloyCarbon"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentGliderWing"
+  }
+}

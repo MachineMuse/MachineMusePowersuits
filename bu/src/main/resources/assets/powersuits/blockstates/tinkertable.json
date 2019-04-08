@@ -1,0 +1,38 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "custom": { "flip-v": true },
+    "model": "powersuits:powerarmor_workbench.obj"
+  },
+  "variants": {
+    "inventory": [{
+      "model": "powersuits:powerarmor_workbench.obj",
+      "transform": "forge:default-block"
+    }],
+    "facing": {
+      "north": {
+        "transform": {
+          "scale": 10
+        }
+      },
+      "south": {
+        "transform": {
+          "rotation": {"y": 180},
+          "scale": 1
+        }
+      },
+      "west": {
+        "transform": {
+          "rotation": {"y": 90},
+          "scale" : 1
+        }
+      },
+      "east": {
+        "transform": {
+          "rotation": {"y": 270},
+          "scale" : 1
+        }
+      }
+    }
+  }
+}

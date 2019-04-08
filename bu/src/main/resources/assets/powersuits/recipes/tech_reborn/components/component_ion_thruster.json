@@ -1,0 +1,39 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:tech_reborn_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "ISI",
+    "EHE",
+    "P P"
+  ],
+  "key": {
+    "I": {
+      "type": "forge:ore_dict",
+      "ore" : "plateIridium"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore" : "craftingSuperconductor"
+    },
+    "E": {
+      "type": "forge:ore_dict",
+      "ore" : "componentFieldEmitter"
+    },
+    "H": {
+      "type": "forge:ore_dict",
+      "ore" : "componentHVCapacitor"
+    },
+    "P": {
+      "item" : "techreborn:part",
+      "data": 27
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentIonThruster"
+  }
+}

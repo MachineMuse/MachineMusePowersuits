@@ -1,0 +1,8 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "custom": { "flip-v": true },
+    "model": "powersuits:block/luxcapacitor.obj",
+    "texture": "powersuits:models/luxcapacitor"
+  }
+}

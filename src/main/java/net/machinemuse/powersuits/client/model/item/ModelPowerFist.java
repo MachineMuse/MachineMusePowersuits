@@ -1,25 +1,21 @@
 package net.machinemuse.powersuits.client.model.item;
 
 import com.google.common.collect.ImmutableList;
-import net.machinemuse.numina.common.constants.NuminaNBTConstants;
-import net.machinemuse.numina.utils.math.Colour;
-import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.numina.client.model.helper.MuseModelHelper;
+import net.machinemuse.numina.client.render.modelspec.ModelPartSpec;
+import net.machinemuse.numina.client.render.modelspec.ModelRegistry;
+import net.machinemuse.numina.client.render.modelspec.ModelSpec;
+import net.machinemuse.numina.client.render.modelspec.PartSpecBase;
+import net.machinemuse.numina.constants.ModelSpecTags;
+import net.machinemuse.numina.math.Colour;
+import net.machinemuse.numina.nbt.NBTTagAccessor;
 import net.machinemuse.powersuits.client.event.ModelBakeEventHandler;
-import net.machinemuse.powersuits.client.helper.ModelHelper;
-import net.machinemuse.powersuits.client.helper.ModelTransformCalibration;
-import net.machinemuse.powersuits.client.render.modelspec.ModelPartSpec;
-import net.machinemuse.powersuits.client.render.modelspec.ModelRegistry;
-import net.machinemuse.powersuits.client.render.modelspec.ModelSpec;
-import net.machinemuse.powersuits.client.render.modelspec.PartSpecBase;
-import net.machinemuse.powersuits.common.ModuleManager;
-import net.machinemuse.powersuits.item.IModularItemBase;
-import net.machinemuse.powersuits.utils.nbt.MPSNBTUtils;
-import net.machinemuse.powersuits.utils.nbt.NBTTagAccessor;
+import net.machinemuse.powersuits.client.model.helper.MPSModelHelper;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.block.model.ItemOverrideList;
+import net.minecraft.client.renderer.model.BakedQuad;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,13 +24,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.model.TRSRTransformation;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
-import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by lehjr on 12/19/16.
@@ -50,123 +50,19 @@ public class ModelPowerFist implements IBakedModel {
     static boolean isFiring = false;
     static IBakedModel iconModel;
     NBTTagCompound renderTag = new NBTTagCompound();
-    ModelTransformCalibration calibration;
+//    ModelTransformCalibration calibration;
     NBTTagCompound renderSpec;
 
     public ModelPowerFist(IBakedModel bakedModelIn) {
         this.iconModel = (bakedModelIn instanceof ModelPowerFist) ? ((ModelPowerFist) bakedModelIn).iconModel : bakedModelIn;
-        calibration = new ModelTransformCalibration();
+//        calibration = new ModelTransformCalibration();
     }
-
-    /**
-     * this is great for single models or those that share the exact same transforms for the different camera transform
-     * type. However, when dealing with quads from different models, it's useless.
-     */
-    @Override
-    public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
-        modelcameraTransformType = cameraTransformType;
-        switch (cameraTransformType) {
-            case FIRST_PERSON_LEFT_HAND:
-            case THIRD_PERSON_LEFT_HAND:
-            case FIRST_PERSON_RIGHT_HAND:
-            case THIRD_PERSON_RIGHT_HAND:
-                return Pair.of(this, TRSRTransformation.blockCornerToCenter(TRSRTransformation.identity()).getMatrix());
-            default:
-                return iconModel.handlePerspective(cameraTransformType);
-        }
-    }
-
-    @Override
-    public boolean isAmbientOcclusion() {
-        return iconModel.isAmbientOcclusion();
-    }
-
-    @Override
-    public boolean isBuiltInRenderer() {
-        return false;
-    }
-
-    @Override
-    public TextureAtlasSprite getParticleTexture() {
-        return iconModel.getParticleTexture();
-    }
-
-    @Override
-    public boolean isGui3d() {
-        if (iconModel == null)
-            iconModel = ModelBakeEventHandler.INSTANCE.powerFistIconModel;
-        return iconModel.isGui3d();
-    }
-
-
-//    @Override
-//    public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
-//        if (side != null) return Collections.EMPTY_LIST;
-//        try {
-//            return ModelPowerFistHelper.INSTANCE.colouredPowerFistQuadMap.get(
-//                    new ModelPowerFistHelper.PowerFistQuadMapKey(colour, modelcameraTransformType, isFiring));
-//        } catch (Exception e) {
-//            MuseLogger.logException("failed to loadButton get quads from cache: ", e);
-//            return Collections.EMPTY_LIST;
-//        }
-//    }
-
-
-    // todo: implement cache
-
-//    private final LoadingCache<ModelPowerFist.CachKey, List<BakedQuad>> cache = CacheBuilder
-//            .newBuilder()
-//            .maximumSize(40)
-//            .build(new CacheLoader<ModelPowerFist.CachKey, List<BakedQuad>>() {
-//                @Override
-//                public List<BakedQuad> loadButton(ModelPowerFist.CachKey key) throws Exception {
-//                    return null;
-//                }
-//            });
-//
-//
-//    static class CachKey {
-//        public final String partName;
-//        public final ItemCameraTransforms.TransformType transformType;
-//        public final Colour colour;
-//        public final boolean glow;
-//
-//        CachKey(final String partName,
-//                final ItemCameraTransforms.TransformType transformType,
-//                final Colour colour,
-//                final boolean glow){
-//            this.transformType=transformType;
-//            this.partName=partName;
-//            this.colour=colour;
-//            this.glow=glow;
-//        }
-//
-//        @Override
-//        public int hashCode() {
-//            return Objects.hash(partName, transformType, colour, glow);
-//        }
-//
-//        @Override
-//        public boolean equals(Object obj) {
-//            if (this == obj) {
-//                return true;
-//            }
-//            if (obj == null || getClass() != obj.getClass()) {
-//                return false;
-//            }
-//            final CachKey other = (CachKey) obj;
-//            return Objects.equals(this.partName, other.partName)
-//                    && Objects.equals(this.transformType, other.transformType)
-//                    && Objects.equals(this.colour, other.colour)
-//                    && Objects.equals(this.glow, other.glow);
-//        }
-//    }
 
     /**
      * Since this is where the quads are actually
      */
     @Override
-    public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
+    public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, Random rand) {
         if (side != null)
             return ImmutableList.of();
 
@@ -178,7 +74,7 @@ public class ModelPowerFist implements IBakedModel {
         }
 
         ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
-        int[] colours = renderSpec.getIntArray(NuminaNBTConstants.TAG_COLOURS);
+        int[] colours = renderSpec.getIntArray(ModelSpecTags.TAG_COLOURS);
         Colour partColor;
         TRSRTransformation transform;
 
@@ -204,11 +100,53 @@ public class ModelPowerFist implements IBakedModel {
 
                     if ((!isFiring && (itemState.equals("all") || itemState.equals("normal"))) ||
                             (isFiring && (itemState.equals("all") || itemState.equals("firing"))))
-                        builder.addAll(ModelHelper.getColouredQuadsWithGlowAndTransform(((ModelPartSpec) partSpec).getQuads(), partColor, transform, glow));
+                        builder.addAll(MuseModelHelper.getColouredQuadsWithGlowAndTransform(((ModelPartSpec) partSpec).getQuads(), partColor, transform, glow));
                 }
             }
         }
         return builder.build();
+    }
+
+
+
+    /**
+     * this is great for single models or those that share the exact same transforms for the different camera transform
+     * type. However, when dealing with quads from different models, it's useless.
+     */
+    @Override
+    public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
+        modelcameraTransformType = cameraTransformType;
+        switch (cameraTransformType) {
+            case FIRST_PERSON_LEFT_HAND:
+            case THIRD_PERSON_LEFT_HAND:
+            case FIRST_PERSON_RIGHT_HAND:
+            case THIRD_PERSON_RIGHT_HAND:
+                return Pair.of(this, TRSRTransformation.blockCornerToCenter(TRSRTransformation.identity()).getMatrixVec());
+            default:
+                return iconModel.handlePerspective(cameraTransformType);
+        }
+    }
+
+    @Override
+    public boolean isAmbientOcclusion() {
+        return false;
+    }
+
+    @Override
+    public boolean isGui3d() {
+        if (iconModel == null)
+            iconModel = ModelBakeEventHandler.INSTANCE.powerFistIconModel;
+        return iconModel.isGui3d();
+    }
+
+    @Override
+    public boolean isBuiltInRenderer() {
+        return false;
+    }
+
+    @Override
+    public TextureAtlasSprite getParticleTexture() {
+        return iconModel.getParticleTexture();
     }
 
     @Override
@@ -218,24 +156,29 @@ public class ModelPowerFist implements IBakedModel {
 
     public class PowerFistItemOverrideList extends ItemOverrideList {
         public PowerFistItemOverrideList() {
-            super(Collections.EMPTY_LIST);
+            super(
+                    ModelLoaderRegistry.getMissingModel(),
+                    ModelLoader.defaultModelGetter(),
+                    MuseModelHelper.defaultTextureGetter(),
+                    ImmutableList.of());
         }
 
-        @Override
-        public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stackIn, World worldIn, EntityLivingBase entityIn) {
+        @Nullable
+        @Override // used to be handleItemState
+        public IBakedModel getModelWithOverrides(IBakedModel originalModel, ItemStack stackIn, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
             itemStack = stackIn;
-            renderSpec = MPSNBTUtils.getMuseRenderTag(stackIn);
+            renderSpec = MPSModelHelper.getMuseRenderTag(stackIn);
             world = worldIn;
             entity = entityIn;
-            item = itemStack.getItem();
+            item = stackIn.getItem();
             // Todo: eliminate
-            colour = ((IModularItemBase) item).getColorFromItemStack(itemStack);
+//            colour = ((IModularItemBase) item).getColorFromItemStack(stackin);
 
             if (entityIn instanceof EntityPlayer) {
-                if (!itemStack.isEmpty() && itemStack == entityIn.getHeldItemMainhand() && entityIn.isHandActive()
-                        && ModuleManager.INSTANCE.itemHasActiveModule(itemStack, MPSModuleConstants.MODULE_PLASMA_CANNON__DATANAME)) {
-                    isFiring = true;
-                } else
+//                if (!stackIn.isEmpty() && stackIn == entityIn.getHeldItemMainhand() && entityIn.isHandActive()
+//                        && ModuleManager.INSTANCE.itemHasActiveModule(stackin, MPSModuleConstants.MODULE_PLASMA_CANNON__DATANAME)) {
+//                    isFiring = true;
+//                } else
                     isFiring = false;
             } else isFiring = false;
 

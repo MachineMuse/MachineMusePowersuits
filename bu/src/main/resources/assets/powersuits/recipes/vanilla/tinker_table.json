@@ -1,0 +1,30 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:vanilla_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "IBI",
+    "BEB",
+    "IBI"
+  ],
+  "key": {
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    "B": {
+      "type": "forge:ore_dict",
+      "ore": "dyeBlue"
+    },
+    "E": {
+      "type": "forge:ore_dict",
+      "ore": "gemEmerald"
+    }
+  },
+  "result": {
+    "item": "powersuits:tinkertable"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:gregtech_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "IWI",
+    "HFH",
+    "I I"
+  ],
+  "key": {
+    "I": {
+      "type": "forge:ore_dict",
+      "ore" : "plateIridium"
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore" : "wireGt02Superconductor"
+    },
+    "H": {
+      "type": "forge:ore_dict",
+      "ore" : "componentHVCapacitor"
+    },
+    "F": {
+      "type": "forge:ore_dict",
+      "ore" : "componentFieldEmitter"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentIonThruster"
+  }
+}

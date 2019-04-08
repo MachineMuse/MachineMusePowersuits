@@ -1,0 +1,28 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:thermal_expansion_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "CDC",
+    "CGC",
+    "CGC"
+  ],
+  "key": {
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "componentCarbonMyofiber"
+    },
+    "D" : {
+      "type": "forge:ore_dict",
+      "ore": "dustCoal"
+    },
+    "G" : {
+      "type": "forge:ore_dict",
+      "ore": "componentMyofiberGel"
+    }
+  },
+"result": {     "type": "forge:ore_dict",     "ore" : "componentArtificialMuscle"   }
+}

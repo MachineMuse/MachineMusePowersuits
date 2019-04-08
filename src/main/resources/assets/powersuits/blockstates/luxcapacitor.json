@@ -1,0 +1,60 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "custom": { "flip-v": true },
+    "model": "powersuits:block/luxcapacitor.obj",
+    "textures": {
+      "all" : "powersuits:models/luxcapacitor"
+    }
+  },
+  "variants": {
+    "facing": {
+
+      "down": {"x": 90},
+      "up": {"x": 270},
+      "north": {},
+      "south": {"y": 180},
+      "west": {"y": 90},
+      "east": {"y": 270},
+
+
+
+
+      "north": {
+        "transform": {
+          "scale": 1
+        }
+      },
+      "south": {
+        "transform": {
+          "rotation": {"y": 180},
+          "scale": 1
+        }
+      },
+      "west": {
+        "transform": {
+          "rotation": {"y": 90},
+          "scale" : 1
+        }
+      },
+      "east": {
+        "transform": {
+          "rotation": {"y": 270},
+          "scale" : 1
+        }
+      },
+      "up": {
+        "transform": {
+          "rotation": {"y": 270},
+          "scale" : 1
+        }
+      },
+      "down": {
+        "transform": {
+          "rotation": {"y": 270},
+          "scale" : 1
+        }
+      }
+    }
+  }
+}

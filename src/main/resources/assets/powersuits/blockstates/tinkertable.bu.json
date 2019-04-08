@@ -1,0 +1,14 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "powersuits:tinkertable"
+  },
+  "variants": {
+    "facing": {
+      "north": {},
+      "south": {"y": 180},
+      "west": {"y": 90},
+      "east": {"y": 270}
+    }
+  }
+}

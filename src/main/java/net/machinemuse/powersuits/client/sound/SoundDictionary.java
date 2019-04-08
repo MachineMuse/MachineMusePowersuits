@@ -1,15 +1,14 @@
 package net.machinemuse.powersuits.client.sound;
 
+import net.machinemuse.powersuits.basemod.ModularPowersuits;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
 
-import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
-
-@Mod.EventBusSubscriber(modid = MODID, value = Side.CLIENT)
+@Mod.EventBusSubscriber(modid = ModularPowersuits.MODID, value = Dist.CLIENT)
 public class SoundDictionary {
     private static final String SOUND_PREFIX = "powersuits:";
     public static SoundEvent SOUND_EVENT_GLIDER = registerSound("glider");
@@ -41,7 +40,7 @@ public class SoundDictionary {
     }
 
     private static SoundEvent registerSound(String soundName) {
-        ResourceLocation location = new ResourceLocation(MODID, soundName);
+        ResourceLocation location = new ResourceLocation(ModularPowersuits.MODID, soundName);
         SoundEvent event = new SoundEvent(location).setRegistryName(location);
         return event;
     }

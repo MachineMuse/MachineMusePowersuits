@@ -1,18 +1,17 @@
 package net.machinemuse.powersuits.network.packets;
 
-import io.netty.buffer.ByteBuf;
-import net.machinemuse.numina.common.constants.NuminaNBTConstants;
-import net.machinemuse.numina.item.IModularItem;
-import net.machinemuse.numina.network.MuseByteBufferUtils;
-import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
+import net.machinemuse.numina.constants.ModelSpecTags;
+import net.machinemuse.numina.nbt.MuseNBTUtils;
+import net.machinemuse.powersuits.basemod.ModuleManager;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.fml.network.NetworkEvent;
+
+import java.util.function.Supplier;
 
 /**
  * Author: MachineMuse (Claire Semple)
@@ -20,56 +19,62 @@ import net.minecraftforge.fml.relauncher.Side;
  * <p>
  * Ported to Java by lehjr on 11/14/16.
  */
-public class MusePacketColourInfo implements IMessage {
-    EntityPlayer player;
-    int itemSlot;
-    int[] tagData;
+public class MusePacketColourInfo {
+    protected int playerID;
+    protected int itemSlot;
+    protected int[] tagData;
 
     public MusePacketColourInfo() {
 
     }
 
-    public MusePacketColourInfo(EntityPlayer player, int itemSlot, int[] tagData) {
-        this.player = player;
+    public MusePacketColourInfo(int playerID, int itemSlot, int[] tagData) {
+        this.playerID = playerID;
         this.itemSlot = itemSlot;
         this.tagData = tagData;
     }
 
-    @Override
-    public void fromBytes(ByteBuf buf) {
-        this.itemSlot = buf.readInt();
-        this.tagData = MuseByteBufferUtils.readIntArray(buf);
+    public static void encode(MusePacketColourInfo msg, PacketBuffer packetBuffer) {
+        packetBuffer.writeInt(msg.playerID);
+        packetBuffer.writeInt(msg.itemSlot);
+        packetBuffer.writeVarIntArray(msg.tagData);
     }
 
-    @Override
-    public void toBytes(ByteBuf buf) {
-        buf.writeInt(itemSlot);
-        MuseByteBufferUtils.writeIntArray(buf, tagData);
+    public static MusePacketColourInfo decode(PacketBuffer packetBuffer) {
+        return new MusePacketColourInfo(packetBuffer.readInt(), packetBuffer.readInt(), packetBuffer.readVarIntArray());
     }
 
-    public static class Handler implements IMessageHandler<MusePacketColourInfo, IMessage> {
-        @Override
-        public IMessage onMessage(MusePacketColourInfo message, MessageContext ctx) {
-            if (ctx.side == Side.SERVER) {
-                final EntityPlayerMP player = ctx.getServerHandler().player;
-                player.getServerWorld().addScheduledTask(() -> {
-                    int itemSlot = message.itemSlot;
-                    int[] tagData = message.tagData;
+    public static void handle(MusePacketColourInfo message, Supplier<NetworkEvent.Context> ctx) {
+        final EntityPlayerMP player = ctx.get().getSender();
 
-                    ItemStack stack = player.inventory.getStackInSlot(itemSlot);
-                    if (!stack.isEmpty() && stack.getItem() instanceof IModularItem) {
-                        NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
-                        NBTTagCompound renderTag = itemTag.getCompoundTag(NuminaNBTConstants.TAG_RENDER);
-                        if (renderTag == null) {
-                            renderTag = new NBTTagCompound();
-                            itemTag.setTag(NuminaNBTConstants.TAG_RENDER, renderTag);
-                        }
-                        if (renderTag != null)
-                            renderTag.setIntArray(NuminaNBTConstants.TAG_COLOURS, tagData);
-                    }
-                });
+        if (player == null || player.getServer() == null)
+            return;
+
+        final EntityPlayer actualPlayer;
+        int playerID = message.playerID;
+        int itemSlot = message.itemSlot;
+        int[] tagData = message.tagData;
+        Entity entity = player.world.getEntityByID(playerID);
+        if (!(player.world.getEntityByID(playerID) instanceof EntityPlayer ))
+            return;
+        else
+            actualPlayer = (EntityPlayer) player.world.getEntityByID(playerID);
+
+        if (actualPlayer == null)
+            return;
+
+        player.getServerWorld().addScheduledTask(() -> {
+            ItemStack stack = actualPlayer.inventory.getStackInSlot(itemSlot);
+            if (ModuleManager.INSTANCE.isIModularItem(stack)) {
+                NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
+                NBTTagCompound renderTag = itemTag.getCompound(ModelSpecTags.TAG_RENDER);
+                if (renderTag == null) {
+                    renderTag = new NBTTagCompound();
+                    itemTag.put(ModelSpecTags.TAG_RENDER, renderTag);
+                }
+                if (renderTag != null)
+                    renderTag.putIntArray(ModelSpecTags.TAG_COLOURS, tagData);
             }
-            return null;
-        }
+        });
     }
 }

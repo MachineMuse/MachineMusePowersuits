@@ -1,0 +1,28 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:thermal_expansion_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "WWW",
+    "G G",
+    "WWW"
+  ],
+  "key": {
+    "W": {
+      "item": "thermalfoundation:rockwool",
+      "data" : 0,
+      "comment": "bloack rockwool"
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "blockGlassHardened"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentRubberHose"
+  }
+}

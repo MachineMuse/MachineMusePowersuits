@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:ic2_classic_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "RRR",
+    "G G",
+    "RRR"
+  ],
+  "key": {
+    "R": {
+      "type": "forge:ore_dict",
+      "ore": "itemRubber"
+    },
+    "G": {
+      "item" : "ic2:blockUtility",
+      "data" : 3
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentRubberHose"
+  }
+}

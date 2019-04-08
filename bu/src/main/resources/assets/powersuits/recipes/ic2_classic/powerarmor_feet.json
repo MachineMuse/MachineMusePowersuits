@@ -1,0 +1,25 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:ic2_classic_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "B B",
+    "I I"
+  ],
+  "key": {
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotRefinedIron"
+    },
+    "B": {
+      "type": "forge:ore_dict",
+      "ore": "circuitBasic"
+    }
+  },
+  "result": {
+    "item": "powersuits:powerarmor_feet"
+  }
+}

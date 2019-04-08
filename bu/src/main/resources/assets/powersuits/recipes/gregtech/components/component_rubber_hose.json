@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:gregtech_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "RRR",
+    "G G",
+    "RRR"
+  ],
+  "key": {
+    "R": {
+      "type": "forge:ore_dict",
+      "ore" : "itemRubber"
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore" : "glassReinforced"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentRubberHose"
+  }
+}

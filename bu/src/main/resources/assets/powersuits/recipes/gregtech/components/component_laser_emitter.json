@@ -1,0 +1,31 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:gregtech_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "AGA",
+    "GAG",
+    "PGP"
+  ],
+  "key": {
+    "A": {
+      "type": "forge:ore_dict",
+      "ore" : "circuitAdvanced"
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore" : "glassReinforced"
+    },
+    "P": {
+      "type": "forge:ore_dict",
+      "ore" : "plateAlloyCarbon"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentLaserEmitter"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:tech_reborn_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "CWC",
+    "CLC",
+    "CLC"
+  ],
+  "key": {
+    "C": {
+      "type": "forge:ore_dict",
+      "ore" : "ingotChrome"
+    },
+    "L": {
+      "item" : "techreborn:lapotronicOrb"
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentHVCapacitor"
+  }
+}

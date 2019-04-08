@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:thermal_expansion_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "WFW",
+    "W W"
+  ],
+  "key": {
+    "F": {
+      "item": "thermalexpansion:frame",
+      "data": 64,
+      "comment": "device frame"
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentMVCapacitor"
+  }
+}

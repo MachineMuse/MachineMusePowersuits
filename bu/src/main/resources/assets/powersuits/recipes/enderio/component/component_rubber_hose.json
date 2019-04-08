@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:enderio_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "BBB",
+    "H H",
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "type": "forge:ore_dict",
+      "ore": "ballDarkSteel"
+    },
+    "H": {
+      "type": "forge:ore_dict",
+      "ore": "blockGlassHardened"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentRubberHose"
+  }
+}

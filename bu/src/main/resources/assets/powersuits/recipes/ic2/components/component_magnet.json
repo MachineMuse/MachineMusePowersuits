@@ -1,0 +1,31 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:ic2_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "ICI",
+    "SSS",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "componentSolenoid"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "circuitAdvanced"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentMagnet"
+  }
+}

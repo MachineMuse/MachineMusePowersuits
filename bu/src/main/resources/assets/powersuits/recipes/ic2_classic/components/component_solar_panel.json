@@ -1,0 +1,39 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:ic2_classic_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "BGB",
+    "GLG",
+    "CAC"
+  ],
+  "key": {
+    "B": {
+      "type": "forge:ore_dict",
+      "ore": "dyeBlue"
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore" : "blockGlass"
+    },
+    "L": {
+      "type": "forge:ore_dict",
+      "ore": "blockLapis"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "circuitBasic"
+    },
+    "A": {
+      "type": "forge:ore_dict",
+      "ore": "circuitAdvanced"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentSolarPanel"
+  }
+}

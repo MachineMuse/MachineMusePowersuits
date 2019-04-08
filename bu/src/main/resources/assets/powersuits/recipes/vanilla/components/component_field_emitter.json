@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:vanilla_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "SES",
+    "ESE",
+    "SES"
+  ],
+  "key": {
+    "E": {
+      "type": "forge:ore_dict",
+      "ore": "enderpearl"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "componentSolenoid"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentFieldEmitter"
+  }
+}

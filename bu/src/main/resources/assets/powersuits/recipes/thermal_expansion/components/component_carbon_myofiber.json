@@ -1,0 +1,30 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:thermal_expansion_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "CFC",
+    "CFC",
+    "CFC"
+  ],
+  "key": {
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "dustCoal"
+    },
+    "F": {
+      "item": "forge:bucketfilled",
+      "nbt": {
+        "FluidName": "coal",
+        "Amount": 1000
+      }
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentCarbonMyofiber"
+  }
+}

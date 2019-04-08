@@ -1,0 +1,37 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:vanilla_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "RSR",
+    "CDC",
+    "RLR"
+  ],
+  "key": {
+    "R": {
+      "type": "forge:ore_dict",
+      "ore": "dustRedstone"
+    },
+    "L": {
+      "type": "forge:ore_dict",
+      "ore": "componentLaserEmitter"
+    },
+    "S": {
+      "item": "minecraft:daylight_detector"
+    },
+    "C": {
+      "item": "minecraft:comparator"
+    },
+    "D": {
+      "type": "forge:ore_dict",
+      "ore": "gemDiamond"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentComputerChip"
+  }
+}

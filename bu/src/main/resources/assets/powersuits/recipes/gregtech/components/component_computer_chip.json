@@ -1,0 +1,35 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:gregtech_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "WFW",
+    "ECE",
+    "WFW"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore" : "wireGt01Superconductor"
+    },
+    "F": {
+      "type": "forge:ore_dict",
+      "ore" : "componentFieldEmitter"
+    },
+    "E": {
+      "type": "forge:ore_dict",
+      "ore" : "circuitElite"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore" : "componentControlCircuit"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentComputerChip"
+  }
+}

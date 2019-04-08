@@ -1,0 +1,31 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:ic2_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    " II",
+    "IIS",
+    "I !"
+  ],
+  "key": {
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "componentSolenoid"
+    },
+    "I": {
+      "item": "ic2:crafting",
+      "data": 15
+    },
+    "!": {
+      "type": "forge:ore_dict",
+      "ore": "componentSolenoid"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentGliderWing"
+  }
+}

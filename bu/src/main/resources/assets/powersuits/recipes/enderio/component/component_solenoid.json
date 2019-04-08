@@ -1,0 +1,31 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:enderio_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "WIW",
+    "WEW",
+    "WIW"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    "E": {
+      "type": "forge:ore_dict",
+      "ore": "ingotEnergeticAlloy"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentSolenoid"
+  }
+}

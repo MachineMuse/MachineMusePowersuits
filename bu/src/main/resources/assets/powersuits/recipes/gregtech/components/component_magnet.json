@@ -1,0 +1,35 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:gregtech_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "IAI",
+    "SSS",
+    "IEI"
+  ],
+  "key": {
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    "A": {
+      "type": "forge:ore_dict",
+      "ore" : "circuitAdvanced"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "componentSolenoid"
+    },
+    "E": {
+      "type": "forge:ore_dict",
+      "ore" : "circuitElite"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentMagnet"
+  }
+}

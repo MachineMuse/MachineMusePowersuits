@@ -1,0 +1,35 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:gregtech_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "IBI",
+    "ASA",
+    "IBI"
+  ],
+  "key": {
+    "I": {
+      "type": "forge:ore_dict",
+      "ore" : "ingotSteel"
+    },
+    "A": {
+      "type": "forge:ore_dict",
+      "ore" : "circuitAdvanced"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "componentSolenoid"
+    },
+    "B": {
+      "type": "forge:ore_dict",
+      "ore": "ingotBrass"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentServo"
+  }
+}

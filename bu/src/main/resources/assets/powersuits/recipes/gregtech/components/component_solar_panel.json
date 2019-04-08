@@ -1,0 +1,30 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:gregtech_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "GGG",
+    "IEI"
+  ],
+  "key": {
+    "G": {
+      "type": "forge:ore_dict",
+      "ore" : "glassReinforced"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "plateIridium"
+    },
+    "E": {
+      "type": "forge:ore_dict",
+      "ore" : "circuitElite"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentSolarPanel"
+  }
+}

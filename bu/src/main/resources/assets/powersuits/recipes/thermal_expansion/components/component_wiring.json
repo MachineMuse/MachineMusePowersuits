@@ -1,0 +1,28 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:thermal_expansion_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "CCC",
+    "SSS",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "ingotCopper"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "ingotSilver"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentWiring",
+    "count": 8
+  }
+}

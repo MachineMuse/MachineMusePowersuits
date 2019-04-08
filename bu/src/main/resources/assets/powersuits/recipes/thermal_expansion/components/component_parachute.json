@@ -1,0 +1,32 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:thermal_expansion_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "WWW",
+    "S S",
+    "I I"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "blockWool"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "string"
+    },
+    "I": {
+      "item": "thermalfoundation:rockwool",
+      "data" : 7,
+      "comment": "light gray rockwool"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore": "componentParachute"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:ic2_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    " FS",
+    "IG ",
+    "AFS"
+  ],
+  "key": {
+    "F": {
+      "type": "forge:ore_dict",
+      "ore": "componentFieldEmitter"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "componentSolenoid"
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "dustGlowstone"
+    },
+    "A": {
+      "type": "forge:ore_dict",
+      "ore": "circuitAdvanced"
+    },
+    "I": {
+      "item": "ic2:resource",
+      "data": 12
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentIonThruster"
+  }
+}

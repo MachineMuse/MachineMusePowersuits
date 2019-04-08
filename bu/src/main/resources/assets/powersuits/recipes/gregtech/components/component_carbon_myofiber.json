@@ -1,0 +1,23 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:gregtech_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "CCC",
+    "CCC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "type": "forge:ore_dict",
+      "ore" : "plateAlloyCarbon"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentCarbonMyofiber"
+  }
+}

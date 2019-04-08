@@ -1,0 +1,39 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:tech_reborn_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "WAE",
+    "BCA",
+    "EBW"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "A": {
+      "type": "forge:ore_dict",
+      "ore" : "circuitAdvanced"
+    },
+    "E": {
+      "type": "forge:ore_dict",
+      "ore" : "ingotElectrum"
+    },
+    "B": {
+      "type": "forge:ore_dict",
+      "ore" : "circuitBasic"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore" : "circuitElite"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentControlCircuit"
+  }
+}

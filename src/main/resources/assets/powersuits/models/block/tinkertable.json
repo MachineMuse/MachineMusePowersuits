@@ -1,0 +1,11 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "custom": { "flip-v": true },
+    "model": "powersuits:block/powerarmor_workbench.obj",
+    "textures": {
+      "layer0" : "powersuits:block/powersuitsworkbench",
+      "particle": "powersuits:block/powersuitsworkbench"
+    }
+  }
+}

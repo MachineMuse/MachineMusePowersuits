@@ -1,0 +1,44 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:thermal_expansion_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "#B!",
+    "BWB",
+    "@B&"
+  ],
+  "key": {
+    "B": {
+      "type": "forge:ore_dict",
+      "ore": "blockGlass"
+    },
+    "W": {
+      "item": "thermalfoundation:material",
+      "data" : 515,
+      "comment": "redstone conductance coil"
+    },
+    "#": {
+      "type": "forge:ore_dict",
+      "ore": "dustGlowstone"
+    },
+    "!": {
+      "type": "forge:ore_dict",
+      "ore": "dyeGreen"
+    },
+    "@": {
+      "type": "forge:ore_dict",
+      "ore": "dyeBlue"
+    },
+    "&": {
+      "type": "forge:ore_dict",
+      "ore": "dyeRed"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentLaserEmitter"
+  }
+}

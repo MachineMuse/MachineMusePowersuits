@@ -1,0 +1,43 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:vanilla_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "#B!",
+    "BWB",
+    "@B&"
+  ],
+  "key": {
+    "B": {
+      "type": "forge:ore_dict",
+      "ore": "blockGlass"
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "#": {
+      "type": "forge:ore_dict",
+      "ore": "dustGlowstone"
+    },
+    "!": {
+      "type": "forge:ore_dict",
+      "ore": "dyeGreen"
+    },
+    "@": {
+      "type": "forge:ore_dict",
+      "ore": "dyeBlue"
+    },
+    "&": {
+      "type": "forge:ore_dict",
+      "ore": "dyeRed"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentLaserEmitter"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:vanilla_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "WWW",
+    "S S",
+    "I I"
+  ],
+  "key": {
+    "W": {
+      "item" : "minecraft:wool",
+      "data" : 0,
+      "_comment" : "no vanilla oredict entries at all for wool"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "string"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore": "componentParachute"
+  }
+}

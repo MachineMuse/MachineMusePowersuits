@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:gregtech_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "CRC",
+    "CCC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "componentCarbonMyofiber"
+    },
+    "R": {
+      "type": "forge:ore_dict",
+      "ore" : "itemRubber"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentArtificialMuscle"
+  }
+}

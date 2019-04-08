@@ -1,0 +1,40 @@
+modLoader="javafml"
+loaderVersion="[25,)"
+issueTrackerURL="https://github.com/MachineMuse/MachineMusePowersuits/issues/"
+displayURL="http://machinemuse.net/"
+logoFile="assets/powersuits/textures/logo.png"
+credits="Icons by WaterCandle, Modeling by SebK"
+authors="Code by MachineMuse, Lehjr and others"
+[[mods]]
+    modId="powersuits"
+    version="1.0.0" #mandatory
+    displayName="MachineMuse's Modular Powersuits"
+    description='''
+A mod which adds modular power armor, power tool, and a tinker table to configure them. Uses FE (Foreg Energy), EU (IndustrialCraft 2) or RF (Thermal Expansion 4).
+'''
+# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
+[[dependencies.powersuits]] #optional
+    # the modid of the dependency
+    modId="forge" #mandatory
+    # Does this dependency have to exist - if not, ordering below must be specified
+    mandatory=true #mandatory
+    # The version range of the dependency
+    versionRange="[25,)" #mandatory
+    # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+    ordering="NONE"
+    # Side this dependency is applied on - BOTH, CLIENT or SERVER
+    side="BOTH"
+# Here's another dependency
+[[dependencies.powersuits]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.13.2]"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.powersuits]]
+    modId="numina"
+    mandatory=true
+    versionRange="[1.0.0,]"
+    ordering="AFTER"
+    side="BOTH"

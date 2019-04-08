@@ -1,0 +1,32 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:enderio_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "PPP",
+    "WWW",
+    " B "
+  ],
+  "key": {
+    "P": {
+      "type": "forge:ore_dict",
+      "ore": "itemPulsatingCrystal"
+    },
+    "W": {
+      "item": "minecraft:water_bucket"
+    },
+    "B": {
+      "item": "minecraft:bucket"
+    }
+  },
+  "result": {
+    "item": "forge:bucketfilled",
+    "nbt": {
+      "FluidName": "liquid_nitrogen",
+      "Amount": 1000
+    }
+  }
+}

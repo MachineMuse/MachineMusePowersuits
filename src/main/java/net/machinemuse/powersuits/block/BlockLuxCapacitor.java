@@ -1,27 +1,26 @@
 package net.machinemuse.powersuits.block;
 
-
-import net.machinemuse.numina.utils.math.Colour;
-import net.machinemuse.powersuits.api.constants.MPSModConstants;
+import net.machinemuse.numina.math.Colour;
+import net.machinemuse.powersuits.tileentity.TileEntityLuxCapacitor;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import javax.annotation.Nullable;
 import java.util.Random;
 
 public class BlockLuxCapacitor extends BlockDirectional {
@@ -47,33 +46,57 @@ public class BlockLuxCapacitor extends BlockDirectional {
             return (value != null) ? value.hexColour() : defaultColor.hexColour();
         }
     };
-    public static final String name = "luxCapacitor";
-    protected static final AxisAlignedBB LUXCAPACITOR_EAST_AABB = new AxisAlignedBB(0.75, 0.0625, 0.0625, 1.0, 0.9375, 0.9375);
-    protected static final AxisAlignedBB LUXCAPACITOR_WEST_AABB = new AxisAlignedBB(0.0, 0.0625, 0.0625, 0.25, 0.9375, 0.9375);
-    protected static final AxisAlignedBB LUXCAPACITOR_SOUTH_AABB = new AxisAlignedBB(0.0625, 0.0625, 0.75, 0.9375, 0.9375, 1.0);
-    protected static final AxisAlignedBB LUXCAPACITOR_NORTH_AABB = new AxisAlignedBB(0.0625, 0.0625, 0.0, 0.9375, 0.9375, 0.25);
-    protected static final AxisAlignedBB LUXCAPACITOR_UP_AABB = new AxisAlignedBB(0.0625, 0.75, 0.0625, 0.9375, 1.0, 0.9375);
-    protected static final AxisAlignedBB LUXCAPACITOR_DOWN_AABB = new AxisAlignedBB(0.0625, 0.0, 0.0625, 0.9375, 0.25, 0.9375);
 
-    public BlockLuxCapacitor() {
-        super(Material.CIRCUITS);
-        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN));
-        setRegistryName(MPSModConstants.MODID, name.toLowerCase());
-        setTranslationKey(new StringBuilder(MPSModConstants.MODID).append(".").append(name).toString());
-        setHardness(0.05F);
-        setResistance(10.0F);
-        setSoundType(SoundType.METAL);
-        setLightOpacity(0);
-        setLightLevel(1.0f);
-        setTickRandomly(false);
-        setHarvestLevel("pickaxe", 0);
-        GameRegistry.registerTileEntity(TileEntityLuxCapacitor.class, this.getRegistryName());
+    protected static final VoxelShape LUXCAPACITOR_EAST_AABB = Block.makeCuboidShape(12, 1, 1, 16, 15, 15);
+    protected static final VoxelShape LUXCAPACITOR_WEST_AABB = Block.makeCuboidShape(0, 1, 1, 4, 15, 15);
+    protected static final VoxelShape LUXCAPACITOR_SOUTH_AABB = Block.makeCuboidShape(1, 1, 12, 15, 15, 16);
+    protected static final VoxelShape LUXCAPACITOR_NORTH_AABB = Block.makeCuboidShape(1, 1, 0.0, 15, 15, 4);
+    protected static final VoxelShape LUXCAPACITOR_UP_AABB = Block.makeCuboidShape(1, 12, 1, 15, 16.0, 15);
+    protected static final VoxelShape LUXCAPACITOR_DOWN_AABB = Block.makeCuboidShape(1, 0.0, 1, 15, 4, 15);
+
+    public BlockLuxCapacitor(String regName) {
+        super(Block.Properties.create(Material.CIRCUITS)
+                .hardnessAndResistance(0.05F, 10.0F)
+                .sound(SoundType.METAL)
+                .variableOpacity()
+                .lightValue(1));
+        setRegistryName(regName);
+        setDefaultState(this.stateContainer.getBaseState().with(FACING, EnumFacing.DOWN));
     }
 
-    @SuppressWarnings("deprecation")
     @Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        switch (state.getValue(FACING)) {
+    public int getHarvestLevel(IBlockState blockState) {
+        return 0;
+    }
+
+    @Nullable
+    @Override
+    public ToolType getHarvestTool(IBlockState p_getHarvestTool_1_) {
+        return ToolType.PICKAXE;
+    }
+
+    @Override
+    public IBlockState getExtendedState(IBlockState state, IBlockReader world, BlockPos pos) {
+        TileEntity te = world.getTileEntity(pos);
+        if (te instanceof TileEntityLuxCapacitor && state instanceof IExtendedBlockState)
+            return ((IExtendedBlockState) state).withProperty(COLOR, ((TileEntityLuxCapacitor) te).getColor());
+        return state;
+    }
+
+    @Override
+    public int getItemsToDropCount(IBlockState state, int fortune, World worldIn, BlockPos pos, Random random) {
+        return 0;
+    }
+
+    @Override
+    public IBlockState getStateForPlacement(BlockItemUseContext context) {
+        return this.getDefaultState().with(FACING, context.getNearestLookingDirection());
+    }
+
+    @SuppressWarnings( "deprecation" )
+    @Override
+    public VoxelShape getShape(IBlockState state, IBlockReader worldIn, BlockPos pos) {
+        switch (state.get(FACING)) {
             default:
             case DOWN:
                 return LUXCAPACITOR_DOWN_AABB;
@@ -90,58 +113,9 @@ public class BlockLuxCapacitor extends BlockDirectional {
         }
     }
 
-    @SuppressWarnings("deprecation")
     @Override
-    public boolean isOpaqueCube(IBlockState state) {
-        return false;
-    }
-
-    @Override
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        if (this.canPlaceAt(worldIn, pos, facing)) {
-            return ((IExtendedBlockState) this.getDefaultState().withProperty(FACING, facing)).withProperty(COLOR, defaultColor);
-        } else {
-            for (EnumFacing enumfacing : EnumFacing.VALUES) {
-                if (enumfacing == facing)
-                    continue;
-                if (this.canPlaceAt(worldIn, pos, enumfacing)) {
-                    return ((IExtendedBlockState) this.getDefaultState().withProperty(FACING, enumfacing)).withProperty(COLOR, defaultColor);
-                }
-            }
-            return ((IExtendedBlockState) this.getDefaultState()).withProperty(COLOR, defaultColor);
-        }
-    }
-
-    @Override
-    public BlockStateContainer createBlockState() {
-        return new ExtendedBlockState(this, new IProperty[]{FACING}, new IUnlistedProperty[]{COLOR});
-    }
-
-    @Override
-    public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
-        TileEntity te = world.getTileEntity(pos);
-        if (te instanceof TileEntityLuxCapacitor && state instanceof IExtendedBlockState)
-            return ((IExtendedBlockState) state).withProperty(COLOR, ((TileEntityLuxCapacitor) te).getColor());
-        return state;
-    }
-
-    @Override
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-        for (EnumFacing enumfacing : FACING.getAllowedValues()) {
-            if (this.canPlaceAt(worldIn, pos, enumfacing)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean canPlaceAt(IBlockAccess worldIn, BlockPos pos, EnumFacing facing) {
-        if (!worldIn.getBlockState(pos).getBlock().isReplaceable(worldIn, pos))
-            return false;
-        BlockPos blockpos = pos.offset(facing);
-        IBlockState iblockstate = worldIn.getBlockState(blockpos);
-        BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, blockpos, facing);
-        return iblockstate.isSideSolid(worldIn, pos, facing) && blockfaceshape == BlockFaceShape.SOLID;
+    protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> stateContainer) {
+        stateContainer.add(FACING);
     }
 
     @SuppressWarnings("deprecation")
@@ -150,24 +124,14 @@ public class BlockLuxCapacitor extends BlockDirectional {
         return false;
     }
 
-    @SuppressWarnings("deprecation")
-    @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta));
-    }
-
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return state.getValue(FACING).getIndex();
-    }
-
     @Override
     public boolean hasTileEntity(IBlockState state) {
         return true;
     }
 
+    @Nullable
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
+    public TileEntity createTileEntity(IBlockState state, IBlockReader world) {
         if (state instanceof IExtendedBlockState)
             return new TileEntityLuxCapacitor(((IExtendedBlockState) state).getValue(COLOR));
         return new TileEntityLuxCapacitor();
@@ -175,12 +139,7 @@ public class BlockLuxCapacitor extends BlockDirectional {
 
     @SuppressWarnings("deprecation")
     @Override
-    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockReader worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
-    }
-
-    @Override
-    public int quantityDropped(Random par1Random) {
-        return 0;
     }
 }

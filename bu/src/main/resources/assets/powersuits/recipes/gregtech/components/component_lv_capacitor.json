@@ -1,0 +1,31 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:gregtech_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "SWS",
+    "SES",
+    "SES"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore" : "ingotSteel"
+    },
+    "E": {
+      "type": "forge:ore_dict",
+      "ore" : "batteryElite"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentLVCapacitor"
+  }
+}

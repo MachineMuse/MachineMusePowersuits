@@ -1,23 +1,11 @@
 package net.machinemuse.powersuits.network.packets;
 
-import io.netty.buffer.ByteBuf;
-import net.machinemuse.numina.item.IModeChangingItem;
-import net.machinemuse.numina.module.IEnchantmentModule;
-import net.machinemuse.numina.module.IPowerModule;
-import net.machinemuse.numina.module.IRightClickModule;
-import net.machinemuse.numina.network.MuseByteBufferUtils;
-import net.machinemuse.numina.utils.item.MuseItemUtils;
-import net.machinemuse.numina.utils.nbt.MuseNBTUtils;
-import net.machinemuse.powersuits.common.ModuleManager;
-import net.machinemuse.powersuits.common.config.MPSConfig;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.relauncher.Side;
+import net.machinemuse.numina.basemod.MuseLogger;
+import net.machinemuse.numina.basemod.Numina;
+import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.fml.network.NetworkEvent;
+
+import java.util.function.Supplier;
 
 /**
  * Packet for requesting to purchase an upgrade. Player-to-server. Server
@@ -29,62 +17,61 @@ import net.minecraftforge.fml.relauncher.Side;
  * <p>
  * Ported to Java by lehjr on 11/14/16.
  */
-public class MusePacketSalvageModuleRequest implements IMessage {
-    EntityPlayer player;
+public class MusePacketSalvageModuleRequest {
+    protected static int playerID;
     int itemSlot;
     String moduleName;
 
     public MusePacketSalvageModuleRequest() {
-
     }
 
-    public MusePacketSalvageModuleRequest(EntityPlayer player, int itemSlot, String moduleName) {
-        this.player = player;
+    public MusePacketSalvageModuleRequest(int playerID, int itemSlot, String moduleName) {
+        this.playerID = playerID;
         this.itemSlot = itemSlot;
         this.moduleName = moduleName;
     }
 
-    @Override
-    public void fromBytes(ByteBuf buf) {
-        this.itemSlot = buf.readInt();
-        this.moduleName = MuseByteBufferUtils.readUTF8String(buf);
+    public static void encode(MusePacketSalvageModuleRequest msg, PacketBuffer packetBuffer) {
+        packetBuffer.writeInt(msg.playerID);
+        packetBuffer.writeInt(msg.itemSlot);
+        packetBuffer.writeString(msg.moduleName);
     }
 
-    @Override
-    public void toBytes(ByteBuf buf) {
-        buf.writeInt(itemSlot);
-        MuseByteBufferUtils.writeUTF8String(buf, moduleName);
+    public static MusePacketSalvageModuleRequest decode(PacketBuffer packetBuffer) {
+        return new MusePacketSalvageModuleRequest(
+                packetBuffer.readInt(),
+                packetBuffer.readInt(),
+                packetBuffer.readString(500));
     }
 
-    public static class Handler implements IMessageHandler<MusePacketSalvageModuleRequest, IMessage> {
-        @Override
-        public IMessage onMessage(MusePacketSalvageModuleRequest message, MessageContext ctx) {
-            if (ctx.side == Side.SERVER) {
-                final EntityPlayerMP player = ctx.getServerHandler().player;
-                player.getServerWorld().addScheduledTask(() -> {
-                    int itemSlot= message.itemSlot;
-                    String moduleName = message.moduleName;
-                    if (moduleName != null) {
-                        ItemStack stack = player.inventory.getStackInSlot(itemSlot);
-                        NonNullList<ItemStack> refund = ModuleManager.INSTANCE.getInstallCost(moduleName);
-                        if (ModuleManager.INSTANCE.itemHasModule(stack, moduleName)) {
-                            MuseNBTUtils.removeMuseValuesTag(stack);
-                            ModuleManager.INSTANCE.removeModule(stack, moduleName);
-                            for (ItemStack refundItem : refund) {
-                                MuseItemUtils.giveOrDropItemWithChance(player, refundItem.copy(), MPSConfig.INSTANCE.getSalvageChance());
-                            }
+    public static void handle(MusePacketSalvageModuleRequest message, Supplier<NetworkEvent.Context> ctx) {
+        MuseLogger.logger.error("this has not been implemented yet");
 
-                            IPowerModule module = ModuleManager.INSTANCE.getModule(moduleName);
-                            if (stack.getItem() instanceof IModeChangingItem && module instanceof IRightClickModule) {
-                                if (module instanceof IEnchantmentModule)
-                                    ((IEnchantmentModule) module).removeEnchantment(stack);
-                                ((IModeChangingItem) stack.getItem()).setActiveMode(stack, "");
-                            }
-                        }
-                    }
-                });
-            }
-            return null;
-        }
+
+//        if (ctx.side == Side.SERVER) {
+//            final EntityPlayerMP player = ctx.getServerHandler().player;
+//            player.getServerWorld().addScheduledTask(() -> {
+//                int itemSlot= message.itemSlot;
+//                String moduleName = message.moduleName;
+//                if (moduleName != null) {
+//                    ItemStack stack = player.inventory.getStackInSlot(itemSlot);
+//                    NonNullList<ItemStack> refund = ModuleManager.INSTANCE.getInstallCost(moduleName);
+//                    if (ModuleManager.INSTANCE.itemHasModule(stack, moduleName)) {
+//                        MuseNBTUtils.removeMuseValuesTag(stack);
+//                        ModuleManager.INSTANCE.removeModule(stack, moduleName);
+//                        for (ItemStack refundItem : refund) {
+//                            MuseItemUtils.giveOrDropItemWithChance(player, refundItem.copy(), MPSConfig.INSTANCE.getSalvageChance());
+//                        }
+//
+//                        IPowerModule module = ModuleManager.INSTANCE.getModule(moduleName);
+//                        if (stack.getItem() instanceof IModeChangingItem && module instanceof IRightClickModule) {
+//                            if (module instanceof IEnchantmentModule)
+//                                ((IEnchantmentModule) module).removeEnchantment(stack);
+//                            ((IModeChangingItem) stack.getItem()).setActiveMode(stack, "");
+//                        }
+//                    }
+//                }
+//            });
+//        }
     }
 }

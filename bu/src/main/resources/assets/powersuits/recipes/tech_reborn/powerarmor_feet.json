@@ -1,0 +1,25 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:tech_reborn_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "C C",
+    "S S"
+  ],
+  "key": {
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "circuitBasic"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "ingotSilver"
+    }
+  },
+  "result": {
+    "item": "powersuits:powerarmor_feet"
+  }
+}

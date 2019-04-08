@@ -1,0 +1,31 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:thermal_expansion_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    " M ",
+    "WCW",
+    "WMW"
+  ],
+  "key": {
+    "M": {
+      "item": "minecraft:magma_cream"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "dustCoal"
+    },
+    "W": {
+      "item": "thermalfoundation:rockwool",
+      "data" : 8,
+      "comment": "gray rockwool"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentMyofiberGel"
+  }
+}

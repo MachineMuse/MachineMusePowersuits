@@ -1,0 +1,32 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:enderio_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "WWW",
+    "S S",
+    "I I"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "blockWoolWhite",
+      "_comment" : "Fixme: there is no universal oredict entry for wool so using white for now"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "string"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotElectricalSteel"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore": "componentParachute"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:thermal_expansion_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "ICI",
+    "SSS",
+    "ICI"
+  ],
+  "key": {
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "componentSolenoid"
+    },
+    "C": {
+      "item": "thermalfoundation:material",
+      "data": 515,
+      "comment": "redstone conductance coil"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentMagnet"
+  }
+}

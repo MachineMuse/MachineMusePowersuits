@@ -1,0 +1,41 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:thermal_expansion_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "BGB",
+    "GLG",
+    "FIF"
+  ],
+  "key": {
+    "B": {
+      "type": "forge:ore_dict",
+      "ore": "dyeBlue"
+    },
+    "G": {
+      "type": "forge:ore_dict",
+      "ore": "paneGlass"
+    },
+    "L": {
+      "type": "forge:ore_dict",
+      "ore": "blockLapis"
+    },
+    "F": {
+      "item": "thermalfoundation:material",
+      "data": 514,
+      "comment": "redstone transmission coil"
+    },
+    "I": {
+      "item": "thermalfoundation:material",
+      "data": 514,
+      "comment": "redstone induction coil"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentSolarPanel"
+  }
+}

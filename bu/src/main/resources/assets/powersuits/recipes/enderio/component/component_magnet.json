@@ -1,0 +1,31 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:enderio_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "IBI",
+    "SSS",
+    "IBI"
+  ],
+  "key": {
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    "B": {
+      "item": "enderio:item_basic_capacitor",
+      "data": 1
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "componentSolenoid"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentMagnet"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:ic2_classic_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "I I",
+    "CIC",
+    "III"
+  ],
+  "key": {
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "circuitBasic"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore" : "ingotRefinedIron"
+    }
+  },
+  "result": {
+    "item": "powersuits:powerarmor_torso"
+  }
+}

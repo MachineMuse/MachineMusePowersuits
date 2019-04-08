@@ -1,0 +1,40 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:ic2_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "DDD",
+    "CCC",
+    " B "
+  ],
+  "key": {
+    "D": {
+      "type": "forge:ore_dict",
+      "ore": "dustLapis"
+    },
+    "C": {
+      "type": "minecraft:item_nbt",
+      "item": "ic2:fluid_cell",
+      "data": 0,
+      "nbt": {
+        "Fluid": {
+          "FluidName": "ic2coolant",
+          "Amount": 1000
+        }
+      }
+    },
+    "B": {
+      "item": "minecraft:bucket"
+    }
+  },
+  "result": {
+    "item": "forge:bucketfilled",
+    "nbt": {
+      "FluidName": "liquid_nitrogen",
+      "Amount": 1000
+    }
+  }
+}

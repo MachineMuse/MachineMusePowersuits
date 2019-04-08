@@ -1,0 +1,34 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:ic2_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    " E ",
+    "IBI",
+    " M "
+  ],
+  "key": {
+    "E": {
+      "type": "forge:ore_dict",
+      "ore": "gemEmerald"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "plateIron"
+    },
+    "B": {
+      "type": "forge:ore_dict",
+      "ore": "circuitBasic"
+    },
+    "M": {
+      "item": "ic2:resource",
+      "data": 12
+    }
+  },
+  "result": {
+    "item": "powersuits:tinkertable"
+  }
+}

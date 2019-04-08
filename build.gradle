@@ -1,9 +1,16 @@
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
+
         maven {
             name = "forge"
             url = 'https://files.minecraftforge.net/maven'
+        }
+        maven {
+            // see https://www.reddit.com/r/feedthebeast/comments/62amck/til_for_anyone_dont_know_this_yet_mods_that/
+            name = "CurseForge"
+            url = "https://minecraft.curseforge.com/api/maven/"
         }
         maven {
             url 'https://plugins.gradle.org/m2/'
@@ -24,21 +31,25 @@ buildscript {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
 }
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
 
-sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
-compileJava {
-    sourceCompatibility = targetCompatibility = '1.8'
+plugins {
+    id "com.github.johnrengelman.shadow" version "4.0.4"
+    id 'idea'
 }
+apply plugin: 'net.minecraftforge.gradle'
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+
+//Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+
 
 def buildnumber = System.getenv("BUILD_NUMBER")
 def travisbuildnumber = (System.getenv("TRAVIS_BUILD_NUMBER") ?: -000).toInteger() + 00
 version = "${minecraft_version}-${mod_version}.${buildnumber ?: travisbuildnumber}"
 group = group_id // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = mod_id
+archivesBaseName = 'powersuits'
 
-def numina_version = (System.getenv("NUMINA_VERSION") ?: "0.5.0")
+
 
 repositories {
 /*
@@ -56,14 +67,37 @@ repositories {
     maven { url = "http://maven.blamejared.com" }                   //CraftTweaker - required by Mekanism
     maven { url = 'https://minecraft.curseforge.com/api/maven/' }   //Thaumcraft
     */
-    mavenCentral()
 }
 
 dependencies {
-    minecraft 'net.minecraftforge.test:forge:1.13-24.0.64-1.13-pre'
-    compile 'net.minecraftforge.test:userdev:1.13-24.0.64-1.13-pre:launcher'
+    // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
+    // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
+    // The userdev artifact is a special name and will get all sorts of transformations applied to it.
+    minecraft([
+            group  : "${project.forgegroup}",
+            name   : "forge",
+            version: "${project.minecraft_version}-${project.forge_version}"
+    ])
 
-/*
+    compile group: 'com.codesnippets4all', name: 'quick-json', version: '1.0.4'
+
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile group: 'org.apache.commons', name: 'commons-text', version: '1.6'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
     deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}:api"                             //JEI API
     deobfCompile "cofh:CoFHCore:${minecraft_version}-${cofhcore_version}:universal"                 //CoFH Core
     deobfCompile "appeng:appliedenergistics2:${ae2api_version}"                                     //Applied Energetics 2
@@ -99,73 +133,50 @@ dependencies {
 }
 
 minecraft {
-    //version = minecraft_version + "-" + forge_version
-    //runDir = "run"
-    
-        // default run configurations.
+    // the mappings can be changed at any time, and must be in the following format.
+    // snapshot_YYYYMMDD   snapshot are built nightly.
+    // stable_#            stables are built at the discretion of the MCP team.
+    // Use non-default mappings at your own risk. they may not always work.
+    // simply re-run your setup task after changing the mappings to update your workspace.
+    mappings channel: "snapshot", version: "${project.mcp_version}".toString()
+
+    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+
+    accessTransformer = file('src/main/resources/META-INF/numina_at.cfg')
+
+    // default run configurations.
     // these can be tweaked, removed, or duplicated as needed.
     runs {
         client = {
+            // recommended logging data for a userdev environment
+            properties 'forge.logging.markers': 'SCAN,REGISTRIES,REGISTRYDUMP'
+            // recommended logging level for the console
+            properties 'forge.logging.console.level': 'debug'
             workingDirectory project.file('run').canonicalPath
             source sourceSets.main
+            ideaModule project.group + "." + project.name + ".main"
         }
         server = {
+            // recommended logging data for a userdev environment
+            properties 'forge.logging.markers': 'SCAN,REGISTRIES,REGISTRYDUMP'
+            // recommended logging level for the console
+            properties 'forge.logging.console.level': 'debug'
             workingDirectory project.file('run').canonicalPath
+            source sourceSets.main
+            ideaModule project.group + "." + project.name + ".main"
         }
     }
-    
-    //mappings channel: mcp_channel, version: mcp_version
-    mappings channel: 'snapshot', version: '20180921-1.13'
-    
-    
-    //replace "@numina_version@", numina_version
-    //replace "@VERSION@", project.version
-    
-    
-
-    accessTransformer = file('numina_at.cfg')
-    
-    //useDepAts = true
 }
 
-processResources {
-    // this will ensure that this task is redone when the versions change.
-    inputs.property 'version', project.version
-    inputs.property 'mcversion', '1.13'
-/*
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
-*/
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-        // replace version and mcversion
-        //expand 'version': project.version, 'mcversion': minecraftVersion
-        
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion': '1.13'
-    }
-
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
-    // Move access transformers to META-INF
-    rename '(.+_at.cfg)', 'META-INF/$1'
-}
-
+// Example for how to get properties into the manifest for reading by the runtime..
 jar {
     manifest {
-        attributes 'FMLAT': 'numina_at.cfg'
+        attributes(["Specification-Title": "numina",
+                    "Specification-Vendor": "MachineMuse",
+                    "Specification-Version": "25.0", // We are version 1 of the modlauncher specification
+                    "Implementation-Title": project.name,
+                    "Implementation-Version": "${version}",
+                    "Implementation-Vendor" :"MachineMuse",
+                    "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")],)
     }
-}
-
-task devJar(type: Jar) {
-    from sourceSets.main.output
-    classifier = 'dev'
-}
-
-artifacts {
-    archives devJar
 }

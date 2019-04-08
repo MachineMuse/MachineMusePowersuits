@@ -1,0 +1,39 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:enderio_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    "W!S",
+    "RB!",
+    "SRW"
+  ],
+  "key": {
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "!": {
+      "type": "forge:ore_dict",
+      "ore": "dyeGreen"
+    },
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "ingotElectricalSteel"
+    },
+    "R": {
+      "type": "forge:ore_dict",
+      "ore": "dustRedstone"
+    },
+    "B": {
+      "item": "enderio:item_basic_capacitor",
+      "data": 1
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentControlCircuit"
+  }
+}

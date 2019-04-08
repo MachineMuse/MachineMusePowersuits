@@ -1,0 +1,31 @@
+{
+  "conditions": [
+    {
+      "type": "powersuits:enderio_recipes_enabled"
+    }
+  ],
+  "type": "powersuits:mps_shaped",
+  "pattern": [
+    " S ",
+    "WIW",
+    " S "
+  ],
+  "key": {
+    "S": {
+      "type": "forge:ore_dict",
+      "ore": "componentSolenoid"
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "componentWiring"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "itemSimpleMachineChassi"
+    }
+  },
+  "result": {
+    "type": "forge:ore_dict",
+    "ore" : "componentServo"
+  }
+}
