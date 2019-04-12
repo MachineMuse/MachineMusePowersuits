@@ -253,9 +253,9 @@ public class MovementManager {
                     setPlayerJumpTicks(player, jumpAssist);
                     double jumpCompensationRatio = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, MPSModuleConstants.JUMP_FOOD_COMPENSATION);
                     if (player.isSprinting()) {
-                        player.getFoodStats().addExhaustion((float) (-0.8 * jumpCompensationRatio));
+                        player.getFoodStats().addExhaustion((float) (-0.2F * jumpCompensationRatio));
                     } else {
-                        player.getFoodStats().addExhaustion((float) (-0.2 * jumpCompensationRatio));
+                        player.getFoodStats().addExhaustion((float) (-0.05F * jumpCompensationRatio));
                     }
                 }
             }

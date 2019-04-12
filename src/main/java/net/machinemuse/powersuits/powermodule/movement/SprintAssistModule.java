@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Ported by leon on 10/18/16.
@@ -54,14 +55,14 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
             double totalEnergy = ElectricItemUtils.getPlayerEnergy(player);
             if (horzMovement > 0) { // stop doing drain calculations when player hasn't moved
                 if (player.isSprinting()) {
-                    double exhaustion = Math.round(horzMovement * 100.0F) * 0.01;
+                    double exhaustion =  Math.round(horzMovement) * 0.1F;
                     double sprintCost = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.SPRINT_ENERGY_CONSUMPTION);
                     if (sprintCost < totalEnergy) {
                         double sprintMultiplier = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.SPRINT_SPEED_MULTIPLIER);
                         double exhaustionComp = ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStack, MPSModuleConstants.SPRINT_FOOD_COMPENSATION);
                         ElectricItemUtils.drainPlayerEnergy(player, (int) (sprintCost * horzMovement * 5));
                         MovementManager.setMovementModifier(itemStack, sprintMultiplier, player);
-                        player.getFoodStats().addExhaustion((float) (-0.01 * exhaustion * exhaustionComp));
+                        player.getFoodStats().addExhaustion((float) (-1 * exhaustion * exhaustionComp));
                         player.jumpMovementFactor = player.getAIMoveSpeed() * .2f;
                     }
                 } else {

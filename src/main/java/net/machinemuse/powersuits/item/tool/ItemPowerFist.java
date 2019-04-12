@@ -255,11 +255,12 @@ public class ItemPowerFist extends MPSItemElectricTool
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
         ItemStack itemStackIn = playerIn.getHeldItem(handIn);
-
-        // Only one right click module should be active at a time.
-        IPowerModule iPowerModulemodule = ModuleManager.INSTANCE.getModule(getActiveMode(itemStackIn));
-        if (iPowerModulemodule instanceof IRightClickModule) {
-            return ((IRightClickModule) iPowerModulemodule).onItemRightClick(itemStackIn, worldIn, playerIn, handIn);
+        if (handIn != EnumHand.MAIN_HAND) {
+            // Only one right click module should be active at a time.
+            IPowerModule iPowerModulemodule = ModuleManager.INSTANCE.getModule(getActiveMode(itemStackIn));
+            if (iPowerModulemodule instanceof IRightClickModule) {
+                return ((IRightClickModule) iPowerModulemodule).onItemRightClick(itemStackIn, worldIn, playerIn, handIn);
+            }
         }
         return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
@@ -301,11 +302,13 @@ public class ItemPowerFist extends MPSItemElectricTool
 
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        ItemStack itemStack = player.getHeldItem(hand);
-        String mode = this.getActiveMode(itemStack);
-        IPowerModule module = ModuleManager.INSTANCE.getModule(mode);
-        if (module instanceof IRightClickModule) {
-            return ((IRightClickModule) module).onItemUse(itemStack, player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+        if(hand == EnumHand.MAIN_HAND) {
+            ItemStack itemStack = player.getHeldItem(hand);
+            String mode = this.getActiveMode(itemStack);
+            IPowerModule module = ModuleManager.INSTANCE.getModule(mode);
+            if (module instanceof IRightClickModule) {
+                return ((IRightClickModule) module).onItemUse(itemStack, player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+            }
         }
         return EnumActionResult.PASS;
     }
