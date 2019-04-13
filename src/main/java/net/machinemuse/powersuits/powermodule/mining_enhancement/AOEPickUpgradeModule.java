@@ -74,23 +74,30 @@ public class AOEPickUpgradeModule extends PowerModuleBase implements IMiningEnha
 
         boolean harvested = false;
         for (BlockPos blockPos : posList) {
-            IBlockState state = player.world.getBlockState(blockPos);
+            IBlockState state = player.world.getBlockState(blockPos).getActualState(player.world, blockPos);
             Block block = state.getBlock();
 
             for (IPowerModule module : ModuleManager.INSTANCE.getModulesOfType(IBlockBreakingModule.class)) {
                 int playerEnergy = ElectricItemUtils.getPlayerEnergy(player);
 
                 if (ModuleManager.INSTANCE.itemHasActiveModule(itemStack, module.getDataName()) && ((IBlockBreakingModule) module).canHarvestBlock(itemStack, state, player, blockPos, playerEnergy - energyUsage)) {
-                    if (posIn == blockPos) // center block
-                        harvested = true;
-                    block.onPlayerDestroy(player.world, blockPos, state);
-                    player.world.playEvent(null, 2001, blockPos, Block.getStateId(state));
-                    player.world.setBlockToAir(blockPos);
-                    block.breakBlock(player.world, blockPos, state);
-                    block.dropBlockAsItem(player.world, blockPos, state, 0);
+                    if (block.removedByPlayer(state, player.world, blockPos, player, true)) {
+                        if (posIn == blockPos) // center block
+                            harvested = true;
 
-                    ElectricItemUtils.drainPlayerEnergy(player, ((IBlockBreakingModule) module).getEnergyUsage(itemStack) + energyUsage);
-                    break;
+                        block.onPlayerDestroy(player.world, blockPos, state);
+                        block.harvestBlock(player.world, player, blockPos, state, player.world.getTileEntity(blockPos), player.getHeldItemMainhand());
+
+
+//                    block.onBlockHarvested(player.world, blockPos, state, player);
+//                    player.world.playEvent(null, 2001, blockPos, Block.getStateId(state));
+//                    player.world.setBlockToAir(blockPos);
+//                    block.breakBlock(player.world, blockPos, state);
+//                    block.dropBlockAsItem(player.world, blockPos, state, 0);
+
+                        ElectricItemUtils.drainPlayerEnergy(player, ((IBlockBreakingModule) module).getEnergyUsage(itemStack) + energyUsage);
+                        break;
+                    }
                 }
             }
         }

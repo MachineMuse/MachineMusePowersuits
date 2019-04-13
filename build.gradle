@@ -67,7 +67,11 @@ dependencies {
     shadow group: 'org.apache.commons', name: 'commons-text', version: '1.6'
     deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}:api"                             //JEI API
     deobfCompile "cofh:RedstoneFlux:1.12-${rf_version}:universal"                                   // RF API
-    compile "cofh:CoFHCore:${minecraft_version}-${cofhcore_version}:universal"                 //CoFH Core
+
+    compile ("cofh:CoFHCore:${minecraft_version}-${cofhcore_version}:universal")                 //CoFH Core
+            { exclude group: 'mezz.jei' }//also using old outdated JEI reference
+
+
 //    compile "com.enderio.core:EnderCore:${minecraft_version}-${endercore_version}"              //Ender Core
 //    compileOnly "com.enderio.core:EnderCore:${minecraft_version}-${endercore_version}-core"              //Ender Core
     deobfCompile "appeng:appliedenergistics2:${ae2api_version}"                                     //Applied Energetics 2
