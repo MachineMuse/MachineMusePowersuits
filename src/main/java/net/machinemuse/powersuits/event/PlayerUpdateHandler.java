@@ -2,11 +2,11 @@ package net.machinemuse.powersuits.event;
 
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.config.NuminaConfig;
-import net.machinemuse.numina.module.IPlayerTickModule;
-import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.heat.MuseHeatUtils;
 import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.numina.math.MuseMathUtils;
+import net.machinemuse.numina.module.IPlayerTickModule;
+import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
@@ -32,12 +32,6 @@ public class PlayerUpdateHandler {
     @SuppressWarnings("unchecked")
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public void onPlayerUpdate(LivingEvent.LivingUpdateEvent e) {
-       // @SubscribeEvent
-        //	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-
-
-
-
         if (e.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) e.getEntity();
 

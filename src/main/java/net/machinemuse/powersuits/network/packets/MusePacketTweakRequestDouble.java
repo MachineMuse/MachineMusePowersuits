@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.network.packets;
 
 import io.netty.buffer.ByteBuf;
-import net.machinemuse.numina.network.MuseByteBufferUtils;
 import net.machinemuse.numina.nbt.MuseNBTUtils;
+import net.machinemuse.numina.network.MuseByteBufferUtils;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

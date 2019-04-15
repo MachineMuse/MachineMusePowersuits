@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
@@ -27,14 +28,14 @@ public class KeybindKeyHandler {
     public static final KeyBinding openCosmeticGUI = new KeyBinding("Cosmetic (MPS)", Keyboard.KEY_NONE, mps);
 
     public KeybindKeyHandler() {
-            ClientRegistry.registerKeyBinding(openKeybindGUI);
-            ClientRegistry.registerKeyBinding(goDownKey);
-            ClientRegistry.registerKeyBinding(cycleToolBackward);
-            ClientRegistry.registerKeyBinding(cycleToolForward);
-            ClientRegistry.registerKeyBinding(openCosmeticGUI);
+        ClientRegistry.registerKeyBinding(openKeybindGUI);
+        ClientRegistry.registerKeyBinding(goDownKey);
+        ClientRegistry.registerKeyBinding(cycleToolBackward);
+        ClientRegistry.registerKeyBinding(cycleToolForward);
+        ClientRegistry.registerKeyBinding(openCosmeticGUI);
     }
 
-    void updatePlayerValues(EntityPlayerSP clientPlayer, Boolean downKeyState, Boolean jumpKeyState) {
+    public void updatePlayerValues(EntityPlayerSP clientPlayer, Boolean downKeyState, Boolean jumpKeyState) {
         boolean markForSync = false;
 
         IPlayerValues playerCap = clientPlayer.getCapability(CapabilityPlayerValues.PLAYER_VALUES, null);
@@ -53,6 +54,19 @@ public class KeybindKeyHandler {
 
             if (markForSync) {
                 MPSPackets.sendToServer(new MusePacketPlayerUpdate(clientPlayer, playerCap.getDownKeyState(), playerCap.getJumpKeyState()));
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (event.player.world.isRemote) {
+            Minecraft mc = Minecraft.getMinecraft();
+            EntityPlayerSP player = mc.player;
+
+            // Only activate if there is a player to work with
+            if (mc.inGameHasFocus) {
+                updatePlayerValues(player, goDownKey.isKeyDown() , mc.gameSettings.keyBindJump.isKeyDown());
             }
         }
     }
@@ -99,17 +113,6 @@ public class KeybindKeyHandler {
                 if (mc.inGameHasFocus) {
                     player.openGui(ModularPowersuits.getInstance(), 3, world, 0, 0, 0);
                 }
-                // update down key on server side
-            } else if (key == goDownKey.getKeyCode()) {
-                updatePlayerValues(player, true, null);
-
-                // update jump key on server side
-            } else if (mc.gameSettings.keyBindJump.isPressed())
-                updatePlayerValues(player, null, true);
-        } else {
-            // update down key and jump key on server side to unpressed state
-            if (!goDownKey.isKeyDown() || !mc.gameSettings.keyBindJump.isKeyDown()) {
-                updatePlayerValues(player, false, false);
             }
         }
     }

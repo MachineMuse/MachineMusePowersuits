@@ -1,11 +1,11 @@
 package net.machinemuse.powersuits.powermodule.tool;
 
+import net.machinemuse.numina.energy.ElectricItemUtils;
+import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.numina.module.EnumModuleCategory;
 import net.machinemuse.numina.module.EnumModuleTarget;
 import net.machinemuse.numina.module.IBlockBreakingModule;
 import net.machinemuse.numina.module.IToggleableModule;
-import net.machinemuse.numina.energy.ElectricItemUtils;
-import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;

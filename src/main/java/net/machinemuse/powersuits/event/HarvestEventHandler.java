@@ -1,8 +1,8 @@
 package net.machinemuse.powersuits.event;
 
+import net.machinemuse.numina.energy.ElectricItemUtils;
 import net.machinemuse.numina.module.IBlockBreakingModule;
 import net.machinemuse.numina.module.IPowerModule;
-import net.machinemuse.numina.energy.ElectricItemUtils;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.machinemuse.powersuits.utils.MusePlayerUtils;

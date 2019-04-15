@@ -1,12 +1,12 @@
 package net.machinemuse.powersuits.gui.tinker.frame;
 
+import net.machinemuse.numina.basemod.MuseLogger;
 import net.machinemuse.numina.client.gui.clickable.ClickableLabel;
 import net.machinemuse.numina.client.gui.clickable.ClickableSlider;
 import net.machinemuse.numina.client.gui.scrollable.ScrollableFrame;
 import net.machinemuse.numina.client.gui.scrollable.ScrollableLabel;
 import net.machinemuse.numina.client.gui.scrollable.ScrollableRectangle;
 import net.machinemuse.numina.client.gui.scrollable.ScrollableSlider;
-import net.machinemuse.numina.basemod.MuseLogger;
 import net.machinemuse.numina.constants.ModelSpecTags;
 import net.machinemuse.numina.math.Colour;
 import net.machinemuse.numina.math.geometry.DrawableMuseRect;

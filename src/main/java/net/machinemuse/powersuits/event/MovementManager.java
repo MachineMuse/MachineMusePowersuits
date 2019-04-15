@@ -2,11 +2,11 @@ package net.machinemuse.powersuits.event;
 
 import net.machinemuse.numina.client.sound.Musique;
 import net.machinemuse.numina.config.NuminaConfig;
-import net.machinemuse.numina.item.IModularItem;
-import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.numina.energy.ElectricItemUtils;
+import net.machinemuse.numina.item.IModularItem;
 import net.machinemuse.numina.math.MuseMathUtils;
 import net.machinemuse.numina.nbt.MuseNBTUtils;
+import net.machinemuse.numina.player.NuminaPlayerUtils;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
 import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.common.ModuleManager;
@@ -147,44 +147,10 @@ public class MovementManager {
                 }
             }
 
-//            System.out.println("final thrust: " + thrust );
-//
-//            double motionX = player.motionX + thrust * desiredDirection.x;
-//            double motionY = player.motionY += thrust * desiredDirection.y;
-//            double motionZ = player.motionZ += thrust * desiredDirection.z;
-//
-//
-//            System.out.println("final velocity squared: " + (motionX * motionX + motionY * motionY + motionZ * motionZ));
-
-
             // Thrusting, finally :V
             player.motionX += thrust * desiredDirection.x;
             player.motionY += thrust * desiredDirection.y;
             player.motionZ += thrust * desiredDirection.z;
-
-            /*
-                single player:
-
-                up :
-
-
-
-             */
-
-
-
-
-//            System.out.println("player.motionX: " + player.motionX);
-//            System.out.println("player.motionY: " + player.motionY);
-//            System.out.println("player.motionZ: " + player.motionZ);
-
-
-
-
-
-
-
-
             thrustUsed += thrust;
 
         } else {
@@ -207,15 +173,7 @@ public class MovementManager {
         // currently comes out to 0.0625
         double horizontalLimit = MPSConfig.INSTANCE.getMaximumFlyingSpeedmps() * MPSConfig.INSTANCE.getMaximumFlyingSpeedmps() / 400;
 
-        double playerVelocity = Math.abs(player.motionX) + Math.abs(player.motionY) + Math.abs(player.motionZ);
-
-
-//        double playerVelocity = horzm2 + player.motionY * player.motionY;
-//        System.out.println("mps flying speed limit: " + MPSConfig.INSTANCE.getMaximumFlyingSpeedmps());
-//        System.out.println("mps flying speed limit calc: " + horizontalLimit);
-//        System.out.println("actual player speed horzm2: " + horzm2);
-//        System.out.println("player velocity: " + playerVelocity);
-
+//        double playerVelocity = Math.abs(player.motionX) + Math.abs(player.motionY) + Math.abs(player.motionZ);
 
         if (playerInput.sneakKey && horizontalLimit > 0.05) {
             horizontalLimit = 0.05;
