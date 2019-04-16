@@ -255,7 +255,7 @@ public class ItemPowerFist extends MPSItemElectricTool
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
         ItemStack itemStackIn = playerIn.getHeldItem(handIn);
-        if (handIn != EnumHand.MAIN_HAND) {
+        if (handIn == EnumHand.MAIN_HAND) {
             // Only one right click module should be active at a time.
             IPowerModule iPowerModulemodule = ModuleManager.INSTANCE.getModule(getActiveMode(itemStackIn));
             if (iPowerModulemodule instanceof IRightClickModule) {
