@@ -1,8 +1,10 @@
 package net.machinemuse.powersuits.network.packets;
 
 import io.netty.buffer.ByteBuf;
+import net.machinemuse.numina.basemod.MuseLogger;
 import net.machinemuse.numina.item.IModeChangingItem;
 import net.machinemuse.numina.item.MuseItemUtils;
+import net.machinemuse.numina.math.MuseMathUtils;
 import net.machinemuse.numina.module.IEnchantmentModule;
 import net.machinemuse.numina.module.IPowerModule;
 import net.machinemuse.numina.module.IRightClickModule;
@@ -18,6 +20,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 /**
  * Packet for requesting to purchase an upgrade. Player-to-server. Server
@@ -42,6 +45,10 @@ public class MusePacketSalvageModuleRequest implements IMessage {
         this.player = player;
         this.itemSlot = itemSlot;
         this.moduleName = moduleName;
+
+        System.out.println("slot: " + itemSlot);
+        System.out.println("moduleName: " + moduleName);
+
     }
 
     @Override
@@ -71,7 +78,9 @@ public class MusePacketSalvageModuleRequest implements IMessage {
                             MuseNBTUtils.removeMuseValuesTag(stack);
                             ModuleManager.INSTANCE.removeModule(stack, moduleName);
                             for (ItemStack refundItem : refund) {
-                                MuseItemUtils.giveOrDropItemWithChance(player, refundItem.copy(), MPSConfig.INSTANCE.getSalvageChance());
+                                if (MuseMathUtils.nextDouble() < MPSConfig.INSTANCE.getSalvageChance()) {
+                                    ItemHandlerHelper.giveItemToPlayer(player, refundItem);
+                                }
                             }
 
                             IPowerModule module = ModuleManager.INSTANCE.getModule(moduleName);
