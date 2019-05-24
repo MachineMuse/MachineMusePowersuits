@@ -1,5 +1,7 @@
 package net.machinemuse.powersuits.event;
 
+import net.machinemuse.powersuits.common.config.MPSSettings;
+import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.network.MPSPackets;
 import net.machinemuse.powersuits.network.packets.MPSPacketConfig;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,6 +26,10 @@ public final class PlayerLoginHandlerThingy {
         if (!isUsingBuiltInServer || (isUsingBuiltInServer && FMLCommonHandler.instance().getMinecraftServerInstance().getCurrentPlayerCount() > 1)) {
             // sync config settings between client and server
             MPSPackets.sendTo(new MPSPacketConfig(), (EntityPlayerMP) player);
+        } else {
+            MPSSettings.loadCustomInstallCosts();
         }
+        if (player.world.isRemote)
+            KeybindManager.readInKeybinds();
     }
 }

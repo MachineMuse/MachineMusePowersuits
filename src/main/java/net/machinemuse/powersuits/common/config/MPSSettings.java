@@ -2,19 +2,32 @@ package net.machinemuse.powersuits.common.config;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import com.google.gson.Gson;
+import net.machinemuse.numina.basemod.MuseLogger;
 import net.machinemuse.powersuits.api.constants.MPSConfigConstants;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
+import net.machinemuse.powersuits.common.InstallCost;
 import net.machinemuse.powersuits.common.MPSItems;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorHelmet;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorLeggings;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Config;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.PrintWriter;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -549,7 +562,7 @@ public class MPSSettings {
         private BiMap<String, NBTTagCompound> cosmeticPresetsPowerFist = HashBiMap.create();
         public BiMap<String, NBTTagCompound> getCosmeticPresetsPowerFist() {
             if (cosmeticPresetsPowerFist.isEmpty() && !allowPowerFistCustomization)
-                cosmeticPresetsPowerFist = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerFist, 0);
+                cosmeticPresetsPowerFist = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.powerFist, 0);
             return cosmeticPresetsPowerFist;
         }
 
@@ -557,7 +570,7 @@ public class MPSSettings {
         private BiMap<String, NBTTagCompound> cosmeticPresetsPowerArmorHelmet = HashBiMap.create();
         public BiMap<String, NBTTagCompound> getCosmeticPresetsPowerArmorHelmet() {
             if (cosmeticPresetsPowerArmorHelmet.isEmpty() && !useLegacyCosmeticSystem)
-                cosmeticPresetsPowerArmorHelmet = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerArmorHead, 0);
+                cosmeticPresetsPowerArmorHelmet = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.powerArmorHead, 0);
             return cosmeticPresetsPowerArmorHelmet;
         }
 
@@ -565,7 +578,7 @@ public class MPSSettings {
         private BiMap<String, NBTTagCompound> cosmeticPresetsPowerArmorChestplate = HashBiMap.create();
         public BiMap<String, NBTTagCompound> getCosmeticPresetsPowerArmorChestplate() {
             if(cosmeticPresetsPowerArmorChestplate.isEmpty() && !useLegacyCosmeticSystem)
-                cosmeticPresetsPowerArmorChestplate = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerArmorTorso, 0);
+                cosmeticPresetsPowerArmorChestplate = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.powerArmorTorso, 0);
             return cosmeticPresetsPowerArmorChestplate;
         }
 
@@ -573,7 +586,7 @@ public class MPSSettings {
         private BiMap<String, NBTTagCompound> cosmeticPresetsPowerArmorLeggings = HashBiMap.create();
         public BiMap<String, NBTTagCompound> getCosmeticPresetsPowerArmorLeggings() {
             if(cosmeticPresetsPowerArmorLeggings.isEmpty() && !useLegacyCosmeticSystem)
-                cosmeticPresetsPowerArmorLeggings = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerArmorLegs, 0);
+                cosmeticPresetsPowerArmorLeggings = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.powerArmorLegs, 0);
             return cosmeticPresetsPowerArmorLeggings;
         }
 
@@ -581,8 +594,62 @@ public class MPSSettings {
         private BiMap<String, NBTTagCompound>  cosmeticPresetsPowerArmorBoots = HashBiMap.create();
         public BiMap<String, NBTTagCompound> getCosmeticPresetsPowerArmorBoots() {
             if(cosmeticPresetsPowerArmorBoots.isEmpty() && !useLegacyCosmeticSystem)
-                cosmeticPresetsPowerArmorBoots = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.INSTANCE.powerArmorFeet, 0);
+                cosmeticPresetsPowerArmorBoots = CosmeticPresetSaveLoad.loadPresetsForItem(MPSItems.powerArmorFeet, 0);
             return cosmeticPresetsPowerArmorBoots;
+        }
+    }
+
+    public static void loadCustomInstallCosts() {
+        try {
+            File installCostFile = new File(Loader.instance().getConfigDir() + "/machinemuse/", "custominstallcosts.json");
+            Gson gson = new Gson();
+            if (installCostFile.exists()) {
+                DataInputStream is = new DataInputStream(new FileInputStream(installCostFile));
+                byte[] bytes = new byte[(int) installCostFile.length()];
+                is.readFully(bytes);
+                String string = Charset.defaultCharset().decode(ByteBuffer.wrap(bytes)).toString();
+                is.close();
+
+                MuseLogger.logDebug(string);
+                InstallCost[] costs = (InstallCost[])gson.fromJson(string, (Class)InstallCost[].class);
+                for(InstallCost cost: costs) {
+                    String moduleName = cost.moduleName;
+                    Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(cost.modId, cost.itemName));
+                    if(item != null) {
+                        int metadata = (cost.itemMetadata == null) ? 0 : cost.itemMetadata;
+                        int quantity = (cost.itemQuantity == null) ? 1 : cost.itemQuantity;
+                        ItemStack stack = new ItemStack(item, quantity, metadata);
+                        if(!stack.isEmpty()) {
+                            ModuleManager.INSTANCE.addCustomInstallCost(moduleName, stack);
+                        } else {
+                            MuseLogger.logError("Invalid Itemstack in custom install cost. Module [" + cost.moduleName + "], item [" + cost.itemName + "]");
+                        }
+                    } else {
+                        MuseLogger.logError("Invalid Item in custom install cost. Module [" + cost.moduleName + "], item [" + cost.itemName + "]");
+                    }
+                }
+            } else {
+                installCostFile.createNewFile();
+                InstallCost examplecost = new InstallCost();
+                examplecost.moduleName = "Shock Absorber";
+                examplecost.itemName = "wool";
+                examplecost.modId = "minecraft";
+                examplecost.itemQuantity = 2;
+                examplecost.itemMetadata = 0;
+                InstallCost examplecost2 = new InstallCost();
+                examplecost2.moduleName = "Shock Absorber";
+                examplecost2.itemName = "powerArmorComponent";
+                examplecost2.modId = "powersuits";
+                examplecost2.itemQuantity = 2;
+                examplecost2.itemMetadata = 2;
+                InstallCost[] output = { examplecost, examplecost2 };
+                String json = gson.toJson(output);
+                PrintWriter dest = new PrintWriter(installCostFile);
+                dest.write(json);
+                dest.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

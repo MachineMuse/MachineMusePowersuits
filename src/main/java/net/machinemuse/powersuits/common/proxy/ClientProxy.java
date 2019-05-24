@@ -8,7 +8,6 @@ import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.common.config.CosmeticPresetSaveLoad;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.KeybindKeyHandler;
-import net.machinemuse.powersuits.control.KeybindManager;
 import net.machinemuse.powersuits.event.RenderEventHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -44,7 +43,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
-        KeybindManager.readInKeybinds();
+//        KeybindManager.readInKeybinds();
         MPSConfig.INSTANCE.configDoubleKVGen();
     }
 

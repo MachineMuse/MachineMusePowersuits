@@ -5,7 +5,6 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -94,50 +93,51 @@ public class HighPolyArmor extends ModelBiped implements IArmorModel {
     public void prep(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         try {
             EntityLivingBase entLive = (EntityLivingBase) entityIn;
-            ItemStack stack = entLive.getActiveItemStack();
-
-            // set pose for main hand, whichever hand that is
-            if (entLive.getHeldItemMainhand().isEmpty()) {
-                if (getMainHand(entLive) == EnumHandSide.RIGHT)
-                    this.rightArmPose = ArmPose.EMPTY;
-                else
-                    this.leftArmPose = ArmPose.EMPTY;
-            } else {
-                if (getMainHand(entLive) == EnumHandSide.RIGHT)
-                    this.rightArmPose = ArmPose.ITEM;
-                else
-                    this.leftArmPose = ArmPose.ITEM;
-            }
-
-            // the "offhand" is the other hand
-            if (entLive.getHeldItemOffhand().isEmpty()) {
-                if (getMainHand(entLive) == EnumHandSide.RIGHT)
-                    this.rightArmPose = ArmPose.EMPTY;
-                else
-                    this.leftArmPose = ArmPose.EMPTY;
-            } else {
-                if (getMainHand(entLive) == EnumHandSide.RIGHT)
-                    this.rightArmPose = ArmPose.ITEM;
-                else
-                    this.leftArmPose = ArmPose.ITEM;
-            }
 
             isSneak = entLive.isSneaking();
             isRiding = entLive.isRiding();
-            EntityPlayer entPlayer = (EntityPlayer) entLive;
-            if ((!stack.isEmpty()) && (entPlayer.getItemInUseCount() > 0)) {
-                EnumAction enumaction = stack.getItemUseAction();
-                if (enumaction == EnumAction.BLOCK) {
-                    if (getMainHand(entLive) == EnumHandSide.LEFT)
-                        this.leftArmPose = ArmPose.BLOCK;
-                    else
-                        this.rightArmPose = ArmPose.BLOCK;
-                } else if (enumaction == EnumAction.BOW) {
-                    if (getMainHand(entLive) == EnumHandSide.LEFT)
-                        this.leftArmPose = ArmPose.BOW_AND_ARROW;
-                    else
-                        this.rightArmPose = ArmPose.BOW_AND_ARROW;
+
+            ArmPose mainHandPose = ArmPose.EMPTY;
+            ArmPose offHandPose = ArmPose.EMPTY;
+
+            ItemStack itemStackMainHand = entLive.getHeldItemMainhand();
+            if (!itemStackMainHand.isEmpty()) {
+                mainHandPose = ArmPose.ITEM;
+
+                if (entLive.getItemInUseCount() > 0) {
+                    EnumAction enumaction = itemStackMainHand.getItemUseAction();
+
+                    if (enumaction == EnumAction.BLOCK) {
+                        mainHandPose = ArmPose.BLOCK;
+                    } else if (enumaction == EnumAction.BOW) {
+                        mainHandPose = ArmPose.BOW_AND_ARROW;
+                    }
                 }
+            }
+
+            ItemStack itemstackOffHand = entLive.getHeldItemOffhand();
+            if (!itemstackOffHand.isEmpty()) {
+                offHandPose = ArmPose.ITEM;
+
+                if (entLive.getItemInUseCount() > 0) {
+                    EnumAction enumaction1 = itemstackOffHand.getItemUseAction();
+
+                    if (enumaction1 == EnumAction.BLOCK) {
+                        offHandPose = ArmPose.BLOCK;
+                    }
+                    // FORGE: fix MC-88356 allow offhand to use bow and arrow animation
+                    else if (enumaction1 == EnumAction.BOW) {
+                        offHandPose = ArmPose.BOW_AND_ARROW;
+                    }
+                }
+            }
+
+            if (entLive.getPrimaryHand() == EnumHandSide.RIGHT) {
+                this.rightArmPose = mainHandPose;
+                this.leftArmPose = offHandPose;
+            } else {
+                this.rightArmPose = offHandPose;
+                this.leftArmPose = mainHandPose;
             }
         } catch (Exception ignored) {
         }

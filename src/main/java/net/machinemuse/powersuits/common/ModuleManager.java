@@ -20,7 +20,7 @@ public enum ModuleManager implements IModuleManager {
     INSTANCE;
 
     protected static final Map<String, NonNullList<ItemStack>> installCosts = new HashMap<>();
-    protected static final Map<String, NonNullList<ItemStack>> customInstallCosts = new HashMap<>();
+    protected static Map<String, NonNullList<ItemStack>> customInstallCosts = new HashMap<>();
     protected static final Map<String, IPowerModule> moduleMap = new LinkedHashMap<>();
 
     @Override
@@ -99,6 +99,29 @@ public enum ModuleManager implements IModuleManager {
         NonNullList<ItemStack> costForModule = getInstallCost(dataName);
         costForModule.addAll(installCost);
         installCosts.put(dataName, costForModule);
+    }
+
+    public Map<String, NonNullList<ItemStack>> getCustomInstallCosts() {
+        return customInstallCosts;
+    }
+
+    public Map<String, ItemStack[]> getCustomInstallCostsForServerToClientConfig() {
+        Map<String, ItemStack[]> retMap = new HashMap<>();
+        for (Map.Entry<String, NonNullList<ItemStack>> entry : customInstallCosts.entrySet()) {
+            NonNullList<ItemStack> nonNullStacks = entry.getValue();
+            ItemStack[] stacks = new ItemStack[nonNullStacks.size()];
+
+            for (int i = 0; i < nonNullStacks.size(); i++) {
+                stacks[i] = nonNullStacks.get(i);
+            }
+            retMap.put(entry.getKey(), stacks);
+        }
+
+        return retMap;
+    }
+
+    public void setCustomInstallCosts(Map<String, NonNullList<ItemStack>> customInstallCosts) {
+        this.customInstallCosts = customInstallCosts;
     }
 
     @Override

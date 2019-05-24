@@ -4,12 +4,14 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import io.netty.buffer.ByteBuf;
 import net.machinemuse.numina.network.MuseByteBufferUtils;
+import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorBoots;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorChestplate;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorHelmet;
 import net.machinemuse.powersuits.item.armor.ItemPowerArmorLeggings;
 import net.machinemuse.powersuits.item.tool.ItemPowerFist;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 
@@ -104,6 +106,11 @@ public class MPSServerSettings {
         useIC2Recipes = MPSSettings.recipesAllowed.useIC2Recipes;
 
         /**
+         * Custom install costs -------------------------------------------------------------------
+         */
+        MPSSettings.loadCustomInstallCosts();
+
+        /**
          * Max Base Heat Heat --------------------------------------------------------------------
          */
         baseMaxHeatPowerFist = MPSSettings.general.baseMaxHeatPowerFist;
@@ -176,6 +183,11 @@ public class MPSServerSettings {
         useIC2Recipes = datain.readBoolean();
 
         /**
+         * Custom install costs -------------------------------------------------------------------
+         */
+        ModuleManager.INSTANCE.setCustomInstallCosts(MuseByteBufferUtils.readMap(datain, String.class, ItemStack[].class));
+
+        /**
          * Modules -------------------------------------------------------------------------------
          */
         allowedModules = MuseByteBufferUtils.readMap(datain, String.class, Boolean.class);
@@ -238,6 +250,11 @@ public class MPSServerSettings {
         packet.writeBoolean(useEnderIORecipes);
         packet.writeBoolean(useTechRebornRecipes);
         packet.writeBoolean(useIC2Recipes);
+
+        /**
+         *  Custom Install Costs -------------------------------------------------------------------
+         */
+        MuseByteBufferUtils.writeMap(packet, ModuleManager.INSTANCE.getCustomInstallCostsForServerToClientConfig(), true);
 
         /**
          * Modules -------------------------------------------------------------------------------

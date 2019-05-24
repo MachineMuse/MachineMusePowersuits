@@ -22,11 +22,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Loader;
 
 import javax.annotation.Nonnull;
-
-//import mrtjp.projectred.transmission.bundledwires.TWireCommons;
 
 /**
  * Created by User: Korynkai
@@ -35,36 +32,40 @@ import javax.annotation.Nonnull;
  * TODO: Fix ProjectRed (may require PR to ProjectRed)
  */
 public class OmniProbeModule extends PowerModuleBase implements IRightClickModule, IPlayerTickModule {
-    private ItemStack conduitProbe;
-    private ItemStack rednetMeter;
-    private ItemStack cpmPSD;
-    private ItemStack rcMeter;
-    private ItemStack prDebugger;
-//    private ItemStack teMultimeter;
+    private ItemStack rcMeter = ItemStack.EMPTY;
+
+    private ItemStack conduitProbe = ItemStack.EMPTY;
+
+    private ItemStack teMultimeter = ItemStack.EMPTY;
+
+//    private ItemStack rednetMeter = ItemStack.EMPTY;
+
+//    private ItemStack euMeter = ItemStack.EMPTY;
 
     public OmniProbeModule(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 4));
         ItemStack tHighest = new ItemStack(Items.COMPARATOR);
 
-        if (ModCompatibility.isMFRLoaded()) {
-            rednetMeter = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("MineFactoryReloaded", "rednet.meter")), 1);
-            tHighest = rednetMeter;
-        }
+        // Does not exist
+//        if (ModCompatibility.isMFRLoaded()) {
+//            rednetMeter = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("MineFactoryReloaded", "rednet.meter")), 1);
+//            tHighest = rednetMeter;
+//        }
 
         if (ModCompatibility.isRailcraftLoaded()) {
-            rcMeter = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("Railcraft", "tool.electric.meter")), 1);
+            rcMeter = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("railcraft", "tool_charge_meter")), 1);
             tHighest = rcMeter;
         }
 
-        /* Will be added when ThermalExpansion's new conduit mod is released */
-        // if (ModCompatibility.isThermalExpansionLoaded) {
-        //     teMultimeter = GameRegistry.findItemStack("ThermalExpansion", "multimeter", 1);
-        //     tHighest = teMultimeter
-        // }
+        /* untested */
+        if (ModCompatibility.isThermalExpansionLoaded()) {
+            teMultimeter = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("thermalexpansion", "multimeter")), 1);
+            tHighest = teMultimeter;
+        }
 
         if (ModCompatibility.isEnderIOLoaded()) {
-            conduitProbe = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("EnderIO", "itemConduitProbe")), 1);
+            conduitProbe = new ItemStack(Item.REGISTRY.getObject(new ResourceLocation("enderio", "item_conduit_probe")), 1);
             tHighest = conduitProbe;
         }
         ModuleManager.INSTANCE.addInstallCost(getDataName(), tHighest);
@@ -90,29 +91,35 @@ public class OmniProbeModule extends PowerModuleBase implements IRightClickModul
         return EnumActionResult.PASS;
     }
 
-    // FIXME: all of these will fail due to case sensitivity issues.
     @Override
     public EnumActionResult onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-        int block = Block.getIdFromBlock(world.getBlockState(pos).getBlock());
+        Block block = world.getBlockState(pos).getBlock();
 
-        if (Loader.isModLoaded("MineFactoryReloaded")) {
-            if (block == Block.getIdFromBlock(Block.REGISTRY.getObject(new ResourceLocation("MineFactoryReloaded", "cable.redstone"))))
-                return rednetMeter.getItem().onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, EnumHand.MAIN_HAND);
-        }
+        if (block == null || block.isAir(world.getBlockState(pos), world, pos))
+            return EnumActionResult.PASS;
 
-        if (Loader.isModLoaded("Railcraft")) {
-            if ((block == Block.getIdFromBlock(Block.REGISTRY.getObject(new ResourceLocation("Railcraft", "tile.railcraft.machine.alpha")))) ||
-                    (block == Block.getIdFromBlock(Block.REGISTRY.getObject(new ResourceLocation("Railcraft", "tile.railcraft.track")))) ||
-                    (block == Block.getIdFromBlock(Block.REGISTRY.getObject(new ResourceLocation("Railcraft", "tile.railcraft.machine.epsilon")))) ||
-                    (block == Block.getIdFromBlock(Block.REGISTRY.getObject(new ResourceLocation("Railcraft", "tile.railcraft.machine.delta"))))) {
-                return rcMeter.getItem().onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, EnumHand.MAIN_HAND);
+        try {
+            if (ModCompatibility.isEnderIOLoaded()) {
+                if (conduitProbe.getItem().onItemUse(player, world, pos, EnumHand.MAIN_HAND, side, hitX, hitY, hitZ) == EnumActionResult.SUCCESS)
+                    return EnumActionResult.SUCCESS;
             }
-        }
 
-        if (Loader.isModLoaded("EnderIO")) {
-            if (block == Block.getIdFromBlock(Block.REGISTRY.getObject(new ResourceLocation("EnderIO", "blockConduitBundle")))) {
-                return conduitProbe.getItem().onItemUse(player, world, pos, EnumHand.MAIN_HAND, side, hitX, hitY, hitZ);
+//            if (ModCompatibility.isMFRLoaded()) {
+//                if (block == Block.REGISTRY.getObject(new ResourceLocation("minefactoryreloaded", "cable.redstone")))
+//                    return rednetMeter.getItem().onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, EnumHand.MAIN_HAND);
+//            }
+
+            if (ModCompatibility.isRailcraftLoaded()) {
+                if (rcMeter.getItem().onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, EnumHand.MAIN_HAND) == EnumActionResult.SUCCESS)
+                    return EnumActionResult.SUCCESS;
             }
+
+            if(ModCompatibility.isThermalExpansionLoaded()) {
+                if (teMultimeter.getItem().onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, EnumHand.MAIN_HAND) == EnumActionResult.SUCCESS)
+                    return EnumActionResult.SUCCESS;
+            }
+        } catch (Exception ignored) {
+
         }
         return EnumActionResult.PASS;
     }

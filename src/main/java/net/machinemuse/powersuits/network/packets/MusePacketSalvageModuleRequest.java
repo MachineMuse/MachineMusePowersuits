@@ -1,9 +1,7 @@
 package net.machinemuse.powersuits.network.packets;
 
 import io.netty.buffer.ByteBuf;
-import net.machinemuse.numina.basemod.MuseLogger;
 import net.machinemuse.numina.item.IModeChangingItem;
-import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.numina.math.MuseMathUtils;
 import net.machinemuse.numina.module.IEnchantmentModule;
 import net.machinemuse.numina.module.IPowerModule;
