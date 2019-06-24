@@ -1,4 +1,4 @@
-package net.machinemuse.powersuits.event;
+package net.machinemuse.powersuits.client.event;
 
 import net.machinemuse.numina.client.render.MuseIconUtils;
 import net.machinemuse.numina.client.render.MuseRenderer;
@@ -7,7 +7,6 @@ import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.numina.math.Colour;
 import net.machinemuse.numina.math.geometry.DrawableMuseRect;
 import net.machinemuse.powersuits.api.constants.MPSModuleConstants;
-import net.machinemuse.powersuits.client.event.MuseIcon;
 import net.machinemuse.powersuits.client.model.helper.ModelHelper;
 import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.common.config.MPSConfig;
@@ -17,6 +16,7 @@ import net.machinemuse.powersuits.gui.tinker.clickable.ClickableModule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -40,8 +40,10 @@ public class RenderEventHandler {
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void preTextureStitch(TextureStitchEvent.Pre event) {
-        MuseIcon.registerIcons(event);
-        ModelHelper.loadArmorModels(event);
+        if (event.getMap().equals( Minecraft.getMinecraft().getTextureMapBlocks())) {
+            MuseIcon.registerIcons(event.getMap());
+            ModelHelper.loadArmorModels(event.getMap());
+        }
     }
 
     @SideOnly(Side.CLIENT)

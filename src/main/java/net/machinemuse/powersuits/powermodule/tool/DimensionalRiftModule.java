@@ -66,84 +66,14 @@ public class DimensionalRiftModule extends PowerModuleBase implements IRightClic
             EntityPlayerMP player = (EntityPlayerMP) playerIn;
             BlockPos coords = playerIn.bedLocation != null ? playerIn.bedLocation : playerIn.world.getSpawnPoint();
 
-
-
-            while ((worldIn.getBlockState(new BlockPos(coords.getX(), coords.getY(), coords.getZ())).getBlock() != Blocks.AIR) &&
-                    (worldIn.getBlockState(coords.up())) != Blocks.AIR) {
+            while (!worldIn.isAirBlock(coords) && !worldIn.isAirBlock(coords.up())) {
                 coords = coords.up();
             }
 
-
             playerIn.changeDimension(0, new CommandTeleporter(coords));
-
-
             int energyConsumption = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.ENERGY_CONSUMPTION);
             int playerEnergy = ElectricItemUtils.getPlayerEnergy(playerIn);
             if (playerEnergy >= energyConsumption) {
-                // Fixme ... absolutely need a cooldown timer.
-                // Fixme... was looking at the teleport command, not much different meh
-                //...FIXME ... testing a builtin method which is hopefully faster and less of a server hit.
-////            Set<SPacketPlayerPosLook.EnumFlags> set = EnumSet.noneOf(SPacketPlayerPosLook.EnumFlags.class);
-////
-////                float yaw = player.rotationYaw;
-////
-////                if (argYaw.isRelative()) {
-////                    set.add(SPacketPlayerPosLook.EnumFlags.Y_ROT);
-////                } else {
-////                    yaw = MathHelper.wrapDegrees(yaw);
-////                }
-////
-////                float f1 = (float) argPitch.getAmount();
-////
-////                if (argPitch.isRelative()) {
-////                    set.add(SPacketPlayerPosLook.EnumFlags.X_ROT);
-////                } else {
-////                    f1 = MathHelper.wrapDegrees(f1);
-////                }
-////
-////                player.dismountRidingEntity();
-////                player.connection.setPlayerLocation(argX.getResult(), argY.getResult(), argZ.getResult(), yaw, f1, set);
-////                player.setRotationYawHead(yaw);
-////            } else {
-////                float f2 = (float) MathHelper.wrapDegrees(argYaw.getResult());
-////                float f3 = (float) MathHelper.wrapDegrees(argPitch.getResult());
-////                f3 = MathHelper.clamp(f3, -90.0F, 90.0F);
-////                player.setLocationAndAngles(argX.getResult(), argY.getResult(), argZ.getResult(), f2, f3);
-////                player.setRotationYawHead(f2);
-////            }
-////
-////            if (!(player instanceof EntityLivingBase) || !((EntityLivingBase) player).isElytraFlying()) {
-////                player.motionY = 0.0D;
-////                player.onGround = true;
-////            }
-////
-////            playerIn.moveToBlockPosAndAngles(targetPos, playerIn.rotationYaw, playerIn.rotationPitch);
-//
-//            if (playerIn.dimension != theNether) {
-//
-//
-//                playerIn.setLocationAndAngles(0.5D, playerIn.posY, 0.5D, player.rotationYaw, player.rotationPitch);
-//                player.mcServer.getPlayerList().transferPlayerToDimension(player, theNether, new DimensionalRiftHelper(player.mcServer.getWorld(theNether)));
-//                ElectricItemUtils.drainPlayerEnergy(player, (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.ENERGY_CONSUMPTION));
-//                MuseHeatUtils.heatPlayer(player, ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.HEAT_GENERATION));
-//            } else if (player.dimension == theNether || player.dimension == theEnd)
-//                player.setLocationAndAngles(0.5D, player.posY, 0.5D, player.rotationYaw, player.rotationPitch);
-//            player.mcServer.getPlayerList().transferPlayerToDimension(player, 0, new DimensionalRiftHelper(player.mcServer.getWorld(theOverworld)));
-//
-//
-//
-//            if (player.dimension == theOverworld) {
-//                BlockPos coords = (player instanceof EntityPlayer) ? (player).getBedLocation(player.dimension) : null;
-//                if ((coords == null) || ((coords.getX() == 0) && (coords.getY() == 0) && (coords.getZ() == 0))) {
-//                    coords = worldIn.getSpawnPoint();
-//                }
-//                int yPos = coords.getY();
-//                while ((worldIn.getBlockState(new BlockPos(coords.getX(), yPos, coords.getZ())).getBlock() != Blocks.AIR) &&
-//                        (worldIn.getBlockState(new BlockPos(coords.getX(), yPos + 1, coords.getZ())) != Blocks.AIR)) {
-//                    yPos++;
-//                }
-//                (player).setPositionAndUpdate(coords.getX() + 0.5D, yPos, coords.getZ() + 0.5D);
-//            }
                 ElectricItemUtils.drainPlayerEnergy(player, getEnergyUsage(itemStackIn));
                 MuseHeatUtils.heatPlayer(player, ModuleManager.INSTANCE.getOrSetModularPropertyDouble(itemStackIn, MPSModuleConstants.HEAT_GENERATION));
                 return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);

@@ -8,7 +8,7 @@ import net.machinemuse.powersuits.client.sound.SoundDictionary;
 import net.machinemuse.powersuits.common.config.CosmeticPresetSaveLoad;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.machinemuse.powersuits.control.KeybindKeyHandler;
-import net.machinemuse.powersuits.event.RenderEventHandler;
+import net.machinemuse.powersuits.client.event.RenderEventHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;

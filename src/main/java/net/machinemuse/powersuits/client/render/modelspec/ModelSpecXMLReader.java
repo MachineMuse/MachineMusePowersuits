@@ -9,9 +9,9 @@ import net.machinemuse.numina.math.Colour;
 import net.machinemuse.numina.string.MuseStringUtils;
 import net.machinemuse.powersuits.common.config.MPSConfig;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.common.model.IModelPart;
 import net.minecraftforge.common.model.IModelState;
@@ -45,33 +45,33 @@ import java.util.Objects;
 public enum ModelSpecXMLReader {
     INSTANCE;
 
-    public static void parseFile(URL file, @Nullable TextureStitchEvent event) {
+    public static void parseFile(URL file, @Nullable TextureMap map) {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             InputSource x = new InputSource(file.openStream());
             Document xml = dBuilder.parse(new InputSource(file.openStream()));
-            parseXML(xml, event);
+            parseXML(xml, map);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void parseFile(File file, @Nullable TextureStitchEvent event) {
+    public static void parseFile(File file, @Nullable TextureMap map) {
         if (file.exists()) {
             try {
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder dBuilder = null;
                 dBuilder = dbFactory.newDocumentBuilder();
                 Document xml = dBuilder.parse(file);
-                parseXML(xml, event);
+                parseXML(xml, map);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public static void parseXML(Document xml, @Nullable TextureStitchEvent event) {
+    public static void parseXML(Document xml, @Nullable TextureMap map) {
         if (xml != null) {
             try {
                 xml.normalizeDocument();
@@ -90,18 +90,18 @@ public enum ModelSpecXMLReader {
                                 case WIELDABLE:
                                     // only allow custom models if allowed by config
 //                                    if (isDefault || MPSConfig.INSTANCE.allowCustomPowerFistModels())
-                                    parseModelSpec(specNode, event, EnumSpecType.WIELDABLE, specName, isDefault);
+                                    parseModelSpec(specNode, map, EnumSpecType.WIELDABLE, specName, isDefault);
                                     break;
 
                                 case ARMOR_MODEL:
                                     // only allow these models if allowed by config
                                     if (MPSConfig.INSTANCE.allowHighPollyArmorModels()) {
-                                        parseModelSpec(specNode, event, EnumSpecType.ARMOR_MODEL, specName, isDefault);
+                                        parseModelSpec(specNode, map, EnumSpecType.ARMOR_MODEL, specName, isDefault);
                                     }
                                     break;
 
                                 case ARMOR_SKIN:
-                                    if (event == null) {
+                                    if (map == null) {
                                         TextureSpec textureSpec = new TextureSpec(specName, isDefault);
                                         parseTextureSpec(specNode, textureSpec);
                                     }
@@ -141,7 +141,7 @@ public enum ModelSpecXMLReader {
     /**
      * Biggest difference between the ModelSpec for Armor vs PowerFist is that the armor models don't need item camera transforms
      */
-    public static void parseModelSpec(Node specNode, TextureStitchEvent event, EnumSpecType specType, String specName, boolean isDefault) {
+    public static void parseModelSpec(Node specNode, @Nullable TextureMap map, EnumSpecType specType, String specName, boolean isDefault) {
         NodeList models = specNode.getOwnerDocument().getElementsByTagName(ModelSpecTags.TAG_MODEL);
         java.util.List<String> textures = new ArrayList<>();
         IModelState modelState = null;
@@ -153,7 +153,7 @@ public enum ModelSpecXMLReader {
                 Element modelElement = (Element) modelNode;
 
                 // Register textures
-                if (event != null) {
+                if (map != null) {
                     List<String> tempTextures = Arrays.asList(modelElement.getAttribute("textures").split(","));
                     for (String texture : tempTextures)
                         if (!(textures.contains(texture)))
@@ -202,9 +202,9 @@ public enum ModelSpecXMLReader {
         }
 
         // Register textures
-        if (event != null)
+        if (map != null)
             for (String texture : textures)
-                event.getMap().registerSprite(new ResourceLocation(texture));
+                map.registerSprite(new ResourceLocation(texture));
     }
 
     // since the skinned armor can't have more than one texture per EntityEquipmentSlot the TexturePartSpec is named after the slot

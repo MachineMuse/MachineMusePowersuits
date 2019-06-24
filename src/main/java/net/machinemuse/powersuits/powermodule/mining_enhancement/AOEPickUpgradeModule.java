@@ -1,6 +1,5 @@
 package net.machinemuse.powersuits.powermodule.mining_enhancement;
 
-import mekanism.common.HashList;
 import net.machinemuse.numina.energy.ElectricItemUtils;
 import net.machinemuse.numina.item.MuseItemUtils;
 import net.machinemuse.numina.module.*;
@@ -20,6 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 
 /**
  * Created by Eximius88 on 1/29/14.
@@ -68,7 +68,7 @@ public class AOEPickUpgradeModule extends PowerModuleBase implements IMiningEnha
                 break;
 
             default:
-                posList = new HashList<>();
+                posList = new ArrayList<>();
         }
         int energyUsage = this.getEnergyUsage(itemStack);
 

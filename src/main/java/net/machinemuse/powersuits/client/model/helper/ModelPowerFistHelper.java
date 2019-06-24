@@ -13,8 +13,8 @@ import net.machinemuse.powersuits.client.event.ModelBakeEventHandler;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.common.model.IModelPart;
 import net.minecraftforge.common.model.IModelState;
@@ -22,6 +22,7 @@ import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 @SideOnly(Side.CLIENT)
@@ -80,8 +81,8 @@ public enum ModelPowerFistHelper {
                 }
             });
 
-    public static void loadPowerFistModels(TextureStitchEvent event) {
-        if (event != null) {
+    public static void loadPowerFistModels(@Nullable TextureMap map) {
+        if (map != null) {
             try {
                 // FIXME: register textures from XML loader
 //                MuseOBJLoader.INSTANCE.registerModelSprites(powerFistLocation);

@@ -3,8 +3,8 @@ package net.machinemuse.powersuits.client.event;
 
 import net.machinemuse.powersuits.api.constants.MPSResourceConstants;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -113,104 +113,104 @@ public class MuseIcon {
     protected MuseIcon() {
     }
 
-    public static void registerIcons(TextureStitchEvent.Pre event) {
+    public static void registerIcons(TextureMap map) {
         /* Armor -------------------------------------------------------------------------------------- */
-        apiaristArmor = register(event, "modules/silkWisp");
-        basicPlating = register(event, "modules/basicplating2");
-        diamondPlating = register(event, "modules/advancedplating2");
-        energyShield = register(event, "modules/energyshield");
-        hazmat = register(event, "modules/greenstar");
-        heatSink = register(event, "modules/heatresistantplating2");
-        mechAssistance = register(event, "modules/mechassistance");
-        advancedCoolingSystem = register(event, "modules/coolingsystem");
+        apiaristArmor = register(map, "modules/silkWisp");
+        basicPlating = register(map, "modules/basicplating2");
+        diamondPlating = register(map, "modules/advancedplating2");
+        energyShield = register(map, "modules/energyshield");
+        hazmat = register(map, "modules/greenstar");
+        heatSink = register(map, "modules/heatresistantplating2");
+        mechAssistance = register(map, "modules/mechassistance");
+        advancedCoolingSystem = register(map, "modules/coolingsystem");
         /* Water tank module uses vanilla bucket of water icon */
 
         /* Cosmetic ----------------------------------------------------------------------------------- */
-        citizenJoe = register(event, "modules/greendrone");
-        cosmeticGlow = register(event, "modules/netherstar");
-        highPoly = register(event, "modules/bluedrone");
-        tint = register(event, "modules/netherstar");
+        citizenJoe = register(map, "modules/greendrone");
+        cosmeticGlow = register(map, "modules/netherstar");
+        highPoly = register(map, "modules/bluedrone");
+        tint = register(map, "modules/netherstar");
 
         /* Energy ------------------------------------------------------------------------------------- */
-        advancedBattery = register(event, "modules/mvbattery");
-        advSolarGenerator = register(event, "modules/advsolarhelmet");
-        basicBattery = register(event, "modules/lvbattery");
+        advancedBattery = register(map, "modules/mvbattery");
+        advSolarGenerator = register(map, "modules/advsolarhelmet");
+        basicBattery = register(map, "modules/lvbattery");
         /* FIXME no icon "coalgen" */
-        coalGenerator = register(event, "modules/coalgen");
-        eliteBattery = register(event, "modules/hvbattery");
-        kineticGenerator = register(event, "modules/kineticgen");
-        solarGenerator = register(event, "modules/solarhelmet");
-        thermalGenerator = register(event, "modules/heatgenerator");
-        ultimateBattery = register(event, "modules/crystalcapacitor");
+        coalGenerator = register(map, "modules/coalgen");
+        eliteBattery = register(map, "modules/hvbattery");
+        kineticGenerator = register(map, "modules/kineticgen");
+        solarGenerator = register(map, "modules/solarhelmet");
+        thermalGenerator = register(map, "modules/heatgenerator");
+        ultimateBattery = register(map, "modules/crystalcapacitor");
 
         /* Misc --------------------------------------------------------------------------------------- */
-        airtightSeal = register(event, "modules/glasspane");
-        autoFeeder = register(event, "modules/autofeeder");
-        binoculars = register(event, "modules/binoculars");
-        basicCoolingSystem = register(event, "modules/coolingsystem");
-        portableCraftingTable = register(event, "modules/portablecrafting");
-        invisibility = register(event, "modules/bluedrone");
-        magnet = register(event, "modules/magnetmodule");
-        mobRepulsor = register(event, "modules/magneta");
-        nightVision = register(event, "modules/nightvision");
-        aurameter = register(event, "modules/bluestar");
-        transparentArmor = register(event, "modules/transparentarmor");
-        waterElectrolyzer = register(event, "modules/waterelectrolyzer");
+        airtightSeal = register(map, "modules/glasspane");
+        autoFeeder = register(map, "modules/autofeeder");
+        binoculars = register(map, "modules/binoculars");
+        basicCoolingSystem = register(map, "modules/coolingsystem");
+        portableCraftingTable = register(map, "modules/portablecrafting");
+        invisibility = register(map, "modules/bluedrone");
+        magnet = register(map, "modules/magnetmodule");
+        mobRepulsor = register(map, "modules/magneta");
+        nightVision = register(map, "modules/nightvision");
+        aurameter = register(map, "modules/bluestar");
+        transparentArmor = register(map, "modules/transparentarmor");
+        waterElectrolyzer = register(map, "modules/waterelectrolyzer");
 
         /* Movement ----------------------------------------------------------------------------------- */
-        blinkDrive = register(event, "modules/alien");
-        climbAssist = register(event, "modules/climbassist");
-        flightControl = register(event, "modules/FlightControlY");
-        glider = register(event, "modules/glider");
-        jetBoots = register(event, "modules/jetboots");
-        jetpack = register(event, "modules/jetpack");
-        jumpAssist = register(event, "modules/jumpassist");
-        parachute = register(event, "modules/parachute");
-        shockAbsorber = register(event, "modules/shockabsorber");
-        sprintAssist = register(event, "modules/sprintassist");
-        swimAssist = register(event, "modules/swimboost");
+        blinkDrive = register(map, "modules/alien");
+        climbAssist = register(map, "modules/climbassist");
+        flightControl = register(map, "modules/FlightControlY");
+        glider = register(map, "modules/glider");
+        jetBoots = register(map, "modules/jetboots");
+        jetpack = register(map, "modules/jetpack");
+        jumpAssist = register(map, "modules/jumpassist");
+        parachute = register(map, "modules/parachute");
+        shockAbsorber = register(map, "modules/shockabsorber");
+        sprintAssist = register(map, "modules/sprintassist");
+        swimAssist = register(map, "modules/swimboost");
 
         /* Mining Enhancements ------------------------------------------------------------------------ */
-        emptyModule = register(event, "modules/empty_set");
+        emptyModule = register(map, "modules/empty_set");
 
 
         /* Tools -------------------------------------------------------------------------------------- */
-        aoePickUpgrade = register(event, "modules/diamondupgrade1");
-        appengECWirelessFluid = register(event, "modules/ItemWirelessTerminalFluid");
-        appengWireless = register(event, "modules/ItemWirelessTerminal");
-        aquaAffinity = register(event, "modules/aquaaffinity");
-        axe = register(event, "modules/toolaxe");
-        chisel = register(event, "modules/toolpinch");
-        diamondPickUpgrade = register(event, "modules/diamondupgrade1");
-        dimRiftGen = register(event, "modules/kineticgen");
-        fieldTinkerer = register(event, "modules/transparentarmor");
-        leafBlower = register(event, "modules/leafblower");
-        luxCapacitor = register(event, "modules/bluelight");
-        madModule = register(event, "modules/atomic_disassembler");
-        mffsFieldTeleporter = register(event, "modules/fieldteleporter");
-        ocTerminal = register(event, "modules/ocTerminal");
-        omniProbe = register(event, "modules/omniprobe");
-        omniwrench = register(event, "modules/omniwrench");
-        oreScanner = register(event, "modules/orescanner");
-        cmPSD = register(event, "modules/psd");
-        pickaxe = register(event, "modules/toolpick");
-        redstoneLaser = register(event, "modules/laser");
-        shovel = register(event, "modules/toolshovel");
+        aoePickUpgrade = register(map, "modules/diamondupgrade1");
+        appengECWirelessFluid = register(map, "modules/ItemWirelessTerminalFluid");
+        appengWireless = register(map, "modules/ItemWirelessTerminal");
+        aquaAffinity = register(map, "modules/aquaaffinity");
+        axe = register(map, "modules/toolaxe");
+        chisel = register(map, "modules/toolpinch");
+        diamondPickUpgrade = register(map, "modules/diamondupgrade1");
+        dimRiftGen = register(map, "modules/kineticgen");
+        fieldTinkerer = register(map, "modules/transparentarmor");
+        leafBlower = register(map, "modules/leafblower");
+        luxCapacitor = register(map, "modules/bluelight");
+        madModule = register(map, "modules/atomic_disassembler");
+        mffsFieldTeleporter = register(map, "modules/fieldteleporter");
+        ocTerminal = register(map, "modules/ocTerminal");
+        omniProbe = register(map, "modules/omniprobe");
+        omniwrench = register(map, "modules/omniwrench");
+        oreScanner = register(map, "modules/orescanner");
+        cmPSD = register(map, "modules/psd");
+        pickaxe = register(map, "modules/toolpick");
+        redstoneLaser = register(map, "modules/laser");
+        shovel = register(map, "modules/toolshovel");
 
         /* Weapons ------------------------------------------------------------------------------------ */
-        bladeLauncher = register(event, "modules/spinningblade");
-        lightning = register(event, "modules/bluestar");
-        meleeAssist = register(event, "modules/toolfist");
-        plasmaCannon = register(event, "modules/gravityweapon");
-        railgun = register(event, "modules/electricweapon");
-        sonicWeapon = register(event, "modules/soundweapon");
+        bladeLauncher = register(map, "modules/spinningblade");
+        lightning = register(map, "modules/bluestar");
+        meleeAssist = register(map, "modules/toolfist");
+        plasmaCannon = register(map, "modules/gravityweapon");
+        railgun = register(map, "modules/electricweapon");
+        sonicWeapon = register(map, "modules/soundweapon");
 
         /* Things other than module icons ------------------------------------------------------------- */
-        luxCapacitorTexture = register(event, "models/luxcapacitor");
-        powerFistTexture = register(event, "models/powerfist");
+        luxCapacitorTexture = register(map, "models/luxcapacitor");
+        powerFistTexture = register(map, "models/powerfist");
     }
 
-    private static TextureAtlasSprite register(TextureStitchEvent.Pre event, String location) {
-        return event.getMap().registerSprite(new ResourceLocation(MPSResourceConstants.RESOURCE_DOMAIN, location));
+    private static TextureAtlasSprite register(TextureMap map, String location) {
+        return map.registerSprite(new ResourceLocation(MPSResourceConstants.RESOURCE_DOMAIN, location));
     }
 }

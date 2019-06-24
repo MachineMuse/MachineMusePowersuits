@@ -22,6 +22,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
@@ -222,13 +223,18 @@ public class MovementManager {
 
     @SubscribeEvent
     public void handleFallEvent(LivingFallEvent event) {
-        if (event.getEntityLiving() instanceof EntityPlayer && event.getDistance() > 3.0) {
+//        event.getEntityLiving().sendMessage(new TextComponentString("unmodified fall settings: [ damage : " + event.getDamageMultiplier() + " ], [ distance : " + event.getDistance() + " ]"));
+
+        if (event.getEntityLiving() instanceof EntityPlayer && event.getDistance() > 3.0F) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
             ItemStack boots = player.getItemStackFromSlot(EntityEquipmentSlot.FEET);
 
             if (!boots.isEmpty()) {
                 if (ModuleManager.INSTANCE.itemHasActiveModule(boots, MPSModuleConstants.MODULE_SHOCK_ABSORBER__DATANAME)) {
-                    double distanceAbsorb = event.getDistance() * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(boots, MPSModuleConstants.SHOCK_ABSORB_MULTIPLIER);
+                    double distanceAbsorb =
+                            MuseMathUtils.clampDouble(event.getDistance() * ModuleManager.INSTANCE.getOrSetModularPropertyDouble(boots, MPSModuleConstants.SHOCK_ABSORB_MULTIPLIER),
+                            0, event.getDistance());
+
                     if (player.world.isRemote && NuminaConfig.useSounds()) {
                         Musique.playerSound(player, SoundDictionary.SOUND_EVENT_GUI_INSTALL, SoundCategory.PLAYERS, (float) (distanceAbsorb), (float) 1, false);
                     }

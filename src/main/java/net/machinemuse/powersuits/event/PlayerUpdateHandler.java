@@ -76,14 +76,6 @@ public class PlayerUpdateHandler {
                 }
             }
 
-//            System.out.println("player fall distance before: [ player: " + player.getName() + " ], [ distance : " + player.fallDistance + " ]"  );
-//
-            player.fallDistance = (float) MovementManager.computeFallHeightFromVelocity(MuseMathUtils.clampDouble(player.motionY, -1000.0, 0.0));
-//
-//            System.out.println("player fall distance after: [ player: " + player.getName() + " ], [ distance : " + player.fallDistance + " ]"  );
-
-
-
             // Sound update
             if (player.world.isRemote && NuminaConfig.useSounds()) {
                 if (modularItemsEquipped.size() > 0) {
