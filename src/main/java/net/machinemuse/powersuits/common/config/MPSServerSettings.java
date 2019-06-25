@@ -27,7 +27,6 @@ public class MPSServerSettings {
      */
     public final boolean useOldAutoFeeder;
     public final double maximumFlyingSpeedmps;
-    public final double getWeightCapacity;
     public final double maximumArmorPerPiece;
     public final double getSalvageChance;
 
@@ -93,7 +92,6 @@ public class MPSServerSettings {
          */
         useOldAutoFeeder = MPSSettings.general.useOldAutoFeeder;
         maximumFlyingSpeedmps = MPSSettings.general.getMaximumFlyingSpeedmps;
-        getWeightCapacity = MPSSettings.general.getWeightCapacity;
         maximumArmorPerPiece = MPSSettings.general.getMaximumArmorPerPiece;
         getSalvageChance = MPSSettings.general.getSalvageChance;
 
@@ -165,7 +163,6 @@ public class MPSServerSettings {
          */
         useOldAutoFeeder = datain.readBoolean();
         maximumFlyingSpeedmps = datain.readDouble();
-        getWeightCapacity = datain.readDouble();
         maximumArmorPerPiece = datain.readDouble();
         getSalvageChance = datain.readDouble();
         baseMaxHeatPowerFist = datain.readDouble();
@@ -234,7 +231,6 @@ public class MPSServerSettings {
          */
         packet.writeBoolean(useOldAutoFeeder);
         packet.writeDouble(maximumFlyingSpeedmps);
-        packet.writeDouble(getWeightCapacity);
         packet.writeDouble(maximumArmorPerPiece);
         packet.writeDouble(getSalvageChance);
         packet.writeDouble(baseMaxHeatPowerFist);

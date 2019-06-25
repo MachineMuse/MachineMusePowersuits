@@ -51,9 +51,8 @@ public class ModelPowerFist implements IBakedModel {
     static EntityLivingBase entity;
     static boolean isFiring = false;
     static IBakedModel iconModel;
-    NBTTagCompound renderTag = new NBTTagCompound();
     ModelTransformCalibration calibration;
-    NBTTagCompound renderSpec;
+    NBTTagCompound renderSpec = new NBTTagCompound();
 
     public ModelPowerFist(IBakedModel bakedModelIn) {
         this.iconModel = (bakedModelIn instanceof ModelPowerFist) ? ((ModelPowerFist) bakedModelIn).iconModel : bakedModelIn;
@@ -99,70 +98,6 @@ public class ModelPowerFist implements IBakedModel {
             iconModel = ModelBakeEventHandler.INSTANCE.powerFistIconModel;
         return iconModel.isGui3d();
     }
-
-
-//    @Override
-//    public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
-//        if (side != null) return Collections.EMPTY_LIST;
-//        try {
-//            return ModelPowerFistHelper.INSTANCE.colouredPowerFistQuadMap.get(
-//                    new ModelPowerFistHelper.PowerFistQuadMapKey(colour, modelcameraTransformType, isFiring));
-//        } catch (Exception e) {
-//            MuseLogger.logException("failed to loadButton get quads from cache: ", e);
-//            return Collections.EMPTY_LIST;
-//        }
-//    }
-
-
-    // todo: implement cache
-
-//    private final LoadingCache<ModelPowerFist.CachKey, List<BakedQuad>> cache = CacheBuilder
-//            .newBuilder()
-//            .maximumSize(40)
-//            .build(new CacheLoader<ModelPowerFist.CachKey, List<BakedQuad>>() {
-//                @Override
-//                public List<BakedQuad> loadButton(ModelPowerFist.CachKey key) throws Exception {
-//                    return null;
-//                }
-//            });
-//
-//
-//    static class CachKey {
-//        public final String partName;
-//        public final ItemCameraTransforms.TransformType transformType;
-//        public final Colour colour;
-//        public final boolean glow;
-//
-//        CachKey(final String partName,
-//                final ItemCameraTransforms.TransformType transformType,
-//                final Colour colour,
-//                final boolean glow){
-//            this.transformType=transformType;
-//            this.partName=partName;
-//            this.colour=colour;
-//            this.glow=glow;
-//        }
-//
-//        @Override
-//        public int hashCode() {
-//            return Objects.hash(partName, transformType, colour, glow);
-//        }
-//
-//        @Override
-//        public boolean equals(Object obj) {
-//            if (this == obj) {
-//                return true;
-//            }
-//            if (obj == null || getClass() != obj.getClass()) {
-//                return false;
-//            }
-//            final CachKey other = (CachKey) obj;
-//            return Objects.equals(this.partName, other.partName)
-//                    && Objects.equals(this.transformType, other.transformType)
-//                    && Objects.equals(this.colour, other.colour)
-//                    && Objects.equals(this.glow, other.glow);
-//        }
-//    }
 
     /**
      * Since this is where the quads are actually

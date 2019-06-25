@@ -88,10 +88,6 @@ public class MPSSettings {
         @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_USE_OLD_AUTOFEEDER)
         @Config.Comment("Use Old Auto Feeder Method")
         public boolean useOldAutoFeeder = false;
-        //TODO: eleiminate
-        @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_WEIGHT_LIMIT)
-        @Config.Comment("Weight Limit (grams)")
-        public double getWeightCapacity = 25000.0;
         // Client side settings ------------------------------------------------------
         @Config.LangKey(MPSConfigConstants.CONFIG_GENERAL_USE_24_HOUR_CLOCK)
         @Config.Comment("Use a 24h clock instead of 12h")

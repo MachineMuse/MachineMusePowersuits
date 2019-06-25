@@ -197,14 +197,13 @@ public class ItemPowerFist extends MPSItemElectricTool
 
     @Override
     public int getItemEnchantability() {
-        return 30; // :P
+        return 0; // :P
     }
 
     @Override
     public int getHarvestLevel(ItemStack stack, String toolClass, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
         return super.getHarvestLevel(stack, toolClass, player, blockState);
     }
-
     @Override
     public boolean isEnchantable(ItemStack stack) {
         return false;
