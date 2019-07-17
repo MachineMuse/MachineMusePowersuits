@@ -58,8 +58,8 @@ public class ItemSelectionFrame extends ScrollableFrame {
     private void loadItems() {
         if (player != null) {
             itemButtons = new ArrayList<>();
-            double centerx = (border.left() + border.right()) / 2;
-            double centery = (border.top() + border.bottom()) / 2;
+//            double centerx = (border.left() + border.right()) / 2;
+//            double centery = (border.top() + border.bottom()) / 2;
 //            List<Integer> slots = MuseItemUtils.getModularItemSlotsEquiped(player);
             List<Integer> slots = MuseItemUtils.getModularItemSlotsInInventory(player);
             if (slots.size() > itemPoints.size()) {

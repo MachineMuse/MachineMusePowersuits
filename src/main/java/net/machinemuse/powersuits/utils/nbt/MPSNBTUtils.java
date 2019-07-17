@@ -22,7 +22,7 @@ import java.util.Objects;
 public class MPSNBTUtils {
     public static NBTTagCompound getMuseRenderTag(@Nonnull ItemStack stack, EntityEquipmentSlot armorSlot) {
         NBTTagCompound itemTag = MuseNBTUtils.getMuseItemTag(stack);
-        NBTTagCompound renderTag = null;
+        NBTTagCompound renderTag = new NBTTagCompound();
         if (itemTag.hasKey(ModelSpecTags.TAG_RENDER, Constants.NBT.TAG_COMPOUND))
             renderTag = itemTag.getCompoundTag(ModelSpecTags.TAG_RENDER);
         else if (itemTag.hasKey(ModelSpecTags.TAG_COSMETIC_PRESET, Constants.NBT.TAG_STRING))

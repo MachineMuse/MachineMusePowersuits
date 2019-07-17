@@ -115,37 +115,42 @@ public class ModelPowerFist implements IBakedModel {
         }
 
         ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
-        int[] colours = renderSpec.getIntArray(ModelSpecTags.TAG_COLOURS);
+
+        int[] colours = renderSpec != null ? renderSpec.getIntArray(ModelSpecTags.TAG_COLOURS) : new int[0];
+
         Colour partColor;
         TRSRTransformation transform;
 
-        for (NBTTagCompound nbt : NBTTagAccessor.getValues(renderSpec)) {
-            PartSpecBase partSpec = ModelRegistry.getInstance().getPart(nbt);
-            if (partSpec instanceof ModelPartSpec) {
+        if (renderSpec != null) {
+            for (NBTTagCompound nbt : NBTTagAccessor.getValues(renderSpec)) {
+                PartSpecBase partSpec = ModelRegistry.getInstance().getPart(nbt);
+                if (partSpec instanceof ModelPartSpec) {
 
-                // only process this part if it's for the correct hand
-                if (partSpec.getBinding().getTarget().name().toUpperCase().equals(
-                        modelcameraTransformType.equals(ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND) ||
-                                modelcameraTransformType.equals(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND) ?
-                                "LEFTHAND" : "RIGHTHAND")) {
+                    // only process this part if it's for the correct hand
+                    if (partSpec.getBinding().getTarget().name().toUpperCase().equals(
+                            modelcameraTransformType.equals(ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND) ||
+                                    modelcameraTransformType.equals(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND) ?
+                                    "LEFTHAND" : "RIGHTHAND")) {
 
-                    transform = ((ModelSpec) partSpec.spec).getTransform(modelcameraTransformType);
-                    String itemState = partSpec.getBinding().getItemState();
+                        transform = ((ModelSpec) partSpec.spec).getTransform(modelcameraTransformType);
+                        String itemState = partSpec.getBinding().getItemState();
 
-                    int ix = partSpec.getColourIndex(nbt);
-                    if (ix < colours.length && ix >= 0)
-                        partColor = new Colour(colours[ix]);
-                    else
-                        partColor = Colour.WHITE;
-                    boolean glow = ((ModelPartSpec) partSpec).getGlow(nbt);
+                        int ix = partSpec.getColourIndex(nbt);
+                        if (ix < colours.length && ix >= 0)
+                            partColor = new Colour(colours[ix]);
+                        else
+                            partColor = Colour.WHITE;
+                        boolean glow = ((ModelPartSpec) partSpec).getGlow(nbt);
 
-                    if ((!isFiring && (itemState.equals("all") || itemState.equals("normal"))) ||
-                            (isFiring && (itemState.equals("all") || itemState.equals("firing"))))
-                        builder.addAll(MuseModelHelper.getColouredQuadsWithGlowAndTransform(((ModelPartSpec) partSpec).getQuads(), partColor, transform, glow));
+                        if ((!isFiring && (itemState.equals("all") || itemState.equals("normal"))) ||
+                                (isFiring && (itemState.equals("all") || itemState.equals("firing"))))
+                            builder.addAll(MuseModelHelper.getColouredQuadsWithGlowAndTransform(((ModelPartSpec) partSpec).getQuads(), partColor, transform, glow));
+                    }
                 }
             }
+            return builder.build();
         }
-        return builder.build();
+        return ImmutableList.of();
     }
 
     @Override

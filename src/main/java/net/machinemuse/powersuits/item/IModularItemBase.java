@@ -30,7 +30,7 @@ public interface IModularItemBase extends IModularItem, IMuseElectricItem {
         return MPSConfig.INSTANCE.getBaseMaxHeat(itemStack);
     }
 
-    default Colour getColorFromItemStack(ItemStack stack) {
+    default Colour getColorFromItemStack(@Nonnull ItemStack stack) {
         try {
             NBTTagCompound renderTag = MPSNBTUtils.getMuseRenderTag(stack);
             if (renderTag.hasKey(ModelSpecTags.NBT_TEXTURESPEC_TAG)) {

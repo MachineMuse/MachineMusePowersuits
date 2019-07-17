@@ -22,10 +22,6 @@ public class KeyConfigGui extends MuseGui {
         super();
         KeybindManager.readInKeybinds();
         this.player = player;
-//        this.xSize = 256;
-//        this.ySize = 226;
-//        this.xSize = 400;
-//        this.ySize = 244;
         ScaledResolution screen = new ScaledResolution(Minecraft.getMinecraft());
         this.xSize = screen.getScaledWidth() - 50;
         this.ySize = screen.getScaledHeight() - 50;

@@ -35,8 +35,8 @@ import static net.machinemuse.powersuits.common.ModularPowersuits.MODID;
  */
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
-        MPSPackets.registerMPSPackets();
         MPSItems.INSTANCE.initFluids();
+        MPSPackets.registerMPSPackets();
     }
 
     public void init(FMLInitializationEvent event) {

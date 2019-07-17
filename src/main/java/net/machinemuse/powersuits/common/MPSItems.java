@@ -104,11 +104,16 @@ public enum MPSItems {
     public static void initBlocks(RegistryEvent.Register<Block> event) {
         event.getRegistry().register(new BlockTinkerTable( new ResourceLocation(tinkerTableRegName)));
         event.getRegistry().register(new BlockLuxCapacitor(new ResourceLocation(luxCapaRegName)));
+
         event.getRegistry().register(new BlockFluidLiquidNitrogen(new ResourceLocation(blockLiquidNitrogenName)));
     }
 
+    static boolean alreadyRegistered = true;
     public static void initFluids() {
-        FluidRegistry.registerFluid(liquidNitrogen);
-        FluidRegistry.addBucketForFluid(liquidNitrogen);
+        if (!FluidRegistry.isFluidRegistered("liquidnitrogen") && FluidRegistry.isFluidRegistered("liquid_nitrogen")) {
+            FluidRegistry.registerFluid(liquidNitrogen);
+            FluidRegistry.addBucketForFluid(liquidNitrogen);
+            alreadyRegistered = false;
+        }
     }
 }

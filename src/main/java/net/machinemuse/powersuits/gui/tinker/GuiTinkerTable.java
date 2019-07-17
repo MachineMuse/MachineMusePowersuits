@@ -31,11 +31,6 @@ public class GuiTinkerTable extends MuseGui {
      */
     public GuiTinkerTable(EntityPlayer player) {
         this.player = (EntityPlayerSP) player;
-//        this.xSize = 256;
-//        this.ySize = 200;
-//        this.xSize = 400;
-//        this.ySize = 244;
-
         ScaledResolution screen = new ScaledResolution(Minecraft.getMinecraft());
         this.xSize = Math.min(screen.getScaledWidth() - 50, 500);
         this.ySize = Math.min(screen.getScaledHeight() - 50, 300);
@@ -43,11 +38,6 @@ public class GuiTinkerTable extends MuseGui {
 
     public GuiTinkerTable(EntityPlayer player, int x, int y, int z) {
         this.player = (EntityPlayerSP) player;
-//        this.xSize = 256;
-//        this.ySize = 200;
-//        this.xSize = 400;
-//        this.ySize = 244;
-
         ScaledResolution screen = new ScaledResolution(Minecraft.getMinecraft());
         this.xSize = Math.min(screen.getScaledWidth() - 50, 500);
         this.ySize = Math.min(screen.getScaledHeight() - 50, 300);

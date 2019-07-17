@@ -108,7 +108,6 @@ public enum KeybindManager {
                         ClickableModule cmodule = new ClickableModule(module, position);
                         workingKeybinding.bindModule(cmodule);
                     }
-
                 }
             }
             reader.close();

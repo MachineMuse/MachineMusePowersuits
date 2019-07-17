@@ -9,8 +9,11 @@ import net.machinemuse.powersuits.common.ModuleManager;
 import net.machinemuse.powersuits.item.ItemComponent;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 
@@ -20,8 +23,16 @@ import javax.annotation.Nonnull;
 public class AdvancedCoolingSystem extends CoolingSystemBase {
     public AdvancedCoolingSystem(EnumModuleTarget moduleTarget) {
         super(moduleTarget);
-        ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(
-                FluidUtil.getFilledBucket(new FluidStack(MPSItems.INSTANCE.liquidNitrogen, 1000)), 1));
+        Fluid liquid_nitrogen = FluidRegistry.getFluid("liquidnitrogen");
+        if (liquid_nitrogen == null)
+            liquid_nitrogen = FluidRegistry.getFluid("liquid_nitrogen");
+
+        if (liquid_nitrogen != null) {
+            ItemStack nitrogenBucket = FluidUtil.getFilledBucket(new FluidStack(liquid_nitrogen, 1000));
+            ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(
+                    nitrogenBucket, 1));
+        }
+
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.rubberHose, 2));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.controlCircuit, 1));
         ModuleManager.INSTANCE.addInstallCost(getDataName(), MuseItemUtils.copyAndResize(ItemComponent.computerChip, 2));
