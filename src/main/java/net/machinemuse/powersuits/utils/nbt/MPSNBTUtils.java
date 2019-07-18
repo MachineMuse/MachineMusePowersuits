@@ -28,7 +28,7 @@ public class MPSNBTUtils {
         else if (itemTag.hasKey(ModelSpecTags.TAG_COSMETIC_PRESET, Constants.NBT.TAG_STRING))
             renderTag = MPSConfig.INSTANCE.getPresetNBTFor(stack, itemTag.getString(ModelSpecTags.TAG_COSMETIC_PRESET));
 
-        if (renderTag != null)
+        if (renderTag != null && !renderTag.isEmpty())
             return renderTag;
 
         // if cosmetic presets are to be used, or powerfist customization is not allowed set to default preset

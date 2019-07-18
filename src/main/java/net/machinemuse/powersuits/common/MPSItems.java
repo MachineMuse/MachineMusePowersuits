@@ -110,7 +110,7 @@ public enum MPSItems {
 
     static boolean alreadyRegistered = true;
     public static void initFluids() {
-        if (!FluidRegistry.isFluidRegistered("liquidnitrogen") && FluidRegistry.isFluidRegistered("liquid_nitrogen")) {
+        if (!FluidRegistry.isFluidRegistered("liquidnitrogen") && !FluidRegistry.isFluidRegistered("liquid_nitrogen")) {
             FluidRegistry.registerFluid(liquidNitrogen);
             FluidRegistry.addBucketForFluid(liquidNitrogen);
             alreadyRegistered = false;

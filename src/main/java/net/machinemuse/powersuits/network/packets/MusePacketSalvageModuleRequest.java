@@ -43,10 +43,6 @@ public class MusePacketSalvageModuleRequest implements IMessage {
         this.player = player;
         this.itemSlot = itemSlot;
         this.moduleName = moduleName;
-
-        System.out.println("slot: " + itemSlot);
-        System.out.println("moduleName: " + moduleName);
-
     }
 
     @Override
