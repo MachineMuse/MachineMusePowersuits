@@ -39,10 +39,8 @@ public class SprintAssistModule extends PowerModuleBase implements IToggleableMo
 
     @Override
     public void onPlayerTickActive(EntityPlayer player, ItemStack item) {
-        double motionX = player.posX - player.lastTickPosX;
-        double motionY = player.posY - player.lastTickPosY;
-        double motionZ = player.posZ - player.lastTickPosZ;
-        double horzMovement = Math.sqrt(motionX * motionX + motionZ * motionZ);
+        double horzMovement = player.distanceWalkedModified - player.prevDistanceWalkedModified;
+
         double totalEnergy = ElectricItemUtils.getPlayerEnergy(player);
         if (player.isSprinting()) {
             double exhaustion = Math.round(horzMovement * 100.0F) * 0.01;

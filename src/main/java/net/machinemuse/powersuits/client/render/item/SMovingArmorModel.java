@@ -67,6 +67,10 @@ public class SMovingArmorModel extends ModelPlayer implements IArmorModel {
         visibleSection = value;
     }
 
+
+
+
+
     /**
      * Sets the models various rotation angles then renders the model.
      */

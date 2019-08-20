@@ -97,14 +97,9 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
         return ModuleManager.tagHasModule(itemTag, TintModule.RED_TINT) || ModuleManager.tagHasModule(itemTag, TintModule.GREEN_TINT) || ModuleManager.tagHasModule(itemTag, TintModule.BLUE_TINT);
     }
 
-    double getHeatResistance(EntityPlayer player, ItemStack stack) {
-        return MuseHeatUtils.getMaxHeat(stack);
-    }
-
     @Override
     public double getArmorDouble(EntityPlayer player, ItemStack stack) {
         double totalArmor = 0;
-        NBTTagCompound props = MuseItemUtils.getMuseItemTag(stack);
         double energy = ElectricItemUtils.getPlayerEnergy(player);
         double physArmor = ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_VALUE_PHYSICAL);
         double enerArmor = ModuleManager.computeModularProperty(stack, MuseCommonStrings.ARMOR_VALUE_ENERGY);
@@ -160,7 +155,6 @@ public abstract class ItemPowerArmor extends ItemElectricArmor implements ISpeci
      */
     @Override
     public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
-        NBTTagCompound itemProperties = MuseItemUtils.getMuseItemTag(stack);
         if (entity instanceof EntityPlayer) {
             if (source == MuseHeatUtils.overheatDamage) {
             } else if (source.isFireDamage()) {

@@ -41,6 +41,8 @@ public class ElectricItemUtils {
     }
 
     public static void drainPlayerEnergy(EntityPlayer player, double drainAmount) {
+        if (player.capabilities.isCreativeMode)
+            return;
         double drainleft = drainAmount;
         for (ElectricAdapter adapter: electricItemsEquipped(player))
             if (drainleft > 0)

@@ -55,6 +55,9 @@ public class MuseHeatUtils {
     }
 
     public static void heatPlayer(EntityPlayer player, double heatDegrees) {
+        if (player.capabilities.isCreativeMode)
+            return;
+
         List<ItemStack> items = MuseItemUtils.getModularItemsInInventory(player);
         if (player.isUsingItem()) {
             items.remove(player.getCurrentEquippedItem());

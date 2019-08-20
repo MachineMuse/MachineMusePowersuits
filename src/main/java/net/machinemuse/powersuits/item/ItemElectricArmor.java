@@ -16,12 +16,12 @@ import net.machinemuse.utils.ElectricItemUtils;
 import net.machinemuse.utils.MuseCommonStrings;
 import net.machinemuse.utils.MuseItemUtils;
 import net.machinemuse.utils.MuseStringUtils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.WeightedRandom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +45,10 @@ public abstract class ItemElectricArmor extends ItemArmor implements IModularIte
     @SideOnly(Side.CLIENT)
     @Override
     public int getColorFromItemStack(ItemStack itemStack, int par2) {
+
+        WeightedRandom.Item test;
+
+
         return getColorFromItemStack(itemStack).getInt();
     }
 
