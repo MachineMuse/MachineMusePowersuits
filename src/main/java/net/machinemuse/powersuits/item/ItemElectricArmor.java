@@ -45,10 +45,6 @@ public abstract class ItemElectricArmor extends ItemArmor implements IModularIte
     @SideOnly(Side.CLIENT)
     @Override
     public int getColorFromItemStack(ItemStack itemStack, int par2) {
-
-        WeightedRandom.Item test;
-
-
         return getColorFromItemStack(itemStack).getInt();
     }
 
