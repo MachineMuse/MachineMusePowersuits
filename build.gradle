@@ -27,7 +27,6 @@ buildscript {
 }
 
 plugins {
-    id "com.github.johnrengelman.shadow" version "4.0.4"
     id 'idea'
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
@@ -39,9 +38,9 @@ compileJava {
 
 def buildnumber = System.getenv("BUILD_NUMBER")
 def travisbuildnumber = (System.getenv("TRAVIS_BUILD_NUMBER") ?: -000).toInteger() + 00
-version = "${minecraft_version}-${mod_version}.${buildnumber ?: travisbuildnumber}"
+version = "${mod_version}.${buildnumber ?: travisbuildnumber}"
 group = group_id // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = mod_id
+archivesBaseName = "${mod_id}-${minecraft_version}"
 
 def numina_version = (System.getenv("NUMINA_VERSION") ?: "${version}")
 
@@ -63,8 +62,6 @@ repositories {
 }
 
 dependencies {
-    compile group: 'org.apache.commons', name: 'commons-text', version: '1.6'
-    shadow group: 'org.apache.commons', name: 'commons-text', version: '1.6'
     deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"                             // JEI
     deobfCompile "cofh:RedstoneFlux:1.12-${rf_version}:universal"                                   // RF API
 
@@ -104,23 +101,6 @@ dependencies {
     compile group: 'org.json', name: 'json', version: '20180813' // probably get rid of this
     compile group: 'com.codesnippets4all', name: 'quick-json', version: '1.0.4'
 }
-
-shadowJar {
-    archiveName = tasks.jar.archiveName
-    classifier = ""
-    exclude 'org.apache.commons.lang*'
-    relocate 'org.apache.commons.text', "net.machinemuse.repack.org.apache.commons.text"
-    configurations = [project.configurations.shadow]
-}
-
-reobf {
-    shadowJar {
-        mappingType = "SEARGE"
-    }
-}
-
-tasks.reobfShadowJar.mustRunAfter shadowJar
-
 
 minecraft {
     version = minecraft_version + "-" + forge_version// + "-" + "1.10.0"
