@@ -146,12 +146,12 @@ jar {
 //artifacts {
 //    archives devJar
 //}
-
-idea {
-    module {
-        inheritOutputDirs = true
-    }
-}
+//
+//idea {
+//    module {
+//        inheritOutputDirs = true
+//    }
+//}
 
 runClient {
     jvmArgs "-Xmx3G"

@@ -94,6 +94,11 @@ public class ItemPowerFist extends MPSItemElectricTool
         this.setCreativeTab(MPSConfig.INSTANCE.mpsCreativeTab);
     }
 
+    @Override
+    public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
+        return oldStack.isItemEqual(newStack);
+    }
+
     /**
      * FORGE: Overridden to allow custom tool effectiveness
      */
