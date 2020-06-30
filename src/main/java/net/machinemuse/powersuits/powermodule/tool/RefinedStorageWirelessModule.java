@@ -51,14 +51,14 @@ public class RefinedStorageWirelessModule extends PowerModuleBase implements IRi
     }
 
     @Nonnull
-    public static INetworkItem provide(INetworkItemHandler handler, EntityPlayer player, ItemStack itemStackIn) {
+    public static INetworkItem provide(INetworkItemHandler handler, EntityPlayer player, ItemStack itemStackIn, int slot) {
         ItemStack emulatedTool = getEmulatedTool();
         NBTTagCompound tag = getModululeTag(itemStackIn);
         emulatedTool.setTagCompound(tag);
         //FIXME: no longer exists, probably the least of the problems
 //        if (ModCompatibility.isWirelessCraftingGridLoaded())
 //            return new NetworkItemWirelessCraftingGrid(handler, player, emulatedTool);
-        return new NetworkItemWirelessGrid(handler, player, emulatedTool);
+        return new NetworkItemWirelessGrid(handler, player, emulatedTool, slot);
     }
 
     static ItemStack getEmulatedTool() {

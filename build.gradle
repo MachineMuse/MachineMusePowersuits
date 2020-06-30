@@ -1,40 +1,22 @@
 buildscript {
     repositories {
+        maven {
+            name = ":forge"
+            url = 'https://files.minecraftforge.net/maven'
+        }
         jcenter()
-        maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
-        maven {
-            url 'https://plugins.gradle.org/m2/'
-        }
-
-        maven {
-            url 'https://mvnrepository.com/artifact/org.json/json'
-        }
-
-        maven {
-            url 'https://mvnrepository.com/artifact/com.codesnippets4all/quick-json'
-        }
-
-        maven {
-            url 'https://oss.sonatype.org/content/repositories/snapshots/'
-        }
+        mavenCentral()
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
     }
 }
 
-plugins {
-    id 'idea'
-}
-apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'net.minecraftforge.gradle'
+// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
 
-sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
-compileJava {
-    sourceCompatibility = targetCompatibility = '1.8'
-}
 
 def buildnumber = System.getenv("BUILD_NUMBER")
 def travisbuildnumber = (System.getenv("TRAVIS_BUILD_NUMBER") ?: -000).toInteger() + 00
@@ -54,16 +36,72 @@ repositories {
     maven { url = 'http://maven.mcmoddev.com' }                     //TESLA API
     maven { url = 'https://mod-buildcraft.com/maven/' }             //BuildCraft
     maven { url = 'http://maven.cil.li/' }                          //Scannable
-    maven { url = 'https://repo.raoulvdberge.com/' }                //RefinedStorage
+    maven { url = "https://repo.refinedmods.com" }                  //RefinedStorage
     maven { url = 'http://maven.thiakil.com/' }                     //Mekanism
     maven { url = "http://maven.blamejared.com" }                   //CraftTweaker - required by Mekanism
     maven { url = 'https://minecraft.curseforge.com/api/maven/' }   //Thaumcraft
     mavenCentral()
 }
+/*
+buildscript {
+    repositories {
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+
+        maven {
+            url 'https://mvnrepository.com/artifact/org.json/json'
+        }
+
+        maven {
+            url 'https://mvnrepository.com/artifact/com.codesnippets4all/quick-json'
+        }
+
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
+    }
+}
+*/
+
+minecraft {
+    mappings channel: "snapshot", version: "${project.mcp_version}".toString()
+    accessTransformer = file('src/main/resources/accesstransformer.cfg')
+
+    // Default run configurations.
+    // These can be tweaked, removed, or duplicated as needed.
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+        }
+
+        server {
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+        }
+    }
+}
+
 
 dependencies {
-    deobfCompile "mezz.jei:jei_${minecraft_version}:${jei_version}"                             // JEI
-    deobfCompile "cofh:RedstoneFlux:1.12-${rf_version}:universal"                                   // RF API
+    minecraft([
+            group  : "net.minecraftforge",
+            name   : "forge",
+            version: "${project.minecraft_version}-${project.forge_version}"
+    ])
+
+    compileOnly fg.deobf( "mezz.jei:jei_${minecraft_version}:${jei_version}")                             // JEI
+    compileOnly fg.deobf( "cofh:RedstoneFlux:1.12-${rf_version}:universal")                                   // RF API
 
     compile ("cofh:CoFHCore:${minecraft_version}-${cofhcore_version}:universal")                 //CoFH Core
             { exclude group: 'mezz.jei' }//also using old outdated JEI reference
@@ -71,16 +109,19 @@ dependencies {
 
 //    compile "com.enderio.core:EnderCore:${minecraft_version}-${endercore_version}"              //Ender Core
 //    compileOnly "com.enderio.core:EnderCore:${minecraft_version}-${endercore_version}-core"              //Ender Core
-    deobfCompile "appeng:appliedenergistics2:${ae2api_version}"                                     //Applied Energetics 2
-    deobfCompile "net.industrial-craft:industrialcraft-2:${ic2_version}-ex112"                   //IC2 API
-    deobfCompile "net.sengir.forestry:forestry_${minecraft_version}:${forestry_version}"            //Forestry
-    deobfCompile "thaumcraft:Thaumcraft:1.12.2:${thaumcraft_version}"                               //Thaumcraft
-    deobfCompile "refinedstorage:refinedstorage:${refinedstorage_version}"                          //Refined Storage
+    compileOnly fg.deobf( "appeng:appliedenergistics2:${ae2api_version}")                                     //Applied Energetics 2
+    compileOnly fg.deobf( "net.industrial-craft:industrialcraft-2:${ic2_version}-ex112")                   //IC2 API
+    compileOnly fg.deobf( "net.sengir.forestry:forestry_${minecraft_version}:${forestry_version}")            //Forestry
+
+    // using compile because can't get deobf to work with Thaumcraft
+    compile "thaumcraft:Thaumcraft:1.12.2:${thaumcraft_version}"                             //Thaumcraft
+
+    compileOnly fg.deobf("refinedstorage:refinedstorage:${refinedstorage_version}") //Refined Storage
+
     compile "net.darkhax.tesla:Tesla-${minecraft_version}:${tesla_version}"                         //Tesla
     compile "com.mod-buildcraft:buildcraft:${buildcraft_version}"                                   //BuildCraft
     compile "li.cil.scannable:Scannable:MC${minecraft_version}-${scannable_version}"                //Scannable
-    compile fileTree(dir: '/libs', include: 'RenderPlayerAPI-1.12.1-1.0.jar')                    //RenderPlayerAPI
-    compile fileTree(dir: '/libs', include: 'ExtraCells-1.12.2-2.6.1a.jar')                      //ExtraCells
+
 //    compileOnly("mekanism:Mekanism:${minecraft_version}-${mekanism_version}")                           //Mekanism
 //            { exclude group: 'mezz.jei' }//Mek has implemented a duplicated and out date JEI
 
@@ -100,59 +141,69 @@ dependencies {
     // https://mvnrepository.com/artifact/org.json/json
     compile group: 'org.json', name: 'json', version: '20180813' // probably get rid of this
     compile group: 'com.codesnippets4all', name: 'quick-json', version: '1.0.4'
+
+//    compile fileTree(dir: '/libs', include: 'RenderPlayerAPI-1.12.1-1.0.jar')                    //RenderPlayerAPI
+//    compile fileTree(dir: '/libs', include: 'ExtraCells-1.12.2-2.6.1a.jar')                      //ExtraCells
+
+    compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
-minecraft {
-    version = minecraft_version + "-" + forge_version// + "-" + "1.10.0"
-    runDir = "run"
-    mappings = mcp_mappings
-    replace "@numina_version@", numina_version
-    replace "@VERSION@", project.version
-    useDepAts = true
-
+// Example for how to get properties into the manifest for reading by the runtime..
+jar {
+    manifest {
+        attributes([
+            "Specification-Title": project.name,
+            "Specification-Vendor": "MachineMuse",
+            "Specification-Version": "1", // We are version 1 of ourselves
+            "Implementation-Title": project.name,
+            "Implementation-Version": "${version}",
+            "Implementation-Vendor" :"MachineMuse",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
 }
 
+// Process resources on build
 processResources {
     // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
 
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
         // replace version and mcversion
-        expand 'version': project.version, 'mcversion': project.minecraft.version
+        expand 'version': project.version, 'mcversion': project.minecraft_version
     }
 
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
     // Move access transformers to META-INF
-    rename '(.+_at.cfg)', 'META-INF/$1'
+    rename '(accesstransformer.cfg)', 'META-INF/$1'
 }
 
-jar {
-    manifest {
-        attributes 'FMLAT': 'numina_at.cfg'
+task devJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'dev'
+}
+
+artifacts {
+    archives devJar
+}
+
+
+// Example configuration to allow publishing using the maven-publish task
+// This is the preferred method to reobfuscate your jar file
+jar.finalizedBy('reobfJar') 
+// However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
+//publish.dependsOn('reobfJar')
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
     }
-}
-
-//task devJar(type: Jar) {
-//    from sourceSets.main.output
-//    classifier = 'dev'
-//}
-//
-//artifacts {
-//    archives devJar
-//}
-//
-//idea {
-//    module {
-//        inheritOutputDirs = true
-//    }
-//}
-
-runClient {
-    jvmArgs "-Xmx3G"
+    repositories {
+        maven {
+            url "file:///${project.projectDir}/mcmodsrepo"
+        }
+    }
 }

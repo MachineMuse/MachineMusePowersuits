@@ -446,11 +446,11 @@ public class ItemPowerFist extends MPSItemElectricTool
         return this.getActiveMode(itemStack).equals(MPSModuleConstants.MODULE_OMNI_WRENCH__DATANAME);
     }
 
-    @Override
     @Nonnull
+    @Override
     @Optional.Method(modid = "refinedstorage")
-    public INetworkItem provide(INetworkItemHandler handler, EntityPlayer player, ItemStack stack) {
-        return RefinedStorageWirelessModule.provide(handler, player, stack);
+    public INetworkItem provide(INetworkItemHandler handler, EntityPlayer player, ItemStack itemStack, int slot) {
+        return RefinedStorageWirelessModule.provide(handler, player, itemStack, slot);
     }
 
     @Override
@@ -461,8 +461,9 @@ public class ItemPowerFist extends MPSItemElectricTool
     @Override
     public boolean showDurabilityBar(final ItemStack stack) {
         int capacity = (int) ModuleManager.INSTANCE.getOrSetModularPropertyDouble(stack, NuminaNBTConstants.MAXIMUM_ENERGY);
-        if (capacity > 0)
+        if (capacity > 0) {
             return true;
+        }
         return false;
     }
 
